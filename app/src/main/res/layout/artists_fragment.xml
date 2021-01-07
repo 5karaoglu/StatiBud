@@ -8,7 +8,7 @@
     <androidx.recyclerview.widget.RecyclerView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:id="@+id/recylerArtists"
+        android:id="@+id/recyclerArtists"
         tools:listitem="@layout/single_artist_layout"/>
 
 </FrameLayout>

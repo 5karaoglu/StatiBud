@@ -24,7 +24,7 @@ class TracksAdapter(var context: Context, var dataList:Tracks) : RecyclerView.Ad
 
     override fun onBindViewHolder(holder: TracksViewHolder, position: Int) {
         Picasso.get()
-            .load(dataList.items[position].album.images[2].url)
+            .load(dataList.items[position].album.images[1].url)
             .into(holder.imageView)
 
         holder.textView.text = dataList.items[position].name
