@@ -14,6 +14,7 @@ class ArtistsAdapter(var context:Context,var dataList:Artists) : RecyclerView.Ad
     class ArtistsViewHolder(itemView: View): RecyclerView.ViewHolder(itemView) {
         var imageView = itemView.findViewById<ImageView>(R.id.imageView)
         var textView = itemView.findViewById<TextView>(R.id.textView)
+        var textViewPop = itemView.findViewById<TextView>(R.id.textViewPop)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ArtistsViewHolder {
@@ -28,6 +29,7 @@ class ArtistsAdapter(var context:Context,var dataList:Artists) : RecyclerView.Ad
            .into(holder.imageView)
 
         holder.textView.text = dataList.items[position].name
+        holder.textViewPop.text = "#${position+1}"
 
     }
 
