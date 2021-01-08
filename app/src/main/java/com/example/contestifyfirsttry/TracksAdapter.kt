@@ -12,9 +12,8 @@ import androidx.recyclerview.widget.RecyclerView
 import com.spotify.android.appremote.api.SpotifyAppRemote
 import com.squareup.picasso.Picasso
 
-class TracksAdapter(var context: Context, var dataList:Tracks) : RecyclerView.Adapter<TracksAdapter.TracksViewHolder>() {
+class TracksAdapter(var context: Context, var dataList:Tracks,var viewModel: MainViewModel) : RecyclerView.Adapter<TracksAdapter.TracksViewHolder>() {
 
-    private var viewmodel = MainViewModel()
 
     class TracksViewHolder(itemView: View): RecyclerView.ViewHolder(itemView) {
         var imageView = itemView.findViewById<ImageView>(R.id.imageView)
@@ -62,7 +61,7 @@ class TracksAdapter(var context: Context, var dataList:Tracks) : RecyclerView.Ad
         }
         //play song
         holder.buttonPlaySong.setOnClickListener {
-
+            viewModel.playSong(context,dataList.items[position].uri)
         }
 
 

@@ -1,0 +1,38 @@
+package com.example.contestifyfirsttry.model
+
+import com.google.gson.annotations.SerializedName
+
+data class User(
+    @SerializedName("country") val country : String,
+    @SerializedName("display_name") val display_name : String,
+    @SerializedName("email") val email : String,
+    @SerializedName("explicit_content") val explicit_content : Explicit_content,
+    @SerializedName("external_urls") val external_urls : External_urls,
+    @SerializedName("followers") val followers : Followers,
+    @SerializedName("href") val href : String,
+    @SerializedName("id") val id : String,
+    @SerializedName("images") val images : List<Images>,
+    @SerializedName("product") val product : String,
+    @SerializedName("type") val type : String,
+    @SerializedName("uri") val uri : String
+)
+data class Explicit_content (
+
+    @SerializedName("filter_enabled") val filter_enabled : Boolean,
+    @SerializedName("filter_locked") val filter_locked : Boolean
+)
+data class External_urls (
+
+    @SerializedName("spotify") val spotify : String
+)
+data class Followers (
+
+    @SerializedName("href") val href : String,
+    @SerializedName("total") val total : Int
+)
+data class Images (
+
+    @SerializedName("height") val height : String,
+    @SerializedName("url") val url : String,
+    @SerializedName("width") val width : String
+)

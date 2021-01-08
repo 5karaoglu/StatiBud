@@ -39,7 +39,7 @@
             android:gravity="left"
             android:maxLines="1"
             android:text="@string/sample_rank"
-            android:textColor="#000000"
+            android:textColor="@color/colorgray"
             android:textSize="50sp"
             android:textStyle="bold" />
 
@@ -54,7 +54,7 @@
             android:gravity="left"
             android:maxLines="3"
             android:text="@string/sample_track_name"
-            android:textColor="#000000"
+            android:textColor="@color/colorgray2"
             android:textSize="25sp"
             android:textStyle="bold" />
 
@@ -85,7 +85,7 @@
                 android:layout_gravity="start"
                 android:text="@string/album_name"
                 android:gravity="start"
-                android:textColor="@color/colorPrimary"
+                android:textColor="@color/colorAccent"
                 android:textSize="20sp"
                 android:textStyle="bold"
                 android:maxLines="1"
@@ -100,7 +100,7 @@
                 android:gravity="end"
                 android:textSize="20sp"
                 android:textStyle="bold"
-                android:textColor="@color/colorPrimaryDark"
+                android:textColor="@color/colorgray2"
                 android:maxLines="1"
                 android:ellipsize="end"/>
         </LinearLayout>
@@ -121,7 +121,7 @@
                 android:layout_gravity="start"
                 android:text="@string/artist"
                 android:gravity="start"
-                android:textColor="@color/colorPrimary"
+                android:textColor="@color/colorAccent"
                 android:textSize="20sp"
                 android:textStyle="bold"
                 android:maxLines="1"
@@ -136,7 +136,7 @@
                 android:gravity="end"
                 android:textSize="20sp"
                 android:textStyle="bold"
-                android:textColor="@color/colorPrimaryDark"
+                android:textColor="@color/colorgray2"
                 android:maxLines="1"
                 android:ellipsize="end"/>
         </LinearLayout>
@@ -157,7 +157,7 @@
                 android:layout_gravity="start"
                 android:text="@string/popularity"
                 android:gravity="start"
-                android:textColor="@color/colorPrimary"
+                android:textColor="@color/colorAccent"
                 android:textSize="20sp"
                 android:textStyle="bold"
                 android:maxLines="1"
@@ -172,7 +172,7 @@
                 android:gravity="end"
                 android:textSize="20sp"
                 android:textStyle="bold"
-                android:textColor="@color/colorPrimaryDark"
+                android:textColor="@color/colorgray2"
                 android:maxLines="1"
                 android:ellipsize="end"/>
         </LinearLayout>
@@ -196,7 +196,7 @@
                 android:layout_gravity="start"
                 android:text="@string/explicit"
                 android:gravity="start"
-                android:textColor="@color/colorPrimary"
+                android:textColor="@color/colorAccent"
                 android:textSize="20sp"
                 android:textStyle="bold"
                 android:maxLines="1"
@@ -226,12 +226,13 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:text="@string/listen_song_on"
-            android:textColor="@color/colorPrimaryDark"
+            android:textColor="@color/colorAccent"
             android:textStyle="bold"
             android:textSize="20sp"
-            android:background="@color/colorPrimary"
+            android:background="@color/colorPrimaryDark"
             android:drawableEnd="@drawable/ic_spotify"
-            android:layout_gravity="center_horizontal" />
+            android:layout_gravity="center_horizontal"
+            android:paddingEnd="20dp"/>
     </LinearLayout>
 
     </LinearLayout>

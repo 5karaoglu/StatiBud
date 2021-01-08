@@ -8,6 +8,7 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModel
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.contestifyfirsttry.model.User
 import com.spotify.android.appremote.api.SpotifyAppRemote
 import kotlinx.android.synthetic.main.activity_main.*
 
@@ -15,6 +16,7 @@ class MainViewModel(lifecycleOwner: LifecycleOwner) : ViewModel() {
     var artistsList = MutableLiveData<Artists>()
     var tracksList = MutableLiveData<Tracks>()
     var repository : Repository = Repository()
+    var user = MutableLiveData<User>()
 
 
     init {
@@ -26,6 +28,11 @@ class MainViewModel(lifecycleOwner: LifecycleOwner) : ViewModel() {
         repository.respTracks.observe(lifecycleOwner,object : Observer<Tracks>{
             override fun onChanged(t: Tracks?) {
                 tracksList.value = t
+            }
+        })
+        repository.respUser.observe(lifecycleOwner,object : Observer<User>{
+            override fun onChanged(t: User?) {
+                user.value = t
             }
         })
     }
@@ -43,6 +50,9 @@ class MainViewModel(lifecycleOwner: LifecycleOwner) : ViewModel() {
 
     fun playSong(context: Context,songUri:String){
         repository.playSong(context,songUri)
+    }
+    fun getUser(token: String){
+        repository.getUser(token)
     }
 
 }

@@ -4,12 +4,14 @@ import android.app.Activity
 import android.content.Context
 import android.util.Log
 import androidx.lifecycle.MutableLiveData
+import com.example.contestifyfirsttry.model.User
 import com.spotify.android.appremote.api.ConnectionParams
 import com.spotify.android.appremote.api.Connector
 import com.spotify.android.appremote.api.SpotifyAppRemote
 import com.spotify.sdk.android.auth.AuthorizationClient
 import com.spotify.sdk.android.auth.AuthorizationRequest
 import com.spotify.sdk.android.auth.AuthorizationResponse
+import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
@@ -19,6 +21,7 @@ class Repository() {
 
     var respArtists = MutableLiveData<Artists>()
     var respTracks = MutableLiveData<Tracks>()
+    var respUser = MutableLiveData<User>()
     var token = MutableLiveData<String>()
     var scopes : Scopes? = null
     private val CLIENT_ID = "85e82d6c52384d2b9ada66f99f78648c"
@@ -26,6 +29,8 @@ class Repository() {
     val REQUEST_CODE = 1337
 
     private var mSpotifyAppRemote: SpotifyAppRemote? = null
+
+    var service = RetrofitInstance().getRefrofitInstance()!!.create(Api::class.java)
 
     fun getToken(activity: Activity){
         scopes = Scopes()
@@ -38,9 +43,6 @@ class Repository() {
     }
 
     fun getMyFavArtists(token:String) {
-
-        var service = RetrofitInstance().getRefrofitInstance()!!.create(Api::class.java)
-
         var call:retrofit2.Call<Artists> = service.getMyArtists("Bearer $token")
 
         call.enqueue(object : Callback<Artists> {
@@ -55,9 +57,6 @@ class Repository() {
         })
     }
     fun getMyFavTracks(token:String) {
-
-        var service = RetrofitInstance().getRefrofitInstance()!!.create(Api::class.java)
-
         var call:retrofit2.Call<Tracks> = service.getMyTracks("Bearer $token")
 
         call.enqueue(object : Callback<Tracks> {
@@ -91,5 +90,22 @@ class Repository() {
            }
 
        })
+    }
+    fun getUser(token: String){
+
+
+        var call:retrofit2.Call<User> = service.getMyProfile("Bearer $token")
+
+        call.enqueue(object : Callback<User> {
+            override fun onResponse(call: Call<User>, response: Response<User>) {
+                respUser.value = response.body()!!
+                Log.d(TAG, "onResponse: ${response.body()}")
+            }
+
+            override fun onFailure(call: Call<User>, t: Throwable) {
+                Log.d(TAG, "onFailure: ${t.message}")
+            }
+
+        })
     }
 }

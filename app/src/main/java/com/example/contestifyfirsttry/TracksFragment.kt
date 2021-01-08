@@ -40,7 +40,7 @@ class TracksFragment : Fragment() {
         viewmodel.getMyTracks(token!!)
     }
     private fun generateDataTracks(tracks: Tracks){
-        var adapter : TracksAdapter = TracksAdapter(requireContext(),tracks)
+        var adapter : TracksAdapter = TracksAdapter(requireContext(),tracks,viewmodel)
         var layoutManager: RecyclerView.LayoutManager = LinearLayoutManager(requireContext())
         recyclerTracks.layoutManager = layoutManager
         recyclerTracks.adapter = adapter
