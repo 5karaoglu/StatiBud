@@ -45,36 +45,4 @@ class MainActivity : AppCompatActivity() {
         pager.currentItem = 0
     }
 
-    /*fun getProfile(){
-       var request:Request =  Request.Builder()
-           .url("https://api.spotify.com/v1/me/top/artists")
-           .addHeader("Authorization","Bearer $token")
-           .build()
-
-
-        if(mCall!=null){
-            mCall!!.cancel()
-        }
-        mCall = mOkHttpClient.newCall(request)
-
-        mCall!!.enqueue(object : Callback {
-            override fun onFailure(call: Call, e: IOException) {
-                textView.text = e.message
-                Log.d(TAG, "onFailure: ${e.message}")
-            }
-
-            override fun onResponse(call: Call, response: Response) {
-                try {
-                    var jsonObject = JSONObject(response.body()!!.string())
-                    textView.text = jsonObject.toString()
-                    Log.d(TAG, "onResponse: ${jsonObject}")
-                } catch (e: JSONException) {
-                    textView.text = e.message
-                    Log.d(TAG, "onResponse: ${e.message}")
-                }
-
-            }
-        })
-    }*/
-
 }

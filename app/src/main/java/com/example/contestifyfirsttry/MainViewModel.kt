@@ -1,12 +1,14 @@
 package com.example.contestifyfirsttry
 
 import android.app.Activity
+import android.content.Context
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModel
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.spotify.android.appremote.api.SpotifyAppRemote
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainViewModel(lifecycleOwner: LifecycleOwner) : ViewModel() {
@@ -37,6 +39,10 @@ class MainViewModel(lifecycleOwner: LifecycleOwner) : ViewModel() {
 
     fun getToken(activity:Activity){
         repository.getToken(activity)
+    }
+
+    fun playSong(context: Context,songUri:String){
+        repository.playSong(context,songUri)
     }
 
 }

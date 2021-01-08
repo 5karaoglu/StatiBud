@@ -4,6 +4,9 @@ import android.app.Activity
 import android.content.Context
 import android.util.Log
 import androidx.lifecycle.MutableLiveData
+import com.spotify.android.appremote.api.ConnectionParams
+import com.spotify.android.appremote.api.Connector
+import com.spotify.android.appremote.api.SpotifyAppRemote
 import com.spotify.sdk.android.auth.AuthorizationClient
 import com.spotify.sdk.android.auth.AuthorizationRequest
 import com.spotify.sdk.android.auth.AuthorizationResponse
@@ -21,6 +24,8 @@ class Repository() {
     private val CLIENT_ID = "85e82d6c52384d2b9ada66f99f78648c"
     private val REDIRECT_URI = "http://com.example.contestifyfirsttry/callback"
     val REQUEST_CODE = 1337
+
+    private var mSpotifyAppRemote: SpotifyAppRemote? = null
 
     fun getToken(activity: Activity){
         scopes = Scopes()
@@ -58,6 +63,7 @@ class Repository() {
         call.enqueue(object : Callback<Tracks> {
             override fun onResponse(call: retrofit2.Call<Tracks>, response: Response<Tracks>) {
                 respTracks.value = response.body()!!
+                Log.d(TAG, "onResponse: ${response.body()}")
             }
 
             override fun onFailure(call: retrofit2.Call<Tracks>, t: Throwable) {
@@ -65,5 +71,25 @@ class Repository() {
             }
 
         })
+    }
+    fun playSong(context: Context,songUri:String){
+        var connectionParams = ConnectionParams.Builder(CLIENT_ID)
+            .setRedirectUri(REDIRECT_URI)
+            .showAuthView(true)
+            .build()
+
+       SpotifyAppRemote.connect(context, connectionParams, object : Connector.ConnectionListener {
+           override fun onConnected(p0: SpotifyAppRemote?) {
+               mSpotifyAppRemote = p0
+               Log.d(TAG, "onConnected: Connected!")
+
+               mSpotifyAppRemote!!.playerApi.play(songUri)
+           }
+
+           override fun onFailure(p0: Throwable?) {
+               Log.d(TAG, "onFailure: ${p0!!.message}")
+           }
+
+       })
     }
 }
