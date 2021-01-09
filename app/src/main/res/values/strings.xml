@@ -1,6 +1,8 @@
 <resources>
     <string name="app_name">Spotify Stats</string>
 
+
+    <!--Single Track Layout-->
     <string name="album_name">Album Name:</string>
     <string name="artist">Artist:</string>
     <string name="popularity">Popularity:</string>
@@ -11,4 +13,22 @@
     <string name="sample_artist">The Last Shadow Puppets</string>
     <string name="sample_popularity">9.9</string>
     <string name="sample_rank">#1</string>
+
+    <!--Profile Activity-->
+    <string name="profile_header">Profile</string>
+    <string name="id">ID:</string>
+    <string name="display_name">Display Name:</string>
+    <string name="email">Email:</string>
+    <string name="followers">Followers:</string>
+    <string name="country">Country:</string>
+    <string name="account_status">Account Status:</string>
+
+    <string name="sample_id">0123456789</string>
+    <string name="sample_display_name">Beşir Karao</string>
+    <string name="sample_email">bsrk26@gmail.com</string>
+    <string name="sample_followers">522</string>
+    <string name="sample_country">UK</string>
+    <string name="sample_status">Premium</string>
+
+
 </resources>

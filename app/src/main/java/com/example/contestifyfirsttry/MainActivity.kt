@@ -26,13 +26,18 @@ class MainActivity : AppCompatActivity() {
     private val TAG = "MainActivity"
 
     private var viewModel:MainViewModel? = null
+    private var user:User? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
+        val bundle = this.intent.extras
+        val token = bundle!!.getString("token")
+
         initViewPager()
-        setUsername()
+        setUsername(token!!)
+        usernameOnClick(token)
     }
 
 
@@ -45,17 +50,21 @@ class MainActivity : AppCompatActivity() {
         }.attach()
         pager.currentItem = 0
     }
-    private fun setUsername(){
-        var username:String? = null
-
-        var bundle = this.intent.extras
-        var token = bundle!!.getString("token")
+    private fun setUsername(token:String){
         viewModel = MainViewModel(this)
 
         viewModel!!.user.observe(this,
-            Observer<User> { t -> tvUserName.text = t.display_name.toString() + " sup" })
+            Observer<User> { t -> tvUserName.text = t.display_name.toString()
+                                    user = t})
 
         viewModel!!.getUser(token!!)
+    }
+    private fun usernameOnClick(token: String){
+        tvUserName.setOnClickListener {
+            var intent = Intent(this,ProfileActivity::class.java)
+            intent.putExtra("token",token)
+            startActivity(intent)
+        }
     }
 
 }
