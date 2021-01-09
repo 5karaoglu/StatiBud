@@ -1,32 +1,23 @@
 package com.example.contestifyfirsttry
 
-import android.content.Intent
+
 import android.os.Bundle
-import android.os.UserHandle
 import android.util.Log
 import android.view.Menu
-import android.widget.AdapterView
+import android.view.View
 import androidx.appcompat.app.AppCompatActivity
-import androidx.fragment.app.Fragment
-import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.NavController
-import androidx.navigation.Navigation
 import androidx.navigation.findNavController
-import androidx.navigation.ui.setupActionBarWithNavController
-import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
-import com.example.contestifyfirsttry.model.User
-import com.spotify.android.appremote.api.SpotifyAppRemote
-
+import com.google.android.gms.ads.AdLoader
+import com.google.android.gms.ads.AdRequest
+import com.google.android.gms.ads.AdView
+import com.google.android.gms.ads.MobileAds
+import com.google.android.gms.ads.formats.AdManagerAdViewOptions
+import com.google.firebase.analytics.FirebaseAnalytics
 import com.spotify.sdk.android.auth.*
 import kotlinx.android.synthetic.main.activity_main.*
-import com.google.android.material.tabs.TabLayoutMediator
 import kotlinx.android.synthetic.main.artists_fragment.*
-
 import kotlinx.android.synthetic.main.tracks_fragment.*
-import me.ibrahimsn.lib.OnItemReselectedListener
-import me.ibrahimsn.lib.OnItemSelectedListener
 import okhttp3.*
 
 
@@ -34,10 +25,16 @@ class MainActivity : AppCompatActivity() {
     private val TAG = "MainActivity"
 
     private var navController: NavController? = null
+    private var mFirebaseAnalytics: FirebaseAnalytics? = null
+    private var mAdView: AdView? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+        // Obtain the FirebaseAnalytics instance.
+        mFirebaseAnalytics = FirebaseAnalytics.getInstance(this);
+        MobileAds.initialize(this)
+        setAd()
 
         navController = findNavController(R.id.fragment)
 
@@ -45,8 +42,8 @@ class MainActivity : AppCompatActivity() {
 
     }
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
-        menuInflater.inflate(R.menu.bottom_nav_menu,menu)
-        bottomBar.setupWithNavController(menu!!,navController!!)
+        menuInflater.inflate(R.menu.bottom_nav_menu, menu)
+        bottomBar.setupWithNavController(menu!!, navController!!)
         return true
     }
 
@@ -55,14 +52,19 @@ class MainActivity : AppCompatActivity() {
         bottomBar.onItemSelected = {
             Log.d(TAG, "onItemSelected:$it ")
             when(it){
-                0-> navController!!.navigate(R.id.topFragment)
-                1-> navController!!.navigate(R.id.searchFragment)
-                2-> navController!!.navigate(R.id.profileFragment)
+                0 -> navController!!.navigate(R.id.topFragment)
+                1 -> navController!!.navigate(R.id.searchFragment)
+                2 -> navController!!.navigate(R.id.profileFragment)
             }
         }
         bottomBar.onItemReselected = {
             Log.d(TAG, "onItemRe-Selected:$it ")
         }
+    }
+    private fun setAd(){
+        mAdView = findViewById<View>(R.id.adView) as AdView?
+        val adRequest: AdRequest = AdRequest.Builder().build()
+        mAdView!!.loadAd(adRequest)
     }
 
 }
