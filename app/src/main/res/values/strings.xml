@@ -30,5 +30,13 @@
     <string name="sample_country">UK</string>
     <string name="sample_status">Premium</string>
 
+    <!--Navigation Menu-->
+    <string name="home">Home</string>
+    <string name="top">Top</string>
+    <string name="Search">Search</string>
+    <string name="Profile">Profile</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+
 
 </resources>
