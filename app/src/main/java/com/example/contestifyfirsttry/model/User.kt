@@ -11,7 +11,7 @@ data class User(
     @SerializedName("followers") val followers : Followers,
     @SerializedName("href") val href : String,
     @SerializedName("id") val id : String,
-    @SerializedName("images") val images : List<Images>,
+    @SerializedName("images") val images : List<Image>,
     @SerializedName("product") val product : String,
     @SerializedName("type") val type : String,
     @SerializedName("uri") val uri : String
@@ -21,18 +21,9 @@ data class Explicit_content (
     @SerializedName("filter_enabled") val filter_enabled : Boolean,
     @SerializedName("filter_locked") val filter_locked : Boolean
 )
-data class External_urls (
 
-    @SerializedName("spotify") val spotify : String
-)
 data class Followers (
 
     @SerializedName("href") val href : String,
     @SerializedName("total") val total : Int
-)
-data class Images (
-
-    @SerializedName("height") val height : String,
-    @SerializedName("url") val url : String,
-    @SerializedName("width") val width : String
 )

@@ -6,4 +6,6 @@ class Scopes {
     val PLAYLIST_READ_PRIVATE = "playlist-read-private"
     val STREAMING = "streaming"
     val USER_TOP_READ = "user-top-read"
+    val USER_READ_RECENTLY_PLAYED = "user-read-recently-played"
+    val USER_READ_EMAIL = "user-read-email"
 }

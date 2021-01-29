@@ -1,5 +1,6 @@
 package com.example.contestifyfirsttry
 
+import android.content.Context
 import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -13,9 +14,7 @@ import kotlinx.android.synthetic.main.artists_fragment.*
 
 class ArtistsFragment : Fragment() {
 
-    companion object {
-        fun newInstance() = ArtistsFragment()
-    }
+
 
     private lateinit var viewmodel: MainViewModel
 
@@ -26,18 +25,36 @@ class ArtistsFragment : Fragment() {
         return inflater.inflate(R.layout.artists_fragment, container, false)
     }
 
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        initRadioGroup()
+    }
+
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        var bundle = activity!!.intent.extras
-        var token = bundle!!.getString("token")
+        //getting token
+        val sharedPreferences = requireActivity().getSharedPreferences("spotifystatsapp",Context.MODE_PRIVATE)
+        val token = sharedPreferences.getString("token","")
+
 
         // ViewModel components
         var factory = CustomViewModelFactory(this)
         viewmodel = ViewModelProvider(this, factory!!).get(MainViewModel::class.java)
 
-        viewmodel!!.artistsList.observe(this,
+        viewmodel!!.artistsListShortTerm.observe(viewLifecycleOwner,
             Observer<Artists> { t -> generateDataArtists(t!!) })
-        viewmodel.getMyArtists(token!!)
+        viewmodel.getMyArtists(token!!,"short_term")
+        viewmodel.getMyArtists(token!!,"medium_term")
+        viewmodel.getMyArtists(token!!,"long_term")
+    }
+    private fun initRadioGroup(){
+        radioGroup.setOnCheckedChangeListener { group, checkedId ->
+            when(checkedId){
+                radioButton1.id -> generateDataArtists(viewmodel.artistsListShortTerm.value!!)
+                radioButton2.id -> generateDataArtists(viewmodel.artistsListMidTerm.value!!)
+                radioButton3.id -> generateDataArtists(viewmodel.artistsListLongTerm.value!!)
+            }
+        }
     }
 
 

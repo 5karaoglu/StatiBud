@@ -8,40 +8,75 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModel
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.contestifyfirsttry.model.RecentTracks
 import com.example.contestifyfirsttry.model.User
 import com.spotify.android.appremote.api.SpotifyAppRemote
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainViewModel(lifecycleOwner: LifecycleOwner) : ViewModel() {
-    var artistsList = MutableLiveData<Artists>()
-    var tracksList = MutableLiveData<Tracks>()
+    var artistsListShortTerm = MutableLiveData<Artists>()
+    var artistsListMidTerm = MutableLiveData<Artists>()
+    var artistsListLongTerm = MutableLiveData<Artists>()
+
+    var tracksListShortTerm = MutableLiveData<Tracks>()
+    var tracksListMidTerm = MutableLiveData<Tracks>()
+    var tracksListLongTerm = MutableLiveData<Tracks>()
+
     var repository : Repository = Repository()
+    var recentTracks = MutableLiveData<RecentTracks>()
     var user = MutableLiveData<User>()
 
 
     init {
-        repository.respArtists.observe(lifecycleOwner,object : Observer<Artists>{
+        repository.respArtistsShortTerm.observe(lifecycleOwner,object : Observer<Artists>{
             override fun onChanged(t: Artists?) {
-                artistsList.value = t
+                artistsListShortTerm.value = t
             }
         })
-        repository.respTracks.observe(lifecycleOwner,object : Observer<Tracks>{
+        repository.respArtistsMidTerm.observe(lifecycleOwner,object : Observer<Artists>{
+            override fun onChanged(t: Artists?) {
+                artistsListMidTerm.value = t
+            }
+        })
+        repository.respArtistsLongTerm.observe(lifecycleOwner,object : Observer<Artists>{
+            override fun onChanged(t: Artists?) {
+                artistsListLongTerm.value = t
+            }
+        })
+
+        repository.respTracksShortTerm.observe(lifecycleOwner,object : Observer<Tracks>{
             override fun onChanged(t: Tracks?) {
-                tracksList.value = t
+                tracksListShortTerm.value = t
             }
         })
+        repository.respTracksMidTerm.observe(lifecycleOwner,object : Observer<Tracks>{
+            override fun onChanged(t: Tracks?) {
+                tracksListMidTerm.value = t
+            }
+        })
+        repository.respTracksLongTerm.observe(lifecycleOwner,object : Observer<Tracks>{
+            override fun onChanged(t: Tracks?) {
+                tracksListLongTerm.value = t
+            }
+        })
+
         repository.respUser.observe(lifecycleOwner,object : Observer<User>{
             override fun onChanged(t: User?) {
                 user.value = t
             }
         })
+        repository.respRecentTracks.observe(lifecycleOwner,object : Observer<RecentTracks>{
+            override fun onChanged(t: RecentTracks?) {
+                recentTracks.value = t
+            }
+        })
     }
 
-    fun getMyArtists(token: String){
-        repository.getMyFavArtists(token)
+    fun getMyArtists(token: String,timeRange:String){
+        repository.getMyFavArtists(token,timeRange)
     }
-    fun getMyTracks(token: String){
-        repository.getMyFavTracks(token)
+    fun getMyTracks(token: String,timeRange:String){
+        repository.getMyFavTracks(token,timeRange)
     }
 
     fun getToken(activity:Activity){
@@ -53,6 +88,9 @@ class MainViewModel(lifecycleOwner: LifecycleOwner) : ViewModel() {
     }
     fun getUser(token: String){
         repository.getUser(token)
+    }
+    fun getRecentTracks(token: String){
+        repository.getRecentTracks(token)
     }
 
 }

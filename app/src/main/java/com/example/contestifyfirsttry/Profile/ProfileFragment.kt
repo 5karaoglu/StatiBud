@@ -1,5 +1,6 @@
 package com.example.contestifyfirsttry.Profile
 
+import android.content.Context
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
@@ -36,8 +37,10 @@ class ProfileFragment : Fragment() {
 
     }
     private fun getToken():String{
-        val bundle = requireActivity().intent.extras
-        val token = bundle!!.getString("token")
+        //getting token
+        val sharedPreferences = requireActivity().getSharedPreferences("spotifystatsapp", Context.MODE_PRIVATE)
+        val token = sharedPreferences.getString("token","")
+
         Log.d(TAG, "onViewCreated:$token ")
         return token!!
     }

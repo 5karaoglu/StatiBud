@@ -1,5 +1,8 @@
 package com.example.contestifyfirsttry
 
+import com.example.contestifyfirsttry.model.External_ids
+import com.example.contestifyfirsttry.model.External_urls
+import com.example.contestifyfirsttry.model.Image
 import com.google.gson.annotations.SerializedName
 
 data class Tracks (
@@ -39,7 +42,7 @@ data class Album (
     @SerializedName("external_urls") val external_urls : External_urls,
     @SerializedName("href") val href : String,
     @SerializedName("id") val id : String,
-    @SerializedName("images") val images : List<TrackImages>,
+    @SerializedName("images") val images : List<Image>,
     @SerializedName("name") val name : String,
     @SerializedName("release_date") val release_date : String,
     @SerializedName("release_date_precision") val release_date_precision : String,
@@ -62,19 +65,10 @@ data class TrackArtists (
     @SerializedName("uri") val uri : String
 )
 
-data class External_urls (
-    @SerializedName("spotify") val spotify : String
-)
 
 enum class ArtistType {
     Artist
 }
-
-data class TrackImages (
-    @SerializedName("height") val height : Int,
-    @SerializedName("url") val url : String,
-    @SerializedName("width") val width : Int
-)
 
 enum class ReleaseDatePrecision {
     Day
@@ -83,10 +77,6 @@ enum class ReleaseDatePrecision {
 enum class AlbumTypeEnum {
     Album
 }
-
-data class External_ids (
-    @SerializedName("isrc") val isrc : String
-)
 
 enum class ItemType {
     Track

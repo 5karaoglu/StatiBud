@@ -1,5 +1,6 @@
 package com.example.contestifyfirsttry
 
+import android.content.Context
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -38,9 +39,12 @@ class ContentActivity : AppCompatActivity() {
                 AuthorizationResponse.Type.TOKEN -> {
                     Log.d(TAG, "onActivityResult: ${response.accessToken}")
                     var intent = Intent(this,MainActivity::class.java)
-                    intent.putExtra("token",response.accessToken)
+                    val sharedPreferences = this.getSharedPreferences("spotifystatsapp",Context.MODE_PRIVATE)
+                    val editor = sharedPreferences.edit()
+                    editor.putString("token",response.accessToken)
+                    editor.apply()
                     startActivity(intent)
-
+                    finish()
                 }
             }
         }

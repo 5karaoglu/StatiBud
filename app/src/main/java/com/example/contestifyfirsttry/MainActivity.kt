@@ -1,10 +1,12 @@
 package com.example.contestifyfirsttry
 
 
+import android.content.DialogInterface
 import android.os.Bundle
 import android.util.Log
 import android.view.Menu
 import android.view.View
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.NavController
 import androidx.navigation.findNavController
@@ -33,11 +35,13 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
         // Obtain the FirebaseAnalytics instance.
         mFirebaseAnalytics = FirebaseAnalytics.getInstance(this);
+
+        //ad section
         MobileAds.initialize(this)
         setAd()
 
+        //navigation and bottom navigation
         navController = findNavController(R.id.fragment)
-
         bottomNavSetup()
 
     }
@@ -65,6 +69,17 @@ class MainActivity : AppCompatActivity() {
         mAdView = findViewById<View>(R.id.adView) as AdView?
         val adRequest: AdRequest = AdRequest.Builder().build()
         mAdView!!.loadAd(adRequest)
+    }
+
+    override fun onBackPressed() {
+        super.onBackPressed()
+        AlertDialog.Builder(this)
+            .setMessage(R.string.dialog_text)
+            .setCancelable(false)
+            .setPositiveButton(R.string.dialog_accept
+            ) { dialog, which -> finish() }
+            .setNegativeButton(R.string.dialog_deny,null)
+            .show()
     }
 
 }
