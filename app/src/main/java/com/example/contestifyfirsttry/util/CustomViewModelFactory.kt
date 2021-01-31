@@ -1,6 +1,5 @@
-package com.example.contestifyfirsttry
+package com.example.contestifyfirsttry.util
 
-import android.content.Context
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider

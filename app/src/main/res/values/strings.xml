@@ -54,4 +54,8 @@
     <string name="dialog_accept">Yes</string>
     <string name="dialog_deny">No</string>
 
+    <!--Item Detailed Fragment-->
+    <string name="artist_profile">PROFILE</string>
+    <string name="artist_similar">SIMILAR ARTISTS</string>
+
 </resources>

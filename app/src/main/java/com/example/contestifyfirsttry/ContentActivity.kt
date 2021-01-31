@@ -6,7 +6,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import androidx.lifecycle.ViewModelProvider
-import com.google.android.gms.ads.MobileAds
+import com.example.contestifyfirsttry.util.CustomViewModelFactory
 import com.spotify.sdk.android.auth.AuthorizationClient
 import com.spotify.sdk.android.auth.AuthorizationResponse
 
@@ -17,7 +17,7 @@ class ContentActivity : AppCompatActivity() {
     private val REDIRECT_URI = "http://com.example.contestifyfirsttry/callback"
     val REQUEST_CODE = 1337
 
-    private var factory:CustomViewModelFactory? = null
+    private var factory: CustomViewModelFactory? = null
     private var viewmodel:MainViewModel? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {

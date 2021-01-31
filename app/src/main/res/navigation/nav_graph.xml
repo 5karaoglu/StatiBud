@@ -3,11 +3,11 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
-    app:startDestination="@id/artistsFragment">
+    app:startDestination="@id/topFragment">
 
     <fragment
         android:id="@+id/topFragment"
-        android:name="com.example.contestifyfirsttry.TopFragment"
+        android:name="com.example.contestifyfirsttry.top.TopFragment"
         android:label="fragment_top"
         tools:layout="@layout/fragment_top">
 
@@ -25,7 +25,7 @@
     </fragment>
     <fragment
         android:id="@+id/searchFragment"
-        android:name="com.example.contestifyfirsttry.RecentFragment"
+        android:name="com.example.contestifyfirsttry.recent.RecentFragment"
         android:label="fragment_search"
         tools:layout="@layout/fragment_recent">
         <action
@@ -49,22 +49,10 @@
     </fragment>
     <fragment
         android:id="@+id/itemDetailedFragment"
-        android:name="com.example.contestifyfirsttry.ItemDetailedFragment"
+        android:name="com.example.contestifyfirsttry.detailed.ItemDetailedFragment"
         android:label="fragment_item_detailed"
         tools:layout="@layout/fragment_item_detailed">
 
-    </fragment>
-    <fragment
-        android:id="@+id/artistsFragment"
-        android:name="com.example.contestifyfirsttry.ArtistsFragment"
-        android:label="artists_fragment"
-        tools:layout="@layout/artists_fragment" >
-
-        <action
-            android:id="@+id/action_artistsFragment_to_itemDetailedFragment"
-            app:destination="@id/itemDetailedFragment" >
-
-        </action>
     </fragment>
 
 </navigation>

@@ -1,4 +1,4 @@
-package com.example.contestifyfirsttry
+package com.example.contestifyfirsttry.util
 
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory

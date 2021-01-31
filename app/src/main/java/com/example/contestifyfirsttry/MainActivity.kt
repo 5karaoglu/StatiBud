@@ -63,7 +63,11 @@ class MainActivity : AppCompatActivity() {
         }
         bottomBar.onItemReselected = {
             Log.d(TAG, "onItemRe-Selected:$it ")
-        }
+            when(it){
+                0 -> navController!!.navigate(R.id.topFragment)
+                1 -> navController!!.navigate(R.id.searchFragment)
+                2 -> navController!!.navigate(R.id.profileFragment)
+        }}
     }
     private fun setAd(){
         mAdView = findViewById<View>(R.id.adView) as AdView?

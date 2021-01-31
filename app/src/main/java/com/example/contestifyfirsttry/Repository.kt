@@ -4,8 +4,13 @@ import android.app.Activity
 import android.content.Context
 import android.util.Log
 import androidx.lifecycle.MutableLiveData
+import com.example.contestifyfirsttry.model.ArtistTopTracks
+import com.example.contestifyfirsttry.model.Item
 import com.example.contestifyfirsttry.model.RecentTracks
 import com.example.contestifyfirsttry.model.User
+import com.example.contestifyfirsttry.util.Api
+import com.example.contestifyfirsttry.util.RetrofitInstance
+import com.example.contestifyfirsttry.util.Scopes
 import com.spotify.android.appremote.api.ConnectionParams
 import com.spotify.android.appremote.api.Connector
 import com.spotify.android.appremote.api.SpotifyAppRemote
@@ -30,7 +35,9 @@ class Repository() {
 
     var respUser = MutableLiveData<User>()
     var respRecentTracks = MutableLiveData<RecentTracks>()
-    var token = MutableLiveData<String>()
+
+    var respArtist = MutableLiveData<Item>()
+    var respArtistTopTracks = MutableLiveData<ArtistTopTracks>()
     var scopes : Scopes? = null
     private val CLIENT_ID = "85e82d6c52384d2b9ada66f99f78648c"
     private val REDIRECT_URI = "http://com.example.contestifyfirsttry/callback"
@@ -107,8 +114,6 @@ class Repository() {
        })
     }
     fun getUser(token: String){
-
-
         var call:retrofit2.Call<User> = service.getMyProfile("Bearer $token")
 
         call.enqueue(object : Callback<User> {
@@ -124,8 +129,6 @@ class Repository() {
         })
     }
     fun getRecentTracks(token: String){
-
-
         var call:retrofit2.Call<RecentTracks> = service.getUserRecentPlayed("Bearer $token")
 
         call.enqueue(object : Callback<RecentTracks> {
@@ -135,6 +138,37 @@ class Repository() {
             }
 
             override fun onFailure(call: Call<RecentTracks>, t: Throwable) {
+                Log.d(TAG, "onFailure: ${t.message}")
+            }
+
+        })
+    }
+
+    fun getArtist(token: String,id:String){
+        var call:retrofit2.Call<Item> = service.getArtist("Bearer $token",id)
+
+        call.enqueue(object : Callback<Item> {
+            override fun onResponse(call: Call<Item>, response: Response<Item>) {
+                respArtist.value = response.body()!!
+                Log.d(TAG, "onResponse: ${response.body()}")
+            }
+
+            override fun onFailure(call: Call<Item>, t: Throwable) {
+                Log.d(TAG, "onFailure: ${t.message}")
+            }
+
+        })
+    }
+    fun getArtistTopTracks(token: String,id:String){
+        var call:retrofit2.Call<ArtistTopTracks> = service.getArtistTopTracks("Bearer $token",id)
+
+        call.enqueue(object : Callback<ArtistTopTracks> {
+            override fun onResponse(call: Call<ArtistTopTracks>, response: Response<ArtistTopTracks>) {
+                respArtistTopTracks.value = response.body()!!
+                Log.d(TAG, "onResponse: ${response.body()}")
+            }
+
+            override fun onFailure(call: Call<ArtistTopTracks>, t: Throwable) {
                 Log.d(TAG, "onFailure: ${t.message}")
             }
 

@@ -1,4 +1,4 @@
-package com.example.contestifyfirsttry
+package com.example.contestifyfirsttry.top
 
 import android.content.Context
 import androidx.lifecycle.ViewModelProvider
@@ -10,6 +10,8 @@ import android.view.ViewGroup
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.contestifyfirsttry.*
+import com.example.contestifyfirsttry.util.CustomViewModelFactory
 import kotlinx.android.synthetic.main.tracks_fragment.*
 
 class TracksFragment : Fragment() {

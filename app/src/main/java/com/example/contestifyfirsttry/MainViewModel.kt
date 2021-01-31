@@ -8,6 +8,7 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModel
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.contestifyfirsttry.model.ArtistTopTracks
 import com.example.contestifyfirsttry.model.Item
 import com.example.contestifyfirsttry.model.RecentTracks
 import com.example.contestifyfirsttry.model.User
@@ -27,8 +28,8 @@ class MainViewModel(lifecycleOwner: LifecycleOwner) : ViewModel() {
     var recentTracks = MutableLiveData<RecentTracks>()
     var user = MutableLiveData<User>()
 
-    var currentArtist = MutableLiveData<Item>()
-
+    var artist = MutableLiveData<Item>()
+    var artistTopTracks = MutableLiveData<ArtistTopTracks>()
 
     init {
         repository.respArtistsShortTerm.observe(lifecycleOwner,object : Observer<Artists>{
@@ -73,6 +74,16 @@ class MainViewModel(lifecycleOwner: LifecycleOwner) : ViewModel() {
                 recentTracks.value = t
             }
         })
+        repository.respArtist.observe(lifecycleOwner,object : Observer<Item>{
+            override fun onChanged(t: Item?) {
+                artist.value = t
+            }
+        })
+        repository.respArtistTopTracks.observe(lifecycleOwner,object : Observer<ArtistTopTracks>{
+            override fun onChanged(t: ArtistTopTracks?) {
+                artistTopTracks.value = t
+            }
+        })
     }
 
     fun getMyArtists(token: String,timeRange:String){
@@ -95,8 +106,11 @@ class MainViewModel(lifecycleOwner: LifecycleOwner) : ViewModel() {
     fun getRecentTracks(token: String){
         repository.getRecentTracks(token)
     }
-    fun setCurrentArtist(artist:Item){
-        currentArtist.value = artist
+    fun getArtist(token: String,id:String){
+        repository.getArtist(token,id)
+    }
+    fun getArtistTopTracks(token: String,id:String){
+        repository.getArtistTopTracks(token,id)
     }
 
 }

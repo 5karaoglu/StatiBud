@@ -1,4 +1,4 @@
-package com.example.contestifyfirsttry
+package com.example.contestifyfirsttry.detailed
 
 import android.content.Context
 import android.os.Bundle
@@ -7,14 +7,15 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ScrollView
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
-import androidx.navigation.fragment.navArgs
-import com.example.contestifyfirsttry.model.Item
-import com.example.contestifyfirsttry.model.RecentTracks
+import com.example.contestifyfirsttry.MainViewModel
+import com.example.contestifyfirsttry.R
+import com.example.contestifyfirsttry.top.ViewPagerAdapter
+import com.example.contestifyfirsttry.util.CustomViewModelFactory
+import com.google.android.material.tabs.TabLayoutMediator
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.fragment_item_detailed.*
+import kotlinx.android.synthetic.main.fragment_item_detailed.tabLayoutFragmentTop
 
 class ItemDetailedFragment : Fragment(){
     private val TAG = "Detailed Fragment"
@@ -42,15 +43,27 @@ class ItemDetailedFragment : Fragment(){
         val name = bundle.get("name") as String
         val id = bundle.get("id") as String
         val image = bundle.get("image") as String
-        setData(name,id,image)
-
+        setData(name,image)
+        initViewPager()
     }
 
-    fun setData(name:String,id:String,image:String){
-        Log.d(TAG, "setData: ${name}")
+    fun setData(name:String,image:String){
         Picasso.get()
             .load(image)
             .fit().centerCrop()
             .into(imageView)
+
+        detailedToolbar.title = name
     }
+    fun initViewPager(){
+        var adapter = DetailedViewPagerAdapter(requireActivity().supportFragmentManager,lifecycle)
+        pagerDetailedArtist.adapter = adapter
+        var tabList = arrayListOf<String>(getString(R.string.artist_profile),getString(R.string.artist_similar))
+        TabLayoutMediator(tabLayoutFragmentTop,pagerDetailedArtist){tab, position ->
+            tab.text = tabList[position]
+        }.attach()
+        pagerDetailedArtist.currentItem = 0
+    }
+
+
 }

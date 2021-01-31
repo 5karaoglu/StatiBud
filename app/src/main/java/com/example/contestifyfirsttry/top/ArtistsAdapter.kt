@@ -1,19 +1,20 @@
-package com.example.contestifyfirsttry
+package com.example.contestifyfirsttry.top
 
 import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.AdapterView
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.example.contestifyfirsttry.Artists
+import com.example.contestifyfirsttry.R
 import com.example.contestifyfirsttry.model.Item
 import com.squareup.picasso.Picasso
 
 class ArtistsAdapter(
     var context: Context,
-    var dataList: Artists,var itemClickListener: OnItemClickListener
+    var dataList: Artists, var itemClickListener: OnItemClickListener
 ) : RecyclerView.Adapter<ArtistsAdapter.ArtistsViewHolder>() {
 
 

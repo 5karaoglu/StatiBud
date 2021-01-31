@@ -1,18 +1,19 @@
-package com.example.contestifyfirsttry
+package com.example.contestifyfirsttry.top
 
 import android.annotation.SuppressLint
 import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import com.spotify.android.appremote.api.SpotifyAppRemote
+import com.example.contestifyfirsttry.MainViewModel
+import com.example.contestifyfirsttry.R
+import com.example.contestifyfirsttry.Tracks
 import com.squareup.picasso.Picasso
 
-class TracksAdapter(var context: Context, var dataList:Tracks,var viewModel: MainViewModel) : RecyclerView.Adapter<TracksAdapter.TracksViewHolder>() {
+class TracksAdapter(var context: Context, var dataList: Tracks, var viewModel: MainViewModel) : RecyclerView.Adapter<TracksAdapter.TracksViewHolder>() {
 
 
     class TracksViewHolder(itemView: View): RecyclerView.ViewHolder(itemView) {

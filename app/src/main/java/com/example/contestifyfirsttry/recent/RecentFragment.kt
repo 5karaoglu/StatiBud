@@ -1,4 +1,4 @@
-package com.example.contestifyfirsttry
+package com.example.contestifyfirsttry.recent
 
 import android.content.Context
 import android.os.Bundle
@@ -10,6 +10,9 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.contestifyfirsttry.util.CustomViewModelFactory
+import com.example.contestifyfirsttry.MainViewModel
+import com.example.contestifyfirsttry.R
 import com.example.contestifyfirsttry.model.RecentTracks
 import kotlinx.android.synthetic.main.fragment_recent.*
 

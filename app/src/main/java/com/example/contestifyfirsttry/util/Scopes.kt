@@ -1,4 +1,4 @@
-package com.example.contestifyfirsttry
+package com.example.contestifyfirsttry.util
 
 class Scopes {
     val USER_READ_PRIVATE = "user-read-private"

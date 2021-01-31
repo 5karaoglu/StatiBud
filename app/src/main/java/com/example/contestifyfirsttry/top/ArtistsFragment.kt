@@ -1,4 +1,4 @@
-package com.example.contestifyfirsttry
+package com.example.contestifyfirsttry.top
 
 import android.content.Context
 import androidx.lifecycle.ViewModelProvider
@@ -8,12 +8,13 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.os.bundleOf
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.contestifyfirsttry.*
 import com.example.contestifyfirsttry.model.Item
+import com.example.contestifyfirsttry.util.CustomViewModelFactory
 import kotlinx.android.synthetic.main.artists_fragment.*
 
 class ArtistsFragment : Fragment(), ArtistsAdapter.OnItemClickListener {
@@ -70,13 +71,16 @@ class ArtistsFragment : Fragment(), ArtistsAdapter.OnItemClickListener {
 
     override fun onItemClicked(artist: Item) {
         Log.d(TAG, "onClick: ${artist.name}")
-        //current artist passed with viewmodel
-        viewmodel.setCurrentArtist(artist)
+
         val bundle = Bundle()
         bundle.putString("name",artist.name)
         bundle.putString("id",artist.id)
         bundle.putString("image",artist.images[0].url)
-        findNavController().navigate(R.id.action_artistsFragment_to_itemDetailedFragment,bundle)
+        val sharedPreferences = requireActivity().getSharedPreferences("spotifystatsapp",Context.MODE_PRIVATE)
+        val editor = sharedPreferences.edit()
+        editor.putString("id",artist.id)
+        editor.apply()
+        findNavController().navigate(R.id.action_topFragment_to_itemDetailedFragment,bundle)
     }
 
 }
