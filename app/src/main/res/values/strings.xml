@@ -1,6 +1,7 @@
 <resources>
     <string name="app_name">Spotify Stats</string>
 
+    <string name="current_position">#%d</string>
 
     <!--Single Track Layout-->
     <string name="album_name">Album Name:</string>

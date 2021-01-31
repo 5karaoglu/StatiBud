@@ -3,19 +3,21 @@ package com.example.contestifyfirsttry
 import android.content.Context
 import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.os.bundleOf
 import androidx.lifecycle.Observer
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.contestifyfirsttry.model.Item
 import kotlinx.android.synthetic.main.artists_fragment.*
 
-class ArtistsFragment : Fragment() {
-
-
-
+class ArtistsFragment : Fragment(), ArtistsAdapter.OnItemClickListener {
+    private val TAG = "Artists Fragment"
     private lateinit var viewmodel: MainViewModel
 
     override fun onCreateView(
@@ -59,10 +61,22 @@ class ArtistsFragment : Fragment() {
 
 
     private fun generateDataArtists(artists: Artists){
-        var adapter : ArtistsAdapter = ArtistsAdapter(requireContext(),artists)
+        var adapter : ArtistsAdapter = ArtistsAdapter(requireContext(),artists,this)
         var layoutManager: RecyclerView.LayoutManager = LinearLayoutManager(requireContext())
         recyclerArtists.layoutManager = layoutManager
         recyclerArtists.adapter = adapter
+    }
+
+
+    override fun onItemClicked(artist: Item) {
+        Log.d(TAG, "onClick: ${artist.name}")
+        //current artist passed with viewmodel
+        viewmodel.setCurrentArtist(artist)
+        val bundle = Bundle()
+        bundle.putString("name",artist.name)
+        bundle.putString("id",artist.id)
+        bundle.putString("image",artist.images[0].url)
+        findNavController().navigate(R.id.action_artistsFragment_to_itemDetailedFragment,bundle)
     }
 
 }

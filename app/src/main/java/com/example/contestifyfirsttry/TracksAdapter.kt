@@ -16,14 +16,14 @@ class TracksAdapter(var context: Context, var dataList:Tracks,var viewModel: Mai
 
 
     class TracksViewHolder(itemView: View): RecyclerView.ViewHolder(itemView) {
-        var imageView = itemView.findViewById<ImageView>(R.id.imageView)
-        var textView = itemView.findViewById<TextView>(R.id.textView)
-        var textViewPop = itemView.findViewById<TextView>(R.id.textViewPop)
-        var tvAlbumName = itemView.findViewById<TextView>(R.id.tvAlbumName)
+        var imageView = itemView.findViewById<ImageView>(R.id.imageViewTrack)
+        var textView = itemView.findViewById<TextView>(R.id.textViewTrack)
+        var textViewPop = itemView.findViewById<TextView>(R.id.textViewPopTrack)
+        /*var tvAlbumName = itemView.findViewById<TextView>(R.id.tvAlbumName)
         var tvArtist = itemView.findViewById<TextView>(R.id.tvArtist)
         var tvPopularity = itemView.findViewById<TextView>(R.id.tvPopularity)
         var ivExplicit = itemView.findViewById<ImageView>(R.id.ivExplicit)
-        var buttonPlaySong = itemView.findViewById<Button>(R.id.buttonPlaySong)
+        var buttonPlaySong = itemView.findViewById<Button>(R.id.buttonPlaySong)*/
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TracksViewHolder {
@@ -36,13 +36,14 @@ class TracksAdapter(var context: Context, var dataList:Tracks,var viewModel: Mai
     override fun onBindViewHolder(holder: TracksViewHolder, position: Int) {
         //ImageView-album photo
         Picasso.get()
-            .load(dataList.items[position].album.images[1].url)
+            .load(dataList.items[position].album.images[0].url)
+            .fit().centerCrop()
             .into(holder.imageView)
         //position
         holder.textViewPop.text = "#${position+1}"
         //track name
         holder.textView.text = dataList.items[position].name
-        //album name
+        /*//album name
         if (dataList.items[position].album.album_type == "ALBUM"){
         holder.tvAlbumName.text = dataList.items[position].album.name}
         else{
@@ -62,7 +63,7 @@ class TracksAdapter(var context: Context, var dataList:Tracks,var viewModel: Mai
         //play song
         holder.buttonPlaySong.setOnClickListener {
             viewModel.playSong(context,dataList.items[position].uri)
-        }
+        }*/
 
 
     }

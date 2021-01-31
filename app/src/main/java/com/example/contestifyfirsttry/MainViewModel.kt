@@ -8,6 +8,7 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModel
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.contestifyfirsttry.model.Item
 import com.example.contestifyfirsttry.model.RecentTracks
 import com.example.contestifyfirsttry.model.User
 import com.spotify.android.appremote.api.SpotifyAppRemote
@@ -25,6 +26,8 @@ class MainViewModel(lifecycleOwner: LifecycleOwner) : ViewModel() {
     var repository : Repository = Repository()
     var recentTracks = MutableLiveData<RecentTracks>()
     var user = MutableLiveData<User>()
+
+    var currentArtist = MutableLiveData<Item>()
 
 
     init {
@@ -91,6 +94,9 @@ class MainViewModel(lifecycleOwner: LifecycleOwner) : ViewModel() {
     }
     fun getRecentTracks(token: String){
         repository.getRecentTracks(token)
+    }
+    fun setCurrentArtist(artist:Item){
+        currentArtist.value = artist
     }
 
 }

@@ -1,240 +1,68 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
-    android:layout_height="435dp"
-    android:layout_marginLeft="20dp"
-    android:layout_marginRight="20dp"
-    android:layout_marginTop="20dp"
-    android:layout_marginBottom="20dp"
-    android:padding="20dp"
-    android:background="@drawable/cardview_background">
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_marginLeft="10dp"
+    android:layout_marginRight="10dp"
+    android:layout_marginTop="10dp"
+    android:gravity="center"
+    android:background="@drawable/cardview_background"
+    app:cardCornerRadius="20dip">
 
     <RelativeLayout
-        android:layout_width="330dp"
-        android:layout_height="186dp"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentEnd="true"
-        android:gravity="center"
-        android:id="@+id/reLayout">
+        android:layout_width="match_parent"
+        android:layout_height="150dp"
+        android:gravity="center">
 
         <ImageView
-            android:id="@+id/imageView"
-            android:layout_width="155dp"
-            android:layout_height="155dp"
-            android:layout_alignParentStart="true"
-            android:layout_alignParentTop="true"
-            android:layout_marginStart="3dp"
-
+            android:id="@+id/imageViewTrack"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_centerVertical="true"
             android:src="@drawable/ic_launcher_foreground" />
 
         <TextView
-            android:id="@+id/textViewPop"
-            android:layout_width="155dp"
-            android:layout_height="65dp"
+            android:id="@+id/textViewPopTrack"
+            android:layout_width="90dp"
+            android:layout_height="52dp"
+            android:layout_alignParentStart="true"
             android:layout_alignParentTop="true"
-            android:layout_marginStart="24dp"
-            android:layout_marginBottom="10dp"
-            android:layout_toEndOf="@id/imageView"
-            android:gravity="left"
+            android:layout_marginStart="13dp"
+            android:layout_marginTop="5dp"
+            android:gravity="start"
             android:maxLines="1"
-            android:text="@string/sample_rank"
+            android:shadowColor="@color/black"
+            android:shadowDx="2"
+            android:shadowDy="2"
+            android:shadowRadius="4"
+            android:text="#1"
             android:textColor="@color/colorgray"
-            android:textSize="50sp"
+            android:textSize="30sp"
             android:textStyle="bold" />
 
         <TextView
-            android:id="@+id/textView"
+            android:id="@+id/textViewTrack"
             android:layout_width="155dp"
             android:layout_height="89dp"
-            android:layout_below="@+id/textViewPop"
-            android:layout_marginStart="23dp"
-            android:layout_marginTop="-5dp"
-            android:layout_toEndOf="@id/imageView"
-            android:gravity="left"
-            android:maxLines="3"
-            android:text="@string/sample_track_name"
-            android:textColor="@color/colorgray2"
-            android:textSize="25sp"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentBottom="true"
+            android:layout_marginStart="15dp"
+            android:layout_marginEnd="15dp"
+            android:layout_marginTop="15dp"
+            android:layout_marginBottom="15dp"
+            android:gravity="center"
+            android:maxLines="2"
+            android:shadowColor="@color/black"
+            android:shadowDx="2"
+            android:shadowDy="2"
+            android:shadowRadius="4"
+            android:text="Arctic Monkeys"
+            android:textColor="@color/white"
+            android:textSize="35sp"
             android:textStyle="bold" />
-
-
     </RelativeLayout>
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentBottom="true"
-        android:layout_marginEnd="0dp"
-        android:layout_below="@+id/reLayout"
-        android:orientation="vertical">
 
-        <LinearLayout
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:weightSum="10"
-            android:orientation="horizontal"
-            android:layout_marginStart="5dp"
-            android:layout_marginEnd="5dp"
-            android:layout_marginTop="5dp"
-            android:layout_marginBottom="5dp">
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="5"
-                android:layout_gravity="start"
-                android:text="@string/album_name"
-                android:gravity="start"
-                android:textColor="@color/colorAccent"
-                android:textSize="20sp"
-                android:textStyle="bold"
-                android:maxLines="1"
-                android:ellipsize="end"/>
-            <TextView
-                android:id="@+id/tvAlbumName"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="5"
-                android:text="@string/sample_album_name"
-                android:layout_gravity="end"
-                android:gravity="end"
-                android:textSize="20sp"
-                android:textStyle="bold"
-                android:textColor="@color/colorgray2"
-                android:maxLines="1"
-                android:ellipsize="end"/>
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:weightSum="10"
-            android:orientation="horizontal"
-            android:layout_marginStart="5dp"
-            android:layout_marginEnd="5dp"
-            android:layout_marginTop="5dp"
-            android:layout_marginBottom="5dp">
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="4"
-                android:layout_gravity="start"
-                android:text="@string/artist"
-                android:gravity="start"
-                android:textColor="@color/colorAccent"
-                android:textSize="20sp"
-                android:textStyle="bold"
-                android:maxLines="1"
-                android:ellipsize="end"/>
-            <TextView
-                android:id="@+id/tvArtist"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="6"
-                android:text="@string/sample_artist"
-                android:layout_gravity="end"
-                android:gravity="end"
-                android:textSize="20sp"
-                android:textStyle="bold"
-                android:textColor="@color/colorgray2"
-                android:maxLines="1"
-                android:ellipsize="end"/>
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:weightSum="10"
-            android:orientation="horizontal"
-            android:layout_marginStart="5dp"
-            android:layout_marginEnd="5dp"
-            android:layout_marginTop="5dp"
-            android:layout_marginBottom="5dp">
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="4"
-                android:layout_gravity="start"
-                android:text="@string/popularity"
-                android:gravity="start"
-                android:textColor="@color/colorAccent"
-                android:textSize="20sp"
-                android:textStyle="bold"
-                android:maxLines="1"
-                android:ellipsize="end"/>
-            <TextView
-                android:id="@+id/tvPopularity"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="6"
-                android:text="@string/sample_popularity"
-                android:layout_gravity="end"
-                android:gravity="end"
-                android:textSize="20sp"
-                android:textStyle="bold"
-                android:textColor="@color/colorgray2"
-                android:maxLines="1"
-                android:ellipsize="end"/>
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="30dp"
-            android:gravity="center_vertical"
-            android:orientation="horizontal"
-            android:layout_marginStart="5dp"
-            android:layout_marginEnd="5dp"
-            android:layout_marginTop="5dp"
-            android:layout_marginBottom="5dp">
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent">
-            <TextView
-                android:id="@+id/tvExplicit"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_gravity="start"
-                android:text="@string/explicit"
-                android:gravity="start"
-                android:textColor="@color/colorAccent"
-                android:textSize="20sp"
-                android:textStyle="bold"
-                android:maxLines="1"
-                android:ellipsize="end"
-                android:layout_toStartOf="@id/ivExplicit"/>
-            <ImageView
-                android:id="@+id/ivExplicit"
-                android:layout_width="30dp"
-                android:layout_height="30dp"
-                android:layout_alignParentEnd="true"
-                android:gravity="end"
-                android:src="@drawable/ic_check"/>
-            </RelativeLayout>
-        </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:gravity="center_vertical"
-        android:orientation="horizontal"
-        android:layout_marginStart="5dp"
-        android:layout_marginEnd="5dp"
-        android:layout_marginTop="5dp"
-        android:layout_marginBottom="5dp">
-        <Button
-            android:id="@+id/buttonPlaySong"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:text="@string/listen_song_on"
-            android:textColor="@color/colorAccent"
-            android:textStyle="bold"
-            android:textSize="20sp"
-            android:background="@color/colorPrimaryDark"
-            android:drawableEnd="@drawable/ic_spotify"
-            android:layout_gravity="center_horizontal"
-            android:paddingEnd="20dp"/>
-    </LinearLayout>
-
-    </LinearLayout>
-
-</RelativeLayout>
+</androidx.cardview.widget.CardView>

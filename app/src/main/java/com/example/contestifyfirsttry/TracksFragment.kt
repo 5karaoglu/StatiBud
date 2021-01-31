@@ -10,7 +10,6 @@ import android.view.ViewGroup
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import kotlinx.android.synthetic.main.artists_fragment.*
 import kotlinx.android.synthetic.main.tracks_fragment.*
 
 class TracksFragment : Fragment() {

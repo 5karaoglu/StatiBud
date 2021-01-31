@@ -1,48 +1,46 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
-    android:layout_height="80dp"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
     android:orientation="horizontal"
-    android:background="@color/colorPrimaryDark"
+    android:background="@color/colorPrimary"
     android:gravity="center_vertical">
-    <RelativeLayout
-        android:layout_width="70dp"
+    <LinearLayout
+        android:layout_width="30dp"
         android:layout_height="match_parent"
-        android:padding="5dp">
+        android:padding="1dp"
+        android:orientation="vertical"
+        android:gravity="center">
         <ImageView
-            android:layout_width="40dp"
-            android:layout_height="40dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:src="@drawable/ic_history"
             android:id="@+id/ivHistory"
-            android:layout_alignParentTop="true"
-            android:layout_alignParentStart="true"
-            android:layout_alignParentEnd="true"
             android:layout_marginTop="4dp"
             />
+
         <TextView
             android:id="@+id/tvHistory"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="4m"
-            android:textColor="@color/colorgray"
-            android:gravity="center"
-            android:layout_below="@id/ivHistory"
-            android:layout_alignParentBottom="true"
-            android:layout_alignParentEnd="true"
-            android:layout_alignParentStart="true"
+            android:layout_marginStart="1dp"
             android:layout_marginBottom="4dp"
-            android:maxLines="1"/>
-    </RelativeLayout>
+            android:gravity="center"
+            android:maxLines="1"
+            android:text="4m"
+            android:textColor="@color/colorgray" />
+    </LinearLayout>
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:gravity="center"
-        android:padding="5dp">
+        android:padding="1dp">
         <ImageView
             android:layout_width="60dp"
             android:layout_height="60dp"
             android:id="@+id/ivRecentTrack"
-            android:layout_marginStart="10dp"
+            android:layout_marginStart="5dp"
             android:layout_marginTop="5dp"
             android:layout_marginBottom="5dp"
             android:src="@mipmap/ic_launcher" />
@@ -52,8 +50,12 @@
             android:id="@+id/tvRecentTrack"
             android:text="I Bet You Looking Good On The DanceFloor"
             android:textSize="20sp"
-            android:maxLines="1"
-            android:ellipsize="end"
+            android:ellipsize="marquee"
+            android:focusable="true"
+            android:focusableInTouchMode="true"
+            android:marqueeRepeatLimit="marquee_forever"
+            android:scrollHorizontally="true"
+            android:singleLine="true"
             android:gravity="start"
             android:textColor="@color/white"
             android:textStyle="normal"
