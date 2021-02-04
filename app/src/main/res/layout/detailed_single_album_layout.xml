@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content">
+    <RelativeLayout
+        android:layout_margin="10dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+        <ImageView
+            android:layout_margin="2.5dp"
+            android:layout_width="170dp"
+            android:layout_height="170dp"
+            android:id="@+id/ivDetailedAlbum"
+            android:src="@mipmap/ic_launcher"/>
+        <TextView
+            android:layout_margin="2.5dp"
+            android:layout_width="170dp"
+            android:layout_height="60dp"
+            android:id="@+id/tvDetailedAlbum"
+            android:layout_below="@+id/ivDetailedAlbum"
+            android:text="Live at Royal Albert Hall"
+            android:textSize="20sp"
+            android:maxLines="2"
+            android:ellipsize="end"
+            android:textColor="@color/white"
+            android:textStyle="bold"/>
+
+    </RelativeLayout>
+
+</androidx.cardview.widget.CardView>

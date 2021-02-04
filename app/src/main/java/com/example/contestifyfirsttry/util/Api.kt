@@ -26,7 +26,7 @@ interface Api {
     @GET("artists/{id}")
     fun getArtist(@Header("Authorization") token:String, @Path("id") artistId:String):Call<Item>
 
-    @GET("artists/{id}/albums")
+    @GET("artists/{id}/albums?include_groups=album&market=us")
     fun getArtistAlbums(@Header("Authorization") token:String, @Path("id") artistId:String):Call<ArtistAlbums>
 
     @GET("artists/{id}/related-artists")
