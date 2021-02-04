@@ -8,13 +8,14 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.Observer
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.contestifyfirsttry.*
 import com.example.contestifyfirsttry.util.CustomViewModelFactory
 import kotlinx.android.synthetic.main.tracks_fragment.*
 
-class TracksFragment : Fragment() {
+class TracksFragment : Fragment(), TracksAdapter.OnItemClickListener {
     private lateinit var viewmodel: MainViewModel
 
     override fun onCreateView(
@@ -46,7 +47,7 @@ class TracksFragment : Fragment() {
         viewmodel.getMyTracks(token!!,"long_term")
     }
     private fun generateDataTracks(tracks: Tracks){
-        var adapter : TracksAdapter = TracksAdapter(requireContext(),tracks,viewmodel)
+        var adapter : TracksAdapter = TracksAdapter(requireContext(),tracks,this)
         var layoutManager: RecyclerView.LayoutManager = LinearLayoutManager(requireContext())
         recyclerTracks.layoutManager = layoutManager
         recyclerTracks.adapter = adapter
@@ -61,6 +62,18 @@ class TracksFragment : Fragment() {
         }
     }
 
+    override fun onItemClicked(track: TrackItems) {
+        val bundle = Bundle()
+        bundle.putString("name",track.name)
+        bundle.putString("id",track.id)
+        bundle.putString("image",track.album.images[0].url)
+        bundle.putString("artistId",track.artists[0].id)
+        val sharedPreferences = requireActivity().getSharedPreferences("spotifystatsapp",Context.MODE_PRIVATE)
+        val editor = sharedPreferences.edit()
+        editor.putString("id",track.id)
+        editor.apply()
+        findNavController().navigate(R.id.action_topFragment_to_detailedTrackFragment,bundle)
+    }
 
 
 }

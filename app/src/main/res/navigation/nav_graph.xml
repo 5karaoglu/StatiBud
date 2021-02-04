@@ -22,6 +22,9 @@
             app:destination="@id/itemDetailedFragment">
 
         </action>
+        <action
+            android:id="@+id/action_topFragment_to_detailedTrackFragment"
+            app:destination="@id/detailedTrackFragment" />
     </fragment>
     <fragment
         android:id="@+id/searchFragment"
@@ -49,13 +52,22 @@
     </fragment>
     <fragment
         android:id="@+id/itemDetailedFragment"
-        android:name="com.example.contestifyfirsttry.detailed.ItemDetailedFragment"
+        android:name="com.example.contestifyfirsttry.detailed.DetailedArtistFragment"
         android:label="fragment_item_detailed"
         tools:layout="@layout/fragment_item_detailed">
         <action
             android:id="@+id/action_itemDetailedFragment_to_itemDetailedFragment"
             app:destination="@id/itemDetailedFragment" />
 
+    </fragment>
+    <fragment
+        android:id="@+id/detailedTrackFragment"
+        android:name="com.example.contestifyfirsttry.detailed.DetailedTrackFragment"
+        android:label="fragment_detailed_track"
+        tools:layout="@layout/fragment_detailed_track" >
+        <action
+            android:id="@+id/action_detailedTrackFragment_self"
+            app:destination="@id/detailedTrackFragment" />
     </fragment>
 
 </navigation>

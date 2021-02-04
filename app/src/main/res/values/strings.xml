@@ -62,4 +62,14 @@
     <string name="top_tracks">Top Tracks</string>
     <string name="albums">Albums</string>
 
+    <!--Detailed Track Fragment-->
+    <string name="danceability">Danceability</string>
+    <string name="energy">Energy</string>
+    <string name="loudness">Loudness</string>
+    <string name="speechiness">Speechiness</string>
+    <string name="acousticness">Acousticness</string>
+    <string name="instrumentalness">Instrumentalness</string>
+    <string name="liveness">Liveness</string>
+    <string name="valence">Valence</string>
+
 </resources>

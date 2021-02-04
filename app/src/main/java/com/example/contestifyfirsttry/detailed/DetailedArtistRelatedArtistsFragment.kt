@@ -19,7 +19,7 @@ import com.example.contestifyfirsttry.util.CustomViewModelFactory
 import kotlinx.android.synthetic.main.fragment_detailed_related_artists.*
 
 
-class DetailedRelatedArtistsFragment : Fragment(), RelatedArtistsAdapter.OnItemClickListener {
+class DetailedArtistRelatedArtistsFragment : Fragment(), RelatedArtistsAdapter.OnItemClickListener {
     private val TAG = "DetailedRelatedArtist Fragment"
     private lateinit var viewmodel: MainViewModel
 

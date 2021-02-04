@@ -37,6 +37,8 @@ class Repository() {
     var respArtistTopTracks = MutableLiveData<ArtistTopTracks>()
     var respArtistAlbums = MutableLiveData<ArtistAlbums>()
     var respRelatedArtists = MutableLiveData<RelatedArtists>()
+
+    var respTrackAudioFeatures = MutableLiveData<TrackAudioFeatures>()
     var scopes : Scopes? = null
     private val CLIENT_ID = "85e82d6c52384d2b9ada66f99f78648c"
     private val REDIRECT_URI = "http://com.example.contestifyfirsttry/callback"
@@ -198,6 +200,21 @@ class Repository() {
             }
 
             override fun onFailure(call: Call<RelatedArtists>, t: Throwable) {
+                Log.d(TAG, "onFailure: ${t.message}")
+            }
+
+        })
+    }
+    fun getTrackAudioFeatures(token: String,id:String){
+        var call:retrofit2.Call<TrackAudioFeatures> = service.getTrackAudioFeature("Bearer $token",id)
+
+        call.enqueue(object : Callback<TrackAudioFeatures> {
+            override fun onResponse(call: Call<TrackAudioFeatures>, response: Response<TrackAudioFeatures>) {
+                respTrackAudioFeatures.value = response.body()!!
+                Log.d(TAG, "onResponse: ${response.body()}")
+            }
+
+            override fun onFailure(call: Call<TrackAudioFeatures>, t: Throwable) {
                 Log.d(TAG, "onFailure: ${t.message}")
             }
 

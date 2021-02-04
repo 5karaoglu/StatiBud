@@ -34,4 +34,7 @@ interface Api {
 
     @GET("artists/{id}/top-tracks?market=us")
     fun getArtistTopTracks(@Header("Authorization") token:String, @Path("id") artistId:String):Call<ArtistTopTracks>
+
+    @GET("audio-features/{id}")
+    fun getTrackAudioFeature(@Header("Authorization") token:String, @Path("id") trackId:String):Call<TrackAudioFeatures>
 }

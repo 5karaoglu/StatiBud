@@ -17,7 +17,7 @@ import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.fragment_item_detailed.*
 import kotlinx.android.synthetic.main.fragment_item_detailed.tabLayoutFragmentTop
 
-class ItemDetailedFragment : Fragment(){
+class DetailedArtistFragment : Fragment(){
     private val TAG = "Detailed Fragment"
     private lateinit var viewmodel: MainViewModel
 
