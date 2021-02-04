@@ -23,13 +23,15 @@ class ArtistTopTracksAdapter(
     class ArtistTopTracksViewHolder(itemView: View): RecyclerView.ViewHolder(itemView) {
         var imageView = itemView.findViewById<ImageView>(R.id.ivDetailedTopTrack)
         var textView = itemView.findViewById<TextView>(R.id.tvDetailedTopTrack)
+        var textViewRank = itemView.findViewById<TextView>(R.id.tvDetailedTopTrackRank)
 
         fun bind(track: TracksTopTrack, position: Int){
             Picasso.get()
                 .load(track.album.images[0].url)
                 .fit().centerCrop()
                 .into(imageView)
-            textView.text = String.format("#%d-%s",position+1,track.name)
+            textViewRank.text = String.format("#%d ",position+1)
+            textView.text = track.name
 
 
         }

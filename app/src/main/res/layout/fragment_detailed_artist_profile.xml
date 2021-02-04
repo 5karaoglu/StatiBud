@@ -3,21 +3,61 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".detailed.DetailedArtistProfileFragment">
-
-    <TextView
+    tools:context=".detailed.DetailedArtistProfileFragment"
+    android:background="@color/colorPrimaryDark">
+    <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Top Tracks"
-        android:textSize="30sp"
-        android:id="@+id/tvTopTracks"
-        android:textColor="@color/white"
-        android:textStyle="bold"/>
-   <androidx.recyclerview.widget.RecyclerView
-       android:layout_width="match_parent"
-       android:layout_height="wrap_content"
-       android:id="@+id/recyclerTopTracks"
-       tools:listitem="@layout/detailed_single_track_item"
-       android:layout_below="@+id/tvTopTracks"/>
+        android:layout_height="match_parent">
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <TextView
+                android:layout_marginStart="10dp"
+                android:layout_marginEnd="10dp"
+                android:layout_marginTop="10dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/top_tracks"
+                android:textSize="25sp"
+                android:id="@+id/tvTopTracks"
+                android:textColor="@color/colorgray2"
+                android:textStyle="bold"/>
+            <androidx.recyclerview.widget.RecyclerView
+                android:layout_marginStart="10dp"
+                android:layout_marginEnd="10dp"
+                android:layout_marginBottom="10dp"
+                android:layout_marginTop="2dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/recyclerTopTracks"
+                android:layout_below="@+id/tvTopTracks" />
+            <TextView
+                android:layout_marginStart="10dp"
+                android:layout_marginEnd="10dp"
+                android:layout_marginTop="10dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/albums"
+                android:textSize="25sp"
+                android:id="@+id/tvAlbums"
+                android:layout_below="@+id/recyclerTopTracks"
+                android:textColor="@color/colorgray2"
+                android:textStyle="bold"/>
+            <androidx.recyclerview.widget.RecyclerView
+                android:layout_marginStart="10dp"
+                android:layout_marginEnd="10dp"
+                android:layout_marginBottom="10dp"
+                android:layout_marginTop="2dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/recyclerAlbums"
+                android:scrollbars="horizontal"
+                android:layout_below="@+id/tvAlbums"
+                android:orientation="vertical" />
+        </RelativeLayout>
+    </androidx.core.widget.NestedScrollView>
+
+
+
 
 </RelativeLayout>

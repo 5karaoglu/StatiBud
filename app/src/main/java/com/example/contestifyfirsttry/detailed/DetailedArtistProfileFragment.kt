@@ -16,6 +16,7 @@ import com.example.contestifyfirsttry.Artists
 import com.example.contestifyfirsttry.MainViewModel
 import com.example.contestifyfirsttry.R
 import com.example.contestifyfirsttry.Tracks
+import com.example.contestifyfirsttry.model.ArtistAlbums
 import com.example.contestifyfirsttry.model.ArtistTopTracks
 import com.example.contestifyfirsttry.model.Item
 import com.example.contestifyfirsttry.model.TracksTopTrack
@@ -62,8 +63,11 @@ class DetailedArtistProfileFragment : Fragment() {
             Observer<Item> { t -> generateData(t!!) })
         viewmodel!!.artistTopTracks.observe(viewLifecycleOwner,
             Observer<ArtistTopTracks> { t -> generateTopTracks(t!!) })
+        viewmodel!!.artistAlbums.observe(viewLifecycleOwner,
+            Observer<ArtistAlbums> { t -> generateAlbums(t!!) })
         viewmodel.getArtist(token!!,id!!)
         viewmodel.getArtistTopTracks(token,id)
+        viewmodel.getArtistAlbums(token,id)
     }
     private fun generateData(artist:Item){
         Log.d(TAG, "generateData: ${artist.name} 5")
@@ -74,7 +78,12 @@ class DetailedArtistProfileFragment : Fragment() {
         var layoutManager: RecyclerView.LayoutManager = LinearLayoutManager(requireContext())
         recyclerTopTracks.layoutManager = layoutManager
         recyclerTopTracks.adapter = adapter
-
+    }
+    private fun generateAlbums(albums:ArtistAlbums){
+        var adapter : ArtistAlbumsAdapter = ArtistAlbumsAdapter(requireContext(),albums)
+        var layoutManager: RecyclerView.LayoutManager = LinearLayoutManager(requireContext(),LinearLayoutManager.HORIZONTAL,false)
+        recyclerAlbums.layoutManager = layoutManager
+        recyclerAlbums.adapter = adapter
     }
 
 

@@ -8,10 +8,7 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModel
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.example.contestifyfirsttry.model.ArtistTopTracks
-import com.example.contestifyfirsttry.model.Item
-import com.example.contestifyfirsttry.model.RecentTracks
-import com.example.contestifyfirsttry.model.User
+import com.example.contestifyfirsttry.model.*
 import com.spotify.android.appremote.api.SpotifyAppRemote
 import kotlinx.android.synthetic.main.activity_main.*
 
@@ -30,6 +27,8 @@ class MainViewModel(lifecycleOwner: LifecycleOwner) : ViewModel() {
 
     var artist = MutableLiveData<Item>()
     var artistTopTracks = MutableLiveData<ArtistTopTracks>()
+    var artistAlbums = MutableLiveData<ArtistAlbums>()
+    var relatedArtists = MutableLiveData<RelatedArtists>()
 
     init {
         repository.respArtistsShortTerm.observe(lifecycleOwner,object : Observer<Artists>{
@@ -84,6 +83,16 @@ class MainViewModel(lifecycleOwner: LifecycleOwner) : ViewModel() {
                 artistTopTracks.value = t
             }
         })
+        repository.respArtistAlbums.observe(lifecycleOwner,object : Observer<ArtistAlbums>{
+            override fun onChanged(t: ArtistAlbums?) {
+                artistAlbums.value = t
+            }
+        })
+        repository.respRelatedArtists.observe(lifecycleOwner,object : Observer<RelatedArtists>{
+            override fun onChanged(t: RelatedArtists?) {
+                relatedArtists.value = t
+            }
+        })
     }
 
     fun getMyArtists(token: String,timeRange:String){
@@ -111,6 +120,12 @@ class MainViewModel(lifecycleOwner: LifecycleOwner) : ViewModel() {
     }
     fun getArtistTopTracks(token: String,id:String){
         repository.getArtistTopTracks(token,id)
+    }
+    fun getArtistAlbums(token: String,id:String){
+        repository.getArtistAlbums(token,id)
+    }
+    fun getRelatedArtists(token: String,id:String){
+        repository.getRelatedArtists(token,id)
     }
 
 }

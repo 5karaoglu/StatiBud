@@ -58,4 +58,8 @@
     <string name="artist_profile">PROFILE</string>
     <string name="artist_similar">SIMILAR ARTISTS</string>
 
+    <!--Detailed Artist Profile Fragment-->
+    <string name="top_tracks">Top Tracks</string>
+    <string name="albums">Albums</string>
+
 </resources>

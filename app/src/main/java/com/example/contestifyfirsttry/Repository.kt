@@ -4,10 +4,7 @@ import android.app.Activity
 import android.content.Context
 import android.util.Log
 import androidx.lifecycle.MutableLiveData
-import com.example.contestifyfirsttry.model.ArtistTopTracks
-import com.example.contestifyfirsttry.model.Item
-import com.example.contestifyfirsttry.model.RecentTracks
-import com.example.contestifyfirsttry.model.User
+import com.example.contestifyfirsttry.model.*
 import com.example.contestifyfirsttry.util.Api
 import com.example.contestifyfirsttry.util.RetrofitInstance
 import com.example.contestifyfirsttry.util.Scopes
@@ -38,6 +35,8 @@ class Repository() {
 
     var respArtist = MutableLiveData<Item>()
     var respArtistTopTracks = MutableLiveData<ArtistTopTracks>()
+    var respArtistAlbums = MutableLiveData<ArtistAlbums>()
+    var respRelatedArtists = MutableLiveData<RelatedArtists>()
     var scopes : Scopes? = null
     private val CLIENT_ID = "85e82d6c52384d2b9ada66f99f78648c"
     private val REDIRECT_URI = "http://com.example.contestifyfirsttry/callback"
@@ -169,6 +168,36 @@ class Repository() {
             }
 
             override fun onFailure(call: Call<ArtistTopTracks>, t: Throwable) {
+                Log.d(TAG, "onFailure: ${t.message}")
+            }
+
+        })
+    }
+    fun getArtistAlbums(token: String,id:String){
+        var call:retrofit2.Call<ArtistAlbums> = service.getArtistAlbums("Bearer $token",id)
+
+        call.enqueue(object : Callback<ArtistAlbums> {
+            override fun onResponse(call: Call<ArtistAlbums>, response: Response<ArtistAlbums>) {
+                respArtistAlbums.value = response.body()!!
+                Log.d(TAG, "onResponse: ${response.body()}")
+            }
+
+            override fun onFailure(call: Call<ArtistAlbums>, t: Throwable) {
+                Log.d(TAG, "onFailure: ${t.message}")
+            }
+
+        })
+    }
+    fun getRelatedArtists(token: String,id:String){
+        var call:retrofit2.Call<RelatedArtists> = service.getArtistRelatedArtists("Bearer $token",id)
+
+        call.enqueue(object : Callback<RelatedArtists> {
+            override fun onResponse(call: Call<RelatedArtists>, response: Response<RelatedArtists>) {
+                respRelatedArtists.value = response.body()!!
+                Log.d(TAG, "onResponse: ${response.body()}")
+            }
+
+            override fun onFailure(call: Call<RelatedArtists>, t: Throwable) {
                 Log.d(TAG, "onFailure: ${t.message}")
             }
 

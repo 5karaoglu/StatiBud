@@ -2,10 +2,7 @@ package com.example.contestifyfirsttry.util
 
 import com.example.contestifyfirsttry.Artists
 import com.example.contestifyfirsttry.Tracks
-import com.example.contestifyfirsttry.model.ArtistTopTracks
-import com.example.contestifyfirsttry.model.Item
-import com.example.contestifyfirsttry.model.RecentTracks
-import com.example.contestifyfirsttry.model.User
+import com.example.contestifyfirsttry.model.*
 import retrofit2.Call
 import retrofit2.http.GET
 import retrofit2.http.Header
@@ -30,10 +27,10 @@ interface Api {
     fun getArtist(@Header("Authorization") token:String, @Path("id") artistId:String):Call<Item>
 
     @GET("artists/{id}/albums")
-    fun getArtistAlbums(@Header("Authorization") token:String, @Path("id") artistId:String):Call<Item>
+    fun getArtistAlbums(@Header("Authorization") token:String, @Path("id") artistId:String):Call<ArtistAlbums>
 
     @GET("artists/{id}/related-artists")
-    fun getArtistRelatedArtists(@Header("Authorization") token:String, @Path("id") artistId:String):Call<Item>
+    fun getArtistRelatedArtists(@Header("Authorization") token:String, @Path("id") artistId:String):Call<RelatedArtists>
 
     @GET("artists/{id}/top-tracks?market=us")
     fun getArtistTopTracks(@Header("Authorization") token:String, @Path("id") artistId:String):Call<ArtistTopTracks>

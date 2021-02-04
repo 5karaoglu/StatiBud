@@ -52,6 +52,9 @@
         android:name="com.example.contestifyfirsttry.detailed.ItemDetailedFragment"
         android:label="fragment_item_detailed"
         tools:layout="@layout/fragment_item_detailed">
+        <action
+            android:id="@+id/action_itemDetailedFragment_to_itemDetailedFragment"
+            app:destination="@id/itemDetailedFragment" />
 
     </fragment>
 

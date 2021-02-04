@@ -45,13 +45,6 @@ class ArtistsAdapter(
     }
 
     override fun onBindViewHolder(holder: ArtistsViewHolder, position: Int) {
-       /*Picasso.get()
-           .load(dataList.items[position].images[0].url)
-           .fit().centerCrop()
-           .into(holder.imageView)
-
-        holder.textView.text = dataList.items[position].name
-        holder.textViewPop.text = "#${position+1}"*/
 
         var artist = dataList.items[position]
         holder.bind(artist,position,itemClickListener)
