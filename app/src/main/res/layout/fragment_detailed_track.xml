@@ -46,53 +46,13 @@
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent">
-            <androidx.cardview.widget.CardView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                app:cardCornerRadius="20dip"
-                android:id="@+id/reLayoutArtist">
-                <RelativeLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="70dp"
-                    android:gravity="center"
-                    android:layout_margin="10dp">
 
-                    <ImageView
-                        android:id="@+id/imageViewArtist"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:layout_centerVertical="true"
-                        android:src="@drawable/ic_launcher_foreground" />
-
-                    <TextView
-                        android:id="@+id/textViewArtistName"
-                        android:layout_width="155dp"
-                        android:layout_height="89dp"
-                        android:layout_alignParentStart="true"
-                        android:layout_alignParentTop="true"
-                        android:layout_alignParentEnd="true"
-                        android:layout_alignParentBottom="true"
-                        android:layout_marginStart="0dp"
-                        android:layout_marginEnd="2dp"
-                        android:gravity="center"
-                        android:maxLines="2"
-                        android:shadowColor="@color/black"
-                        android:shadowDx="2"
-                        android:shadowDy="2"
-                        android:shadowRadius="4"
-                        android:text="Arctic Monkeys"
-                        android:textColor="@color/white"
-                        android:textSize="35sp"
-                        android:textStyle="bold" />
-                </RelativeLayout>
-            </androidx.cardview.widget.CardView>
             <TableLayout
                 android:layout_margin="5dp"
                 android:padding="5dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@drawable/cardview_background"
-                android:layout_below="@+id/reLayoutArtist">
+                android:background="@drawable/cardview_background">
                 <TableRow
                     android:gravity="center_horizontal">
                     <RelativeLayout
@@ -332,6 +292,47 @@
                     </RelativeLayout>
                 </TableRow>
             </TableLayout>
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:cardCornerRadius="20dip"
+                android:id="@+id/reLayoutArtist">
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="70dp"
+                    android:gravity="center"
+                    android:layout_margin="10dp">
+
+                    <ImageView
+                        android:id="@+id/imageViewArtist"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_centerVertical="true"
+                        android:src="@drawable/ic_launcher_foreground" />
+
+                    <TextView
+                        android:id="@+id/textViewArtistName"
+                        android:layout_width="155dp"
+                        android:layout_height="89dp"
+                        android:layout_alignParentStart="true"
+                        android:layout_alignParentTop="true"
+                        android:layout_alignParentEnd="true"
+                        android:layout_alignParentBottom="true"
+                        android:layout_marginStart="0dp"
+                        android:layout_marginEnd="2dp"
+                        android:gravity="center"
+                        android:maxLines="2"
+                        android:shadowColor="@color/black"
+                        android:shadowDx="2"
+                        android:shadowDy="2"
+                        android:shadowRadius="4"
+                        android:text="Arctic Monkeys"
+                        android:textColor="@color/white"
+                        android:textSize="35sp"
+                        android:textStyle="bold" />
+                </RelativeLayout>
+            </androidx.cardview.widget.CardView>
         </RelativeLayout>
     </androidx.core.widget.NestedScrollView>
 

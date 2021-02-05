@@ -1,6 +1,7 @@
 package com.example.contestifyfirsttry.util
 
 import com.example.contestifyfirsttry.Artists
+import com.example.contestifyfirsttry.TrackItems
 import com.example.contestifyfirsttry.Tracks
 import com.example.contestifyfirsttry.model.*
 import retrofit2.Call
@@ -37,4 +38,10 @@ interface Api {
 
     @GET("audio-features/{id}")
     fun getTrackAudioFeature(@Header("Authorization") token:String, @Path("id") trackId:String):Call<TrackAudioFeatures>
+
+    @GET("tracks/{id}")
+    fun getTrack(@Header("Authorization") token:String, @Path("id") trackId:String):Call<TrackItems>
+
+    @GET("albums/{id}/tracks")
+    fun getAlbumTracks(@Header("Authorization") token:String, @Path("id") albumId:String):Call<AlbumTracks>
 }

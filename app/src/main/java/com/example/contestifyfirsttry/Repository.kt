@@ -38,7 +38,11 @@ class Repository() {
     var respArtistAlbums = MutableLiveData<ArtistAlbums>()
     var respRelatedArtists = MutableLiveData<RelatedArtists>()
 
+    var respTrack = MutableLiveData<TrackItems>()
     var respTrackAudioFeatures = MutableLiveData<TrackAudioFeatures>()
+
+    var respAlbumTracks = MutableLiveData<AlbumTracks>()
+
     var scopes : Scopes? = null
     private val CLIENT_ID = "85e82d6c52384d2b9ada66f99f78648c"
     private val REDIRECT_URI = "http://com.example.contestifyfirsttry/callback"
@@ -150,8 +154,8 @@ class Repository() {
 
         call.enqueue(object : Callback<Item> {
             override fun onResponse(call: Call<Item>, response: Response<Item>) {
-                respArtist.value = response.body()!!
                 Log.d(TAG, "onResponse: ${response.body()}")
+                respArtist.value = response.body()!!
             }
 
             override fun onFailure(call: Call<Item>, t: Throwable) {
@@ -205,6 +209,21 @@ class Repository() {
 
         })
     }
+    fun getTrack(token: String,id:String){
+        var call:retrofit2.Call<TrackItems> = service.getTrack("Bearer $token",id)
+
+        call.enqueue(object : Callback<TrackItems> {
+            override fun onResponse(call: Call<TrackItems>, response: Response<TrackItems>) {
+                respTrack.value = response.body()!!
+                Log.d(TAG, "onResponse: ${response.body()}")
+            }
+
+            override fun onFailure(call: Call<TrackItems>, t: Throwable) {
+                Log.d(TAG, "onFailure: ${t.message}")
+            }
+
+        })
+    }
     fun getTrackAudioFeatures(token: String,id:String){
         var call:retrofit2.Call<TrackAudioFeatures> = service.getTrackAudioFeature("Bearer $token",id)
 
@@ -215,6 +234,21 @@ class Repository() {
             }
 
             override fun onFailure(call: Call<TrackAudioFeatures>, t: Throwable) {
+                Log.d(TAG, "onFailure: ${t.message}")
+            }
+
+        })
+    }
+    fun getAlbumTracks(token: String,id:String){
+        var call:retrofit2.Call<AlbumTracks> = service.getAlbumTracks("Bearer $token",id)
+
+        call.enqueue(object : Callback<AlbumTracks> {
+            override fun onResponse(call: Call<AlbumTracks>, response: Response<AlbumTracks>) {
+                respAlbumTracks.value = response.body()!!
+                Log.d(TAG, "onResponse: ${response.body()}")
+            }
+
+            override fun onFailure(call: Call<AlbumTracks>, t: Throwable) {
                 Log.d(TAG, "onFailure: ${t.message}")
             }
 

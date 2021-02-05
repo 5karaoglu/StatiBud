@@ -12,7 +12,6 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import com.example.contestifyfirsttry.MainViewModel
 import com.example.contestifyfirsttry.R
-import com.example.contestifyfirsttry.TrackItems
 import com.example.contestifyfirsttry.model.RelatedArtist
 import com.example.contestifyfirsttry.model.RelatedArtists
 import com.example.contestifyfirsttry.util.CustomViewModelFactory
@@ -61,7 +60,7 @@ class DetailedArtistRelatedArtistsFragment : Fragment(), RelatedArtistsAdapter.O
         val editor = sharedPreferences.edit()
         editor.putString("id",relatedArtist.id)
         editor.apply()
-        findNavController().navigate(R.id.action_itemDetailedFragment_to_itemDetailedFragment,bundle)
+        findNavController().navigate(R.id.action_itemDetailedFragment_self,bundle)
     }
 
 

@@ -30,7 +30,10 @@ class MainViewModel(lifecycleOwner: LifecycleOwner) : ViewModel() {
     var artistAlbums = MutableLiveData<ArtistAlbums>()
     var relatedArtists = MutableLiveData<RelatedArtists>()
 
+    var track = MutableLiveData<TrackItems>()
     var trackAudioFeatures = MutableLiveData<TrackAudioFeatures>()
+
+    var albumTracks = MutableLiveData<AlbumTracks>()
 
     init {
         repository.respArtistsShortTerm.observe(lifecycleOwner,object : Observer<Artists>{
@@ -95,9 +98,19 @@ class MainViewModel(lifecycleOwner: LifecycleOwner) : ViewModel() {
                 relatedArtists.value = t
             }
         })
+        repository.respTrack.observe(lifecycleOwner,object : Observer<TrackItems>{
+            override fun onChanged(t: TrackItems?) {
+                track.value = t
+            }
+        })
         repository.respTrackAudioFeatures.observe(lifecycleOwner,object : Observer<TrackAudioFeatures>{
             override fun onChanged(t: TrackAudioFeatures?) {
                 trackAudioFeatures.value = t
+            }
+        })
+        repository.respAlbumTracks.observe(lifecycleOwner,object : Observer<AlbumTracks>{
+            override fun onChanged(t: AlbumTracks?) {
+                albumTracks.value = t
             }
         })
     }
@@ -134,8 +147,14 @@ class MainViewModel(lifecycleOwner: LifecycleOwner) : ViewModel() {
     fun getRelatedArtists(token: String,id:String){
         repository.getRelatedArtists(token,id)
     }
+    fun getTrack(token: String,id:String){
+        repository.getTrack(token,id)
+    }
     fun getTrackAudioFeatures(token: String,id:String){
         repository.getTrackAudioFeatures(token,id)
+    }
+    fun getAlbumTracks(token: String,id:String){
+        repository.getAlbumTracks(token,id)
     }
 
 }

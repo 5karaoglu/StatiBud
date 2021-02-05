@@ -33,6 +33,7 @@ class DetailedArtistFragment : Fragment(){
         return inflater.inflate(R.layout.fragment_item_detailed, container, false)
     }
 
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         //getting currentId

@@ -7,6 +7,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
@@ -15,6 +16,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.contestifyfirsttry.Artists
 import com.example.contestifyfirsttry.MainViewModel
 import com.example.contestifyfirsttry.R
+import com.example.contestifyfirsttry.TrackItems
 import com.example.contestifyfirsttry.model.Item
 import com.example.contestifyfirsttry.model.TrackAudioFeatures
 import com.example.contestifyfirsttry.top.ArtistsAdapter
@@ -55,8 +57,11 @@ class DetailedTrackFragment : Fragment() {
             Observer<TrackAudioFeatures> { t -> generateAudioFeature(t!!) })
         viewmodel!!.artist.observe(viewLifecycleOwner,
             Observer<Item> { t -> setArtistImage(t!!) })
+        viewmodel!!.track.observe(viewLifecycleOwner,
+            Observer<TrackItems> { t -> setTrack(t!!) })
         viewmodel.getTrackAudioFeatures(token!!,id!!)
         viewmodel.getArtist(token,artistId!!)
+        viewmodel.getTrack(token,artistId!!)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -86,12 +91,27 @@ class DetailedTrackFragment : Fragment() {
 
         detailedTrackToolbar.title = name
     }
+    private fun setTrack(track:TrackItems){
+
+    }
     fun setArtistImage(artist:Item){
         Picasso.get()
             .load(artist.images[0].url)
             .fit().centerCrop()
             .into(imageViewArtist)
         textViewArtistName.text = artist.name
+
+        imageViewArtist.setOnClickListener {
+            val bundle = Bundle()
+            bundle.putString("name",artist.name)
+            bundle.putString("id",artist.id)
+            bundle.putString("image",artist.images[0].url)
+            val sharedPreferences = requireActivity().getSharedPreferences("spotifystatsapp",Context.MODE_PRIVATE)
+            val editor = sharedPreferences.edit()
+            editor.putString("id",artist.id)
+            editor.apply()
+            findNavController().navigate(R.id.action_detailedTrackFragment_to_itemDetailedFragment,bundle)
+        }
     }
 
 

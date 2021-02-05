@@ -71,6 +71,7 @@ class TracksFragment : Fragment(), TracksAdapter.OnItemClickListener {
         val sharedPreferences = requireActivity().getSharedPreferences("spotifystatsapp",Context.MODE_PRIVATE)
         val editor = sharedPreferences.edit()
         editor.putString("id",track.id)
+        editor.putString("artistId",track.artists[0].id)
         editor.apply()
         findNavController().navigate(R.id.action_topFragment_to_detailedTrackFragment,bundle)
     }
