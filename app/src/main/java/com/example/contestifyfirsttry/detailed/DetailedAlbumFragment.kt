@@ -65,6 +65,12 @@ class DetailedAlbumFragment : Fragment(), DetailedAlbumTracksAdapter.OnItemClick
         val image = bundle.get("image") as String
         albumCover = image
         setData(name,image)
+        init()
+    }
+    private fun init(){
+        detailedAlbumToolbar.setNavigationOnClickListener { View.OnClickListener {
+            findNavController().navigate(R.id.action_detailedAlbumFragment_to_topFragment)
+        } }
     }
     private fun generateAlbumTracks(album: Album){
         var adapter : DetailedAlbumTracksAdapter = DetailedAlbumTracksAdapter(requireContext(),album,this)
@@ -76,7 +82,7 @@ class DetailedAlbumFragment : Fragment(), DetailedAlbumTracksAdapter.OnItemClick
     private fun setCopyright(album: Album){
         tvCopyright.text = album.copyrights[0].text
         tvLabel.text = album.label
-        tvRelease.text = String.format("Released: ½d",album.release_date)
+        tvRelease.text = String.format("Released: %s",album.release_date)
     }
 
     override fun onItemClicked(track: AlbumItems) {
@@ -89,6 +95,7 @@ class DetailedAlbumFragment : Fragment(), DetailedAlbumTracksAdapter.OnItemClick
         editor.putString("id",track.id)
         editor.apply()
         findNavController().navigate(R.id.action_detailedAlbumFragment_to_detailedTrackFragment,bundle)
+        findNavController().popBackStack()
     }
     fun setData(name:String,image:String){
         Picasso.get()

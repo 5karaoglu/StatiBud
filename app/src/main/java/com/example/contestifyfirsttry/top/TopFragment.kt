@@ -5,13 +5,14 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.activity.addCallback
+import androidx.appcompat.app.AlertDialog
 import com.example.contestifyfirsttry.R
 import com.google.android.material.tabs.TabLayoutMediator
 import kotlinx.android.synthetic.main.fragment_top.*
 
 
 class TopFragment : Fragment() {
-
 
 
     override fun onCreateView(
@@ -24,6 +25,16 @@ class TopFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        val callback = requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner){
+            AlertDialog.Builder(requireContext())
+                .setMessage(R.string.dialog_text)
+                .setCancelable(false)
+                .setPositiveButton(R.string.dialog_accept
+                ) { dialog, which -> requireActivity().finish() }
+                .setNegativeButton(R.string.dialog_deny,null)
+                .show()
+        }
+        callback.isEnabled = true
 
     }
 
@@ -42,5 +53,10 @@ class TopFragment : Fragment() {
         pager.currentItem = 0
     }
 
+
+    override fun onDetach() {
+        super.onDetach()
+
+    }
 
 }

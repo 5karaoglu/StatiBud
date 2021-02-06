@@ -44,6 +44,7 @@ class MainActivity : AppCompatActivity() {
         navController = findNavController(R.id.fragment)
         bottomNavSetup()
 
+
     }
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         menuInflater.inflate(R.menu.bottom_nav_menu, menu)
@@ -75,16 +76,7 @@ class MainActivity : AppCompatActivity() {
         mAdView!!.loadAd(adRequest)
     }
 
-    override fun onBackPressed() {
-        super.onBackPressed()
-        AlertDialog.Builder(this)
-            .setMessage(R.string.dialog_text)
-            .setCancelable(false)
-            .setPositiveButton(R.string.dialog_accept
-            ) { dialog, which -> finish() }
-            .setNegativeButton(R.string.dialog_deny,null)
-            .show()
-    }
+
 
 
 
