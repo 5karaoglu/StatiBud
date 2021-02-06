@@ -58,6 +58,9 @@
         <action
             android:id="@+id/action_itemDetailedFragment_self"
             app:destination="@id/itemDetailedFragment" />
+        <action
+            android:id="@+id/action_itemDetailedFragment_to_detailedAlbumFragment"
+            app:destination="@id/detailedAlbumFragment" />
 
     </fragment>
     <fragment
@@ -70,6 +73,24 @@
             app:destination="@id/detailedTrackFragment" />
         <action
             android:id="@+id/action_detailedTrackFragment_to_itemDetailedFragment"
+            app:destination="@id/itemDetailedFragment" />
+        <action
+            android:id="@+id/action_detailedTrackFragment_to_detailedAlbumFragment"
+            app:destination="@id/detailedAlbumFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/detailedAlbumFragment"
+        android:name="com.example.contestifyfirsttry.detailed.DetailedAlbumFragment"
+        android:label="fragment_detailed_album"
+        tools:layout="@layout/fragment_detailed_album" >
+        <action
+            android:id="@+id/action_detailedAlbumFragment_self"
+            app:destination="@id/detailedAlbumFragment" />
+        <action
+            android:id="@+id/action_detailedAlbumFragment_to_detailedTrackFragment"
+            app:destination="@id/detailedTrackFragment" />
+        <action
+            android:id="@+id/action_detailedAlbumFragment_to_itemDetailedFragment"
             app:destination="@id/itemDetailedFragment" />
     </fragment>
 

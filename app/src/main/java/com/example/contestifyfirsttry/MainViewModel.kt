@@ -33,6 +33,7 @@ class MainViewModel(lifecycleOwner: LifecycleOwner) : ViewModel() {
     var track = MutableLiveData<TrackItems>()
     var trackAudioFeatures = MutableLiveData<TrackAudioFeatures>()
 
+    var album = MutableLiveData<Album>()
     var albumTracks = MutableLiveData<AlbumTracks>()
 
     init {
@@ -113,6 +114,11 @@ class MainViewModel(lifecycleOwner: LifecycleOwner) : ViewModel() {
                 albumTracks.value = t
             }
         })
+        repository.respAlbum.observe(lifecycleOwner,object : Observer<Album>{
+            override fun onChanged(t: Album?) {
+                album.value = t
+            }
+        })
     }
 
     fun getMyArtists(token: String,timeRange:String){
@@ -152,6 +158,9 @@ class MainViewModel(lifecycleOwner: LifecycleOwner) : ViewModel() {
     }
     fun getTrackAudioFeatures(token: String,id:String){
         repository.getTrackAudioFeatures(token,id)
+    }
+    fun getAlbum(token: String,id:String){
+        repository.getAlbum(token,id)
     }
     fun getAlbumTracks(token: String,id:String){
         repository.getAlbumTracks(token,id)

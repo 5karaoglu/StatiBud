@@ -72,4 +72,9 @@
     <string name="liveness">Liveness</string>
     <string name="valence">Valence</string>
 
+    <!--Detailed Track Fragment-->
+    <string name="track_name">Track Name</string>
+    <string name="album_explicit">Explicit</string>
+
+
 </resources>

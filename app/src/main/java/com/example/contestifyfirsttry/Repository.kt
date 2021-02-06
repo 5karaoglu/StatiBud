@@ -41,6 +41,7 @@ class Repository() {
     var respTrack = MutableLiveData<TrackItems>()
     var respTrackAudioFeatures = MutableLiveData<TrackAudioFeatures>()
 
+    var respAlbum = MutableLiveData<Album>()
     var respAlbumTracks = MutableLiveData<AlbumTracks>()
 
     var scopes : Scopes? = null
@@ -214,8 +215,9 @@ class Repository() {
 
         call.enqueue(object : Callback<TrackItems> {
             override fun onResponse(call: Call<TrackItems>, response: Response<TrackItems>) {
-                respTrack.value = response.body()!!
                 Log.d(TAG, "onResponse: ${response.body()}")
+                respTrack.value = response.body()!!
+
             }
 
             override fun onFailure(call: Call<TrackItems>, t: Throwable) {
@@ -234,6 +236,21 @@ class Repository() {
             }
 
             override fun onFailure(call: Call<TrackAudioFeatures>, t: Throwable) {
+                Log.d(TAG, "onFailure: ${t.message}")
+            }
+
+        })
+    }
+    fun getAlbum(token: String,id:String){
+        var call:retrofit2.Call<Album> = service.getAlbum("Bearer $token",id)
+        Log.d(TAG, "getAlbum: called")
+        call.enqueue(object : Callback<Album> {
+            override fun onResponse(call: Call<Album>, response: Response<Album>) {
+                respAlbum.value = response.body()!!
+                Log.d(TAG, "onResponse: ${response.body()}")
+            }
+
+            override fun onFailure(call: Call<Album>, t: Throwable) {
                 Log.d(TAG, "onFailure: ${t.message}")
             }
 

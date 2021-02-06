@@ -16,7 +16,7 @@ data class Tracks (
 )
 
 data class TrackItems (
-    @SerializedName("album") val album : Album,
+    @SerializedName("album") val album : TrackAlbum,
     @SerializedName("artists") val artists : List<TrackArtists>,
     @SerializedName("available_markets") val available_markets : List<String>,
     @SerializedName("disc_number") val disc_number : Int,
@@ -35,7 +35,7 @@ data class TrackItems (
     @SerializedName("uri") val uri : String
 )
 
-data class Album (
+data class TrackAlbum (
     @SerializedName("album_type") val album_type : String,
     @SerializedName("artists") val artists : List<Artists>,
     @SerializedName("available_markets") val available_markets : List<String>,

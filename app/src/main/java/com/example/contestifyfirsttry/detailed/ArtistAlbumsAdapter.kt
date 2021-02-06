@@ -17,7 +17,8 @@ import com.squareup.picasso.Picasso
 
 class ArtistAlbumsAdapter (
     var context: Context,
-    var dataList: ArtistAlbums
+    var dataList: ArtistAlbums,
+    var itemClickListener: OnItemClickListener
 ) : RecyclerView.Adapter<ArtistAlbumsAdapter.ArtistAlbumsViewHolder>() {
 
 
@@ -25,13 +26,16 @@ class ArtistAlbumsAdapter (
         var imageView = itemView.findViewById<ImageView>(R.id.ivDetailedAlbum)
         var textView = itemView.findViewById<TextView>(R.id.tvDetailedAlbum)
 
-        fun bind(album: ArtistAlbumsItems, position: Int){
+        fun bind(album: ArtistAlbumsItems, position: Int, clickListener: OnItemClickListener){
             Picasso.get()
                 .load(album.images[0].url)
                 .fit().centerCrop()
                 .into(imageView)
             textView.text = album.name
 
+            itemView.setOnClickListener {
+                clickListener.onItemClicked(album)
+            }
 
         }
     }
@@ -46,7 +50,7 @@ class ArtistAlbumsAdapter (
     override fun onBindViewHolder(holder: ArtistAlbumsViewHolder, position: Int) {
 
         var album = dataList.items[position]
-        holder.bind(album,position)
+        holder.bind(album,position,itemClickListener)
 
 
     }
@@ -56,6 +60,6 @@ class ArtistAlbumsAdapter (
     }
 
     interface OnItemClickListener{
-        fun onItemClicked(track: TrackItems)
+        fun onItemClicked(album: ArtistAlbumsItems)
     }
 }

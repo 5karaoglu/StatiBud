@@ -17,6 +17,7 @@ import com.example.contestifyfirsttry.Artists
 import com.example.contestifyfirsttry.MainViewModel
 import com.example.contestifyfirsttry.R
 import com.example.contestifyfirsttry.TrackItems
+import com.example.contestifyfirsttry.model.ArtistAlbumsItems
 import com.example.contestifyfirsttry.model.Item
 import com.example.contestifyfirsttry.model.TrackAudioFeatures
 import com.example.contestifyfirsttry.top.ArtistsAdapter
@@ -45,7 +46,9 @@ class DetailedTrackFragment : Fragment() {
         //getting token
         val sharedPreferences = requireActivity().getSharedPreferences("spotifystatsapp", Context.MODE_PRIVATE)
         val token = sharedPreferences.getString("token","")
+        Log.d(TAG, "onActivityCreated: $token")
         val id = sharedPreferences.getString("id","")
+        Log.d(TAG, "onActivityCreated: $id")
         val artistId = sharedPreferences.getString("artistId","")
         val image = sharedPreferences.getString("image","")
 
@@ -61,7 +64,7 @@ class DetailedTrackFragment : Fragment() {
             Observer<TrackItems> { t -> setTrack(t!!) })
         viewmodel.getTrackAudioFeatures(token!!,id!!)
         viewmodel.getArtist(token,artistId!!)
-        viewmodel.getTrack(token,artistId!!)
+        viewmodel.getTrack(token,id!!)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -111,6 +114,25 @@ class DetailedTrackFragment : Fragment() {
             editor.putString("id",artist.id)
             editor.apply()
             findNavController().navigate(R.id.action_detailedTrackFragment_to_itemDetailedFragment,bundle)
+        }
+    }
+    private fun setAlbumImage(track: TrackItems){
+        Picasso.get()
+            .load(track.album.images[0].url)
+            .fit().centerCrop()
+            .into(imageViewAlbum)
+        textViewAlbumName.text = track.album.name
+
+        imageViewAlbum.setOnClickListener {
+            val bundle = Bundle()
+            bundle.putString("name",track.album.name)
+            bundle.putString("id",track.album.id)
+            bundle.putString("image",track.album.images[0].url)
+            val sharedPreferences = requireActivity().getSharedPreferences("spotifystatsapp",Context.MODE_PRIVATE)
+            val editor = sharedPreferences.edit()
+            editor.putString("id",track.album.id)
+            editor.apply()
+            findNavController().navigate(R.id.action_detailedTrackFragment_to_detailedAlbumFragment,bundle)
         }
     }
 

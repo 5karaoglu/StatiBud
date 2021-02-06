@@ -9,13 +9,12 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.contestifyfirsttry.R
-import com.example.contestifyfirsttry.model.AlbumTrackItem
-import com.example.contestifyfirsttry.model.AlbumTracks
+import com.example.contestifyfirsttry.model.*
 
 
 class DetailedAlbumTracksAdapter (
     var context: Context,
-    var dataList: AlbumTracks,
+    var dataList: Album,
     var itemClickListener: OnItemClickListener
 ) : RecyclerView.Adapter<DetailedAlbumTracksAdapter.AlbumTracksViewHolder>() {
 
@@ -23,12 +22,12 @@ class DetailedAlbumTracksAdapter (
     class AlbumTracksViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         var imageView = itemView.findViewById<ImageView>(R.id.ivIsExplicit)
         var textViewName = itemView.findViewById<TextView>(R.id.tvTrackName)
-        var textViewCount = itemView.findViewById<TextView>(R.id.tvTrackCount)
+        var textViewArtist = itemView.findViewById<TextView>(R.id.tvArtistName)
 
-        fun bind(track: AlbumTrackItem, position: Int, clickListener:OnItemClickListener) {
+        fun bind(track: AlbumItems, position: Int, clickListener:OnItemClickListener) {
 
             textViewName.text = track.name
-            textViewCount.text = String.format("#%d",position+1)
+            textViewArtist.text = track.artists[0].name
             if (track.explicit){
                 imageView.visibility = View.VISIBLE
             }
@@ -50,16 +49,16 @@ class DetailedAlbumTracksAdapter (
         holder: AlbumTracksViewHolder,
         position: Int
     ) {
-        var track = dataList.items[position]
+        var track = dataList.tracks.items[position]
         holder.bind(track, position,itemClickListener)
     }
 
     override fun getItemCount(): Int {
-        return dataList.items.size
+        return dataList.tracks.items.size
     }
 
     interface OnItemClickListener {
-        fun onItemClicked(track: AlbumTrackItem)
+        fun onItemClicked(track: AlbumItems)
 
     }
 

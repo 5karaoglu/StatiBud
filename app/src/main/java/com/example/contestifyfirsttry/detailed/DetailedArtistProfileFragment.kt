@@ -10,23 +10,21 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.contestifyfirsttry.Artists
 import com.example.contestifyfirsttry.MainViewModel
 import com.example.contestifyfirsttry.R
 import com.example.contestifyfirsttry.Tracks
-import com.example.contestifyfirsttry.model.ArtistAlbums
-import com.example.contestifyfirsttry.model.ArtistTopTracks
-import com.example.contestifyfirsttry.model.Item
-import com.example.contestifyfirsttry.model.TracksTopTrack
+import com.example.contestifyfirsttry.model.*
 import com.example.contestifyfirsttry.top.ArtistsAdapter
 import com.example.contestifyfirsttry.util.CustomViewModelFactory
 import kotlinx.android.synthetic.main.artists_fragment.*
 import kotlinx.android.synthetic.main.fragment_detailed_artist_profile.*
 
 
-class DetailedArtistProfileFragment : Fragment() {
+class DetailedArtistProfileFragment : Fragment(), ArtistAlbumsAdapter.OnItemClickListener {
     private val TAG = "DetailedArtistProfile Fragment"
     private lateinit var viewmodel: MainViewModel
 
@@ -40,12 +38,6 @@ class DetailedArtistProfileFragment : Fragment() {
     ): View? {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_detailed_artist_profile, container, false)
-    }
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-
-
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
@@ -80,13 +72,23 @@ class DetailedArtistProfileFragment : Fragment() {
         recyclerTopTracks.adapter = adapter
     }
     private fun generateAlbums(albums:ArtistAlbums){
-        var adapter : ArtistAlbumsAdapter = ArtistAlbumsAdapter(requireContext(),albums)
+        var adapter : ArtistAlbumsAdapter = ArtistAlbumsAdapter(requireContext(),albums,this)
         var layoutManager: RecyclerView.LayoutManager = LinearLayoutManager(requireContext(),LinearLayoutManager.HORIZONTAL,false)
         recyclerAlbums.layoutManager = layoutManager
         recyclerAlbums.adapter = adapter
     }
 
-
+    override fun onItemClicked(album: ArtistAlbumsItems) {
+        val bundle = Bundle()
+        bundle.putString("name",album.name)
+        bundle.putString("id",album.id)
+        bundle.putString("image",album.images[0].url)
+        val sharedPreferences = requireActivity().getSharedPreferences("spotifystatsapp",Context.MODE_PRIVATE)
+        val editor = sharedPreferences.edit()
+        editor.putString("id",album.id)
+        editor.apply()
+        findNavController().navigate(R.id.action_itemDetailedFragment_to_detailedAlbumFragment,bundle)
+    }
 
 
 }

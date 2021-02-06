@@ -42,6 +42,9 @@ interface Api {
     @GET("tracks/{id}")
     fun getTrack(@Header("Authorization") token:String, @Path("id") trackId:String):Call<TrackItems>
 
+    @GET("albums/{id}")
+    fun getAlbum(@Header("Authorization") token:String, @Path("id") albumId:String):Call<Album>
+
     @GET("albums/{id}/tracks")
     fun getAlbumTracks(@Header("Authorization") token:String, @Path("id") albumId:String):Call<AlbumTracks>
 }
