@@ -1,5 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">Spotify Stats</string>
+    <string name="app_name">Spotify için İstatistikler</string>
 
     <string name="current_position">#%d</string>
 
@@ -7,8 +8,8 @@
     <string name="linked_in">https://www.linkedin.com/in/besirkaraoglu/</string>
 
     <!--Top Fragment-->
-    <string name="artists">ARTISTS</string>
-    <string name="tracks">TRACKS</string>
+    <string name="artists">SANATÇILAR</string>
+    <string name="tracks">ŞARKILAR</string>
 
     <!--Single Track Layout-->
     <string name="album_name">Album Name:</string>
@@ -23,13 +24,13 @@
     <string name="sample_rank">#1</string>
 
     <!--Profile Activity-->
-    <string name="profile_header">Profile</string>
+    <string name="profile_header">Profil</string>
     <string name="id">ID:</string>
-    <string name="display_name">Display Name:</string>
+    <string name="display_name">Ad:</string>
     <string name="email">Email:</string>
-    <string name="followers">Followers:</string>
-    <string name="country">Country:</string>
-    <string name="account_status">Account Status:</string>
+    <string name="followers">Takipçiler:</string>
+    <string name="country">Ülke:</string>
+    <string name="account_status">Hesap Durumu:</string>
 
     <string name="sample_id">0123456789</string>
     <string name="sample_display_name">Beşir Karao</string>
@@ -39,35 +40,35 @@
     <string name="sample_status">Premium</string>
 
     <!--Navigation Menu-->
-    <string name="home">Home</string>
-    <string name="top">Top</string>
-    <string name="Search">Search</string>
-    <string name="Profile">Profile</string>
+    <string name="home">Ana Sayfa</string>
+    <string name="top">En Çok</string>
+    <string name="Search">Arama</string>
+    <string name="Profile">Profil</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="banner_ad_unit_id">ca-app-pub-3940256099942544/6300978111</string>
 
     <!--Recent Fragment-->
-    <string name="recent_header">Recent Tracks</string>
+    <string name="recent_header">Son Dinlenenler</string>
 
     <!--time ranges-->
-    <string name="short_term">4 weeks</string>
-    <string name="mid_term">6 months</string>
-    <string name="long_term">lifetime</string>
+    <string name="short_term">4 hafta</string>
+    <string name="mid_term">6 ay</string>
+    <string name="long_term">Ömürboyu</string>
 
 
     <!--dialog texts-->
-    <string name="dialog_text">Are you sure you want to exit?</string>
-    <string name="dialog_accept">Yes</string>
-    <string name="dialog_deny">No</string>
+    <string name="dialog_text">Çıkmak istediğinize emin misiniz?</string>
+    <string name="dialog_accept">Evet</string>
+    <string name="dialog_deny">Hayır</string>
 
     <!--Item Detailed Fragment-->
-    <string name="artist_profile">PROFILE</string>
-    <string name="artist_similar">SIMILAR ARTISTS</string>
+    <string name="artist_profile">PROFİL</string>
+    <string name="artist_similar">BENZER SANATÇILAR</string>
 
     <!--Detailed Artist Profile Fragment-->
-    <string name="top_tracks">Top Tracks</string>
-    <string name="albums">Albums</string>
+    <string name="top_tracks">En Çok Dinlenenler</string>
+    <string name="albums">Albümler</string>
 
     <!--Detailed Track Fragment-->
     <string name="danceability">Danceability</string>
@@ -80,8 +81,8 @@
     <string name="valence">Valence</string>
 
     <!--Detailed Track Fragment-->
-    <string name="track_name">Track Name</string>
-    <string name="album_explicit">Explicit</string>
+    <string name="track_name">Şarkı Adı</string>
+    <string name="album_explicit">Açık Sözlü</string>
 
 
 </resources>

@@ -2,6 +2,7 @@ package com.example.contestifyfirsttry.detailed
 
 import android.content.Context
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -57,6 +58,7 @@ class DetailedAlbumFragment : Fragment(), DetailedAlbumTracksAdapter.OnItemClick
 
     }
 
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         val bundle = requireArguments()
@@ -68,8 +70,10 @@ class DetailedAlbumFragment : Fragment(), DetailedAlbumTracksAdapter.OnItemClick
         init()
     }
     private fun init(){
+        
         detailedAlbumToolbar.setNavigationOnClickListener { View.OnClickListener {
-            findNavController().navigate(R.id.action_detailedAlbumFragment_to_topFragment)
+            Log.d(TAG, "init: clicked")
+            findNavController().popBackStack()
         } }
     }
     private fun generateAlbumTracks(album: Album){

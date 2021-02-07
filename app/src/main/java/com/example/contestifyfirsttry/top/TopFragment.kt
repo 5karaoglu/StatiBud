@@ -9,6 +9,7 @@ import androidx.activity.addCallback
 import androidx.appcompat.app.AlertDialog
 import com.example.contestifyfirsttry.R
 import com.google.android.material.tabs.TabLayoutMediator
+import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.fragment_top.*
 
 
@@ -45,18 +46,12 @@ class TopFragment : Fragment() {
     fun initViewPager(){
         var adapter = ViewPagerAdapter(requireActivity().supportFragmentManager,lifecycle)
         pager.adapter = adapter
-        var tabList = arrayListOf<String>("Artists","Tracks")
+        var tabList = arrayListOf<String>(getString(R.string.artists),getString(R.string.tracks))
         TabLayoutMediator(tabLayoutFragmentTop,pager){tab, position ->
             tab.text = tabList[position]
         }.attach()
         pager.offscreenPageLimit = 2
         pager.currentItem = 0
-    }
-
-
-    override fun onDetach() {
-        super.onDetach()
-
     }
 
 }
