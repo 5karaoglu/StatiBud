@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Spotify Stats</string>
+    <string name="app_name" translatable="false">Stats for Spotify</string>
 
     <string name="current_position">#%d</string>
 
@@ -70,6 +70,10 @@
     <string name="albums">Albums</string>
 
     <!--Detailed Track Fragment-->
+    <string name="duration">duration</string>
+    <string name="tempo">tempo</string>
+    <string name="key">key</string>
+
     <string name="danceability">Danceability</string>
     <string name="energy">Energy</string>
     <string name="loudness">Loudness</string>

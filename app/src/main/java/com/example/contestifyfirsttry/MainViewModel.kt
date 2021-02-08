@@ -26,6 +26,7 @@ class MainViewModel(lifecycleOwner: LifecycleOwner) : ViewModel() {
     var user = MutableLiveData<User>()
 
     var artist = MutableLiveData<Item>()
+    var multipleArtists = MutableLiveData<ArtistList>()
     var artistTopTracks = MutableLiveData<ArtistTopTracks>()
     var artistAlbums = MutableLiveData<ArtistAlbums>()
     var relatedArtists = MutableLiveData<RelatedArtists>()
@@ -84,6 +85,11 @@ class MainViewModel(lifecycleOwner: LifecycleOwner) : ViewModel() {
                 artist.value = t
             }
         })
+        repository.respMultipleArtists.observe(lifecycleOwner,object : Observer<ArtistList>{
+            override fun onChanged(t: ArtistList?) {
+                multipleArtists.value = t
+            }
+        })
         repository.respArtistTopTracks.observe(lifecycleOwner,object : Observer<ArtistTopTracks>{
             override fun onChanged(t: ArtistTopTracks?) {
                 artistTopTracks.value = t
@@ -119,6 +125,7 @@ class MainViewModel(lifecycleOwner: LifecycleOwner) : ViewModel() {
                 album.value = t
             }
         })
+
     }
 
     fun getMyArtists(token: String,timeRange:String){
@@ -143,6 +150,9 @@ class MainViewModel(lifecycleOwner: LifecycleOwner) : ViewModel() {
     }
     fun getArtist(token: String,id:String){
         repository.getArtist(token,id)
+    }
+    fun getMultipleArtist(token: String,id:String){
+        repository.getMultipleArtists(token,id)
     }
     fun getArtistTopTracks(token: String,id:String){
         repository.getArtistTopTracks(token,id)

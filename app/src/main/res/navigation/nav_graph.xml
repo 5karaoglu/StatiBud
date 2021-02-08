@@ -64,6 +64,9 @@
         <action
             android:id="@+id/action_itemDetailedFragment_to_topFragment"
             app:destination="@id/topFragment" />
+        <action
+            android:id="@+id/action_itemDetailedFragment_to_detailedTrackFragment"
+            app:destination="@id/detailedTrackFragment" />
 
     </fragment>
     <fragment

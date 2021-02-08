@@ -8,18 +8,16 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
+import android.widget.ProgressBar
+import androidx.activity.addCallback
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.example.contestifyfirsttry.Artists
-import com.example.contestifyfirsttry.MainViewModel
-import com.example.contestifyfirsttry.R
-import com.example.contestifyfirsttry.TrackItems
-import com.example.contestifyfirsttry.model.ArtistAlbumsItems
-import com.example.contestifyfirsttry.model.Item
-import com.example.contestifyfirsttry.model.TrackAudioFeatures
+import androidx.room.util.StringUtil
+import com.example.contestifyfirsttry.*
+import com.example.contestifyfirsttry.model.*
 import com.example.contestifyfirsttry.top.ArtistsAdapter
 import com.example.contestifyfirsttry.util.CustomViewModelFactory
 import com.squareup.picasso.Picasso
@@ -29,7 +27,7 @@ import kotlinx.android.synthetic.main.fragment_detailed_track.imageView
 import kotlinx.android.synthetic.main.fragment_item_detailed.*
 
 
-class DetailedTrackFragment : Fragment() {
+class DetailedTrackFragment : Fragment(), DetailedTrackArtistAdapter.OnItemClickListener {
     private val TAG = "DetailedTrack Fragment"
     private lateinit var viewmodel: MainViewModel
 
@@ -59,9 +57,14 @@ class DetailedTrackFragment : Fragment() {
         viewmodel!!.trackAudioFeatures.observe(viewLifecycleOwner,
             Observer<TrackAudioFeatures> { t -> generateAudioFeature(t!!) })
         viewmodel!!.artist.observe(viewLifecycleOwner,
-            Observer<Item> { t -> setArtistImage(t!!) })
+            Observer<Item> { t -> /*setArtistImage(t!!)*/ })
         viewmodel!!.track.observe(viewLifecycleOwner,
-            Observer<TrackItems> { t -> setTrack(t!!) })
+            Observer<TrackItems> { t ->
+                setAlbumImage(t!!)
+                setTrack(t)
+                viewmodel.getMultipleArtist(token!!,getArtists(t))})
+        viewmodel!!.multipleArtists.observe(viewLifecycleOwner,
+            Observer<ArtistList> { t -> setArtists(t!!) })
         viewmodel.getTrackAudioFeatures(token!!,id!!)
         viewmodel.getArtist(token,artistId!!)
         viewmodel.getTrack(token,id!!)
@@ -69,6 +72,9 @@ class DetailedTrackFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        //disabling onbackpressed
+        val callback = requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner){}
+        callback.isEnabled = true
         val bundle = this.arguments
         val name = bundle!!.getString("name")
         val image = bundle!!.getString("image")
@@ -76,15 +82,43 @@ class DetailedTrackFragment : Fragment() {
     }
 
     private fun generateAudioFeature(trackAudioFeatures: TrackAudioFeatures){
-        pbDanceability.progress = trackAudioFeatures.danceability.toFloat()*100
-        pbEnergy.progress = trackAudioFeatures.energy.toFloat()*100
-        pbLoudness.progress = trackAudioFeatures.loudness.toFloat()*100
-        pbSpeechiness.progress = trackAudioFeatures.speechiness.toFloat()*100
-        pbAcousticness.progress = trackAudioFeatures.acousticness.toFloat()*100
-        pbInstrumentalness.progress = trackAudioFeatures.instrumentalness.toFloat()*100
-        pbLiveness.progress = trackAudioFeatures.liveness.toFloat()*100
-        pbValence.progress = trackAudioFeatures.valence.toFloat()*100
+        tvDuration.text = Functions().msToMin(trackAudioFeatures.duration_ms)
+        tvTempo.text = String.format("%d bpm",trackAudioFeatures.tempo.toInt())
+        tvKey.text = String.format("%s%s",
+            Functions().trackKey(trackAudioFeatures.key),
+            Functions().trackMode(trackAudioFeatures.mode))
 
+        pbDanceability.progress = (trackAudioFeatures.danceability*100).toInt()
+        pbEnergy.progress = (trackAudioFeatures.energy*100).toInt()
+        pbSpeechiness.progress = (trackAudioFeatures.speechiness*100).toInt()
+        pbAcousticness.progress = (trackAudioFeatures.acousticness*100).toInt()
+        pbInstrumentalness.progress = (trackAudioFeatures.instrumentalness*100).toInt()
+        pbLiveness.progress = (trackAudioFeatures.liveness*100).toInt()
+        pbValence.progress = (trackAudioFeatures.valence*100).toInt()
+
+    }
+    //getting all artist ids for multiple search
+    private fun getArtists(track: TrackItems):String{
+        var str = ""
+        if (track.artists.size > 1){
+            for(i in track.artists){
+                str = "$str${i.id},"
+            }
+        }else{
+            str = track.artists[0].id
+        }
+        if (str.endsWith(",")){
+            str = str.substring(0,str.length-1)
+        }
+
+        Log.d(TAG, "getArtists: $str")
+        return str
+    }
+    private fun setArtists(artistList: ArtistList){
+        var adapter : DetailedTrackArtistAdapter = DetailedTrackArtistAdapter(requireContext(),artistList,this)
+        var layoutManager: RecyclerView.LayoutManager = LinearLayoutManager(requireContext())
+        recyclerTrackArtist.layoutManager = layoutManager
+        recyclerTrackArtist.adapter = adapter
     }
     fun setData(name:String,image:String){
         Picasso.get()
@@ -97,25 +131,7 @@ class DetailedTrackFragment : Fragment() {
     private fun setTrack(track:TrackItems){
 
     }
-    fun setArtistImage(artist:Item){
-        Picasso.get()
-            .load(artist.images[0].url)
-            .fit().centerCrop()
-            .into(imageViewArtist)
-        textViewArtistName.text = artist.name
 
-        imageViewArtist.setOnClickListener {
-            val bundle = Bundle()
-            bundle.putString("name",artist.name)
-            bundle.putString("id",artist.id)
-            bundle.putString("image",artist.images[0].url)
-            val sharedPreferences = requireActivity().getSharedPreferences("spotifystatsapp",Context.MODE_PRIVATE)
-            val editor = sharedPreferences.edit()
-            editor.putString("id",artist.id)
-            editor.apply()
-            findNavController().navigate(R.id.action_detailedTrackFragment_to_itemDetailedFragment,bundle)
-        }
-    }
     private fun setAlbumImage(track: TrackItems){
         Picasso.get()
             .load(track.album.images[0].url)
@@ -134,6 +150,18 @@ class DetailedTrackFragment : Fragment() {
             editor.apply()
             findNavController().navigate(R.id.action_detailedTrackFragment_to_detailedAlbumFragment,bundle)
         }
+    }
+
+    override fun onItemClicked(artist: ArtistListArtists) {
+        val bundle = Bundle()
+        bundle.putString("name",artist.name)
+        bundle.putString("id",artist.id)
+        bundle.putString("image",artist.images[0].url)
+        val sharedPreferences = requireActivity().getSharedPreferences("spotifystatsapp",Context.MODE_PRIVATE)
+        val editor = sharedPreferences.edit()
+        editor.putString("id",artist.id)
+        editor.apply()
+        findNavController().navigate(R.id.action_detailedTrackFragment_to_itemDetailedFragment,bundle)
     }
 
 

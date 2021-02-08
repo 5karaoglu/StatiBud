@@ -24,7 +24,7 @@ import kotlinx.android.synthetic.main.artists_fragment.*
 import kotlinx.android.synthetic.main.fragment_detailed_artist_profile.*
 
 
-class DetailedArtistProfileFragment : Fragment(), ArtistAlbumsAdapter.OnItemClickListener {
+class DetailedArtistProfileFragment : Fragment(), ArtistAlbumsAdapter.OnItemClickListener, ArtistTopTracksAdapter.OnItemClickListener {
     private val TAG = "DetailedArtistProfile Fragment"
     private lateinit var viewmodel: MainViewModel
 
@@ -66,7 +66,7 @@ class DetailedArtistProfileFragment : Fragment(), ArtistAlbumsAdapter.OnItemClic
 
     }
     private fun generateTopTracks(tracks:ArtistTopTracks){
-        var adapter : ArtistTopTracksAdapter = ArtistTopTracksAdapter(requireContext(),tracks)
+        var adapter : ArtistTopTracksAdapter = ArtistTopTracksAdapter(requireContext(),tracks,this)
         var layoutManager: RecyclerView.LayoutManager = LinearLayoutManager(requireContext())
         recyclerTopTracks.layoutManager = layoutManager
         recyclerTopTracks.adapter = adapter
@@ -88,6 +88,18 @@ class DetailedArtistProfileFragment : Fragment(), ArtistAlbumsAdapter.OnItemClic
         editor.putString("id",album.id)
         editor.apply()
         findNavController().navigate(R.id.action_itemDetailedFragment_to_detailedAlbumFragment,bundle)
+    }
+
+    override fun onItemClicked(track: TracksTopTrack) {
+        val bundle = Bundle()
+        bundle.putString("name",track.name)
+        bundle.putString("id",track.id)
+        bundle.putString("image",track.album.images[0].url)
+        val sharedPreferences = requireActivity().getSharedPreferences("spotifystatsapp",Context.MODE_PRIVATE)
+        val editor = sharedPreferences.edit()
+        editor.putString("id",track.id)
+        editor.apply()
+        findNavController().navigate(R.id.action_itemDetailedFragment_to_detailedTrackFragment,bundle)
     }
 
 

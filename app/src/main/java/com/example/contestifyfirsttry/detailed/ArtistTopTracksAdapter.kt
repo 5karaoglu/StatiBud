@@ -16,7 +16,8 @@ import com.squareup.picasso.Picasso
 
 class ArtistTopTracksAdapter(
     var context: Context,
-    var dataList: ArtistTopTracks
+    var dataList: ArtistTopTracks,
+    var clickListener: OnItemClickListener
 ) : RecyclerView.Adapter<ArtistTopTracksAdapter.ArtistTopTracksViewHolder>() {
 
 
@@ -25,7 +26,7 @@ class ArtistTopTracksAdapter(
         var textView = itemView.findViewById<TextView>(R.id.tvDetailedTopTrack)
         var textViewRank = itemView.findViewById<TextView>(R.id.tvDetailedTopTrackRank)
 
-        fun bind(track: TracksTopTrack, position: Int){
+        fun bind(track: TracksTopTrack, position: Int,clickListener: OnItemClickListener){
             Picasso.get()
                 .load(track.album.images[0].url)
                 .fit().centerCrop()
@@ -33,6 +34,9 @@ class ArtistTopTracksAdapter(
             textViewRank.text = String.format("#%d ",position+1)
             textView.text = track.name
 
+            itemView.setOnClickListener {
+                clickListener.onItemClicked(track)
+            }
 
         }
     }
@@ -47,7 +51,7 @@ class ArtistTopTracksAdapter(
     override fun onBindViewHolder(holder: ArtistTopTracksViewHolder, position: Int) {
 
         var track = dataList.tracks[position]
-        holder.bind(track,position)
+        holder.bind(track,position, clickListener)
 
 
     }
@@ -57,6 +61,6 @@ class ArtistTopTracksAdapter(
     }
 
     interface OnItemClickListener{
-        fun onItemClicked(track: TrackItems)
+        fun onItemClicked(track: TracksTopTrack)
     }
 }

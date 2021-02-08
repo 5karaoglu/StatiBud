@@ -7,6 +7,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.activity.addCallback
 import androidx.lifecycle.Observer
 import com.example.contestifyfirsttry.MainViewModel
 import com.example.contestifyfirsttry.R
@@ -31,6 +32,9 @@ class ProfileFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        //disabling onbackpressed
+        val callback = requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner){}
+        callback.isEnabled = true
         token = getToken()
         viewModel = MainViewModel(this)
         getUserInfo(token!!)

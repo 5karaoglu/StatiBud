@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">Spotify için İstatistikler</string>
 
     <string name="current_position">#%d</string>
 
@@ -83,6 +82,9 @@
     <!--Detailed Track Fragment-->
     <string name="track_name">Şarkı Adı</string>
     <string name="album_explicit">Açık Sözlü</string>
+    <string name="duration">süre</string>
+    <string name="tempo">tempo</string>
+    <string name="key">anahtar</string>
 
 
 </resources>

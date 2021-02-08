@@ -7,6 +7,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.activity.addCallback
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
@@ -61,21 +62,17 @@ class DetailedAlbumFragment : Fragment(), DetailedAlbumTracksAdapter.OnItemClick
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        //disabling onbackpressed
+        val callback = requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner){}
+        callback.isEnabled = true
         val bundle = requireArguments()
         val name = bundle.get("name") as String
         val id = bundle.get("id") as String
         val image = bundle.get("image") as String
         albumCover = image
         setData(name,image)
-        init()
     }
-    private fun init(){
-        
-        detailedAlbumToolbar.setNavigationOnClickListener { View.OnClickListener {
-            Log.d(TAG, "init: clicked")
-            findNavController().popBackStack()
-        } }
-    }
+
     private fun generateAlbumTracks(album: Album){
         var adapter : DetailedAlbumTracksAdapter = DetailedAlbumTracksAdapter(requireContext(),album,this)
         var layoutManager: RecyclerView.LayoutManager = LinearLayoutManager(requireContext())
@@ -99,7 +96,6 @@ class DetailedAlbumFragment : Fragment(), DetailedAlbumTracksAdapter.OnItemClick
         editor.putString("id",track.id)
         editor.apply()
         findNavController().navigate(R.id.action_detailedAlbumFragment_to_detailedTrackFragment,bundle)
-        findNavController().popBackStack()
     }
     fun setData(name:String,image:String){
         Picasso.get()

@@ -34,6 +34,7 @@ class Repository() {
     var respRecentTracks = MutableLiveData<RecentTracks>()
 
     var respArtist = MutableLiveData<Item>()
+    var respMultipleArtists = MutableLiveData<ArtistList>()
     var respArtistTopTracks = MutableLiveData<ArtistTopTracks>()
     var respArtistAlbums = MutableLiveData<ArtistAlbums>()
     var respRelatedArtists = MutableLiveData<RelatedArtists>()
@@ -165,6 +166,23 @@ class Repository() {
 
         })
     }
+
+    fun getMultipleArtists(token: String,ids:String){
+        var call:retrofit2.Call<ArtistList> = service.getMultipleArtists("Bearer $token",ids)
+
+        call.enqueue(object : Callback<ArtistList> {
+            override fun onResponse(call: Call<ArtistList>, response: Response<ArtistList>) {
+                Log.d(TAG, "onResponse: ${response.body()}")
+                respMultipleArtists.value = response.body()!!
+            }
+
+            override fun onFailure(call: Call<ArtistList>, t: Throwable) {
+                Log.d(TAG, "onFailure: ${t.message}")
+            }
+
+        })
+    }
+
     fun getArtistTopTracks(token: String,id:String){
         var call:retrofit2.Call<ArtistTopTracks> = service.getArtistTopTracks("Bearer $token",id)
 
