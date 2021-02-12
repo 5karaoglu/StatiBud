@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
-    app:startDestination="@id/topFragment">
+    app:startDestination="@id/homeFragment">
 
     <fragment
         android:id="@+id/topFragment"
@@ -25,18 +25,24 @@
         <action
             android:id="@+id/action_topFragment_to_detailedTrackFragment"
             app:destination="@id/detailedTrackFragment" />
+        <action
+            android:id="@+id/action_topFragment_to_homeFragment"
+            app:destination="@id/homeFragment" />
     </fragment>
     <fragment
         android:id="@+id/searchFragment"
-        android:name="com.example.contestifyfirsttry.recent.RecentFragment"
+        android:name="com.example.contestifyfirsttry.recent.SearchFragment"
         android:label="fragment_search"
-        tools:layout="@layout/fragment_recent">
+        tools:layout="@layout/fragment_search">
         <action
             android:id="@+id/action_searchFragment_to_profileFragment"
             app:destination="@id/profileFragment" />
         <action
             android:id="@+id/action_searchFragment_to_topFragment"
             app:destination="@id/topFragment" />
+        <action
+            android:id="@+id/action_searchFragment_to_homeFragment"
+            app:destination="@id/homeFragment" />
     </fragment>
     <fragment
         android:id="@+id/profileFragment"
@@ -49,6 +55,9 @@
         <action
             android:id="@+id/action_profileFragment_to_topFragment"
             app:destination="@id/topFragment" />
+        <action
+            android:id="@+id/action_profileFragment_to_homeFragment"
+            app:destination="@id/homeFragment" />
     </fragment>
     <fragment
         android:id="@+id/itemDetailedFragment"
@@ -104,6 +113,21 @@
         <action
             android:id="@+id/action_detailedAlbumFragment_to_topFragment"
             app:destination="@id/topFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/homeFragment"
+        android:name="com.example.contestifyfirsttry.HomeFragment"
+        android:label="fragment_home"
+        tools:layout="@layout/fragment_home" >
+        <action
+            android:id="@+id/action_homeFragment_to_topFragment"
+            app:destination="@id/topFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_profileFragment"
+            app:destination="@id/profileFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_searchFragment"
+            app:destination="@id/searchFragment" />
     </fragment>
 
 </navigation>

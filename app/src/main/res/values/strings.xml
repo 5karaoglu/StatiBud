@@ -22,8 +22,8 @@
     <string name="sample_popularity">9.9</string>
     <string name="sample_rank">#1</string>
 
-    <!--Profile Activity-->
-    <string name="profile_header">Profile</string>
+    <!--Home Fragment-->
+    <string name="welcome_header" formatted="false">Welcome, %s</string>
     <string name="id">ID:</string>
     <string name="display_name">Display Name:</string>
     <string name="email">Email:</string>
@@ -37,6 +37,9 @@
     <string name="sample_followers">522</string>
     <string name="sample_country">UK</string>
     <string name="sample_status">Premium</string>
+
+    <string name="show_more">SHOW MORE</string>
+    <string name="show_less">SHOW LESS</string>
 
     <!--Navigation Menu-->
     <string name="home">Home</string>

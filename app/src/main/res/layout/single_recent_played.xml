@@ -37,8 +37,8 @@
         android:gravity="center"
         android:padding="1dp">
         <ImageView
-            android:layout_width="60dp"
-            android:layout_height="60dp"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
             android:id="@+id/ivRecentTrack"
             android:layout_marginStart="5dp"
             android:layout_marginTop="5dp"
@@ -49,7 +49,7 @@
             android:layout_height="wrap_content"
             android:id="@+id/tvRecentTrack"
             android:text="I Bet You Looking Good On The DanceFloor"
-            android:textSize="20sp"
+            android:textSize="15sp"
             android:ellipsize="marquee"
             android:focusable="true"
             android:focusableInTouchMode="true"
@@ -71,7 +71,7 @@
             android:ellipsize="end"
             android:gravity="start"
             android:textColor="@color/colorgray2"
-            android:textSize="15sp"
+            android:textSize="10sp"
             android:layout_toEndOf="@+id/ivRecentTrack"
             android:layout_below="@+id/tvRecentTrack"
             android:layout_marginStart="10dp"/>

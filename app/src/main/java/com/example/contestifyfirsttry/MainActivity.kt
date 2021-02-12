@@ -57,17 +57,19 @@ class MainActivity : AppCompatActivity() {
         bottomBar.onItemSelected = {
             Log.d(TAG, "onItemSelected:$it ")
             when(it){
-                0 -> navController!!.navigate(R.id.topFragment)
-                1 -> navController!!.navigate(R.id.searchFragment)
-                2 -> navController!!.navigate(R.id.profileFragment)
+                0 -> navController!!.navigate(R.id.homeFragment)
+                1 -> navController!!.navigate(R.id.topFragment)
+                2 -> navController!!.navigate(R.id.searchFragment)
+                3 -> navController!!.navigate(R.id.profileFragment)
             }
         }
         bottomBar.onItemReselected = {
             Log.d(TAG, "onItemRe-Selected:$it ")
             when(it){
-                0 -> navController!!.navigate(R.id.topFragment)
-                1 -> navController!!.navigate(R.id.searchFragment)
-                2 -> navController!!.navigate(R.id.profileFragment)
+                0 -> navController!!.navigate(R.id.homeFragment)
+                1 -> navController!!.navigate(R.id.topFragment)
+                2 -> navController!!.navigate(R.id.searchFragment)
+                3 -> navController!!.navigate(R.id.profileFragment)
         }}
     }
     private fun setAd(){

@@ -13,7 +13,7 @@ import com.example.contestifyfirsttry.R
 import com.example.contestifyfirsttry.model.RecentTracks
 import com.squareup.picasso.Picasso
 
-class RecentTracksAdapter(var context: Context, var dataList: RecentTracks, var viewModel: MainViewModel) : RecyclerView.Adapter<RecentTracksAdapter.RecentTracksViewHolder>() {
+class RecentTracksAdapter(var context: Context, var dataList: RecentTracks, var viewModel: MainViewModel, var customItemCount: Int) : RecyclerView.Adapter<RecentTracksAdapter.RecentTracksViewHolder>() {
 
 
     class RecentTracksViewHolder(itemView: View): RecyclerView.ViewHolder(itemView) {
@@ -43,6 +43,6 @@ class RecentTracksAdapter(var context: Context, var dataList: RecentTracks, var 
     }
 
     override fun getItemCount(): Int {
-        return dataList.items.size
+        return customItemCount
     }
 }

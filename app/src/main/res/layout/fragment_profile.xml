@@ -7,44 +7,7 @@
     tools:context=".Profile.ProfileFragment"
     android:background="@color/colorPrimaryDark">
 
-    <com.google.android.material.appbar.AppBarLayout
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:id="@+id/appBar"
-        android:gravity="bottom"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentStart="true"
-        android:background="@color/colorPrimary">
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:gravity="center"
-            android:layout_marginStart="10dp"
-            android:layout_marginEnd="10dp">
-            <!--//TODO Add credits-->
-            <!--<ImageView
-                android:id="@+id/ivBackArrow"
-                android:layout_width="30dp"
-                android:layout_height="30dp"
-                android:layout_alignParentStart="true"
-                android:layout_alignParentBottom="true"
-                android:layout_alignParentTop="true"
-                android:src="@drawable/ic_arrow_back" />-->
 
-            <TextView
-                android:id="@+id/tvProfileHeader"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="center"
-                android:text="@string/profile_header"
-                android:textColor="@color/colorAccent"
-                android:textSize="30sp"
-                android:textStyle="bold"
-                android:layout_alignParentBottom="true"
-                android:layout_alignParentTop="true"/>
-        </RelativeLayout>
-
-    </com.google.android.material.appbar.AppBarLayout>
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"

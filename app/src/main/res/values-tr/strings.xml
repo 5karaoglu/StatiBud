@@ -85,6 +85,9 @@
     <string name="duration">süre</string>
     <string name="tempo">tempo</string>
     <string name="key">anahtar</string>
+    <string name="welcome_header">Hoşgeldin, %s</string>
+    <string name="show_more">DAHA FAZLA GÖSTER</string>
+    <string name="show_less">DAHA AZ GÖSTER</string>
 
 
 </resources>
