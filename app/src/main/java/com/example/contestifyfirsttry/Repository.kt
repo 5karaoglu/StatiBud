@@ -45,6 +45,8 @@ class Repository() {
     var respAlbum = MutableLiveData<Album>()
     var respAlbumTracks = MutableLiveData<AlbumTracks>()
 
+    var respQueryResult = MutableLiveData<QueryResults>()
+
     var scopes : Scopes? = null
     private val CLIENT_ID = "85e82d6c52384d2b9ada66f99f78648c"
     private val REDIRECT_URI = "http://com.example.contestifyfirsttry/callback"
@@ -284,6 +286,22 @@ class Repository() {
             }
 
             override fun onFailure(call: Call<AlbumTracks>, t: Throwable) {
+                Log.d(TAG, "onFailure: ${t.message}")
+            }
+
+        })
+    }
+    fun getQueryResult(token: String,q:String){
+        var call:retrofit2.Call<QueryResults> = service.search("Bearer $token",q)
+
+        call.enqueue(object : Callback<QueryResults> {
+            override fun onResponse(call: Call<QueryResults>, response: Response<QueryResults>) {
+                if (response.isSuccessful){
+                respQueryResult.value = response.body()!!
+                Log.d(TAG, "onResponse: ${response.body()}")
+            }}
+
+            override fun onFailure(call: Call<QueryResults>, t: Throwable) {
                 Log.d(TAG, "onFailure: ${t.message}")
             }
 

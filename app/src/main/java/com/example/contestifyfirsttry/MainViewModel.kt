@@ -6,11 +6,7 @@ import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModel
-import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import com.example.contestifyfirsttry.model.*
-import com.spotify.android.appremote.api.SpotifyAppRemote
-import kotlinx.android.synthetic.main.activity_main.*
 
 class MainViewModel(lifecycleOwner: LifecycleOwner) : ViewModel() {
     var artistsListShortTerm = MutableLiveData<Artists>()
@@ -36,6 +32,8 @@ class MainViewModel(lifecycleOwner: LifecycleOwner) : ViewModel() {
 
     var album = MutableLiveData<Album>()
     var albumTracks = MutableLiveData<AlbumTracks>()
+
+    var queryResults = MutableLiveData<QueryResults>()
 
     init {
         repository.respArtistsShortTerm.observe(lifecycleOwner,object : Observer<Artists>{
@@ -125,6 +123,11 @@ class MainViewModel(lifecycleOwner: LifecycleOwner) : ViewModel() {
                 album.value = t
             }
         })
+        repository.respQueryResult.observe(lifecycleOwner,object : Observer<QueryResults>{
+            override fun onChanged(t: QueryResults?) {
+                queryResults.value = t
+            }
+        })
 
     }
 
@@ -174,6 +177,9 @@ class MainViewModel(lifecycleOwner: LifecycleOwner) : ViewModel() {
     }
     fun getAlbumTracks(token: String,id:String){
         repository.getAlbumTracks(token,id)
+    }
+    fun getQueryResult(token: String,q:String){
+        repository.getQueryResult(token,q)
     }
 
 }

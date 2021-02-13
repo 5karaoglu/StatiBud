@@ -1,6 +1,5 @@
 package com.example.contestifyfirsttry.model
 
-import com.example.contestifyfirsttry.Followers
 import com.google.gson.annotations.SerializedName
 
 data class Item  (

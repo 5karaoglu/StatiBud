@@ -1,6 +1,5 @@
 package com.example.contestifyfirsttry.detailed
 
-import android.content.ClipData
 import android.content.Context
 import android.os.Bundle
 import android.util.Log
@@ -13,14 +12,10 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.example.contestifyfirsttry.Artists
 import com.example.contestifyfirsttry.MainViewModel
 import com.example.contestifyfirsttry.R
-import com.example.contestifyfirsttry.Tracks
 import com.example.contestifyfirsttry.model.*
-import com.example.contestifyfirsttry.top.ArtistsAdapter
 import com.example.contestifyfirsttry.util.CustomViewModelFactory
-import kotlinx.android.synthetic.main.artists_fragment.*
 import kotlinx.android.synthetic.main.fragment_detailed_artist_profile.*
 
 

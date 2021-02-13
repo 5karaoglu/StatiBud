@@ -1,5 +1,6 @@
 package com.example.contestifyfirsttry
 
+import com.example.contestifyfirsttry.model.Artists
 import com.example.contestifyfirsttry.model.External_ids
 import com.example.contestifyfirsttry.model.External_urls
 import com.example.contestifyfirsttry.model.Image

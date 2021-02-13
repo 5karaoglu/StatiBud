@@ -88,6 +88,10 @@
     <string name="welcome_header">Hoşgeldin, %s</string>
     <string name="show_more">DAHA FAZLA GÖSTER</string>
     <string name="show_less">DAHA AZ GÖSTER</string>
+    <string name="tv_artists">Sanatçılar</string>
+    <string name="tv_tracks">Şarkılar</string>
+    <string name="tv_albums">Albümler</string>
+    <string name="hint">Bir şeyler ara…</string>
 
 
 </resources>

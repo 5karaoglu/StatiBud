@@ -7,7 +7,7 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import com.example.contestifyfirsttry.Artists
+import com.example.contestifyfirsttry.model.Artists
 import com.example.contestifyfirsttry.R
 import com.example.contestifyfirsttry.model.Item
 import com.squareup.picasso.Picasso

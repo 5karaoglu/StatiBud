@@ -44,7 +44,7 @@ data class AlbumExternal_ids (
 )
 data class AlbumItems (
 
-    @SerializedName("artists") val artists : List<Artists>,
+    @SerializedName("artists") val artists : List<AlbumArtists>,
     @SerializedName("available_markets") val available_markets : List<String>,
     @SerializedName("disc_number") val disc_number : Int,
     @SerializedName("duration_ms") val duration_ms : Int,

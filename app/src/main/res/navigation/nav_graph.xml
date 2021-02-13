@@ -43,6 +43,15 @@
         <action
             android:id="@+id/action_searchFragment_to_homeFragment"
             app:destination="@id/homeFragment" />
+        <action
+            android:id="@+id/action_searchFragment_to_itemDetailedFragment"
+            app:destination="@id/itemDetailedFragment" />
+        <action
+            android:id="@+id/action_searchFragment_to_detailedTrackFragment"
+            app:destination="@id/detailedTrackFragment" />
+        <action
+            android:id="@+id/action_searchFragment_to_detailedAlbumFragment"
+            app:destination="@id/detailedAlbumFragment" />
     </fragment>
     <fragment
         android:id="@+id/profileFragment"

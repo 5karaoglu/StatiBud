@@ -12,7 +12,7 @@ data class RecentTracks(
 data class RecentTrackAlbum (
 
     @SerializedName("album_type") val album_type : String,
-    @SerializedName("artists") val artists : List<Artists>,
+    @SerializedName("artists") val artists : List<RecentTrackArtists>,
     @SerializedName("available_markets") val available_markets : List<String>,
     @SerializedName("external_urls") val external_urls : External_urls,
     @SerializedName("href") val href : String,
@@ -25,7 +25,7 @@ data class RecentTrackAlbum (
     @SerializedName("type") val type : String,
     @SerializedName("uri") val uri : String
 )
-data class Artists (
+data class RecentTrackArtists (
 
     @SerializedName("external_urls") val external_urls : External_urls,
     @SerializedName("href") val href : String,
@@ -49,7 +49,7 @@ data class Items (
 data class Track (
 
     @SerializedName("album") val album : RecentTrackAlbum,
-    @SerializedName("artists") val artists : List<Artists>,
+    @SerializedName("artists") val artists : List<RecentTrackArtists>,
     @SerializedName("available_markets") val available_markets : List<String>,
     @SerializedName("disc_number") val disc_number : Int,
     @SerializedName("duration_ms") val duration_ms : Int,

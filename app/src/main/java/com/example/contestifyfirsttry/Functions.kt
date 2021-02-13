@@ -1,10 +1,12 @@
 package com.example.contestifyfirsttry
 
+import android.util.Log
 import java.text.SimpleDateFormat
 import java.util.*
 import java.util.concurrent.TimeUnit
 
 class Functions {
+    private val TAG = "Functions"
     fun getTime(timestamp:String): String? {
         var parsedDate = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'", Locale.ENGLISH).parse(timestamp)
         var diff = Date().time - parsedDate.time
@@ -43,6 +45,7 @@ class Functions {
         }
         return k!!
     }
+    //returns if the note is major or minor
     fun trackMode(mode:Int):String{
         var m: String? = null
         when(mode){
@@ -50,5 +53,11 @@ class Functions {
             1 -> m = ""
         }
         return m!!
+    }
+    fun stringToQuery(str:String): String {
+        var query = str
+        query = query.replace(" ","%20")
+        Log.d(TAG, "stringToQuery: $query")
+        return query
     }
 }

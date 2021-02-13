@@ -1,6 +1,6 @@
 package com.example.contestifyfirsttry.util
 
-import com.example.contestifyfirsttry.Artists
+import com.example.contestifyfirsttry.model.Artists
 import com.example.contestifyfirsttry.TrackItems
 import com.example.contestifyfirsttry.Tracks
 import com.example.contestifyfirsttry.model.*
@@ -50,4 +50,7 @@ interface Api {
 
     @GET("albums/{id}/tracks")
     fun getAlbumTracks(@Header("Authorization") token:String, @Path("id") albumId:String):Call<AlbumTracks>
+
+    @GET("search?type=artist%2Calbum%2Ctrack&limit=3")
+    fun search(@Header("Authorization") token:String, @Query("q") query:String):Call<QueryResults>
 }

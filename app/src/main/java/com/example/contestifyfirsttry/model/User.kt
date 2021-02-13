@@ -22,8 +22,4 @@ data class Explicit_content (
     @SerializedName("filter_locked") val filter_locked : Boolean
 )
 
-data class Followers (
 
-    @SerializedName("href") val href : String,
-    @SerializedName("total") val total : Int
-)

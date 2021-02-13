@@ -1,4 +1,4 @@
-package com.example.contestifyfirsttry
+package com.example.contestifyfirsttry.model
 
 import com.example.contestifyfirsttry.model.External_urls
 import com.example.contestifyfirsttry.model.Image

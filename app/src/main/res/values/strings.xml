@@ -50,8 +50,11 @@
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="banner_ad_unit_id">ca-app-pub-3940256099942544/6300978111</string>
 
-    <!--Recent Fragment-->
-    <string name="recent_header">Recent Tracks</string>
+    <!--Search Fragment-->
+    <string name="tv_artists">Artists</string>
+    <string name="tv_tracks">Tracks</string>
+    <string name="tv_albums">Albums</string>
+    <string name="hint">Search something…</string>
 
     <!--time ranges-->
     <string name="short_term">4 weeks</string>
@@ -89,6 +92,8 @@
     <!--Detailed Track Fragment-->
     <string name="track_name">Track Name</string>
     <string name="album_explicit">Explicit</string>
+    <string name="profile_header">Profile</string>
+    <string name="recent_header">Recent</string>
 
 
 </resources>
