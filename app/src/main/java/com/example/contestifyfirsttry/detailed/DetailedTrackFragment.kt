@@ -1,30 +1,28 @@
 package com.example.contestifyfirsttry.detailed
 
+import android.content.ActivityNotFoundException
 import android.content.Context
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
-import android.widget.ProgressBar
 import androidx.activity.addCallback
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import androidx.room.util.StringUtil
 import com.example.contestifyfirsttry.*
 import com.example.contestifyfirsttry.model.*
-import com.example.contestifyfirsttry.top.ArtistsAdapter
 import com.example.contestifyfirsttry.util.CustomViewModelFactory
 import com.squareup.picasso.Picasso
-import kotlinx.android.synthetic.main.artists_fragment.*
 import kotlinx.android.synthetic.main.fragment_detailed_track.*
 import kotlinx.android.synthetic.main.fragment_detailed_track.imageView
-import kotlinx.android.synthetic.main.fragment_item_detailed.*
+
 
 
 class DetailedTrackFragment : Fragment(), DetailedTrackArtistAdapter.OnItemClickListener {
@@ -39,25 +37,32 @@ class DetailedTrackFragment : Fragment(), DetailedTrackArtistAdapter.OnItemClick
         return inflater.inflate(R.layout.fragment_detailed_track, container, false)
     }
 
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        //disabling onbackpressed
+        val callback = requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner){}
+        callback.isEnabled = true
+
         //getting token
         val sharedPreferences = requireActivity().getSharedPreferences("spotifystatsapp", Context.MODE_PRIVATE)
         val token = sharedPreferences.getString("token","")
-        Log.d(TAG, "onActivityCreated: $token")
-        val id = sharedPreferences.getString("id","")
-        Log.d(TAG, "onActivityCreated: $id")
-        val artistId = sharedPreferences.getString("artistId","")
-        val image = sharedPreferences.getString("image","")
+
+        val bundle = this.arguments
+        val name = bundle!!.getString("name")
+        val id = bundle!!.getString("id")
+        val image = bundle!!.getString("image")
+        val artistId = bundle.getString("artistId")
+        init(name!!,image!!)
 
         // ViewModel components
-        var factory = CustomViewModelFactory(this)
+        var factory = CustomViewModelFactory(this,requireContext())
         viewmodel = ViewModelProvider(this, factory!!).get(MainViewModel::class.java)
 
         viewmodel!!.trackAudioFeatures.observe(viewLifecycleOwner,
-            Observer<TrackAudioFeatures> { t -> generateAudioFeature(t!!) })
-        viewmodel!!.artist.observe(viewLifecycleOwner,
-            Observer<Item> { t -> /*setArtistImage(t!!)*/ })
+            Observer<TrackAudioFeatures> { t ->
+                generateAudioFeature(t!!)
+                doVisibility()})
         viewmodel!!.track.observe(viewLifecycleOwner,
             Observer<TrackItems> { t ->
                 setAlbumImage(t!!)
@@ -68,17 +73,8 @@ class DetailedTrackFragment : Fragment(), DetailedTrackArtistAdapter.OnItemClick
         viewmodel.getTrackAudioFeatures(token!!,id!!)
         viewmodel.getArtist(token,artistId!!)
         viewmodel.getTrack(token,id!!)
-    }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-        //disabling onbackpressed
-        val callback = requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner){}
-        callback.isEnabled = true
-        val bundle = this.arguments
-        val name = bundle!!.getString("name")
-        val image = bundle!!.getString("image")
-        setData(name!!,image!!)
+
     }
 
     private fun generateAudioFeature(trackAudioFeatures: TrackAudioFeatures){
@@ -120,16 +116,28 @@ class DetailedTrackFragment : Fragment(), DetailedTrackArtistAdapter.OnItemClick
         recyclerTrackArtist.layoutManager = layoutManager
         recyclerTrackArtist.adapter = adapter
     }
-    fun setData(name:String,image:String){
+    private fun init(name:String, image:String){
         Picasso.get()
             .load(image)
             .fit().centerCrop()
             .into(imageView)
 
         detailedTrackToolbar.title = name
+        detailedTrackToolbar.setNavigationOnClickListener {
+            findNavController().popBackStack()
+        }
     }
     private fun setTrack(track:TrackItems){
+        fabDetailedTrack.setOnClickListener {
+          try {
 
+              var uri = Uri.parse("http://open.spotify.com/track/${track.id}")
+              var intent = Intent(Intent.ACTION_VIEW,uri)
+              startActivity(intent)
+          }catch (ex:ActivityNotFoundException){
+              Log.d(TAG, "setTrack: ${ex.message}")
+          }
+        }
     }
 
     private fun setAlbumImage(track: TrackItems){
@@ -144,10 +152,6 @@ class DetailedTrackFragment : Fragment(), DetailedTrackArtistAdapter.OnItemClick
             bundle.putString("name",track.album.name)
             bundle.putString("id",track.album.id)
             bundle.putString("image",track.album.images[0].url)
-            val sharedPreferences = requireActivity().getSharedPreferences("spotifystatsapp",Context.MODE_PRIVATE)
-            val editor = sharedPreferences.edit()
-            editor.putString("id",track.album.id)
-            editor.apply()
             findNavController().navigate(R.id.action_detailedTrackFragment_to_detailedAlbumFragment,bundle)
         }
     }
@@ -157,25 +161,14 @@ class DetailedTrackFragment : Fragment(), DetailedTrackArtistAdapter.OnItemClick
         bundle.putString("name",artist.name)
         bundle.putString("id",artist.id)
         bundle.putString("image",artist.images[0].url)
-        val sharedPreferences = requireActivity().getSharedPreferences("spotifystatsapp",Context.MODE_PRIVATE)
-        val editor = sharedPreferences.edit()
-        editor.putString("id",artist.id)
-        editor.apply()
         findNavController().navigate(R.id.action_detailedTrackFragment_to_itemDetailedFragment,bundle)
+    }
+    private fun doVisibility(){
+        nsvDetailedTrack.visibility = View.VISIBLE
+        fabDetailedTrack.visibility = View.VISIBLE
+        pbDetailedTrack.visibility = View.GONE
     }
 
 
-    /*override fun onItemClicked(artist: Item) {
-        Log.d(TAG, "onClick: ${artist.name}")
 
-        val bundle = Bundle()
-        bundle.putString("name",artist.name)
-        bundle.putString("id",artist.id)
-        bundle.putString("image",artist.images[0].url)
-        val sharedPreferences = requireActivity().getSharedPreferences("spotifystatsapp",Context.MODE_PRIVATE)
-        val editor = sharedPreferences.edit()
-        editor.putString("id",artist.id)
-        editor.apply()
-        findNavController().navigate(R.id.action_topFragment_to_itemDetailedFragment,bundle)
-    }*/
 }

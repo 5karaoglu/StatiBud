@@ -1,4 +1,4 @@
-package com.example.contestifyfirsttry.recent
+package com.example.contestifyfirsttry.Search
 
 import android.content.Context
 import android.view.LayoutInflater

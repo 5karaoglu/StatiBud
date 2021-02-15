@@ -3,12 +3,12 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".recent.SearchFragment"
+    tools:context=".Search.SearchFragment"
     android:background="@color/colorPrimaryDark">
     <com.google.android.material.appbar.AppBarLayout
         android:layout_width="match_parent"
         android:layout_height="50dp"
-        android:id="@+id/appBarRecent"
+        android:id="@+id/appBarSearch"
         android:layout_alignParentTop="true"
         android:layout_alignParentStart="true"
         android:background="@color/colorPrimary" >
@@ -27,10 +27,11 @@
                android:textColor="@color/colorgray2"
                android:hint="@string/hint"
                android:textColorHint="@color/colorgray2"
-               android:textSize="20sp"/>
+               android:textSize="15sp"
+               android:maxLines="1"/>
             <ImageView
                 android:layout_marginStart="5dp"
-                android:layout_width="40dp"
+                android:layout_width="24dp"
                 android:layout_height="match_parent"
                 android:layout_alignParentEnd="true"
                 android:id="@+id/ivSearch"
@@ -40,10 +41,33 @@
         </RelativeLayout>
 
     </com.google.android.material.appbar.AppBarLayout>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/reLayoutSearchHistory"
+        android:layout_below="@id/appBarSearch">
+        <TextView
+            android:padding="15dp"
+            android:layout_marginTop="100dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/tv_history_text"
+            android:id="@+id/tvhistoryText"
+            android:textSize="15sp"
+            android:gravity="center"
+            android:textColor="@color/colorgray" />
+        <androidx.recyclerview.widget.RecyclerView
+            android:padding="10dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            tools:listitem="@layout/search_albumtrack_single"
+            android:id="@+id/recyclerSearchHistory"
+            tools:itemCount="1"/>
+    </RelativeLayout>
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/appBarRecent">
+        android:layout_below="@id/appBarSearch">
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
@@ -74,20 +98,44 @@
                 android:layout_marginTop="5dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:text="@string/tv_artists_more"
+                android:id="@+id/tvArtistsMore"
+                android:textSize="14sp"
+                android:gravity="start"
+                android:textColor="@color/colorgray2"
+                android:layout_below="@id/recyclerSearchArtists"/>
+            <TextView
+                android:paddingStart="5dp"
+                android:paddingEnd="5dp"
+                android:layout_marginTop="5dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
                 android:text="@string/tv_tracks"
                 android:id="@+id/tvTracks"
                 android:textSize="23sp"
                 android:gravity="start"
                 android:textColor="@color/white"
-                android:layout_below="@id/recyclerSearchArtists"/>
+                android:layout_below="@id/tvArtistsMore"/>
             <androidx.recyclerview.widget.RecyclerView
                 android:padding="10dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                tools:listitem="@layout/single_recent_played"
+                tools:listitem="@layout/search_albumtrack_single"
                 android:layout_below="@id/tvTracks"
                 android:id="@+id/recyclerSearchTracks"
                 tools:itemCount="3"/>
+            <TextView
+                android:paddingStart="5dp"
+                android:paddingEnd="5dp"
+                android:layout_marginTop="5dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/tv_tracks_more"
+                android:id="@+id/tvTracksMore"
+                android:textSize="14sp"
+                android:gravity="start"
+                android:textColor="@color/colorgray2"
+                android:layout_below="@id/recyclerSearchTracks"/>
             <TextView
                 android:paddingStart="5dp"
                 android:paddingEnd="5dp"
@@ -99,15 +147,27 @@
                 android:textSize="23sp"
                 android:gravity="start"
                 android:textColor="@color/white"
-                android:layout_below="@id/recyclerSearchTracks"/>
+                android:layout_below="@id/tvTracksMore"/>
             <androidx.recyclerview.widget.RecyclerView
                 android:padding="10dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                tools:listitem="@layout/single_recent_played"
+                tools:listitem="@layout/search_albumtrack_single"
                 android:layout_below="@id/tvAlbums"
                 android:id="@+id/recyclerSearchAlbums"
-                tools:itemCount="7"/>
+                tools:itemCount="2"/>
+            <TextView
+                android:paddingStart="5dp"
+                android:paddingEnd="5dp"
+                android:layout_marginTop="5dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/tv_albums_more"
+                android:id="@+id/tvAlbumsMore"
+                android:textSize="14sp"
+                android:gravity="start"
+                android:textColor="@color/colorgray2"
+                android:layout_below="@id/recyclerSearchAlbums"/>
         </RelativeLayout>
     </androidx.core.widget.NestedScrollView>
 </RelativeLayout>

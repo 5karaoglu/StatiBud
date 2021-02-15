@@ -31,7 +31,7 @@
     </fragment>
     <fragment
         android:id="@+id/searchFragment"
-        android:name="com.example.contestifyfirsttry.recent.SearchFragment"
+        android:name="com.example.contestifyfirsttry.Search.SearchFragment"
         android:label="fragment_search"
         tools:layout="@layout/fragment_search">
         <action
@@ -52,6 +52,9 @@
         <action
             android:id="@+id/action_searchFragment_to_detailedAlbumFragment"
             app:destination="@id/detailedAlbumFragment" />
+        <action
+            android:id="@+id/action_searchFragment_to_detailedResult"
+            app:destination="@id/detailedResult" />
     </fragment>
     <fragment
         android:id="@+id/profileFragment"
@@ -72,7 +75,7 @@
         android:id="@+id/itemDetailedFragment"
         android:name="com.example.contestifyfirsttry.detailed.DetailedArtistFragment"
         android:label="fragment_item_detailed"
-        tools:layout="@layout/fragment_item_detailed">
+        tools:layout="@layout/fragment_detailed_artist">
         <action
             android:id="@+id/action_itemDetailedFragment_self"
             app:destination="@id/itemDetailedFragment" />
@@ -136,6 +139,24 @@
             app:destination="@id/profileFragment" />
         <action
             android:id="@+id/action_homeFragment_to_searchFragment"
+            app:destination="@id/searchFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/detailedResult"
+        android:name="com.example.contestifyfirsttry.Search.DetailedResult"
+        android:label="fragment_detailed_result"
+        tools:layout="@layout/fragment_detailed_result" >
+        <action
+            android:id="@+id/action_detailedResult_to_itemDetailedFragment"
+            app:destination="@id/itemDetailedFragment" />
+        <action
+            android:id="@+id/action_detailedResult_to_detailedTrackFragment"
+            app:destination="@id/detailedTrackFragment" />
+        <action
+            android:id="@+id/action_detailedResult_to_detailedAlbumFragment"
+            app:destination="@id/detailedAlbumFragment" />
+        <action
+            android:id="@+id/action_detailedResult_to_searchFragment"
             app:destination="@id/searchFragment" />
     </fragment>
 

@@ -51,10 +51,22 @@
     <string name="banner_ad_unit_id">ca-app-pub-3940256099942544/6300978111</string>
 
     <!--Search Fragment-->
+    <string name="tv_searchHistory">Search History</string>
+    <string name="tv_history_text">Your search history appears here</string>
     <string name="tv_artists">Artists</string>
     <string name="tv_tracks">Tracks</string>
     <string name="tv_albums">Albums</string>
     <string name="hint">Search something…</string>
+    <string name="tv_artists_more">Show all artists</string>
+    <string name="tv_tracks_more">Show all tracks</string>
+    <string name="tv_albums_more">Show all albums</string>
+
+    <string name="artist_header">Artists</string>
+    <string name="track_header">Tracks</string>
+    <string name="album_header">Albums</string>
+
+    <!--Detailed Search Fragment-->
+    <string name="detailed_search_header">"%1$s" in %2$s</string>
 
     <!--time ranges-->
     <string name="short_term">4 weeks</string>
@@ -74,6 +86,7 @@
     <!--Detailed Artist Profile Fragment-->
     <string name="top_tracks">Top Tracks</string>
     <string name="albums">Albums</string>
+    <string name="similar_artists">Similar Artists</string>
 
     <!--Detailed Track Fragment-->
     <string name="duration">duration</string>
@@ -94,6 +107,11 @@
     <string name="album_explicit">Explicit</string>
     <string name="profile_header">Profile</string>
     <string name="recent_header">Recent</string>
+
+    <!--Type Strings-->
+    <string name="type_artist" translatable="false">artist</string>
+    <string name="type_track" translatable="false">track</string>
+    <string name="type_album" translatable="false">album</string>
 
 
 </resources>

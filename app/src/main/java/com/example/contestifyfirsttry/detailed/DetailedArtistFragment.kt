@@ -1,6 +1,9 @@
 package com.example.contestifyfirsttry.detailed
 
+import android.content.ActivityNotFoundException
 import android.content.Context
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
@@ -8,17 +11,25 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.activity.addCallback
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.example.contestifyfirsttry.MainViewModel
 import com.example.contestifyfirsttry.R
-import com.example.contestifyfirsttry.top.ViewPagerAdapter
+import com.example.contestifyfirsttry.model.*
 import com.example.contestifyfirsttry.util.CustomViewModelFactory
-import com.google.android.material.tabs.TabLayoutMediator
 import com.squareup.picasso.Picasso
-import kotlinx.android.synthetic.main.fragment_item_detailed.*
-import kotlinx.android.synthetic.main.fragment_item_detailed.tabLayoutFragmentTop
+import kotlinx.android.synthetic.main.fragment_detailed_artist.*
+import kotlinx.android.synthetic.main.fragment_detailed_artist.imageView
+import kotlinx.android.synthetic.main.fragment_detailed_track.*
 
-class DetailedArtistFragment : Fragment(){
+class DetailedArtistFragment : Fragment(),
+    ArtistAlbumsAdapter.OnItemClickListener,
+    ArtistTopTracksAdapter.OnItemClickListener,
+    RelatedArtistsAdapter.OnItemClickListener{
     private val TAG = "Detailed Fragment"
     private lateinit var viewmodel: MainViewModel
 
@@ -31,7 +42,7 @@ class DetailedArtistFragment : Fragment(){
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_item_detailed, container, false)
+        return inflater.inflate(R.layout.fragment_detailed_artist, container, false)
     }
 
 
@@ -47,28 +58,125 @@ class DetailedArtistFragment : Fragment(){
         val bundle = requireArguments()
         val name = bundle.get("name") as String
         val id = bundle.get("id") as String
-        val image = bundle.get("image") as String
-        setData(name,image)
-        initViewPager()
-    }
+        if (bundle.get("image") != null ){
+            var image : String? = null
+            image =   bundle.get("image") as String
+            init(id, name, image)
+        }else{
+            var image : Int? = null
+            image =   R.drawable.ic_close_gray
+            init(id, name, image)
+        }
+        // ViewModel components
+        var factory = CustomViewModelFactory(this,requireContext())
+        viewmodel = ViewModelProvider(this, factory!!).get(MainViewModel::class.java)
+        viewmodel!!.artist.observe(viewLifecycleOwner,
+            Observer<Item> { t -> /*generateRelatedArtists(t!!)*/ })
+        viewmodel!!.artistTopTracks.observe(viewLifecycleOwner,
+            Observer<ArtistTopTracks> { t ->
+                generateTopTracks(t!!)
+                doVisibility()})
+        viewmodel!!.artistAlbums.observe(viewLifecycleOwner,
+            Observer<ArtistAlbums> { t -> generateAlbums(t!!) })
+        viewmodel!!.relatedArtists.observe(viewLifecycleOwner,
+            Observer<RelatedArtists> { t -> generateRelatedArtists(t!!) })
 
-    fun setData(name:String,image:String){
+        viewmodel.getArtist(token!!,id!!)
+        viewmodel.getArtistTopTracks(token, id!!)
+        viewmodel.getArtistAlbums(token, id!!)
+        viewmodel.getRelatedArtists(token!!,id!!)
+    }
+    private fun init(id:String, name:String, image:String){
         Picasso.get()
             .load(image)
             .fit().centerCrop()
             .into(imageView)
 
         detailedToolbar.title = name
+        detailedToolbar.setNavigationOnClickListener {
+            findNavController().popBackStack()
+        }
+
+        fabDetailedArtist.setOnClickListener {
+            try {
+                var uri = Uri.parse("http://open.spotify.com/artist/${id}")
+                var intent = Intent(Intent.ACTION_VIEW,uri)
+                startActivity(intent)
+            }catch (ex: ActivityNotFoundException){
+                Log.d(TAG, "setTrack: ${ex.message}")
+            }
+        }
     }
-    fun initViewPager(){
-        var adapter = DetailedViewPagerAdapter(requireActivity().supportFragmentManager,lifecycle)
-        pagerDetailedArtist.adapter = adapter
-        var tabList = arrayListOf<String>(getString(R.string.artist_profile),getString(R.string.artist_similar))
-        TabLayoutMediator(tabLayoutFragmentTop,pagerDetailedArtist){tab, position ->
-            tab.text = tabList[position]
-        }.attach()
-        pagerDetailedArtist.currentItem = 0
+    //in case image is empty
+    private fun init(id: String, name:String, image:Int){
+        Picasso.get()
+            .load(image)
+            .fit().centerCrop()
+            .into(imageView)
+
+        detailedToolbar.title = name
+        detailedToolbar.setNavigationOnClickListener {
+            findNavController().popBackStack()
+        }
+        fabDetailedArtist.setOnClickListener {
+            try {
+                var uri = Uri.parse("http://open.spotify.com/artist/${id}")
+                var intent = Intent(Intent.ACTION_VIEW,uri)
+                startActivity(intent)
+            }catch (ex: ActivityNotFoundException){
+                Log.d(TAG, "setTrack: ${ex.message}")
+            }
+        }
+    }
+    private fun doVisibility(){
+        nsvDetailedArtist.visibility = View.VISIBLE
+        fabDetailedArtist.visibility = View.VISIBLE
+        pbDetailedArtist.visibility = View.GONE
     }
 
+    private fun generateTopTracks(tracks: ArtistTopTracks){
+        var adapter : ArtistTopTracksAdapter = ArtistTopTracksAdapter(requireContext(),tracks,this)
+        var layoutManager: RecyclerView.LayoutManager = LinearLayoutManager(requireContext())
+        recyclerTopTracks.layoutManager = layoutManager
+        recyclerTopTracks.adapter = adapter
+    }
+    private fun generateAlbums(albums: ArtistAlbums){
+        var adapter : ArtistAlbumsAdapter = ArtistAlbumsAdapter(requireContext(),albums,this)
+        var layoutManager: RecyclerView.LayoutManager = LinearLayoutManager(requireContext(),
+            LinearLayoutManager.HORIZONTAL,false)
+        recyclerAlbums.layoutManager = layoutManager
+        recyclerAlbums.adapter = adapter
+    }
+    private fun generateRelatedArtists(relatedArtists:RelatedArtists){
+        var adapter : RelatedArtistsAdapter = RelatedArtistsAdapter(requireContext(),relatedArtists,this)
+        var gridLayoutManager = GridLayoutManager(context,3, GridLayoutManager.VERTICAL,false)
+        recyclerRelatedArtists.layoutManager = gridLayoutManager
+        recyclerRelatedArtists.adapter = adapter
+    }
+
+    override fun onItemClicked(album: ArtistAlbumsItems) {
+        val bundle = Bundle()
+        bundle.putString("name",album.name)
+        bundle.putString("id",album.id)
+        bundle.putString("image",album.images[0].url)
+        findNavController().navigate(R.id.action_itemDetailedFragment_to_detailedAlbumFragment,bundle)
+    }
+
+    override fun onItemClicked(track: TracksTopTrack) {
+        val bundle = Bundle()
+        bundle.putString("name",track.name)
+        bundle.putString("id",track.id)
+        bundle.putString("image",track.album.images[0].url)
+        bundle.putString("artistId",track.artists[0].id)
+        findNavController().navigate(R.id.action_itemDetailedFragment_to_detailedTrackFragment,bundle)
+    }
+
+    override fun onItemClicked(relatedArtist: RelatedArtist) {
+        val bundle = Bundle()
+        bundle.putString("name",relatedArtist.name)
+        bundle.putString("id",relatedArtist.id)
+        bundle.putString("image",relatedArtist.images[0].url)
+        findNavController().navigate(R.id.action_itemDetailedFragment_self,bundle)
+    }
 
 }

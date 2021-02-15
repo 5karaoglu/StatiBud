@@ -3,7 +3,6 @@ package com.example.contestifyfirsttry.top
 import android.content.Context
 import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -42,7 +41,7 @@ class ArtistsFragment : Fragment(), ArtistsAdapter.OnItemClickListener {
 
 
         // ViewModel components
-        var factory = CustomViewModelFactory(this)
+        var factory = CustomViewModelFactory(this,requireContext())
         viewmodel = ViewModelProvider(this, factory!!).get(MainViewModel::class.java)
 
         viewmodel!!.artistsListShortTerm.observe(viewLifecycleOwner,
@@ -71,16 +70,10 @@ class ArtistsFragment : Fragment(), ArtistsAdapter.OnItemClickListener {
 
 
     override fun onItemClicked(artist: Item) {
-        Log.d(TAG, "onClick: ${artist.name}")
-
         val bundle = Bundle()
         bundle.putString("name",artist.name)
         bundle.putString("id",artist.id)
         bundle.putString("image",artist.images[0].url)
-        val sharedPreferences = requireActivity().getSharedPreferences("spotifystatsapp",Context.MODE_PRIVATE)
-        val editor = sharedPreferences.edit()
-        editor.putString("id",artist.id)
-        editor.apply()
         findNavController().navigate(R.id.action_topFragment_to_itemDetailedFragment,bundle)
     }
 

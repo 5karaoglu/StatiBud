@@ -36,7 +36,6 @@ class TopFragment : Fragment() {
                 .show()
         }
         callback.isEnabled = true
-
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {

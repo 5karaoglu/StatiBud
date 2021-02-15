@@ -44,7 +44,13 @@ data class Items (
 
     @SerializedName("track") val track : Track,
     @SerializedName("played_at") val played_at : String,
-    @SerializedName("context") val context : String
+    @SerializedName("context") val context : Context
+)
+data class Context (
+    @SerializedName("external_urls") val external_urls : External_urls,
+    @SerializedName("href") val href : String,
+    @SerializedName("type") val type : String,
+    @SerializedName("uri") val uri : String
 )
 data class Track (
 

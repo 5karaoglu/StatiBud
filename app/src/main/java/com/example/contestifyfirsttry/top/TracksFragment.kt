@@ -37,7 +37,7 @@ class TracksFragment : Fragment(), TracksAdapter.OnItemClickListener {
         val token = sharedPreferences.getString("token","")
 
         // ViewModel components
-        var factory = CustomViewModelFactory(this)
+        var factory = CustomViewModelFactory(this,requireContext())
         viewmodel = ViewModelProvider(this, factory!!).get(MainViewModel::class.java)
 
         viewmodel!!.tracksListShortTerm.observe(viewLifecycleOwner,

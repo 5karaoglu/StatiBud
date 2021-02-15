@@ -1,7 +1,6 @@
 package com.example.contestifyfirsttry
 
 import android.content.Context
-import android.content.res.Resources
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
@@ -10,14 +9,15 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.activity.addCallback
 import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.contestifyfirsttry.model.RecentTracks
 import com.example.contestifyfirsttry.model.User
-import com.example.contestifyfirsttry.recent.RecentTracksAdapter
+import com.example.contestifyfirsttry.Search.RecentTracksAdapter
+import com.example.contestifyfirsttry.util.CustomViewModelFactory
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.fragment_home.*
-import kotlinx.android.synthetic.main.fragment_profile.*
 import kotlinx.android.synthetic.main.fragment_profile.ivProfilePhoto
 import kotlinx.android.synthetic.main.fragment_profile.tvCountry
 import kotlinx.android.synthetic.main.fragment_profile.tvDisplayName
@@ -46,9 +46,11 @@ class HomeFragment : Fragment() {
         val callback = requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner){}
         callback.isEnabled = true
         token = getToken()
-        viewModel = MainViewModel(this)
+        // ViewModel components
+        var factory = CustomViewModelFactory(this,requireContext())
+        viewModel = ViewModelProvider(this, factory!!).get(MainViewModel::class.java)
         getUserInfo(token!!)
-        recentInıt()
+        recentInit()
     }
 
     private fun getToken():String{
@@ -81,8 +83,8 @@ class HomeFragment : Fragment() {
         tvFollowers.text = user.followers.total.toString()
         tvCountry.text = user.country
     }
-    private fun recentInıt(){
-        viewModel!!.recentTracks.observe(viewLifecycleOwner,
+    private fun recentInit(){
+        viewModel!!.recentTracks.observe(requireActivity(),
             Observer<RecentTracks> { t ->
                 generateDataRecentTracks(t!!,5)
                 recyclerButtonClick(t!!)})

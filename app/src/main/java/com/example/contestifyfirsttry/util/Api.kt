@@ -53,4 +53,7 @@ interface Api {
 
     @GET("search?type=artist%2Calbum%2Ctrack&limit=3")
     fun search(@Header("Authorization") token:String, @Query("q") query:String):Call<QueryResults>
+
+    @GET("search")
+    fun searchTypeDefined(@Header("Authorization") token:String, @Query("type") type:String, @Query("q") query:String):Call<QueryResults>
 }

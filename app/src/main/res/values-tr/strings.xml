@@ -92,6 +92,17 @@
     <string name="tv_tracks">Şarkılar</string>
     <string name="tv_albums">Albümler</string>
     <string name="hint">Bir şeyler ara…</string>
+    <string name="tv_artists_more">Tüm sanatçıları göster</string>
+    <string name="tv_tracks_more">Tüm şarkıları göster</string>
+    <string name="tv_albums_more">Tüm albümleri göster</string>
+    <string name="detailed_search_header">%2$s \"%1$s</string>
+    <string name="artist_header">Sanatçılarda</string>
+    <string name="track_header">Şarkılarda</string>
+    <string name="album_header">Albümlerde</string>
+    <string name="similar_artists">Benzer Sanatçılar</string>
+    <string name="tv_searchHistory">Arama Geçmişi</string>
+    <string name="tv_historyText">Arama geçmişiniz burada görünür</string>
+    <string name="tv_history_text">Arama geçmişiniz burada görünür</string>
 
 
 </resources>

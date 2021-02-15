@@ -1,41 +1,44 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.cardview.widget.CardView
-    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
     android:layout_height="wrap_content"
     >
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_margin="10dp"
-        android:background="@color/colorPrimaryDark">
+        android:background="@color/colorPrimaryDark"
+        android:padding="2dp">
         <ImageView
-            android:layout_width="70dp"
-            android:layout_height="70dp"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
             android:id="@+id/ivImage"
             android:src="@mipmap/ic_launcher"
             android:layout_margin="10dp"/>
         <TextView
+            android:gravity="start"
             android:id="@+id/tvName"
-            android:layout_margin="10dp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="i bet u sup bro"
-            android:maxLines="1"
-            android:ellipsize="end"
-            android:textSize="20sp"
-            android:textColor="@color/white"
-            android:layout_toEndOf="@+id/ivImage"/>
-        <TextView
-            android:layout_below="@id/tvName"
-            android:id="@+id/tvNameArtist"
-            android:layout_marginStart="10dp"
-            android:layout_marginTop="2dp"
+            android:layout_marginTop="10dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="i bet u sup bro"
             android:maxLines="1"
             android:ellipsize="end"
             android:textSize="15sp"
+            android:textColor="@color/white"
+            android:layout_toEndOf="@+id/ivImage"/>
+        <TextView
+            android:gravity="start"
+            android:layout_below="@id/tvName"
+            android:id="@+id/tvNameArtist"
+
+            android:layout_marginTop="2dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="i bet u sup bro"
+            android:maxLines="1"
+            android:ellipsize="end"
+            android:textSize="12sp"
             android:textColor="@color/colorgray2"
             android:layout_toEndOf="@+id/ivImage"/>
 

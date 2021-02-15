@@ -15,7 +15,7 @@
             android:layout_width="match_parent"
             android:layout_height="320dp"
             android:fitsSystemWindows="true"
-            app:contentScrim="@color/colorPrimaryDark"
+            app:contentScrim="@color/colorPrimary"
             app:expandedTitleMarginEnd="64dp"
             app:expandedTitleMarginStart="48dp"
             app:layout_scrollFlags="scroll|exitUntilCollapsed">
@@ -36,14 +36,37 @@
                 app:titleTextColor="@android:color/white"
                 android:layout_height="?attr/actionBarSize"
                 app:layout_scrollFlags="scroll|enterAlways"
-                app:title="HEADER" />
+                app:navigationIcon="@drawable/ic_arrow_back"
+                app:layout_collapseMode="pin"
+                app:title="HEADER">
+
+            </androidx.appcompat.widget.Toolbar>
         </com.google.android.material.appbar.CollapsingToolbarLayout>
     </com.google.android.material.appbar.AppBarLayout>
+    <ProgressBar
+        android:id="@+id/pbDetailedTrack"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_gravity="center" />
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/fabDetailedTrack"
+        android:visibility="gone"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:layout_gravity="end|bottom"
+        android:layout_marginBottom="20dp"
+        android:layout_marginEnd="20dp"
+        android:src="@drawable/ic_spotify"
+        android:backgroundTint="@color/colorPrimary"
+        app:borderWidth="0dp"
+        app:maxImageSize="50dp"
+        app:fabCustomSize="80dp"/>
     <androidx.core.widget.NestedScrollView
-        android:id="@+id/pagerDetailedArtist"
+        android:id="@+id/nsvDetailedTrack"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior">
+        app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior"
+        android:visibility="gone">
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent">
@@ -407,9 +430,10 @@
                         android:src="@drawable/ic_launcher_foreground" />
 
                     <TextView
+                        android:padding="10dp"
                         android:id="@+id/textViewAlbumName"
-                        android:layout_width="155dp"
-                        android:layout_height="89dp"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
                         android:layout_alignParentStart="true"
                         android:layout_alignParentTop="true"
                         android:layout_alignParentEnd="true"
@@ -422,14 +446,13 @@
                         android:shadowDx="2"
                         android:shadowDy="2"
                         android:shadowRadius="4"
-                        android:text="Arctic Monkeys"
                         android:textColor="@color/white"
-                        android:textSize="35sp"
+                        android:autoSizeTextType="uniform"
+                        android:autoSizeMaxTextSize="35sp"
+                        android:autoSizeMinTextSize="20sp"
                         android:textStyle="bold" />
                 </RelativeLayout>
             </androidx.cardview.widget.CardView>
         </RelativeLayout>
     </androidx.core.widget.NestedScrollView>
-
-
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

@@ -1,4 +1,4 @@
-package com.example.contestifyfirsttry.recent
+package com.example.contestifyfirsttry.Search
 
 import android.content.Context
 import android.view.LayoutInflater
@@ -8,7 +8,6 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.contestifyfirsttry.Functions
-import com.example.contestifyfirsttry.MainViewModel
 import com.example.contestifyfirsttry.R
 import com.example.contestifyfirsttry.model.*
 import com.squareup.picasso.Picasso
@@ -16,19 +15,26 @@ import com.squareup.picasso.Picasso
 class QueryResultArtistAdapter(
     var context: Context,
     var dataList: QueryResultArtists,
-    var clickListener : OnItemClickListener) : RecyclerView.Adapter<QueryResultArtistAdapter.QueryResultArtistHolder>() {
+    var clickListener : OnItemClickListener,
+    var isDetailed : Boolean) : RecyclerView.Adapter<QueryResultArtistAdapter.QueryResultArtistHolder>() {
 
 
     class QueryResultArtistHolder(itemView: View): RecyclerView.ViewHolder(itemView) {
-        var ivArtistImage = itemView.findViewById<ImageView>(R.id.ivSearchArtistImage)
-        var tvArtistName = itemView.findViewById<TextView>(R.id.tvSearchArtistName)
+        var ivArtistImage = itemView.findViewById<ImageView>(R.id.ivArtistImage)
+        var tvArtistName = itemView.findViewById<TextView>(R.id.tvArtistImage)
 
 
         fun bind(currentArtist: QueryResultArtistsItem, clickListener: OnItemClickListener){
-            Picasso.get()
-                .load(currentArtist.images[1].url)
-                .fit().centerCrop()
-                .into(ivArtistImage)
+            if (currentArtist.images.isNotEmpty()){
+                Picasso.get()
+                    .load(currentArtist.images[1].url)
+                    .fit().centerCrop()
+                    .into(ivArtistImage)
+            }else{
+                Picasso.get()
+                    .load(R.drawable.ic_close_gray)
+                    .into(ivArtistImage)
+            }
 
             tvArtistName.text = currentArtist.name
 
@@ -40,7 +46,7 @@ class QueryResultArtistAdapter(
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): QueryResultArtistHolder {
         var layoutInflater: LayoutInflater = LayoutInflater.from(context)
-        var view = layoutInflater.inflate(R.layout.search_artist_single,parent,false)
+        var view = layoutInflater.inflate(Functions().selectArtistLayout(isDetailed),parent,false)
         return QueryResultArtistHolder(view)
     }
 

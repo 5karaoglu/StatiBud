@@ -8,7 +8,7 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModel
 import com.example.contestifyfirsttry.model.*
 
-class MainViewModel(lifecycleOwner: LifecycleOwner) : ViewModel() {
+class MainViewModel(lifecycleOwner: LifecycleOwner,context: Context) : ViewModel() {
     var artistsListShortTerm = MutableLiveData<Artists>()
     var artistsListMidTerm = MutableLiveData<Artists>()
     var artistsListLongTerm = MutableLiveData<Artists>()
@@ -17,7 +17,7 @@ class MainViewModel(lifecycleOwner: LifecycleOwner) : ViewModel() {
     var tracksListMidTerm = MutableLiveData<Tracks>()
     var tracksListLongTerm = MutableLiveData<Tracks>()
 
-    var repository : Repository = Repository()
+    var repository : Repository = Repository(context)
     var recentTracks = MutableLiveData<RecentTracks>()
     var user = MutableLiveData<User>()
 
@@ -34,6 +34,8 @@ class MainViewModel(lifecycleOwner: LifecycleOwner) : ViewModel() {
     var albumTracks = MutableLiveData<AlbumTracks>()
 
     var queryResults = MutableLiveData<QueryResults>()
+
+    var searchHistory = MutableLiveData<List<SearchHistory>>()
 
     init {
         repository.respArtistsShortTerm.observe(lifecycleOwner,object : Observer<Artists>{
@@ -128,7 +130,22 @@ class MainViewModel(lifecycleOwner: LifecycleOwner) : ViewModel() {
                 queryResults.value = t
             }
         })
+        repository.respSearchHistory.observe(lifecycleOwner,object : Observer<List<SearchHistory>>{
+            override fun onChanged(t: List<SearchHistory>?) {
+                searchHistory.value = t
+            }
+        })
 
+    }
+    //room methods
+    fun getAll(){
+        repository.getAll()
+    }
+    fun insert(searchHistory: SearchHistory){
+        repository.insert(searchHistory)
+    }
+    fun delete(searchHistory: SearchHistory){
+        repository.delete(searchHistory)
     }
 
     fun getMyArtists(token: String,timeRange:String){
@@ -181,5 +198,9 @@ class MainViewModel(lifecycleOwner: LifecycleOwner) : ViewModel() {
     fun getQueryResult(token: String,q:String){
         repository.getQueryResult(token,q)
     }
+    fun getQueryResultDefined(token: String,type:String,q:String){
+        repository.getQueryResultDefined(token,type,q)
+    }
+
 
 }

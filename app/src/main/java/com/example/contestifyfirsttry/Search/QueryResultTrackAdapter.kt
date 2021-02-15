@@ -1,4 +1,4 @@
-package com.example.contestifyfirsttry.recent
+package com.example.contestifyfirsttry.Search
 
 import android.content.Context
 import android.view.LayoutInflater
@@ -7,10 +7,7 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import com.example.contestifyfirsttry.MainViewModel
 import com.example.contestifyfirsttry.R
-import com.example.contestifyfirsttry.model.QueryResultArtists
-import com.example.contestifyfirsttry.model.QueryResultArtistsItem
 import com.example.contestifyfirsttry.model.QueryResultTrackItem
 import com.example.contestifyfirsttry.model.QueryResultTracks
 import com.squareup.picasso.Picasso

@@ -60,4 +60,12 @@ class Functions {
         Log.d(TAG, "stringToQuery: $query")
         return query
     }
+    fun selectArtistLayout(detailed: Boolean): Int {
+        //returns layout if adapter for detailedresultfragment or searchfragment
+        return if (detailed){
+            R.layout.detailed_result_artist_single
+        }else{
+            R.layout.search_artist_single
+        }
+    }
 }

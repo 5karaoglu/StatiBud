@@ -2,18 +2,18 @@
 <androidx.cardview.widget.CardView
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:padding="10dp">
+    android:layout_height="wrap_content">
 
     <RelativeLayout
-        android:layout_margin="10dp"
-        android:layout_width="150dp"
-        android:layout_height="150dp"
-        android:gravity="center">
+        android:padding="5dp"
+        android:layout_width="120dp"
+        android:layout_height="120dp"
+        android:gravity="center"
+        android:background="@color/colorPrimaryDark">
         <de.hdodenhof.circleimageview.CircleImageView
-            android:layout_width="match_parent"
-            android:layout_height="100dp"
-            android:id="@+id/ivSearchArtistImage"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            android:id="@+id/ivArtistImage"
             android:src="@mipmap/ic_launcher"
             android:layout_alignParentEnd="true"
             android:layout_alignParentStart="true"/>
@@ -22,10 +22,11 @@
             android:gravity="center_horizontal"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/ivSearchArtistImage"
-            android:id="@+id/tvSearchArtistName"
+            android:layout_below="@+id/ivArtistImage"
+            android:id="@+id/tvArtistImage"
             android:text="sup"
-            android:textSize="20sp"
+            android:textColor="@color/white"
+            android:textSize="15sp"
             android:maxLines="1"
             android:ellipsize="end"/>
     </RelativeLayout>

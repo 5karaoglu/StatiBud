@@ -1,11 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
 <androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".detailed.DetailedAlbumFragment"
+    tools:context=".detailed.DetailedArtistFragment"
     android:background="@color/colorPrimaryDark">
     <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/appBarDetailedArtist"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
@@ -17,8 +19,7 @@
             app:contentScrim="@color/colorPrimary"
             app:expandedTitleMarginEnd="64dp"
             app:expandedTitleMarginStart="48dp"
-            app:layout_scrollFlags="scroll|exitUntilCollapsed"
-            app:navigationIcon="?attr/homeAsUpIndicator">
+            app:layout_scrollFlags="scroll|exitUntilCollapsed">
             <ImageView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
@@ -30,9 +31,9 @@
                 android:src="@mipmap/ic_launcher"
                 app:layout_scrollFlags="scroll|enterAlways|enterAlwaysCollapsed"/>
             <androidx.appcompat.widget.Toolbar
-                android:id="@+id/detailedAlbumToolbar"
+                android:id="@+id/detailedToolbar"
                 android:layout_width="match_parent"
-                app:titleTextAppearance="@style/TextAppearance.AppCompat.Title"
+                app:titleTextAppearance="@style/TextAppearance.AppCompat.Medium"
                 app:titleTextColor="@android:color/white"
                 android:layout_height="?attr/actionBarSize"
                 app:layout_scrollFlags="scroll|enterAlways"
@@ -42,12 +43,12 @@
         </com.google.android.material.appbar.CollapsingToolbarLayout>
     </com.google.android.material.appbar.AppBarLayout>
     <ProgressBar
-        android:id="@+id/pbDetailedAlbum"
+        android:id="@+id/pbDetailedArtist"
         android:layout_width="100dp"
         android:layout_height="100dp"
         android:layout_gravity="center" />
     <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/fabDetailedAlbum"
+        android:id="@+id/fabDetailedArtist"
         android:visibility="gone"
         android:layout_width="80dp"
         android:layout_height="80dp"
@@ -60,67 +61,82 @@
         app:maxImageSize="50dp"
         app:fabCustomSize="80dp"/>
     <androidx.core.widget.NestedScrollView
-        android:id="@+id/nsvDetailedAlbum"
+        android:id="@+id/nsvDetailedArtist"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_below="@+id/appBarDetailedArtist"
         app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior"
         android:visibility="gone">
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent">
-            <RelativeLayout
+            <TextView
+                android:layout_marginStart="10dp"
+                android:layout_marginEnd="10dp"
+                android:layout_marginTop="10dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:id="@+id/reLayoutInfo"
-                android:paddingTop="10dp"
-                android:paddingStart="10dp"
-                android:paddingEnd="10dp"
-                android:paddingBottom="10dp"
-                android:background="@drawable/border_bottom">
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentStart="true"
-                    android:text="@string/track_name"
-                    android:textColor="@color/colorgray2"/>
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentEnd="true"
-                    android:text="@string/album_explicit"
-                    android:textColor="@color/colorgray2"/>
-            </RelativeLayout>
+                android:text="@string/top_tracks"
+                android:textSize="25sp"
+                android:id="@+id/tvTopTracks"
+                android:textColor="@color/colorgray2"
+                android:textStyle="bold"/>
             <androidx.recyclerview.widget.RecyclerView
-                  android:layout_below="@+id/reLayoutInfo"
-                  android:id="@+id/recyclerAlbumTracks"
-                  android:layout_width="match_parent"
-                  android:layout_height="match_parent"
-                  android:padding="10dp"/>
-            <TextView
-                android:id="@+id/tvCopyright"
+                android:layout_marginStart="10dp"
+                android:layout_marginEnd="10dp"
+                android:layout_marginBottom="10dp"
+                android:layout_marginTop="2dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/recyclerAlbumTracks"
-                android:textColor="@color/colorgray"
-                android:gravity="center_horizontal"/>
+                android:id="@+id/recyclerTopTracks"
+                android:layout_below="@+id/tvTopTracks" />
             <TextView
-                android:id="@+id/tvLabel"
+                android:layout_marginStart="10dp"
+                android:layout_marginEnd="10dp"
+                android:layout_marginTop="10dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/tvCopyright"
-                android:textColor="@color/colorgray"
-                android:gravity="center_horizontal"/>
-            <TextView
-                android:id="@+id/tvRelease"
+                android:text="@string/albums"
+                android:textSize="25sp"
+                android:id="@+id/tvAlbums"
+                android:layout_below="@+id/recyclerTopTracks"
+                android:textColor="@color/colorgray2"
+                android:textStyle="bold"/>
+            <androidx.recyclerview.widget.RecyclerView
+                android:layout_marginStart="10dp"
+                android:layout_marginEnd="10dp"
+                android:layout_marginBottom="10dp"
+                android:layout_marginTop="2dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/tvLabel"
-                android:textColor="@color/colorgray"
-                android:gravity="center_horizontal"/>
-
-
+                android:id="@+id/recyclerAlbums"
+                android:scrollbars="horizontal"
+                android:layout_below="@+id/tvAlbums"
+                android:orientation="vertical" />
+            <TextView
+                android:layout_marginStart="10dp"
+                android:layout_marginEnd="10dp"
+                android:layout_marginTop="10dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/similar_artists"
+                android:textSize="25sp"
+                android:id="@+id/tvRelatedArtists"
+                android:layout_below="@+id/recyclerAlbums"
+                android:textColor="@color/colorgray2"
+                android:textStyle="bold"/>
+            <androidx.recyclerview.widget.RecyclerView
+                android:layout_marginStart="10dp"
+                android:layout_marginEnd="10dp"
+                android:layout_marginBottom="10dp"
+                android:layout_marginTop="2dp"
+                android:layout_below="@+id/tvRelatedArtists"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:id="@+id/recyclerRelatedArtists" />
         </RelativeLayout>
     </androidx.core.widget.NestedScrollView>
+
 
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

@@ -25,7 +25,7 @@ class ContentActivity : AppCompatActivity() {
         setContentView(R.layout.activity_content)
 
         // ViewModel components
-        factory = CustomViewModelFactory(this)
+        factory = CustomViewModelFactory(this,this)
         viewmodel = ViewModelProvider(this, factory!!).get(MainViewModel::class.java)
 
         viewmodel!!.getToken(this)

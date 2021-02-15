@@ -2,10 +2,13 @@ package com.example.contestifyfirsttry
 
 import android.app.Activity
 import android.content.Context
+import android.net.Uri
 import android.util.Log
 import androidx.lifecycle.MutableLiveData
+import androidx.room.Room
 import com.example.contestifyfirsttry.model.*
 import com.example.contestifyfirsttry.util.Api
+import com.example.contestifyfirsttry.util.AppDatabase
 import com.example.contestifyfirsttry.util.RetrofitInstance
 import com.example.contestifyfirsttry.util.Scopes
 import com.spotify.android.appremote.api.ConnectionParams
@@ -18,7 +21,7 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class Repository() {
+class Repository(context: Context) {
 
     private val TAG = "Repository"
 
@@ -47,6 +50,8 @@ class Repository() {
 
     var respQueryResult = MutableLiveData<QueryResults>()
 
+    var respSearchHistory = MutableLiveData<List<SearchHistory>>()
+
     var scopes : Scopes? = null
     private val CLIENT_ID = "85e82d6c52384d2b9ada66f99f78648c"
     private val REDIRECT_URI = "http://com.example.contestifyfirsttry/callback"
@@ -54,7 +59,20 @@ class Repository() {
 
     private var mSpotifyAppRemote: SpotifyAppRemote? = null
 
-    var service = RetrofitInstance().getRefrofitInstance()!!.create(Api::class.java)
+    private var service: Api = RetrofitInstance().getRefrofitInstance()!!.create(Api::class.java)
+    private val db = Room.databaseBuilder(context.applicationContext, AppDatabase::class.java, "searchHistory").build()
+
+
+    //room methods
+    fun getAll(){
+        respSearchHistory.postValue(db.dao().getAll())
+    }
+    fun insert(searchHistory: SearchHistory){
+        db.dao().insert(searchHistory)
+    }
+    fun delete(searchHistory: SearchHistory){
+        db.dao().delete(searchHistory)
+    }
 
     fun getToken(activity: Activity){
         scopes = Scopes()
@@ -142,12 +160,13 @@ class Repository() {
 
         call.enqueue(object : Callback<RecentTracks> {
             override fun onResponse(call: Call<RecentTracks>, response: Response<RecentTracks>) {
-                respRecentTracks.value = response.body()!!
-                Log.d(TAG, "onResponse: ${response.body()}")
+                if (response.isSuccessful){
+                respRecentTracks.value = response.body()!!}
+                Log.d(TAG, "onResponseRecent: $response")
             }
 
             override fun onFailure(call: Call<RecentTracks>, t: Throwable) {
-                Log.d(TAG, "onFailure: ${t.message}")
+                Log.d(TAG, "onFailureRecent: ${t.message}")
             }
 
         })
@@ -297,9 +316,9 @@ class Repository() {
         call.enqueue(object : Callback<QueryResults> {
             override fun onResponse(call: Call<QueryResults>, response: Response<QueryResults>) {
                 if (response.isSuccessful){
-                respQueryResult.value = response.body()!!
-                Log.d(TAG, "onResponse: ${response.body()}")
-            }}
+                    respQueryResult.value = response.body()!!
+                    Log.d(TAG, "onResponse: ${response.body()}")
+                }}
 
             override fun onFailure(call: Call<QueryResults>, t: Throwable) {
                 Log.d(TAG, "onFailure: ${t.message}")
@@ -307,4 +326,24 @@ class Repository() {
 
         })
     }
+    fun getQueryResultDefined(token: String,type:String,q:String){
+        var call:retrofit2.Call<QueryResults> = service.searchTypeDefined("Bearer $token",type,q)
+
+        call.enqueue(object : Callback<QueryResults> {
+            override fun onResponse(call: Call<QueryResults>, response: Response<QueryResults>) {
+                if (response.isSuccessful) {
+                    respQueryResult.value = response.body()!!
+                }
+                Log.d(TAG, "onResponse: $q $type")
+                Log.d(TAG, "onResponse: ${response.body()}")
+                Log.d(TAG, "onResponse: ${response.errorBody()}")
+            }
+
+            override fun onFailure(call: Call<QueryResults>, t: Throwable) {
+                Log.d(TAG, "onFailure: ${t.message}")
+            }
+
+        })
+    }
+
 }
