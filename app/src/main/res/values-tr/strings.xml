@@ -107,10 +107,15 @@
     <string name="type_track">track</string>
     <string name="type_album">album</string>
     <string name="link_format">Daha fazla %s</string>
-    <string name="recommendations">Son Hareketlerinize Göre Öneriler</string>
+    <string name="recommendations">Son Hareketlerine Göre Öneriler</string>
     <string name="recent_tracks">Son Dinlenenler</string>
     <string name="account_info">Hesap Bilgileri</string>
     <string name="available_devices">Hazır Cihazlar</string>
+    <string name="share_header">Senin İçin Hazırlandı</string>
+    <string name="share">Paylaş</string>
+    <string name="share_one_header">Son 4 haftada 1 numaram</string>
+    <string name="share_two_header">Son 4 haftada 2 numaram</string>
+    <string name="spotibud">Spotibud for Android</string>
 
 
 </resources>

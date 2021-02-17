@@ -8,28 +8,29 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.activity.addCallback
+import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.example.contestifyfirsttry.Functions
-import com.example.contestifyfirsttry.MainViewModel
-import com.example.contestifyfirsttry.R
-import com.example.contestifyfirsttry.Tracks
+import com.example.contestifyfirsttry.*
 import com.example.contestifyfirsttry.model.*
 import com.example.contestifyfirsttry.util.CustomViewModelFactory
+import com.muddzdev.quickshot.QuickShot
 import kotlinx.android.synthetic.main.fragment_home.*
 
 
 class HomeFragment : Fragment(),
     RecommendationsAdapter.OnItemClickListener,
-    RecentTracksAdapter.OnItemClickListener{
+    RecentTracksAdapter.OnItemClickListener,
+    QuickShot.QuickShotListener{
     private var TAG = "Home Fragment"
 
     private var viewModel: MainViewModel? = null
     private var token:String? = null
     private var functions = Functions()
+    lateinit var adapter : HomePagerAdapter
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -42,6 +43,7 @@ class HomeFragment : Fragment(),
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initVisibility()
+        initShareViewPager()
         //disabling onbackpressed
         val callback = requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner){}
         callback.isEnabled = true
@@ -55,6 +57,16 @@ class HomeFragment : Fragment(),
             Observer<User> { t -> profileInit(t!!) })
         viewModel!!.getUser(token!!)
 
+        //saves screenshot on viewpager current page
+        buttonShare.setOnClickListener {
+            getScreenshot(getTargetView())
+        }
+
+    }
+
+    override fun onStart() {
+        super.onStart()
+        initShareViewPager()
     }
     private fun initVisibility(){
         liRecommendationPb.visibility = View.VISIBLE
@@ -192,5 +204,58 @@ class HomeFragment : Fragment(),
             bundle.putString("name", recentTrack.track.name)
             bundle.putString("image", recentTrack.track.album.images[0].url)
             findNavController().navigate(R.id.action_homeFragment_to_detailedTrackFragment,bundle)
+    }
+    /*fun getBitmapFromView(view: View,activity:Activity,callback:(Bitmap) -> Unit){
+        activity.window.let { window ->
+            val bitmap = Bitmap.createBitmap(view.width, view.height,Bitmap.Config.ARGB_8888)
+            val locationOfViewInWindow = IntArray(2)
+            view.getLocationInWindow(locationOfViewInWindow)
+            try {
+                PixelCopy.request(window, Rect(locationOfViewInWindow[0],locationOfViewInWindow[1],
+                    locationOfViewInWindow[0]+view.width,locationOfViewInWindow[1]+view.height),
+                bitmap,{copyResult ->
+                        if (copyResult == PixelCopy.SUCCESS){
+                            callback(bitmap)
+                        }
+                        //other result codes
+                    }, Handler(Looper.getMainLooper()))
+            }catch (e : IllegalArgumentException) {
+                e.printStackTrace()
+            }
+        }
+    }*/
+    private fun initShareViewPager(){
+        val titles = arrayListOf<String>("No.1","No.2")
+        val tabList = arrayListOf<Fragment>(ShareLayoutOne(),ShareLayoutTwo())
+        adapter = HomePagerAdapter(childFragmentManager,titles,tabList)
+        pagerHome.adapter = adapter
+        pagerHome.offscreenPageLimit = 4
+        tabLayoutHome.setupWithViewPager(pagerHome)}
+
+    private fun getTargetView(): Int {
+        var view : Int? = null
+        when(pagerHome.currentItem){
+            0 -> view = R.id.shareLayout1
+            1 -> view = R.id.shareLayout2
+        }
+        return view!!
+    }
+
+    private fun getScreenshot(currentPage:Int){
+        QuickShot.of(requireActivity().findViewById<ConstraintLayout>(currentPage))
+            .setResultListener(this)
+            .enableLogging()
+            .setFilename("screen")
+            .setPath("Spotibud")
+            .toPNG()
+            .save();
+    }
+
+    override fun onQuickShotSuccess(path: String?) {
+        Log.d(TAG, "onQuickShotSuccess: $path")
+    }
+
+    override fun onQuickShotFailed(path: String?, errorMsg: String?) {
+        Log.d(TAG, "onQuickShotFailed: $errorMsg")
     }
 }

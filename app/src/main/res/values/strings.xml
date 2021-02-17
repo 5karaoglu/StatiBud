@@ -45,6 +45,8 @@
     <string name="show_less">SHOW LESS</string>
     <string name="recommendations">Recommendations According to Your Recent Behaviours</string>
     <string name="recent_tracks">Recent Tracks</string>
+    <string name="share_header">Prepared For You</string>
+    <string name="share">Share</string>
 
     <!--Navigation Menu-->
     <string name="home">Home</string>
@@ -121,6 +123,11 @@
     <string name="type_track">track</string>
     <string name="type_album">album</string>
     <string name="tv_historyText">Search history shown here</string>
+
+    <!--ShareOneLayout-->
+    <string name="share_one_header">My #1 in past 4 weeks</string>
+    <string name="share_two_header">My #2 in past 4 weeks</string>
+    <string name="spotibud">Spotibud for Android</string>
 
 
 </resources>
