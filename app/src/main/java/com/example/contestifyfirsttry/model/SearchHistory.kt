@@ -8,8 +8,9 @@ import androidx.room.PrimaryKey
 data class SearchHistory(
     @PrimaryKey (autoGenerate = true) var uid: Int? = 0,
     @ColumnInfo (name = "type") var type: String?,
-    @ColumnInfo (name = "aid") var aid: String?,
+    @ColumnInfo (name = "sId") var sId: String?,
     @ColumnInfo (name = "name") var name: String?,
     @ColumnInfo (name = "artistId") var artistId: String?,
-    @ColumnInfo (name = "aimage") var aImage: String?
+    @ColumnInfo (name = "artistName") var artistName: String?,
+    @ColumnInfo (name = "cImage") var cImage: String?
 )

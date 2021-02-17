@@ -60,7 +60,6 @@ class MainActivity : AppCompatActivity() {
                 0 -> navController!!.navigate(R.id.homeFragment)
                 1 -> navController!!.navigate(R.id.topFragment)
                 2 -> navController!!.navigate(R.id.searchFragment)
-                3 -> navController!!.navigate(R.id.profileFragment)
             }
         }
         bottomBar.onItemReselected = {
@@ -69,7 +68,6 @@ class MainActivity : AppCompatActivity() {
                 0 -> navController!!.navigate(R.id.homeFragment)
                 1 -> navController!!.navigate(R.id.topFragment)
                 2 -> navController!!.navigate(R.id.searchFragment)
-                3 -> navController!!.navigate(R.id.profileFragment)
         }}
     }
     private fun setAd(){

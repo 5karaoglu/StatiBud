@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="70dp"
+    >
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/colorPrimaryDark"
+        android:padding="2dp">
+        <ImageView
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:id="@+id/ivSearchHistoryImage"
+            android:src="@mipmap/ic_launcher"
+            android:layout_margin="10dp"/>
+        <LinearLayout
+            android:padding="5dp"
+            android:id="@+id/liAlbum"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_alignTop="@+id/ivSearchHistoryImage"
+            android:layout_alignBottom="@+id/ivSearchHistoryImage"
+            android:layout_toEndOf="@+id/ivSearchHistoryImage"
+            android:layout_toStartOf="@+id/ivSearchHistoryDelete">
+            <TextView
+                android:id="@+id/tvSearchHistoryName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:ellipsize="end"
+                android:gravity="center_vertical"
+                android:maxLines="1"
+                android:textColor="@color/white"
+                android:textSize="15sp" />
+            <TextView
+                android:id="@+id/tvSearchHistoryArtistName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:ellipsize="end"
+                android:gravity="center_vertical"
+                android:maxLines="1"
+                android:textColor="@color/colorgray2"
+                android:textSize="12sp" />
+        </LinearLayout>
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:visibility="gone"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:id="@+id/ivSearchHistoryArtistImage"
+            android:src="@mipmap/ic_launcher"
+            android:layout_margin="10dp"/>
+        <LinearLayout
+            android:visibility="gone"
+            android:padding="5dp"
+            android:id="@+id/liArtist"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_alignTop="@+id/ivSearchHistoryArtistImage"
+            android:layout_alignBottom="@+id/ivSearchHistoryArtistImage"
+            android:layout_toEndOf="@+id/ivSearchHistoryArtistImage"
+            android:layout_toStartOf="@id/ivSearchHistoryDelete">
+            <TextView
+                android:id="@+id/tvSearchHistoryNameArtist"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:ellipsize="end"
+                android:gravity="center_vertical"
+                android:maxLines="1"
+                android:textColor="@color/white"
+                android:textSize="15sp" />
+        </LinearLayout>
+        <ImageView
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_margin="10dp"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentBottom="true"
+            android:src="@drawable/ic_close_gray"
+            android:id="@+id/ivSearchHistoryDelete"/>
+
+    </RelativeLayout>
+</androidx.cardview.widget.CardView>

@@ -1,12 +1,16 @@
 package com.example.contestifyfirsttry.Search
 
 import android.content.Context
+import android.content.res.Resources
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
+import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.example.contestifyfirsttry.Functions
 import com.example.contestifyfirsttry.R
 import com.example.contestifyfirsttry.model.QueryResultTrackItem
 import com.example.contestifyfirsttry.model.QueryResultTracks
@@ -20,18 +24,48 @@ class SearchHistoryAdapter (
 
 
     class SearchHistoryHolder(itemView: View): RecyclerView.ViewHolder(itemView) {
-        var ivImage = itemView.findViewById<ImageView>(R.id.ivImage)
-        var tvName = itemView.findViewById<TextView>(R.id.tvName)
-        var tvArtistName = itemView.findViewById<TextView>(R.id.tvNameArtist)
+        var ivImage = itemView.findViewById<ImageView>(R.id.ivSearchHistoryImage)
+        var ivArtistImage = itemView.findViewById<ImageView>(R.id.ivSearchHistoryArtistImage)
+        var liArtist = itemView.findViewById<LinearLayout>(R.id.liArtist)
+        var liAlbum = itemView.findViewById<LinearLayout>(R.id.liAlbum)
+        var ivImageDelete = itemView.findViewById<ImageView>(R.id.ivSearchHistoryDelete)
+        var tvName = itemView.findViewById<TextView>(R.id.tvSearchHistoryName)
+        var tvNameArtist = itemView.findViewById<TextView>(R.id.tvSearchHistoryNameArtist)
+        var tvArtistName = itemView.findViewById<TextView>(R.id.tvSearchHistoryArtistName)
 
 
         fun bind(searchHistory: SearchHistory, clickListener: OnItemClickListener){
-            Picasso.get()
-                .load(searchHistory.aImage)
-                .fit().centerCrop()
-                .into(ivImage)
-            tvName.text = searchHistory.name
+            Log.d("debug", "bind: ${searchHistory.name}")
+            Log.d("debug", "bind: ${searchHistory.artistName}")
+            Log.d("debug", "bind: ${searchHistory.type}")
+            if (searchHistory.type == "artist"){
+                ivArtistImage.visibility = View.VISIBLE
+                liArtist.visibility = View.VISIBLE
+                liAlbum.visibility = View.GONE
+                ivImage.visibility = View.GONE
+                Picasso.get()
+                    .load(searchHistory.cImage)
+                    .fit().centerCrop()
+                    .into(ivArtistImage)
+                tvNameArtist.text = searchHistory.name
+            }else{
+                ivArtistImage.visibility = View.GONE
+                liArtist.visibility = View.GONE
+                liAlbum.visibility = View.VISIBLE
+                ivImage.visibility = View.VISIBLE
+                Picasso.get()
+                    .load(searchHistory.cImage)
+                    .fit().centerCrop()
+                    .into(ivImage)
+                tvName.text = searchHistory.name
+                tvArtistName.text = searchHistory.artistName
+            }
 
+
+
+            ivImageDelete.setOnClickListener {
+                clickListener.onDeleteClicked(searchHistory)
+            }
 
             itemView.setOnClickListener {
                 clickListener.onItemClicked(searchHistory)
@@ -41,7 +75,7 @@ class SearchHistoryAdapter (
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SearchHistoryHolder {
         var layoutInflater: LayoutInflater = LayoutInflater.from(context)
-        var view = layoutInflater.inflate(R.layout.search_albumtrack_single,parent,false)
+        var view = layoutInflater.inflate(R.layout.search_history_albumtrack,parent,false)
         return SearchHistoryHolder(view)
     }
 
@@ -56,6 +90,7 @@ class SearchHistoryAdapter (
     }
     interface OnItemClickListener{
         fun onItemClicked(searchHistory: SearchHistory)
+        fun onDeleteClicked(searchHistory: SearchHistory)
     }
 
 }

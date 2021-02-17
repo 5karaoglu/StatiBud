@@ -1,82 +1,83 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.cardview.widget.CardView android:layout_height="wrap_content"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:orientation="horizontal"
-    android:background="@color/colorPrimary"
-    android:gravity="center_vertical">
+    xmlns:android="http://schemas.android.com/apk/res/android" >
     <LinearLayout
-        android:layout_width="30dp"
-        android:layout_height="match_parent"
-        android:padding="1dp"
-        android:orientation="vertical"
-        android:gravity="center">
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/ic_history"
-            android:id="@+id/ivHistory"
-            android:layout_marginTop="4dp"
-            />
-
-        <TextView
-            android:id="@+id/tvHistory"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="1dp"
-            android:layout_marginBottom="4dp"
-            android:gravity="center"
-            android:maxLines="1"
-            android:text="4m"
-            android:textColor="@color/colorgray" />
-    </LinearLayout>
-    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:gravity="center"
-        android:padding="1dp">
-        <ImageView
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:id="@+id/ivRecentTrack"
-            android:layout_marginStart="5dp"
-            android:layout_marginTop="5dp"
-            android:layout_marginBottom="5dp"
-            android:src="@mipmap/ic_launcher" />
-        <TextView
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:background="@color/colorPrimaryDark"
+        android:gravity="center_vertical">
+        <LinearLayout
+            android:layout_width="30dp"
+            android:layout_height="match_parent"
+            android:padding="1dp"
+            android:orientation="vertical"
+            android:gravity="center">
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_history"
+                android:id="@+id/ivHistory"
+                android:layout_marginTop="4dp"
+                />
+
+            <TextView
+                android:id="@+id/tvHistory"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="1dp"
+                android:layout_marginBottom="4dp"
+                android:gravity="center"
+                android:maxLines="1"
+                android:text="4m"
+                android:textColor="@color/colorgray" />
+        </LinearLayout>
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/tvRecentTrack"
-            android:text="I Bet You Looking Good On The DanceFloor"
-            android:textSize="15sp"
-            android:ellipsize="marquee"
-            android:focusable="true"
-            android:focusableInTouchMode="true"
-            android:marqueeRepeatLimit="marquee_forever"
-            android:scrollHorizontally="true"
-            android:singleLine="true"
-            android:gravity="start"
-            android:textColor="@color/white"
-            android:textStyle="normal"
-            android:layout_toEndOf="@+id/ivRecentTrack"
-            android:layout_marginStart="10dp"
-            android:layout_marginTop="5dp"/>
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/tvRecentTrackArtist"
-            android:text="Arctic Monkeys"
-            android:maxLines="1"
-            android:ellipsize="end"
-            android:gravity="start"
-            android:textColor="@color/colorgray2"
-            android:textSize="10sp"
-            android:layout_toEndOf="@+id/ivRecentTrack"
-            android:layout_below="@+id/tvRecentTrack"
-            android:layout_marginStart="10dp"/>
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:padding="1dp">
+            <ImageView
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:id="@+id/ivRecentTrack"
+                android:layout_marginStart="5dp"
+                android:layout_marginTop="5dp"
+                android:layout_marginBottom="5dp"
+                android:src="@mipmap/ic_launcher" />
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/tvRecentTrack"
+                android:text="I Bet You Looking Good On The DanceFloor"
+                android:textSize="15sp"
+                android:ellipsize="marquee"
+                android:focusable="true"
+                android:focusableInTouchMode="true"
+                android:marqueeRepeatLimit="marquee_forever"
+                android:scrollHorizontally="true"
+                android:singleLine="true"
+                android:gravity="start"
+                android:textColor="@color/white"
+                android:textStyle="normal"
+                android:layout_toEndOf="@+id/ivRecentTrack"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="5dp"/>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/tvRecentTrackArtist"
+                android:text="Arctic Monkeys"
+                android:maxLines="1"
+                android:ellipsize="end"
+                android:gravity="start"
+                android:textColor="@color/colorgray2"
+                android:textSize="10sp"
+                android:layout_toEndOf="@+id/ivRecentTrack"
+                android:layout_below="@+id/tvRecentTrack"
+                android:layout_marginStart="10dp"/>
+        </RelativeLayout>
 
-
-    </RelativeLayout>
-
-</LinearLayout>
+    </LinearLayout>
+</androidx.cardview.widget.CardView>

@@ -1,6 +1,8 @@
 package com.example.contestifyfirsttry
 
+import android.content.res.Resources
 import android.util.Log
+import java.net.URLEncoder
 import java.text.SimpleDateFormat
 import java.util.*
 import java.util.concurrent.TimeUnit
@@ -54,11 +56,8 @@ class Functions {
         }
         return m!!
     }
-    fun stringToQuery(str:String): String {
-        var query = str
-        query = query.replace(" ","%20")
-        Log.d(TAG, "stringToQuery: $query")
-        return query
+    fun encodeString(str:String): String {
+        return URLEncoder.encode(str, "utf-8")
     }
     fun selectArtistLayout(detailed: Boolean): Int {
         //returns layout if adapter for detailedresultfragment or searchfragment
@@ -68,4 +67,6 @@ class Functions {
             R.layout.search_artist_single
         }
     }
+
+
 }

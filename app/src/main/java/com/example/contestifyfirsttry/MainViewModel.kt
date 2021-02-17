@@ -17,6 +17,8 @@ class MainViewModel(lifecycleOwner: LifecycleOwner,context: Context) : ViewModel
     var tracksListMidTerm = MutableLiveData<Tracks>()
     var tracksListLongTerm = MutableLiveData<Tracks>()
 
+    var recommendations = MutableLiveData<Recommendations>()
+
     var repository : Repository = Repository(context)
     var recentTracks = MutableLiveData<RecentTracks>()
     var user = MutableLiveData<User>()
@@ -37,104 +39,67 @@ class MainViewModel(lifecycleOwner: LifecycleOwner,context: Context) : ViewModel
 
     var searchHistory = MutableLiveData<List<SearchHistory>>()
 
+    var availableDevices = MutableLiveData<Devices>()
+
     init {
-        repository.respArtistsShortTerm.observe(lifecycleOwner,object : Observer<Artists>{
-            override fun onChanged(t: Artists?) {
-                artistsListShortTerm.value = t
-            }
-        })
-        repository.respArtistsMidTerm.observe(lifecycleOwner,object : Observer<Artists>{
-            override fun onChanged(t: Artists?) {
-                artistsListMidTerm.value = t
-            }
-        })
-        repository.respArtistsLongTerm.observe(lifecycleOwner,object : Observer<Artists>{
-            override fun onChanged(t: Artists?) {
-                artistsListLongTerm.value = t
-            }
-        })
+        repository.respArtistsShortTerm.observe(lifecycleOwner,
+            { t -> artistsListShortTerm.value = t })
+        repository.respArtistsMidTerm.observe(lifecycleOwner,
+            { t -> artistsListMidTerm.value = t })
+        repository.respArtistsLongTerm.observe(lifecycleOwner,
+            { t -> artistsListLongTerm.value = t })
 
-        repository.respTracksShortTerm.observe(lifecycleOwner,object : Observer<Tracks>{
-            override fun onChanged(t: Tracks?) {
-                tracksListShortTerm.value = t
-            }
-        })
-        repository.respTracksMidTerm.observe(lifecycleOwner,object : Observer<Tracks>{
-            override fun onChanged(t: Tracks?) {
-                tracksListMidTerm.value = t
-            }
-        })
-        repository.respTracksLongTerm.observe(lifecycleOwner,object : Observer<Tracks>{
-            override fun onChanged(t: Tracks?) {
-                tracksListLongTerm.value = t
-            }
-        })
+        repository.respTracksShortTerm.observe(lifecycleOwner,
+            { t -> tracksListShortTerm.value = t })
+        repository.respTracksMidTerm.observe(lifecycleOwner,
+            { t -> tracksListMidTerm.value = t })
+        repository.respTracksLongTerm.observe(lifecycleOwner,
+            { t -> tracksListLongTerm.value = t })
 
-        repository.respUser.observe(lifecycleOwner,object : Observer<User>{
-            override fun onChanged(t: User?) {
-                user.value = t
-            }
-        })
-        repository.respRecentTracks.observe(lifecycleOwner,object : Observer<RecentTracks>{
-            override fun onChanged(t: RecentTracks?) {
-                recentTracks.value = t
-            }
-        })
-        repository.respArtist.observe(lifecycleOwner,object : Observer<Item>{
-            override fun onChanged(t: Item?) {
-                artist.value = t
-            }
-        })
-        repository.respMultipleArtists.observe(lifecycleOwner,object : Observer<ArtistList>{
-            override fun onChanged(t: ArtistList?) {
-                multipleArtists.value = t
-            }
-        })
-        repository.respArtistTopTracks.observe(lifecycleOwner,object : Observer<ArtistTopTracks>{
-            override fun onChanged(t: ArtistTopTracks?) {
-                artistTopTracks.value = t
-            }
-        })
-        repository.respArtistAlbums.observe(lifecycleOwner,object : Observer<ArtistAlbums>{
-            override fun onChanged(t: ArtistAlbums?) {
-                artistAlbums.value = t
-            }
-        })
-        repository.respRelatedArtists.observe(lifecycleOwner,object : Observer<RelatedArtists>{
-            override fun onChanged(t: RelatedArtists?) {
-                relatedArtists.value = t
-            }
-        })
-        repository.respTrack.observe(lifecycleOwner,object : Observer<TrackItems>{
-            override fun onChanged(t: TrackItems?) {
-                track.value = t
-            }
-        })
-        repository.respTrackAudioFeatures.observe(lifecycleOwner,object : Observer<TrackAudioFeatures>{
-            override fun onChanged(t: TrackAudioFeatures?) {
-                trackAudioFeatures.value = t
-            }
-        })
-        repository.respAlbumTracks.observe(lifecycleOwner,object : Observer<AlbumTracks>{
-            override fun onChanged(t: AlbumTracks?) {
-                albumTracks.value = t
-            }
-        })
-        repository.respAlbum.observe(lifecycleOwner,object : Observer<Album>{
-            override fun onChanged(t: Album?) {
-                album.value = t
-            }
-        })
-        repository.respQueryResult.observe(lifecycleOwner,object : Observer<QueryResults>{
-            override fun onChanged(t: QueryResults?) {
-                queryResults.value = t
-            }
-        })
-        repository.respSearchHistory.observe(lifecycleOwner,object : Observer<List<SearchHistory>>{
-            override fun onChanged(t: List<SearchHistory>?) {
-                searchHistory.value = t
-            }
-        })
+        repository.respRecommendations.observe(lifecycleOwner,
+            { t -> recommendations.value = t })
+
+        repository.respUser.observe(lifecycleOwner,
+            { t -> user.value = t })
+
+        repository.respRecentTracks.observe(lifecycleOwner,
+            { t -> recentTracks.value = t })
+
+        repository.respArtist.observe(lifecycleOwner,
+            { t -> artist.value = t })
+
+        repository.respMultipleArtists.observe(lifecycleOwner,
+            { t -> multipleArtists.value = t })
+
+        repository.respArtistTopTracks.observe(lifecycleOwner,
+            { t -> artistTopTracks.value = t })
+
+        repository.respArtistAlbums.observe(lifecycleOwner,
+            { t -> artistAlbums.value = t })
+
+        repository.respRelatedArtists.observe(lifecycleOwner,
+            { t -> relatedArtists.value = t })
+
+        repository.respTrack.observe(lifecycleOwner,
+            { t -> track.value = t })
+
+        repository.respTrackAudioFeatures.observe(lifecycleOwner,
+            { t -> trackAudioFeatures.value = t })
+
+        repository.respAlbumTracks.observe(lifecycleOwner,
+            { t -> albumTracks.value = t })
+
+        repository.respAlbum.observe(lifecycleOwner,
+            { t -> album.value = t })
+
+        repository.respQueryResult.observe(lifecycleOwner,
+            { t -> queryResults.value = t })
+
+        repository.respSearchHistory.observe(lifecycleOwner,
+            { t -> searchHistory.value = t })
+
+        repository.respAvailableDevices.observe(lifecycleOwner,
+            { t -> availableDevices.value = t })
 
     }
     //room methods
@@ -147,18 +112,25 @@ class MainViewModel(lifecycleOwner: LifecycleOwner,context: Context) : ViewModel
     fun delete(searchHistory: SearchHistory){
         repository.delete(searchHistory)
     }
-
+    //retrofit methods
     fun getMyArtists(token: String,timeRange:String){
         repository.getMyFavArtists(token,timeRange)
+    }
+    fun getMyArtistsLimited(token: String, timeRange:String, limit: Int){
+        repository.getMyFavArtistsLimited(token,timeRange,limit)
     }
     fun getMyTracks(token: String,timeRange:String){
         repository.getMyFavTracks(token,timeRange)
     }
-
+    fun getMyTracksLimited(token: String,timeRange:String,limit: Int){
+        repository.getMyFavTracksLimited(token,timeRange,limit)
+    }
+    fun getRecommendations(token: String,artistSeed:String,trackSeed:String) {
+        repository.getRecommendations(token, artistSeed, trackSeed)
+    }
     fun getToken(activity:Activity){
         repository.getToken(activity)
     }
-
     fun playSong(context: Context,songUri:String){
         repository.playSong(context,songUri)
     }
@@ -200,6 +172,9 @@ class MainViewModel(lifecycleOwner: LifecycleOwner,context: Context) : ViewModel
     }
     fun getQueryResultDefined(token: String,type:String,q:String){
         repository.getQueryResultDefined(token,type,q)
+    }
+    fun getAvailableDevices(token: String){
+        repository.getAvailableDevices(token)
     }
 
 

@@ -5,24 +5,30 @@ import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
 import android.util.Log
-import androidx.fragment.app.Fragment
+import android.view.KeyEvent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.inputmethod.EditorInfo
 import android.view.inputmethod.InputMethodManager
+import android.widget.TextView
 import androidx.activity.addCallback
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.contestifyfirsttry.Functions
-import com.example.contestifyfirsttry.util.CustomViewModelFactory
 import com.example.contestifyfirsttry.MainViewModel
 import com.example.contestifyfirsttry.R
 import com.example.contestifyfirsttry.model.*
 import com.example.contestifyfirsttry.util.AppDatabase
+import com.example.contestifyfirsttry.util.CustomViewModelFactory
+import kotlinx.android.synthetic.main.fragment_home.*
 import kotlinx.android.synthetic.main.fragment_search.*
+import java.net.URLEncoder
+import java.util.*
 
 
 class SearchFragment : Fragment(),
@@ -32,7 +38,7 @@ class SearchFragment : Fragment(),
     SearchHistoryAdapter.OnItemClickListener{
     private val TAG = "Search Fragment"
     private lateinit var viewmodel: MainViewModel
-    private lateinit var db: AppDatabase
+    private var functions = Functions()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -48,16 +54,19 @@ class SearchFragment : Fragment(),
         val callback = requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner){}
         visibilityGone()
         //getting token
-        val sharedPreferences = requireActivity().getSharedPreferences("spotifystatsapp", Context.MODE_PRIVATE)
-        val token = sharedPreferences.getString("token","")
+        val sharedPreferences = requireActivity().getSharedPreferences(
+            "spotifystatsapp",
+            Context.MODE_PRIVATE
+        )
+        val token = sharedPreferences.getString("token", "")
 
         // ViewModel components
-        var factory = CustomViewModelFactory(this,requireContext())
+        var factory = CustomViewModelFactory(this, requireContext())
         viewmodel = ViewModelProvider(this, factory!!).get(MainViewModel::class.java)
 
 
         viewmodel.queryResults.observe(viewLifecycleOwner,
-        Observer { t -> setResults(t!!) })
+            Observer { t -> setResults(t!!) })
         init(token!!)
         viewmodel.searchHistory.observe(viewLifecycleOwner,
             Observer { t -> setSearchHistory(t!!) })
@@ -66,13 +75,24 @@ class SearchFragment : Fragment(),
         }.start()
 
     }
+
+    override fun onStart() {
+        super.onStart()
+        visibilityGone()
+        Thread{
+            viewmodel.getAll()
+        }.start()
+    }
     private fun setSearchHistory(searchHistory: List<SearchHistory>){
-        var adapter = SearchHistoryAdapter(requireContext(),searchHistory,this)
+        tvhistoryText.visibility = View.GONE
+        var adapter = SearchHistoryAdapter(requireContext(), searchHistory, this)
         var layoutManager = LinearLayoutManager(requireContext())
+        layoutManager.reverseLayout = true
+        layoutManager.stackFromEnd = true
         recyclerSearchHistory.layoutManager = layoutManager
         recyclerSearchHistory.adapter = adapter
     }
-    private fun init(token:String){
+    private fun init(token: String){
         ivSearch.setOnClickListener {
             if (etSearch.editableText != null){
                 etSearch.text.clear()
@@ -93,35 +113,36 @@ class SearchFragment : Fragment(),
             override fun afterTextChanged(s: Editable?) {
                 if (s != null) {
                     //makes visible if only gone
-                    if (recyclerSearchArtists.visibility == View.GONE){
+                    if (recyclerSearchArtists.visibility == View.GONE) {
                         visibilityVisible()
                     }
-                    q = Functions().stringToQuery(s.toString())
+                    q = functions.encodeString(s.toString())
+                    Log.d(TAG, "afterTextChanged: $q")
                     viewmodel.getQueryResult(token, q!!)
-                }else{
+                } else {
                     visibilityGone()
                 }
             }
         })
         tvArtistsMore.setOnClickListener {
             val bundle = Bundle()
-            bundle.putString("type","artist")
-            bundle.putString("q",q)
-            findNavController().navigate(R.id.action_searchFragment_to_detailedResult,bundle)
+            bundle.putString("type", "artist")
+            bundle.putString("q", q)
+            findNavController().navigate(R.id.action_searchFragment_to_detailedResult, bundle)
             hideKeyboard()
         }
         tvTracksMore.setOnClickListener {
             val bundle = Bundle()
-            bundle.putString("type","track")
-            bundle.putString("q",q)
-            findNavController().navigate(R.id.action_searchFragment_to_detailedResult,bundle)
+            bundle.putString("type", "track")
+            bundle.putString("q", q)
+            findNavController().navigate(R.id.action_searchFragment_to_detailedResult, bundle)
             hideKeyboard()
         }
         tvAlbumsMore.setOnClickListener {
             val bundle = Bundle()
-            bundle.putString("type","album")
-            bundle.putString("q",q)
-            findNavController().navigate(R.id.action_searchFragment_to_detailedResult,bundle)
+            bundle.putString("type", "album")
+            bundle.putString("q", q)
+            findNavController().navigate(R.id.action_searchFragment_to_detailedResult, bundle)
             hideKeyboard()
         }
     }
@@ -129,85 +150,145 @@ class SearchFragment : Fragment(),
     private fun setResults(queryResults: QueryResults){
         //recycler adapter for artists
         Log.d(TAG, "setResults: ${queryResults.artists}")
-        val artistsAdapter = QueryResultArtistAdapter(requireContext(),queryResults.artists,this,false)
-        val artistLayoutManager : RecyclerView.LayoutManager = LinearLayoutManager(requireContext(),LinearLayoutManager.HORIZONTAL,false)
+        val artistsAdapter = QueryResultArtistAdapter(
+            requireContext(),
+            queryResults.artists,
+            this,
+            false
+        )
+        val artistLayoutManager : RecyclerView.LayoutManager = LinearLayoutManager(
+            requireContext(),
+            LinearLayoutManager.HORIZONTAL,
+            false
+        )
         recyclerSearchArtists.layoutManager = artistLayoutManager
         recyclerSearchArtists.adapter = artistsAdapter
         //recycler adapter for tracks
         Log.d(TAG, "setResults: ${queryResults.tracks}")
-        val tracksAdapter = QueryResultTrackAdapter(requireContext(),queryResults.tracks,this)
-        val tracksLayoutManager : RecyclerView.LayoutManager = LinearLayoutManager(requireContext(),LinearLayoutManager.VERTICAL,false)
+        val tracksAdapter = QueryResultTrackAdapter(requireContext(), queryResults.tracks, this)
+        val tracksLayoutManager : RecyclerView.LayoutManager = LinearLayoutManager(
+            requireContext(),
+            LinearLayoutManager.VERTICAL,
+            false
+        )
         recyclerSearchTracks.layoutManager = tracksLayoutManager
         recyclerSearchTracks.adapter = tracksAdapter
         //recycler adapter for albums
         Log.d(TAG, "setResults: ${queryResults.albums}")
-        val albumsAdapter = QueryResultAlbumAdapter(requireContext(),queryResults.albums,this)
-        val albumsLayoutManager : RecyclerView.LayoutManager = LinearLayoutManager(requireContext(),LinearLayoutManager.VERTICAL,false)
+        val albumsAdapter = QueryResultAlbumAdapter(requireContext(), queryResults.albums, this)
+        val albumsLayoutManager : RecyclerView.LayoutManager = LinearLayoutManager(
+            requireContext(),
+            LinearLayoutManager.VERTICAL,
+            false
+        )
         recyclerSearchAlbums.layoutManager = albumsLayoutManager
         recyclerSearchAlbums.adapter = albumsAdapter
     }
 
     override fun onItemClicked(currentArtist: QueryResultArtistsItem) {
         val bundle = Bundle()
-        bundle.putString("id",currentArtist.id)
-        bundle.putString("name",currentArtist.name)
+        bundle.putString("id", currentArtist.id)
+        bundle.putString("name", currentArtist.name)
         if (currentArtist.images.isNotEmpty()){
-        bundle.putString("image",currentArtist.images[0].url)}
+        bundle.putString("image", currentArtist.images[0].url)}
         hideKeyboard()
-        val searchHistory = SearchHistory(null,getString(R.string.type_artist),currentArtist.id,currentArtist.name,null,currentArtist.images[0].url)
+        val searchHistory = SearchHistory(
+            null,
+            getString(R.string.type_artist),
+            currentArtist.id,
+            currentArtist.name,
+            currentArtist.id,
+            currentArtist.name,
+            currentArtist.images[0].url
+        )
         Thread{
             viewmodel.insert(searchHistory)
         }.start()
         visibilityGone()
-        findNavController().navigate(R.id.action_searchFragment_to_itemDetailedFragment,bundle)
+        findNavController().navigate(R.id.action_searchFragment_to_itemDetailedFragment, bundle)
     }
 
     override fun onItemClicked(currentTrack: QueryResultTrackItem) {
         val bundle = Bundle()
-        bundle.putString("id",currentTrack.id)
-        bundle.putString("artistId",currentTrack.artists[0].id)
-        bundle.putString("name",currentTrack.name)
-        bundle.putString("image",currentTrack.album.images[0].url)
+        bundle.putString("id", currentTrack.id)
+        bundle.putString("artistId", currentTrack.artists[0].id)
+        bundle.putString("name", currentTrack.name)
+        bundle.putString("image", currentTrack.album.images[0].url)
         hideKeyboard()
-        val searchHistory = SearchHistory(null,getString(R.string.type_artist),currentTrack.id,currentTrack.name,currentTrack.artists[0].id,currentTrack.album.images[0].url)
+        val searchHistory = SearchHistory(
+            null,
+            getString(R.string.type_track),
+            currentTrack.id,
+            currentTrack.name,
+            currentTrack.artists[0].id,
+            currentTrack.artists[0].name,
+            currentTrack.album.images[0].url
+        )
         Thread{
             viewmodel.insert(searchHistory)
         }.start()
         visibilityGone()
-        findNavController().navigate(R.id.action_searchFragment_to_detailedTrackFragment,bundle)
+        findNavController().navigate(R.id.action_searchFragment_to_detailedTrackFragment, bundle)
     }
 
     override fun onItemClicked(currentAlbum: QueryResultAlbumItem) {
         val bundle = Bundle()
-        bundle.putString("id",currentAlbum.id)
-        bundle.putString("artistId",currentAlbum.artists[0].id)
-        bundle.putString("name",currentAlbum.name)
-        bundle.putString("image",currentAlbum.images[0].url)
+        bundle.putString("id", currentAlbum.id)
+        bundle.putString("artistId", currentAlbum.artists[0].id)
+        bundle.putString("name", currentAlbum.name)
+        bundle.putString("image", currentAlbum.images[0].url)
         hideKeyboard()
-        val searchHistory = SearchHistory(null,getString(R.string.type_artist),currentAlbum.id,currentAlbum.name,currentAlbum.artists[0].id,currentAlbum.images[0].url)
+        val searchHistory = SearchHistory(
+            null,
+            getString(R.string.type_album),
+            currentAlbum.id,
+            currentAlbum.name,
+            currentAlbum.artists[0].id,
+            currentAlbum.artists[0].name,
+            currentAlbum.images[0].url
+        )
         Thread{
             viewmodel.insert(searchHistory)
         }.start()
         visibilityGone()
-        findNavController().navigate(R.id.action_searchFragment_to_detailedAlbumFragment,bundle)
+        findNavController().navigate(R.id.action_searchFragment_to_detailedAlbumFragment, bundle)
     }
 
     override fun onItemClicked(searchHistory: SearchHistory) {
         val bundle = Bundle()
-        bundle.putString("id",searchHistory.aid)
-        bundle.putString("artistId",searchHistory.artistId)
-        bundle.putString("name",searchHistory.name)
-        bundle.putString("image",searchHistory.aImage)
+        bundle.putString("id", searchHistory.sId)
+        bundle.putString("artistId", searchHistory.artistId)
+        bundle.putString("name", searchHistory.name)
+        bundle.putString("image", searchHistory.cImage)
         hideKeyboard()
         visibilityGone()
         when(searchHistory.type){
-            "artist" -> findNavController().navigate(R.id.action_searchFragment_to_itemDetailedFragment,bundle)
-            "track" -> findNavController().navigate(R.id.action_searchFragment_to_detailedTrackFragment,bundle)
-            "album" -> findNavController().navigate(R.id.action_searchFragment_to_detailedAlbumFragment,bundle)
+            getString(R.string.type_artist) -> findNavController().navigate(
+                R.id.action_searchFragment_to_itemDetailedFragment,
+                bundle
+            )
+            getString(R.string.type_track) -> findNavController().navigate(
+                R.id.action_searchFragment_to_detailedTrackFragment,
+                bundle
+            )
+            getString(R.string.type_album) -> findNavController().navigate(
+                R.id.action_searchFragment_to_detailedAlbumFragment,
+                bundle
+            )
         }
 
 
     }
+
+    override fun onDeleteClicked(searchHistory: SearchHistory) {
+        Thread{
+            viewmodel.delete(searchHistory)
+        }.start()
+        Thread{
+            viewmodel.getAll()
+        }.start()
+    }
+
     private fun visibilityGone(){
         tvArtists.visibility = View.GONE
         tvTracks.visibility = View.GONE
@@ -238,11 +319,14 @@ class SearchFragment : Fragment(),
     }
     private fun hideKeyboard(){
         val inputManager: InputMethodManager = requireActivity().getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
-        inputManager.hideSoftInputFromWindow(requireActivity().currentFocus!!.windowToken,0)
+        if (requireActivity().currentFocus != null){
+            inputManager.hideSoftInputFromWindow(requireActivity().currentFocus!!.windowToken, 0)
+        }
+
 
         etSearch.text.clear()
     }
-    private fun setSearchImageCross(isCross : Boolean){
+    private fun setSearchImageCross(isCross: Boolean){
         if(isCross){
             ivSearch.setImageResource(R.drawable.ic_close_gray)
         }else{

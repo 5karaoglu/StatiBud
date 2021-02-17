@@ -31,7 +31,7 @@ class ArtistTopTracksAdapter(
                 .load(track.album.images[0].url)
                 .fit().centerCrop()
                 .into(imageView)
-            textViewRank.text = String.format("#%d ",position+1)
+            textViewRank.text = String.format("%d ",position+1)
             textView.text = track.name
 
             itemView.setOnClickListener {

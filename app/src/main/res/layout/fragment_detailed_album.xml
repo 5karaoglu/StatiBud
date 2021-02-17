@@ -6,19 +6,20 @@
     tools:context=".detailed.DetailedAlbumFragment"
     android:background="@color/colorPrimaryDark">
     <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/appBarDetailedAlbum"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
         android:fitsSystemWindows="true">
         <com.google.android.material.appbar.CollapsingToolbarLayout
+            android:id="@+id/collapsingToolbarArtist"
             android:layout_width="match_parent"
             android:layout_height="320dp"
             android:fitsSystemWindows="true"
             app:contentScrim="@color/colorPrimary"
             app:expandedTitleMarginEnd="64dp"
             app:expandedTitleMarginStart="48dp"
-            app:layout_scrollFlags="scroll|exitUntilCollapsed"
-            app:navigationIcon="?attr/homeAsUpIndicator">
+            app:layout_scrollFlags="scroll|exitUntilCollapsed">
             <ImageView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
@@ -29,14 +30,45 @@
                 android:minHeight="50dp"
                 android:src="@mipmap/ic_launcher"
                 app:layout_scrollFlags="scroll|enterAlways|enterAlwaysCollapsed"/>
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="160dp"
+                android:layout_gravity="bottom"
+                app:layout_collapseMode="pin"
+                android:fitsSystemWindows="true"
+                android:scaleType="centerCrop"
+                android:minHeight="50dp"
+                android:src="@drawable/shadow"
+                app:layout_scrollFlags="scroll|enterAlways|enterAlwaysCollapsed"/>
+            <TextView
+                android:layout_marginStart="10dp"
+                android:layout_marginEnd="10dp"
+                android:id="@+id/tvParallaxHeaderAlbum"
+                android:layout_width="wrap_content"
+                android:layout_height="160dp"
+                android:layout_gravity="bottom|center_horizontal"
+                android:gravity="bottom|center_horizontal"
+                android:textSize="40sp"
+                android:ellipsize="end"
+                android:autoSizeTextType="uniform"
+                android:autoSizeMaxTextSize="50sp"
+                android:autoSizeMinTextSize="30sp"
+                android:maxLines="2"
+                android:textStyle="bold"
+                android:layout_marginBottom="10dp"
+                android:textColor="@color/white"
+                android:shadowColor="@color/black"
+                android:shadowDx="2"
+                android:shadowDy="2"
+                android:shadowRadius="4"
+                app:layout_collapseMode="parallax"/>
             <androidx.appcompat.widget.Toolbar
                 android:id="@+id/detailedAlbumToolbar"
                 android:layout_width="match_parent"
-                app:titleTextAppearance="@style/TextAppearance.AppCompat.Title"
+                app:titleTextAppearance="@style/TextAppearance.AppCompat.Medium"
                 app:titleTextColor="@android:color/white"
                 android:layout_height="?attr/actionBarSize"
                 app:layout_scrollFlags="scroll|enterAlways"
-                app:title="HEADER"
                 app:navigationIcon="@drawable/ic_arrow_back"
                 app:layout_collapseMode="pin"/>
         </com.google.android.material.appbar.CollapsingToolbarLayout>
@@ -49,16 +81,16 @@
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/fabDetailedAlbum"
         android:visibility="gone"
-        android:layout_width="80dp"
-        android:layout_height="80dp"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
         android:layout_gravity="end|bottom"
         android:layout_marginBottom="20dp"
         android:layout_marginEnd="20dp"
         android:src="@drawable/ic_spotify"
         android:backgroundTint="@color/colorPrimary"
         app:borderWidth="0dp"
-        app:maxImageSize="50dp"
-        app:fabCustomSize="80dp"/>
+        app:maxImageSize="40dp"
+        app:fabCustomSize="60dp"/>
     <androidx.core.widget.NestedScrollView
         android:id="@+id/nsvDetailedAlbum"
         android:layout_width="match_parent"

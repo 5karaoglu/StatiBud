@@ -19,7 +19,9 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.contestifyfirsttry.*
 import com.example.contestifyfirsttry.model.*
 import com.example.contestifyfirsttry.util.CustomViewModelFactory
+import com.google.android.material.appbar.AppBarLayout
 import com.squareup.picasso.Picasso
+import kotlinx.android.synthetic.main.fragment_detailed_artist.*
 import kotlinx.android.synthetic.main.fragment_detailed_track.*
 import kotlinx.android.synthetic.main.fragment_detailed_track.imageView
 
@@ -122,8 +124,30 @@ class DetailedTrackFragment : Fragment(), DetailedTrackArtistAdapter.OnItemClick
             .fit().centerCrop()
             .into(imageView)
 
-        detailedTrackToolbar.title = name
-        detailedTrackToolbar.setNavigationOnClickListener {
+        tvParallaxHeaderTrack.text = name
+
+        detailedToolbarTrack.setNavigationOnClickListener {
+            findNavController().popBackStack()
+        }
+
+        //collapsing toolbar design section
+        var isShow = true
+        var scrollRange = -1
+        appBarDetailedTrack.addOnOffsetChangedListener(AppBarLayout.OnOffsetChangedListener {
+                appBarLayout, verticalOffset ->
+            if (scrollRange == -1){
+                scrollRange = appBarLayout?.totalScrollRange!!
+            }
+            if (scrollRange + verticalOffset == 0){
+                collapsingToolbarTrack.title = name
+                isShow = true
+            } else if (isShow){
+                collapsingToolbarTrack.title = " "
+                isShow = false
+            }})
+        /////////////////////////////////////////////////////////////////////////////////////
+
+        detailedToolbarTrack.setNavigationOnClickListener {
             findNavController().popBackStack()
         }
     }
@@ -145,7 +169,7 @@ class DetailedTrackFragment : Fragment(), DetailedTrackArtistAdapter.OnItemClick
             .load(track.album.images[0].url)
             .fit().centerCrop()
             .into(imageViewAlbum)
-        textViewAlbumName.text = track.album.name
+        textViewAlbumName.text = String.format(getString(R.string.link_format),track.album.name)
 
         imageViewAlbum.setOnClickListener {
             val bundle = Bundle()

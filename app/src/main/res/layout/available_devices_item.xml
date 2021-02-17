@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView
+    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    >
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="70dp"
+        android:gravity="center_vertical"
+        android:background="@color/colorPrimaryDark"
+        android:orientation="horizontal"
+        android:weightSum="15"
+        android:padding="5dp">
+        <ImageView
+            android:id="@+id/ivDevice"
+            android:layout_width="0dp"
+            android:layout_weight="2.5"
+            android:layout_height="30dp"
+            android:layout_marginTop="25dp"
+            android:layout_marginBottom="25dp"
+            android:padding="2dp"
+            android:src="@drawable/ic_computer"/>
+        <LinearLayout
+            android:gravity="center_vertical"
+            android:id="@+id/rel"
+            android:layout_height="match_parent"
+            android:padding="2dp"
+            android:layout_width="0dp"
+            android:layout_weight="10"
+            android:orientation="vertical">
+            <TextView
+                android:gravity="center_vertical"
+                android:id="@+id/tvDeviceId"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:autoSizeTextType="uniform"
+                android:autoSizeMaxTextSize="12dp"
+                android:autoSizeMinTextSize="8dp"
+                android:text="sup bro"
+                android:textColor="@color/colorgray2"
+                android:textStyle="italic"
+                android:maxLines="1"
+                android:ellipsize="end"/>
+            <TextView
+                android:gravity="center_vertical"
+                android:id="@+id/tvDeviceName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="15sp"
+                android:text="Redmi Note 8"
+                android:textColor="@color/white"
+                android:textStyle="normal"
+                android:maxLines="1"
+                android:ellipsize="end"/>
+        </LinearLayout>
+        <ImageView
+            android:id="@+id/ivActive"
+            android:padding="2dp"
+            android:layout_width="0dp"
+            android:layout_weight="2.5"
+            android:layout_height="16dp"
+            android:layout_marginTop="38dp"
+            android:layout_marginBottom="38dp"
+            android:src="@drawable/ic_active"/>
+    </LinearLayout>
+
+</androidx.cardview.widget.CardView>

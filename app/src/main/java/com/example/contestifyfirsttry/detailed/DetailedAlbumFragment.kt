@@ -20,10 +20,11 @@ import com.example.contestifyfirsttry.MainViewModel
 import com.example.contestifyfirsttry.R
 import com.example.contestifyfirsttry.model.*
 import com.example.contestifyfirsttry.util.CustomViewModelFactory
+import com.google.android.material.appbar.AppBarLayout
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.fragment_detailed_album.*
+import kotlinx.android.synthetic.main.fragment_detailed_album.collapsingToolbarArtist
 import kotlinx.android.synthetic.main.fragment_detailed_album.imageView
-import kotlinx.android.synthetic.main.fragment_detailed_track.*
 
 class DetailedAlbumFragment : Fragment(), DetailedAlbumTracksAdapter.OnItemClickListener {
     private val TAG = "DetailedAlbum Fragment"
@@ -101,7 +102,28 @@ class DetailedAlbumFragment : Fragment(), DetailedAlbumTracksAdapter.OnItemClick
             .fit().centerCrop()
             .into(imageView)
 
-        detailedAlbumToolbar.title = name
+        tvParallaxHeaderAlbum.text = name
+
+        detailedAlbumToolbar.setNavigationOnClickListener {
+            findNavController().popBackStack()
+        }
+
+        //collapsing toolbar design section
+        var isShow = true
+        var scrollRange = -1
+        appBarDetailedAlbum.addOnOffsetChangedListener(AppBarLayout.OnOffsetChangedListener {
+                appBarLayout, verticalOffset ->
+            if (scrollRange == -1){
+                scrollRange = appBarLayout?.totalScrollRange!!
+            }
+            if (scrollRange + verticalOffset == 0){
+                collapsingToolbarArtist.title = name
+                isShow = true
+            } else if (isShow){
+                collapsingToolbarArtist.title = " "
+                isShow = false
+            }})
+        /////////////////////////////////////////////////////////////////////////////////////
         detailedAlbumToolbar.setNavigationOnClickListener {
             findNavController().popBackStack()
         }

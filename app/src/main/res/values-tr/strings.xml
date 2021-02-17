@@ -103,6 +103,14 @@
     <string name="tv_searchHistory">Arama Geçmişi</string>
     <string name="tv_historyText">Arama geçmişiniz burada görünür</string>
     <string name="tv_history_text">Arama geçmişiniz burada görünür</string>
+    <string name="type_artist">artist</string>
+    <string name="type_track">track</string>
+    <string name="type_album">album</string>
+    <string name="link_format">Daha fazla %s</string>
+    <string name="recommendations">Son Hareketlerinize Göre Öneriler</string>
+    <string name="recent_tracks">Son Dinlenenler</string>
+    <string name="account_info">Hesap Bilgileri</string>
+    <string name="available_devices">Hazır Cihazlar</string>
 
 
 </resources>

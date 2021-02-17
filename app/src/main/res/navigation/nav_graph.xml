@@ -128,7 +128,7 @@
     </fragment>
     <fragment
         android:id="@+id/homeFragment"
-        android:name="com.example.contestifyfirsttry.HomeFragment"
+        android:name="com.example.contestifyfirsttry.Home.HomeFragment"
         android:label="fragment_home"
         tools:layout="@layout/fragment_home" >
         <action
@@ -140,6 +140,9 @@
         <action
             android:id="@+id/action_homeFragment_to_searchFragment"
             app:destination="@id/searchFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_detailedTrackFragment"
+            app:destination="@id/detailedTrackFragment" />
     </fragment>
     <fragment
         android:id="@+id/detailedResult"

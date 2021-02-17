@@ -1,4 +1,4 @@
-package com.example.contestifyfirsttry.Search
+package com.example.contestifyfirsttry.Home
 
 import android.content.Context
 import android.view.LayoutInflater
@@ -10,10 +10,12 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.contestifyfirsttry.Functions
 import com.example.contestifyfirsttry.MainViewModel
 import com.example.contestifyfirsttry.R
+import com.example.contestifyfirsttry.model.Items
+import com.example.contestifyfirsttry.model.QueryResultTrackItem
 import com.example.contestifyfirsttry.model.RecentTracks
 import com.squareup.picasso.Picasso
 
-class RecentTracksAdapter(var context: Context, var dataList: RecentTracks, var viewModel: MainViewModel, var customItemCount: Int) : RecyclerView.Adapter<RecentTracksAdapter.RecentTracksViewHolder>() {
+class RecentTracksAdapter(var context: Context, var dataList: RecentTracks, var clickListener: OnItemClickListener, var customItemCount: Int) : RecyclerView.Adapter<RecentTracksAdapter.RecentTracksViewHolder>() {
 
 
     class RecentTracksViewHolder(itemView: View): RecyclerView.ViewHolder(itemView) {
@@ -21,6 +23,20 @@ class RecentTracksAdapter(var context: Context, var dataList: RecentTracks, var 
         var tvRecentTrack = itemView.findViewById<TextView>(R.id.tvRecentTrack)
         var tvRecentTrackArtist = itemView.findViewById<TextView>(R.id.tvRecentTrackArtist)
         var tvHistory = itemView.findViewById<TextView>(R.id.tvHistory)
+
+        fun bind(recentTrack: Items, clickListener: OnItemClickListener){
+            Picasso.get()
+                .load(recentTrack.track.album.images[0].url)
+                .into(ivRecentTrack)
+
+            tvRecentTrack.text = recentTrack.track.name
+            tvRecentTrackArtist.text = recentTrack.track.artists[0].name
+            tvHistory.text = Functions().getTime(recentTrack.played_at).toString()
+
+            itemView.setOnClickListener {
+                clickListener.onItemClicked(recentTrack)
+            }
+        }
 
     }
 
@@ -32,17 +48,15 @@ class RecentTracksAdapter(var context: Context, var dataList: RecentTracks, var 
 
 
     override fun onBindViewHolder(holder: RecentTracksViewHolder, position: Int) {
-        Picasso.get()
-            .load(dataList.items[position].track.album.images[0].url)
-            .into(holder.ivRecentTrack)
-
-        holder.tvRecentTrack.text = dataList.items[position].track.name
-        holder.tvRecentTrackArtist.text = dataList.items[position].track.artists[0].name
-        holder.tvHistory.text = Functions().getTime(dataList.items[position].played_at).toString()
+        var recentTrack = dataList.items[position]
+        holder.bind(recentTrack,clickListener)
 
     }
 
     override fun getItemCount(): Int {
         return customItemCount
+    }
+    interface OnItemClickListener{
+        fun onItemClicked(recentTrack: Items)
     }
 }

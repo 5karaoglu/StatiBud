@@ -1,6 +1,7 @@
 package com.example.contestifyfirsttry.detailed
 
 import android.content.Context
+import android.content.res.Resources
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -15,7 +16,7 @@ import com.squareup.picasso.Picasso
 class DetailedTrackArtistAdapter(
     var context: Context,
     var dataList: ArtistList,
-    var clickListener: OnItemClickListener
+    var clickListener: OnItemClickListener,
 ) : RecyclerView.Adapter<DetailedTrackArtistAdapter.TrackArtistAdapter>() {
 
 
@@ -24,13 +25,13 @@ class DetailedTrackArtistAdapter(
         var textView = itemView.findViewById<TextView>(R.id.textViewTrackArtistName)
 
 
-        fun bind(artist:ArtistListArtists, clickListener: OnItemClickListener){
+        fun bind(artist:ArtistListArtists, clickListener: OnItemClickListener,context: Context){
             Picasso.get()
                 .load(artist.images[0].url)
                 .fit().centerCrop()
                 .into(imageView)
 
-            textView.text = artist.name
+            textView.text = String.format(context.resources.getString(R.string.link_format),artist.name)
 
             itemView.setOnClickListener {
                 clickListener.onItemClicked(artist)
@@ -48,7 +49,7 @@ class DetailedTrackArtistAdapter(
 
     override fun onBindViewHolder(holder: TrackArtistAdapter, position: Int) {
 
-        holder.bind(dataList.artists[position], clickListener)
+        holder.bind(dataList.artists[position], clickListener,context)
 
 
     }

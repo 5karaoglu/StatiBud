@@ -8,4 +8,6 @@ class Scopes {
     val USER_TOP_READ = "user-top-read"
     val USER_READ_RECENTLY_PLAYED = "user-read-recently-played"
     val USER_READ_EMAIL = "user-read-email"
+    val USER_READ_PLAYBACK_STATE = " user-read-playback-state"
+
 }

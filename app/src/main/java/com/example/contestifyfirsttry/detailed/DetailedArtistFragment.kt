@@ -10,6 +10,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.activity.addCallback
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
@@ -21,6 +22,7 @@ import com.example.contestifyfirsttry.MainViewModel
 import com.example.contestifyfirsttry.R
 import com.example.contestifyfirsttry.model.*
 import com.example.contestifyfirsttry.util.CustomViewModelFactory
+import com.google.android.material.appbar.AppBarLayout
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.fragment_detailed_artist.*
 import kotlinx.android.synthetic.main.fragment_detailed_artist.imageView
@@ -32,10 +34,6 @@ class DetailedArtistFragment : Fragment(),
     RelatedArtistsAdapter.OnItemClickListener{
     private val TAG = "Detailed Fragment"
     private lateinit var viewmodel: MainViewModel
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -61,11 +59,13 @@ class DetailedArtistFragment : Fragment(),
         if (bundle.get("image") != null ){
             var image : String? = null
             image =   bundle.get("image") as String
-            init(id, name, image)
+            init(id, name)
+            initImage(image)
         }else{
             var image : Int? = null
             image =   R.drawable.ic_close_gray
-            init(id, name, image)
+            init(id, name)
+            initImage(image)
         }
         // ViewModel components
         var factory = CustomViewModelFactory(this,requireContext())
@@ -86,48 +86,54 @@ class DetailedArtistFragment : Fragment(),
         viewmodel.getArtistAlbums(token, id!!)
         viewmodel.getRelatedArtists(token!!,id!!)
     }
-    private fun init(id:String, name:String, image:String){
+    private fun initImage(image: String){
         Picasso.get()
-            .load(image)
-            .fit().centerCrop()
-            .into(imageView)
-
-        detailedToolbar.title = name
-        detailedToolbar.setNavigationOnClickListener {
-            findNavController().popBackStack()
-        }
-
-        fabDetailedArtist.setOnClickListener {
-            try {
-                var uri = Uri.parse("http://open.spotify.com/artist/${id}")
-                var intent = Intent(Intent.ACTION_VIEW,uri)
-                startActivity(intent)
-            }catch (ex: ActivityNotFoundException){
-                Log.d(TAG, "setTrack: ${ex.message}")
-            }
-        }
+        .load(image)
+        .fit().centerCrop()
+        .into(imageView)
     }
     //in case image is empty
-    private fun init(id: String, name:String, image:Int){
+    private fun initImage(image: Int){
         Picasso.get()
             .load(image)
             .fit().centerCrop()
             .into(imageView)
+    }
+    private fun init(id:String, name:String){
+        tvParallaxHeaderArtist.text = name
 
-        detailedToolbar.title = name
         detailedToolbar.setNavigationOnClickListener {
             findNavController().popBackStack()
         }
+
+        //collapsing toolbar design section
+        var isShow = true
+        var scrollRange = -1
+        appBarDetailedArtist.addOnOffsetChangedListener(AppBarLayout.OnOffsetChangedListener {
+                appBarLayout, verticalOffset ->
+            if (scrollRange == -1){
+                scrollRange = appBarLayout?.totalScrollRange!!
+            }
+            if (scrollRange + verticalOffset == 0){
+                collapsingToolbarArtist.title = name
+                isShow = true
+            } else if (isShow){
+                collapsingToolbarArtist.title = " "
+                isShow = false
+        }})
+        /////////////////////////////////////////////////////////////////////////////////////
+
         fabDetailedArtist.setOnClickListener {
             try {
-                var uri = Uri.parse("http://open.spotify.com/artist/${id}")
-                var intent = Intent(Intent.ACTION_VIEW,uri)
+                val uri = Uri.parse("http://open.spotify.com/artist/${id}")
+                val intent = Intent(Intent.ACTION_VIEW,uri)
                 startActivity(intent)
             }catch (ex: ActivityNotFoundException){
-                Log.d(TAG, "setTrack: ${ex.message}")
+                Toast.makeText(requireContext(), "Error: ${ex.message}", Toast.LENGTH_SHORT).show()
             }
         }
     }
+
     private fun doVisibility(){
         nsvDetailedArtist.visibility = View.VISIBLE
         fabDetailedArtist.visibility = View.VISIBLE

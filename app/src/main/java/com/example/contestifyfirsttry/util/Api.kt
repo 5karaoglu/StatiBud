@@ -15,8 +15,19 @@ interface Api {
     @GET("me/top/artists?limit=50")
     fun getMyArtists(@Header("Authorization") token:String, @Query("time_range") timeRange:String):Call<Artists>
 
+    @GET("me/top/artists")
+    fun getMyArtistsLimited(@Header("Authorization") token:String, @Query("time_range") timeRange:String, @Query("limit") limit: Int):Call<Artists>
+
     @GET("me/top/tracks?limit=50")
     fun getMyTracks(@Header("Authorization") token:String, @Query("time_range") timeRange:String):Call<Tracks>
+
+    @GET("me/top/tracks")
+    fun getMyTracksLimited(@Header("Authorization") token:String, @Query("time_range") timeRange:String,@Query("limit") limit:Int):Call<Tracks>
+
+    @GET("recommendations?market=US&min_popularity=50")
+    fun getRecommendations(@Header("Authorization") token:String,
+                           @Query("seed_artists") seedArtists:String,
+                           @Query("seed_tracks") seedTracks:String):Call<Recommendations>
 
     @GET("me")
     fun getMyProfile(@Header("Authorization") token:String):Call<User>
@@ -56,4 +67,7 @@ interface Api {
 
     @GET("search")
     fun searchTypeDefined(@Header("Authorization") token:String, @Query("type") type:String, @Query("q") query:String):Call<QueryResults>
+
+    @GET("me/player/devices")
+    fun getAvailableDevices(@Header("Authorization") token:String):Call<Devices>
 }
