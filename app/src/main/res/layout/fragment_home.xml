@@ -16,6 +16,7 @@
             android:layout_height="wrap_content"
             android:gravity="center">
             <com.google.android.material.appbar.AppBarLayout
+                android:layout_marginTop="5dp"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
                 android:id="@+id/homeToolbar"
@@ -106,6 +107,7 @@
                 </LinearLayout>
             </RelativeLayout>
             <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_marginTop="20dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/reLayoutRecommendations"
@@ -162,6 +164,7 @@
                     app:layout_constraintTop_toBottomOf="@+id/pagerHome" />
             </androidx.constraintlayout.widget.ConstraintLayout>
             <RelativeLayout
+                android:layout_marginTop="20dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/screen">

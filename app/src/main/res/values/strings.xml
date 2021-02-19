@@ -127,6 +127,8 @@
     <!--ShareOneLayout-->
     <string name="share_one_header">My #1 in past 4 weeks</string>
     <string name="share_two_header">My #2 in past 4 weeks</string>
+    <string name="share_three_header">My Top 3 in past 4 weeks</string>
+    <string name="share_four_header">My Top 3 in past 4 weeks</string>
     <string name="spotibud">Spotibud for Android</string>
 
 

@@ -12,6 +12,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.contestifyfirsttry.*
+import com.example.contestifyfirsttry.main.MainViewModel
 import com.example.contestifyfirsttry.model.Artists
 import com.example.contestifyfirsttry.model.Item
 import com.example.contestifyfirsttry.util.CustomViewModelFactory

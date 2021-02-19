@@ -115,7 +115,9 @@
     <string name="share">Paylaş</string>
     <string name="share_one_header">Son 4 haftada 1 numaram</string>
     <string name="share_two_header">Son 4 haftada 2 numaram</string>
-    <string name="spotibud">Spotibud for Android</string>
+    <string name="spotibud">Android için Spotibud</string>
+    <string name="share_three_header">Son 4 haftada Top 3 numaram</string>
+    <string name="share_four_header">Son 4 haftada Top 3 numaram</string>
 
 
 </resources>

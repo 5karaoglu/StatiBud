@@ -8,11 +8,9 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import com.example.contestifyfirsttry.MainViewModel
 import com.example.contestifyfirsttry.R
 import com.example.contestifyfirsttry.TrackItems
 import com.example.contestifyfirsttry.Tracks
-import com.example.contestifyfirsttry.model.Item
 import com.squareup.picasso.Picasso
 
 class TracksAdapter(var context: Context, var dataList: Tracks, var clickListener: OnItemClickListener) : RecyclerView.Adapter<TracksAdapter.TracksViewHolder>() {

@@ -8,10 +8,8 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.contestifyfirsttry.Functions
-import com.example.contestifyfirsttry.MainViewModel
 import com.example.contestifyfirsttry.R
 import com.example.contestifyfirsttry.model.Items
-import com.example.contestifyfirsttry.model.QueryResultTrackItem
 import com.example.contestifyfirsttry.model.RecentTracks
 import com.squareup.picasso.Picasso
 

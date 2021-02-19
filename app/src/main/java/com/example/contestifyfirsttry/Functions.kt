@@ -67,6 +67,4 @@ class Functions {
             R.layout.search_artist_single
         }
     }
-
-
 }

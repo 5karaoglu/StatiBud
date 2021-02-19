@@ -8,7 +8,7 @@
     android:layout_gravity="center"
     android:background="@color/colorPrimaryDark"
     android:id="@+id/shareLayout1"
-    tools:context=".ShareLayoutOne">
+    tools:context=".share.ShareLayoutOne">
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"

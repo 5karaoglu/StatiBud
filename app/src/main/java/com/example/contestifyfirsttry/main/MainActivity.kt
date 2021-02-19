@@ -1,26 +1,19 @@
-package com.example.contestifyfirsttry
+package com.example.contestifyfirsttry.main
 
 
-import android.content.DialogInterface
 import android.os.Bundle
 import android.util.Log
 import android.view.Menu
 import android.view.View
-import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.NavController
 import androidx.navigation.findNavController
-import com.google.android.gms.ads.AdLoader
+import com.example.contestifyfirsttry.R
 import com.google.android.gms.ads.AdRequest
 import com.google.android.gms.ads.AdView
 import com.google.android.gms.ads.MobileAds
-import com.google.android.gms.ads.formats.AdManagerAdViewOptions
 import com.google.firebase.analytics.FirebaseAnalytics
-import com.spotify.sdk.android.auth.*
 import kotlinx.android.synthetic.main.activity_main.*
-import kotlinx.android.synthetic.main.artists_fragment.*
-import kotlinx.android.synthetic.main.tracks_fragment.*
-import okhttp3.*
 
 
 class MainActivity : AppCompatActivity() {

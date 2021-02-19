@@ -1,4 +1,4 @@
-package com.example.contestifyfirsttry
+package com.example.contestifyfirsttry.share
 
 import android.content.Context
 import android.os.Bundle
@@ -8,15 +8,15 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import com.example.contestifyfirsttry.main.MainViewModel
+import com.example.contestifyfirsttry.R
 import com.example.contestifyfirsttry.model.Artists
 import com.example.contestifyfirsttry.util.CustomViewModelFactory
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.fragment_share_layout_one.*
-import kotlinx.android.synthetic.main.fragment_share_layout_two.*
-import kotlinx.android.synthetic.main.share_layout.*
 
 
-class ShareLayoutTwo : Fragment() {
+class ShareLayoutOne : Fragment() {
     private lateinit var viewModel: MainViewModel
 
     override fun onCreateView(
@@ -24,7 +24,7 @@ class ShareLayoutTwo : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_share_layout_two, container, false)
+        return inflater.inflate(R.layout.fragment_share_layout_one, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -43,21 +43,22 @@ class ShareLayoutTwo : Fragment() {
                 generateLayout(t!!)
                 makeVisible()
             })
-        viewModel!!.getMyArtistsLimited(token!!,"short_term",2)
+        viewModel!!.getMyArtistsLimited(token!!,"short_term",1)
     }
     private fun generateLayout(artists: Artists){
-        tvShareTwoArtistName.text = artists.items[1].name
+        tvShareOneArtistName.text = artists.items[0].name
         Picasso.get()
-            .load(artists.items[1].images[1].url)
+            .load(artists.items[0].images[0].url)
             .fit().centerCrop()
-            .into(ivShareTwo)
+            .into(ivShareOne)
     }
     private fun makeVisible(){
-        shareLayout2Holder.visibility  = View.VISIBLE
-        shareLayout2Pb.visibility = View.GONE
+        shareLayout1Holder.visibility  = View.VISIBLE
+        shareLayout1Pb.visibility = View.GONE
     }
     private fun makeInvisible(){
-        shareLayout2Holder.visibility  = View.GONE
-        shareLayout2Pb.visibility = View.VISIBLE
+        shareLayout1Holder.visibility  = View.GONE
+        shareLayout1Pb.visibility = View.VISIBLE
     }
+
 }

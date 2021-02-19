@@ -1,11 +1,13 @@
-package com.example.contestifyfirsttry
+package com.example.contestifyfirsttry.main
 
 import android.app.Activity
 import android.content.Context
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModel
+import com.example.contestifyfirsttry.Repository
+import com.example.contestifyfirsttry.TrackItems
+import com.example.contestifyfirsttry.Tracks
 import com.example.contestifyfirsttry.model.*
 
 class MainViewModel(lifecycleOwner: LifecycleOwner,context: Context) : ViewModel() {

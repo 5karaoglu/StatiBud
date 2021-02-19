@@ -17,11 +17,11 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.contestifyfirsttry.*
+import com.example.contestifyfirsttry.main.MainViewModel
 import com.example.contestifyfirsttry.model.*
 import com.example.contestifyfirsttry.util.CustomViewModelFactory
 import com.google.android.material.appbar.AppBarLayout
 import com.squareup.picasso.Picasso
-import kotlinx.android.synthetic.main.fragment_detailed_artist.*
 import kotlinx.android.synthetic.main.fragment_detailed_track.*
 import kotlinx.android.synthetic.main.fragment_detailed_track.imageView
 

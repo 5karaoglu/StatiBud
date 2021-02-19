@@ -1,36 +1,42 @@
 package com.example.contestifyfirsttry.Home
 
 import android.content.Context
+import android.content.Intent
+import android.graphics.Bitmap
+import android.graphics.Canvas
 import android.os.Bundle
 import android.util.Log
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.activity.addCallback
-import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.core.content.FileProvider
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.contestifyfirsttry.*
+import com.example.contestifyfirsttry.main.MainViewModel
 import com.example.contestifyfirsttry.model.*
+import com.example.contestifyfirsttry.share.ShareLayoutOne
+import com.example.contestifyfirsttry.share.ShareLayoutTwo
 import com.example.contestifyfirsttry.util.CustomViewModelFactory
-import com.muddzdev.quickshot.QuickShot
 import kotlinx.android.synthetic.main.fragment_home.*
+import java.io.File
+import java.io.FileOutputStream
+import java.io.IOException
 
 
 class HomeFragment : Fragment(),
     RecommendationsAdapter.OnItemClickListener,
-    RecentTracksAdapter.OnItemClickListener,
-    QuickShot.QuickShotListener{
+    RecentTracksAdapter.OnItemClickListener{
     private var TAG = "Home Fragment"
 
     private var viewModel: MainViewModel? = null
     private var token:String? = null
-    private var functions = Functions()
-    lateinit var adapter : HomePagerAdapter
+    private lateinit var adapter : HomePagerAdapter
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -44,24 +50,31 @@ class HomeFragment : Fragment(),
         super.onViewCreated(view, savedInstanceState)
         initVisibility()
         initShareViewPager()
+        initShareButton()
         //disabling onbackpressed
         val callback = requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner){}
         callback.isEnabled = true
         token = getToken()
         // ViewModel components
-        var factory = CustomViewModelFactory(this,requireContext())
-        viewModel = ViewModelProvider(this, factory!!).get(MainViewModel::class.java)
-        recentInit()
+        var factory = CustomViewModelFactory(this, requireContext())
+        viewModel = ViewModelProvider(this, factory).get(MainViewModel::class.java)
+        initRecentTracks()
         getRecommendations(token!!)
+        initUserInfo()
+
+    }
+    private fun initUserInfo(){
         viewModel!!.user.observe(requireActivity(),
             Observer<User> { t -> profileInit(t!!) })
         viewModel!!.getUser(token!!)
-
-        //saves screenshot on viewpager current page
+    }
+    private fun initShareButton(){
         buttonShare.setOnClickListener {
-            getScreenshot(getTargetView())
+            val targetView = getTargetView()
+            val bitmap = getBitmapFromView(targetView)
+            val screenShotPath = getScreenshot(bitmap!!)
+            shareOnSocialMedia(screenShotPath)
         }
-
     }
 
     override fun onStart() {
@@ -74,44 +87,53 @@ class HomeFragment : Fragment(),
         liRecentPb.visibility = View.VISIBLE
         coLayoutRecent.visibility = View.GONE
     }
-    private fun profileInit(user:User){
-        tvHomeHeader.text = String.format(getString(R.string.welcome_header),user.display_name)
+    private fun profileInit(user: User){
+        tvHomeHeader.text = String.format(getString(R.string.welcome_header), user.display_name)
 
         buttonProfile.setOnClickListener {
             val bundle = Bundle()
-            bundle.putString("userImage",user.images[0].url)
-            bundle.putString("userId",user.id)
-            bundle.putString("userDisplayName",user.display_name)
-            bundle.putString("userEmail",user.email)
-            bundle.putString("userFollowers",user.followers.total.toString())
-            bundle.putString("userCountry",user.country)
-            bundle.putString("userAccountStatus",user.product)
-            findNavController().navigate(R.id.action_homeFragment_to_profileFragment,bundle)
+            bundle.putString("userImage", user.images[0].url)
+            bundle.putString("userId", user.id)
+            bundle.putString("userDisplayName", user.display_name)
+            bundle.putString("userEmail", user.email)
+            bundle.putString("userFollowers", user.followers.total.toString())
+            bundle.putString("userCountry", user.country)
+            bundle.putString("userAccountStatus", user.product)
+            findNavController().navigate(R.id.action_homeFragment_to_profileFragment, bundle)
         }
     }
 
     private fun getToken():String{
         //getting token
-        val sharedPreferences = requireActivity().getSharedPreferences("spotifystatsapp", Context.MODE_PRIVATE)
-        val token = sharedPreferences.getString("token","")
+        val sharedPreferences = requireActivity().getSharedPreferences(
+            "spotifystatsapp",
+            Context.MODE_PRIVATE
+        )
+        val token = sharedPreferences.getString("token", "")
 
         Log.d(TAG, "onViewCreated:$token ")
         return token!!
     }
 
-    private fun recentInit(){
+    private fun initRecentTracks(){
         viewModel!!.recentTracks.observe(requireActivity(),
             Observer<RecentTracks> { t ->
-                generateDataRecentTracks(t!!,5)
-                recyclerButtonClick(t!!)})
+                generateDataRecentTracks(t!!, 5)
+                recyclerButtonClick(t!!)
+            })
 
         viewModel!!.getRecentTracks(token!!)
     }
-    private fun generateDataRecentTracks(tracks: RecentTracks,customItemCount:Int){
+    private fun generateDataRecentTracks(tracks: RecentTracks, customItemCount: Int){
         liRecentPb.visibility = View.GONE
         coLayoutRecent.visibility = View.VISIBLE
 
-        var adapter : RecentTracksAdapter = RecentTracksAdapter(requireContext(),tracks,this,customItemCount)
+        var adapter : RecentTracksAdapter = RecentTracksAdapter(
+            requireContext(),
+            tracks,
+            this,
+            customItemCount
+        )
         var layoutManager: RecyclerView.LayoutManager = LinearLayoutManager(requireContext())
         recyclerRecentHome.layoutManager = layoutManager
         recyclerRecentHome.adapter = adapter
@@ -120,11 +142,11 @@ class HomeFragment : Fragment(),
         var size = 0
         buttonRecyclerExpand.setOnClickListener {
             if (size == 0){
-                generateDataRecentTracks(tracks,tracks.limit)
+                generateDataRecentTracks(tracks, tracks.limit)
                 buttonRecyclerExpand.text = getString(R.string.show_less)
                 size = 1
             }else{
-                generateDataRecentTracks(tracks,5)
+                generateDataRecentTracks(tracks, 5)
                 buttonRecyclerExpand.text = getString(R.string.show_more)
                 size = 0
             }
@@ -135,27 +157,31 @@ class HomeFragment : Fragment(),
         var aS : String? = null
         var tS : String
         viewModel!!.artistsListShortTerm.observe(viewLifecycleOwner,
-            Observer<Artists> {t ->
+            Observer<Artists> { t ->
                 aS = artistSeed(t!!)
-                viewModel!!.getMyTracksLimited(token!!,"short_term",2)
+                viewModel!!.getMyTracksLimited(token!!, "short_term", 2)
             })
         viewModel!!.tracksListShortTerm.observe(viewLifecycleOwner,
             Observer<Tracks> { t ->
                 tS = trackSeed(t!!)
-                viewModel!!.getRecommendations(token!!,aS!!,tS!!)
+                viewModel!!.getRecommendations(token!!, aS!!, tS!!)
             })
         viewModel!!.recommendations.observe(viewLifecycleOwner,
-            Observer<Recommendations>{
-                    t -> generateRecommendations(t!!)
+            Observer<Recommendations> { t ->
+                generateRecommendations(t!!)
             })
-        viewModel!!.getMyArtistsLimited(token!!,"short_term",2)
+        viewModel!!.getMyArtistsLimited(token!!, "short_term", 2)
     }
     private fun generateRecommendations(recommendations: Recommendations){
         liRecommendationPb.visibility = View.GONE
         recyclerRecommendation.visibility = View.VISIBLE
 
-        var adapter = RecommendationsAdapter(requireContext(),recommendations,this)
-        var layoutManager = LinearLayoutManager(requireContext(),LinearLayoutManager.HORIZONTAL,false)
+        var adapter = RecommendationsAdapter(requireContext(), recommendations, this)
+        var layoutManager = LinearLayoutManager(
+            requireContext(),
+            LinearLayoutManager.HORIZONTAL,
+            false
+        )
         recyclerRecommendation.layoutManager = layoutManager
         recyclerRecommendation.adapter = adapter
     }
@@ -166,7 +192,7 @@ class HomeFragment : Fragment(),
         bundle.putString("artistId", recommendationTrack.album.artists[0].id)
         bundle.putString("name", recommendationTrack.name)
         bundle.putString("image", recommendationTrack.album.images[0].url)
-        findNavController().navigate(R.id.action_homeFragment_to_detailedTrackFragment,bundle)
+        findNavController().navigate(R.id.action_homeFragment_to_detailedTrackFragment, bundle)
     }
     private fun artistSeed(artists: Artists): String {
         var list = ""
@@ -203,59 +229,71 @@ class HomeFragment : Fragment(),
             bundle.putString("artistId", recentTrack.track.album.artists[0].id)
             bundle.putString("name", recentTrack.track.name)
             bundle.putString("image", recentTrack.track.album.images[0].url)
-            findNavController().navigate(R.id.action_homeFragment_to_detailedTrackFragment,bundle)
+            findNavController().navigate(R.id.action_homeFragment_to_detailedTrackFragment, bundle)
     }
-    /*fun getBitmapFromView(view: View,activity:Activity,callback:(Bitmap) -> Unit){
-        activity.window.let { window ->
-            val bitmap = Bitmap.createBitmap(view.width, view.height,Bitmap.Config.ARGB_8888)
-            val locationOfViewInWindow = IntArray(2)
-            view.getLocationInWindow(locationOfViewInWindow)
-            try {
-                PixelCopy.request(window, Rect(locationOfViewInWindow[0],locationOfViewInWindow[1],
-                    locationOfViewInWindow[0]+view.width,locationOfViewInWindow[1]+view.height),
-                bitmap,{copyResult ->
-                        if (copyResult == PixelCopy.SUCCESS){
-                            callback(bitmap)
-                        }
-                        //other result codes
-                    }, Handler(Looper.getMainLooper()))
-            }catch (e : IllegalArgumentException) {
-                e.printStackTrace()
-            }
-        }
-    }*/
+
     private fun initShareViewPager(){
-        val titles = arrayListOf<String>("No.1","No.2")
-        val tabList = arrayListOf<Fragment>(ShareLayoutOne(),ShareLayoutTwo())
-        adapter = HomePagerAdapter(childFragmentManager,titles,tabList)
+        val titles = arrayListOf<String>("No.1", "No.2")
+        val tabList = arrayListOf<Fragment>(ShareLayoutOne(), ShareLayoutTwo())
+        adapter = HomePagerAdapter(childFragmentManager, titles, tabList)
         pagerHome.adapter = adapter
         pagerHome.offscreenPageLimit = 4
         tabLayoutHome.setupWithViewPager(pagerHome)}
 
-    private fun getTargetView(): Int {
-        var view : Int? = null
+    ////////////////// Sharing image on social media section////////////
+    private fun getTargetView(): View {
+        var view : View? = null
         when(pagerHome.currentItem){
-            0 -> view = R.id.shareLayout1
-            1 -> view = R.id.shareLayout2
+            0 -> view = requireActivity().findViewById<View>(R.id.shareLayout1)
+            1 -> view = requireActivity().findViewById<View>(R.id.shareLayout2)
         }
         return view!!
     }
 
-    private fun getScreenshot(currentPage:Int){
-        QuickShot.of(requireActivity().findViewById<ConstraintLayout>(currentPage))
-            .setResultListener(this)
-            .enableLogging()
-            .setFilename("screen")
-            .setPath("Spotibud")
-            .toPNG()
-            .save();
+    //saving bitmap to phone
+    private fun getScreenshot(bitmap: Bitmap):File{
+        var newFile : File? = null
+        try{
+            newFile = File(requireContext().filesDir,"screenShot.png")
+            Log.d(TAG, "getScreenshot: ${newFile.absolutePath}")
+            val out = FileOutputStream(newFile)
+            bitmap.compress(Bitmap.CompressFormat.PNG,100,out)
+            out.flush()
+            out.close()
+        }catch (e:IOException){
+            Log.d(TAG, "onViewCreated: ${e.message}")
+        }
+        return newFile!!
+    }
+    // getting current view as bitmap
+    private fun getBitmapFromView(view:View): Bitmap? {
+        val bitmap = Bitmap.createBitmap(view.width,view.height,Bitmap.Config.ARGB_8888)
+        val canvas = Canvas(bitmap)
+        view.draw(canvas)
+        return bitmap
+    }
+    //getting image from given file path
+    private fun shareOnSocialMedia(path: File){
+        if (path.exists()){
+            // Create the URI from the media
+            var imageUri = FileProvider.getUriForFile(requireContext(),
+                "com.example.contestifyfirsttry.provider",path)
+            Log.d(TAG, "shareOnInstagram: file exists $imageUri")
+            val sourceApplication = "com.example.contestifyfirsttry"
+            // Create the new Intent using the 'Send' action.
+            val share = Intent(Intent.ACTION_SEND)
+             // Set the MIME type
+            share.type = "image/*"
+            // Add the URI to the Intent.
+            share.putExtra("source_application", sourceApplication)
+            share.putExtra(Intent.EXTRA_STREAM, imageUri)
+            // Broadcast the Intent.
+            startActivity(Intent.createChooser(share, "Share to"))
+        }else{
+            Log.d(TAG, "shareOnInstagram: file dont exists")
+        }
     }
 
-    override fun onQuickShotSuccess(path: String?) {
-        Log.d(TAG, "onQuickShotSuccess: $path")
-    }
 
-    override fun onQuickShotFailed(path: String?, errorMsg: String?) {
-        Log.d(TAG, "onQuickShotFailed: $errorMsg")
-    }
+
 }
