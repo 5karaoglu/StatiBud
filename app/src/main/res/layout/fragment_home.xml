@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Home.HomeFragment"
+    tools:context=".home.HomeFragment"
     android:background="@color/colorPrimaryDark">
 
     <androidx.core.widget.NestedScrollView
@@ -66,7 +66,10 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/homeToolbar">
                 <TextView
-                    android:padding="10dp"
+                    android:paddingTop="10dp"
+                    android:paddingStart="10dp"
+                    android:paddingEnd="10dp"
+                    android:paddingBottom="5dp"
                     android:layout_marginTop="10dp"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -76,6 +79,19 @@
                     android:id="@+id/tvRecommendations"
                     android:scrollbars="none"
                     android:textColor="@color/white"
+                    android:textStyle="normal"/>
+                <TextView
+                    android:paddingStart="10dp"
+                    android:paddingEnd="10dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/recommendations_description"
+                    android:gravity="start"
+                    android:textSize="15sp"
+                    android:layout_below="@id/tvRecommendations"
+                    android:id="@+id/tvRecommendationsDes"
+                    android:scrollbars="none"
+                    android:textColor="@color/colorgray2"
                     android:textStyle="normal"/>
                 <androidx.recyclerview.widget.RecyclerView
                     android:visibility="gone"
@@ -88,7 +104,7 @@
                     android:layout_height="wrap_content"
                     android:id="@+id/recyclerRecommendation"
                     android:scrollbars="horizontal"
-                    android:layout_below="@+id/tvRecommendations"
+                    android:layout_below="@+id/tvRecommendationsDes"
                     android:orientation="vertical" />
 
                 <LinearLayout
@@ -118,7 +134,10 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:gravity="start"
-                    android:padding="10dp"
+                    android:paddingTop="10dp"
+                    android:paddingStart="10dp"
+                    android:paddingEnd="10dp"
+                    android:paddingBottom="5dp"
                     android:text="@string/share_header"
                     android:textColor="@color/white"
                     android:textSize="20sp"
@@ -126,6 +145,20 @@
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
+                <TextView
+                    android:id="@+id/tvShareSectionDes"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="start"
+                    android:paddingStart="10dp"
+                    android:paddingEnd="10dp"
+                    android:text="@string/share_header_description"
+                    android:textColor="@color/colorgray2"
+                    android:textSize="15sp"
+                    android:textStyle="normal"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/tvShareSection" />
 
                 <com.google.android.material.tabs.TabLayout
                     android:id="@+id/tabLayoutHome"
@@ -135,7 +168,7 @@
                     android:background="@color/colorPrimaryDark"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/tvShareSection"
+                    app:layout_constraintTop_toBottomOf="@+id/tvShareSectionDes"
                     app:tabTextColor="@color/colorgray2" />
                 <androidx.viewpager.widget.ViewPager
                     android:id="@+id/pagerHome"

@@ -1,35 +1,23 @@
 package com.example.contestifyfirsttry.share
 
+import android.content.Context
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
 import com.example.contestifyfirsttry.R
+import com.example.contestifyfirsttry.Tracks
+import com.example.contestifyfirsttry.main.MainViewModel
+import com.example.contestifyfirsttry.util.CustomViewModelFactory
+import com.squareup.picasso.Picasso
+import kotlinx.android.synthetic.main.fragment_share_layout_three.*
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
 
-/**
- * A simple [Fragment] subclass.
- * Use the [ShareLayoutThree.newInstance] factory method to
- * create an instance of this fragment.
- */
 class ShareLayoutThree : Fragment() {
-    // TODO: Rename and change types of parameters
-    private var param1: String? = null
-    private var param2: String? = null
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
-        }
-    }
-
+    private lateinit var viewModel: MainViewModel
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -37,24 +25,68 @@ class ShareLayoutThree : Fragment() {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_share_layout_three, container, false)
     }
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        makeInvisible()
+        //getting token
+        val sharedPreferences = requireActivity().getSharedPreferences("spotifystatsapp", Context.MODE_PRIVATE)
+        val token = sharedPreferences.getString("token","")
 
-    companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment ShareLayoutThree.
-         */
-        // TODO: Rename and change types and number of parameters
-        @JvmStatic
-        fun newInstance(param1: String, param2: String) =
-            ShareLayoutThree().apply {
-                arguments = Bundle().apply {
-                    putString(ARG_PARAM1, param1)
-                    putString(ARG_PARAM2, param2)
-                }
-            }
+        // ViewModel components
+        var factory = CustomViewModelFactory(this,requireContext())
+        viewModel = ViewModelProvider(this, factory!!).get(MainViewModel::class.java)
+
+        viewModel!!.tracksListShortTerm.observe(viewLifecycleOwner,
+            Observer<Tracks> { t ->
+                generateLayout(t!!)
+                makeVisible()
+            })
+        viewModel!!.getMyTracksLimited(token!!,"short_term",3)
+
     }
+    private fun generateLayout(tracks: Tracks){
+        //shape #1
+        tvshareThreeItemOne.text = tracks.items[0].name
+        Picasso.get()
+            .load(tracks.items[0].album.images[1].url)
+            .fit().centerCrop()
+            .into(ivShareThreeOne)
+        //shape #2
+        tvshareThreeItemTwo.text = tracks.items[1].name
+        Picasso.get()
+            .load(tracks.items[1].album.images[1].url)
+            .fit().centerCrop()
+            .into(ivShareThreeTwo)
+        //shape #3
+        tvshareThreeItemThree.text = tracks.items[2].name
+        Picasso.get()
+            .load(tracks.items[2].album.images[1].url)
+            .fit().centerCrop()
+            .into(ivShareThreeThree)
+    }
+    private fun makeVisible(){
+        pbShareThreeOne.visibility = View.GONE
+        pbShareThreeTwo.visibility = View.GONE
+        pbShareThreeThree.visibility = View.GONE
+
+        ivShareThreeOne.visibility = View.VISIBLE
+        tvshareThreeItemOne.visibility = View.VISIBLE
+        ivShareThreeTwo.visibility = View.VISIBLE
+        tvshareThreeItemTwo.visibility = View.VISIBLE
+        ivShareThreeThree.visibility = View.VISIBLE
+        tvshareThreeItemThree.visibility = View.VISIBLE
+    }
+    private fun makeInvisible(){
+        pbShareThreeOne.visibility = View.VISIBLE
+        pbShareThreeTwo.visibility = View.VISIBLE
+        pbShareThreeThree.visibility = View.VISIBLE
+
+        ivShareThreeOne.visibility = View.GONE
+        tvshareThreeItemOne.visibility = View.GONE
+        ivShareThreeTwo.visibility = View.GONE
+        tvshareThreeItemTwo.visibility = View.GONE
+        ivShareThreeThree.visibility = View.GONE
+        tvshareThreeItemThree.visibility = View.GONE
+    }
+
 }

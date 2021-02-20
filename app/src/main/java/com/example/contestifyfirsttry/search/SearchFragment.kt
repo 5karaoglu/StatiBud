@@ -1,4 +1,4 @@
-package com.example.contestifyfirsttry.Search
+package com.example.contestifyfirsttry.search
 
 import android.content.Context
 import android.os.Bundle
@@ -10,6 +10,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.InputMethodManager
 import androidx.activity.addCallback
+import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
@@ -43,8 +44,7 @@ class SearchFragment : Fragment(),
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        //disabling onbackpressed
-        val callback = requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner){}
+        initExit()
         visibilityGone()
         //getting token
         val sharedPreferences = requireActivity().getSharedPreferences(
@@ -67,6 +67,18 @@ class SearchFragment : Fragment(),
             viewmodel.getAll()
         }.start()
 
+    }
+    private fun initExit(){
+        val callback = requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner){
+            AlertDialog.Builder(requireContext())
+                .setMessage(R.string.dialog_text)
+                .setCancelable(false)
+                .setPositiveButton(R.string.dialog_accept
+                ) { dialog, which -> requireActivity().finish() }
+                .setNegativeButton(R.string.dialog_deny,null)
+                .show()
+        }
+        callback.isEnabled = true
     }
 
     override fun onStart() {
@@ -315,8 +327,6 @@ class SearchFragment : Fragment(),
         if (requireActivity().currentFocus != null){
             inputManager.hideSoftInputFromWindow(requireActivity().currentFocus!!.windowToken, 0)
         }
-
-
         etSearch.text.clear()
     }
     private fun setSearchImageCross(isCross: Boolean){

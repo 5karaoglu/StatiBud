@@ -130,6 +130,11 @@ class MainViewModel(lifecycleOwner: LifecycleOwner,context: Context) : ViewModel
     fun getRecommendations(token: String,artistSeed:String,trackSeed:String) {
         repository.getRecommendations(token, artistSeed, trackSeed)
     }
+    fun getRecommendedTrack(token: String,seedTrack:String,targetAcousticness:String,targetDanceability:String,targetEnergy:String,targetInstrumentalness:String,
+                            targetLiveness:String, targetValence:String) {
+        repository.getRecommendedTrack(token,seedTrack, targetAcousticness, targetDanceability, targetEnergy,
+            targetInstrumentalness, targetLiveness, targetValence)
+    }
     fun getToken(activity:Activity){
         repository.getToken(activity)
     }

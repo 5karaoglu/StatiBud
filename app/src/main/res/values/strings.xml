@@ -34,25 +34,20 @@
     <string name="account_info">Account Info</string>
     <string name="available_devices">Available Devices</string>
 
-    <string name="sample_id">0123456789</string>
-    <string name="sample_display_name">Beşir Karao</string>
-    <string name="sample_email">bsrk26@gmail.com</string>
-    <string name="sample_followers">522</string>
-    <string name="sample_country">UK</string>
-    <string name="sample_status">Premium</string>
-
     <string name="show_more">SHOW MORE</string>
     <string name="show_less">SHOW LESS</string>
-    <string name="recommendations">Recommendations According to Your Recent Behaviours</string>
+    <string name="recommendations">Recommendations for you</string>
+    <string name="recommendations_description">According to your last activities</string>
     <string name="recent_tracks">Recent Tracks</string>
     <string name="share_header">Prepared For You</string>
+    <string name="share_header_description">Share with your friends !</string>
     <string name="share">Share</string>
 
     <!--Navigation Menu-->
     <string name="home">Home</string>
     <string name="top">Top</string>
-    <string name="Search">Search</string>
-    <string name="Profile">Profile</string>
+    <string name="search">Search</string>
+    <string name="track_finder">TF</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="banner_ad_unit_id">ca-app-pub-3940256099942544/6300978111</string>
@@ -130,6 +125,17 @@
     <string name="share_three_header">My Top 3 in past 4 weeks</string>
     <string name="share_four_header">My Top 3 in past 4 weeks</string>
     <string name="spotibud">Spotibud for Android</string>
+
+    <!--TrackFinder Fragment-->
+    <string name="search_hint">Pick a song</string>
+    <string name="button_text">FIND SONG</string>
+    <string name="warn">No song selected</string>
+    <string name="button_error">Song did not selected.</string>
+    <string name="tf_click">Select Song</string>
+
+    <string name="song_found">Song Found !</string>
+    <string name="ft_go_to_song">Go to song</string>
+    <string name="ft_cancel">Cancel</string>
 
 
 </resources>

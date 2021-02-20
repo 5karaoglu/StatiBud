@@ -1,7 +1,6 @@
-package com.example.contestifyfirsttry.Search
+package com.example.contestifyfirsttry.search
 
 import android.content.Context
-import android.content.res.Resources
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -10,10 +9,7 @@ import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import com.example.contestifyfirsttry.Functions
 import com.example.contestifyfirsttry.R
-import com.example.contestifyfirsttry.model.QueryResultTrackItem
-import com.example.contestifyfirsttry.model.QueryResultTracks
 import com.example.contestifyfirsttry.model.SearchHistory
 import com.squareup.picasso.Picasso
 

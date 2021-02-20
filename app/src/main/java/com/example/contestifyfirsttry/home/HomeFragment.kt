@@ -1,4 +1,4 @@
-package com.example.contestifyfirsttry.Home
+package com.example.contestifyfirsttry.home
 
 import android.content.Context
 import android.content.Intent
@@ -10,6 +10,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.activity.addCallback
+import androidx.appcompat.app.AlertDialog
 import androidx.core.content.FileProvider
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
@@ -20,7 +21,9 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.contestifyfirsttry.*
 import com.example.contestifyfirsttry.main.MainViewModel
 import com.example.contestifyfirsttry.model.*
+import com.example.contestifyfirsttry.share.ShareLayoutFour
 import com.example.contestifyfirsttry.share.ShareLayoutOne
+import com.example.contestifyfirsttry.share.ShareLayoutThree
 import com.example.contestifyfirsttry.share.ShareLayoutTwo
 import com.example.contestifyfirsttry.util.CustomViewModelFactory
 import kotlinx.android.synthetic.main.fragment_home.*
@@ -48,12 +51,10 @@ class HomeFragment : Fragment(),
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        initExit()
         initVisibility()
         initShareViewPager()
         initShareButton()
-        //disabling onbackpressed
-        val callback = requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner){}
-        callback.isEnabled = true
         token = getToken()
         // ViewModel components
         var factory = CustomViewModelFactory(this, requireContext())
@@ -62,6 +63,18 @@ class HomeFragment : Fragment(),
         getRecommendations(token!!)
         initUserInfo()
 
+    }
+    private fun initExit(){
+        val callback = requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner){
+            AlertDialog.Builder(requireContext())
+                .setMessage(R.string.dialog_text)
+                .setCancelable(false)
+                .setPositiveButton(R.string.dialog_accept
+                ) { dialog, which -> requireActivity().finish() }
+                .setNegativeButton(R.string.dialog_deny,null)
+                .show()
+        }
+        callback.isEnabled = true
     }
     private fun initUserInfo(){
         viewModel!!.user.observe(requireActivity(),
@@ -233,8 +246,8 @@ class HomeFragment : Fragment(),
     }
 
     private fun initShareViewPager(){
-        val titles = arrayListOf<String>("No.1", "No.2")
-        val tabList = arrayListOf<Fragment>(ShareLayoutOne(), ShareLayoutTwo())
+        val titles = arrayListOf<String>("No.1", "No.2","No.3", "No.4")
+        val tabList = arrayListOf<Fragment>(ShareLayoutOne(), ShareLayoutTwo(),ShareLayoutThree(),ShareLayoutFour())
         adapter = HomePagerAdapter(childFragmentManager, titles, tabList)
         pagerHome.adapter = adapter
         pagerHome.offscreenPageLimit = 4
@@ -246,6 +259,8 @@ class HomeFragment : Fragment(),
         when(pagerHome.currentItem){
             0 -> view = requireActivity().findViewById<View>(R.id.shareLayout1)
             1 -> view = requireActivity().findViewById<View>(R.id.shareLayout2)
+            2 -> view = requireActivity().findViewById<View>(R.id.shareLayout3)
+            3 -> view = requireActivity().findViewById<View>(R.id.shareLayout4)
         }
         return view!!
     }

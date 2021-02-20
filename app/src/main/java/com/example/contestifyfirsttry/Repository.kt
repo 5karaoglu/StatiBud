@@ -182,6 +182,28 @@ class Repository(context: Context) {
 
         })
     }
+    fun getRecommendedTrack(token: String,seedTrack:String,targetAcousticness:String,targetDanceability:String,targetEnergy:String,targetInstrumentalness:String,
+                            targetLiveness:String,targetValence:String){
+        val call: Call<Recommendations> = service.getRecommendedTrack("Bearer $token",seedTrack,targetAcousticness,
+            targetDanceability, targetEnergy, targetInstrumentalness, targetLiveness, targetValence)
+        Log.d(TAG, "getRecommendations: ${call.request()}")
+        call.enqueue(object : Callback<Recommendations> {
+            override fun onResponse(
+                call: Call<Recommendations>,
+                response: Response<Recommendations>
+            ) {
+                if (response.isSuccessful) {
+                    respRecommendations.value = response.body()!!
+                } else
+                    Log.d(TAG, "onResponse: ${response.body()}")
+            }
+
+            override fun onFailure(call: Call<Recommendations>, t: Throwable) {
+                Log.d(TAG, "onFailure: ${t.message}")
+            }
+
+        })
+    }
 
     fun playSong(context: Context,songUri:String){
         var connectionParams = ConnectionParams.Builder(CLIENT_ID)

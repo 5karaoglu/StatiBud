@@ -13,6 +13,7 @@ import com.example.contestifyfirsttry.main.MainViewModel
 import com.example.contestifyfirsttry.model.Artists
 import com.example.contestifyfirsttry.util.CustomViewModelFactory
 import com.squareup.picasso.Picasso
+import kotlinx.android.synthetic.main.fragment_share_layout_four.*
 import kotlinx.android.synthetic.main.fragment_share_layout_two.*
 
 
@@ -29,6 +30,7 @@ class ShareLayoutFour : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        makeInvisible()
         //getting token
         val sharedPreferences = requireActivity().getSharedPreferences("spotifystatsapp", Context.MODE_PRIVATE)
         val token = sharedPreferences.getString("token","")
@@ -42,23 +44,52 @@ class ShareLayoutFour : Fragment() {
                 generateLayout(t!!)
                 makeVisible()
             })
-        viewModel!!.getMyArtistsLimited(token!!,"short_term",2)
+        viewModel!!.getMyArtistsLimited(token!!,"short_term",3)
 
     }
     private fun generateLayout(artists: Artists){
-        tvShareTwoArtistName.text = artists.items[1].name
+        //shape #1
+        tvshareFourItemOne.text = artists.items[0].name
+        Picasso.get()
+            .load(artists.items[0].images[1].url)
+            .fit().centerCrop()
+            .into(ivShareFourOne)
+        //shape #2
+        tvshareFourItemTwo.text = artists.items[1].name
         Picasso.get()
             .load(artists.items[1].images[1].url)
             .fit().centerCrop()
-            .into(ivShareTwo)
+            .into(ivShareFourTwo)
+        //shape #3
+        tvshareFourItemThree.text = artists.items[2].name
+        Picasso.get()
+            .load(artists.items[2].images[1].url)
+            .fit().centerCrop()
+            .into(ivShareFourThree)
     }
     private fun makeVisible(){
-        shareLayout2Holder.visibility  = View.VISIBLE
-        shareLayout2Pb.visibility = View.GONE
+        pbShareFourOne.visibility = View.GONE
+        pbShareFourTwo.visibility = View.GONE
+        pbShareFourThree.visibility = View.GONE
+
+        ivShareFourOne.visibility = View.VISIBLE
+        tvshareFourItemOne.visibility = View.VISIBLE
+        ivShareFourTwo.visibility = View.VISIBLE
+        tvshareFourItemTwo.visibility = View.VISIBLE
+        ivShareFourThree.visibility = View.VISIBLE
+        tvshareFourItemThree.visibility = View.VISIBLE
     }
     private fun makeInvisible(){
-        shareLayout2Holder.visibility  = View.GONE
-        shareLayout2Pb.visibility = View.VISIBLE
+        pbShareFourOne.visibility = View.VISIBLE
+        pbShareFourTwo.visibility = View.VISIBLE
+        pbShareFourThree.visibility = View.VISIBLE
+
+        ivShareFourOne.visibility = View.GONE
+        tvshareFourItemOne.visibility = View.GONE
+        ivShareFourTwo.visibility = View.GONE
+        tvshareFourItemTwo.visibility = View.GONE
+        ivShareFourThree.visibility = View.GONE
+        tvshareFourItemThree.visibility = View.GONE
     }
 
 

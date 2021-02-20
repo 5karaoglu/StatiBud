@@ -15,9 +15,6 @@
             android:id="@+id/action_topFragment_to_searchFragment"
             app:destination="@id/searchFragment" />
         <action
-            android:id="@+id/action_topFragment_to_profileFragment"
-            app:destination="@id/profileFragment" />
-        <action
             android:id="@+id/action_topFragment_to_itemDetailedFragment"
             app:destination="@id/itemDetailedFragment">
 
@@ -28,15 +25,15 @@
         <action
             android:id="@+id/action_topFragment_to_homeFragment"
             app:destination="@id/homeFragment" />
+        <action
+            android:id="@+id/action_topFragment_to_trackFinder"
+            app:destination="@id/trackFinder" />
     </fragment>
     <fragment
         android:id="@+id/searchFragment"
-        android:name="com.example.contestifyfirsttry.Search.SearchFragment"
+        android:name="com.example.contestifyfirsttry.search.SearchFragment"
         android:label="fragment_search"
         tools:layout="@layout/fragment_search">
-        <action
-            android:id="@+id/action_searchFragment_to_profileFragment"
-            app:destination="@id/profileFragment" />
         <action
             android:id="@+id/action_searchFragment_to_topFragment"
             app:destination="@id/topFragment" />
@@ -55,18 +52,15 @@
         <action
             android:id="@+id/action_searchFragment_to_detailedResult"
             app:destination="@id/detailedResult" />
+        <action
+            android:id="@+id/action_searchFragment_to_trackFinder"
+            app:destination="@id/trackFinder" />
     </fragment>
     <fragment
         android:id="@+id/profileFragment"
-        android:name="com.example.contestifyfirsttry.Profile.ProfileFragment"
+        android:name="com.example.contestifyfirsttry.profile.ProfileFragment"
         android:label="fragment_profile"
         tools:layout="@layout/fragment_profile">
-        <action
-            android:id="@+id/action_profileFragment_to_searchFragment"
-            app:destination="@id/searchFragment" />
-        <action
-            android:id="@+id/action_profileFragment_to_topFragment"
-            app:destination="@id/topFragment" />
         <action
             android:id="@+id/action_profileFragment_to_homeFragment"
             app:destination="@id/homeFragment" />
@@ -107,6 +101,9 @@
         <action
             android:id="@+id/action_detailedTrackFragment_to_topFragment"
             app:destination="@id/topFragment" />
+        <action
+            android:id="@+id/action_detailedTrackFragment_to_trackFinder"
+            app:destination="@id/trackFinder" />
     </fragment>
     <fragment
         android:id="@+id/detailedAlbumFragment"
@@ -128,25 +125,28 @@
     </fragment>
     <fragment
         android:id="@+id/homeFragment"
-        android:name="com.example.contestifyfirsttry.Home.HomeFragment"
+        android:name="com.example.contestifyfirsttry.home.HomeFragment"
         android:label="fragment_home"
         tools:layout="@layout/fragment_home" >
         <action
             android:id="@+id/action_homeFragment_to_topFragment"
             app:destination="@id/topFragment" />
         <action
-            android:id="@+id/action_homeFragment_to_profileFragment"
-            app:destination="@id/profileFragment" />
-        <action
             android:id="@+id/action_homeFragment_to_searchFragment"
             app:destination="@id/searchFragment" />
         <action
             android:id="@+id/action_homeFragment_to_detailedTrackFragment"
             app:destination="@id/detailedTrackFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_trackFinder"
+            app:destination="@id/trackFinder" />
+        <action
+            android:id="@+id/action_homeFragment_to_profileFragment"
+            app:destination="@id/profileFragment" />
     </fragment>
     <fragment
         android:id="@+id/detailedResult"
-        android:name="com.example.contestifyfirsttry.Search.DetailedResult"
+        android:name="com.example.contestifyfirsttry.search.DetailedResult"
         android:label="fragment_detailed_result"
         tools:layout="@layout/fragment_detailed_result" >
         <action
@@ -161,6 +161,26 @@
         <action
             android:id="@+id/action_detailedResult_to_searchFragment"
             app:destination="@id/searchFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/trackFinder"
+        android:name="TrackFinder"
+        android:label="TrackFinder" >
+        <action
+            android:id="@+id/action_trackFinder_to_tfSearch"
+            app:destination="@id/tfSearch" />
+        <action
+            android:id="@+id/action_trackFinder_to_detailedTrackFragment"
+            app:destination="@id/detailedTrackFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/tfSearch"
+        android:name="com.example.contestifyfirsttry.finder.TfSearch"
+        android:label="fragment_tf_search"
+        tools:layout="@layout/fragment_tf_search" >
+        <action
+            android:id="@+id/action_tfSearch_to_trackFinder"
+            app:destination="@id/trackFinder" />
     </fragment>
 
 </navigation>

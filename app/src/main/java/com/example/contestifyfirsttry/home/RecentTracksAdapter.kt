@@ -1,4 +1,4 @@
-package com.example.contestifyfirsttry.Home
+package com.example.contestifyfirsttry.home
 
 import android.content.Context
 import android.view.LayoutInflater

@@ -29,6 +29,16 @@ interface Api {
                            @Query("seed_artists") seedArtists:String,
                            @Query("seed_tracks") seedTracks:String):Call<Recommendations>
 
+    @GET("recommendations?market=US&min_popularity=50")
+    fun getRecommendedTrack(@Header("Authorization") token:String,
+                            @Query("seed_tracks") seedTracks:String,
+                            @Query("target_acousticness") targetAcousticness:String,
+                            @Query("target_danceability") targetDanceability:String,
+                            @Query("target_energy") targetEnergy:String,
+                            @Query("target_instrumentalness") targetInstrumentalness:String,
+                            @Query("target_liveness") targetLiveness:String,
+                            @Query("target_valence") targetValence:String):Call<Recommendations>
+
     @GET("me")
     fun getMyProfile(@Header("Authorization") token:String):Call<User>
 

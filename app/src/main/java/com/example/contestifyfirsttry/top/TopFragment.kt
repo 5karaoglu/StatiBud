@@ -24,8 +24,12 @@ class TopFragment : Fragment() {
         return inflater.inflate(R.layout.fragment_top, container, false)
     }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
+    override fun onActivityCreated(savedInstanceState: Bundle?) {
+        super.onActivityCreated(savedInstanceState)
+        initViewPager()
+        initExit()
+    }
+    private fun initExit(){
         val callback = requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner){
             AlertDialog.Builder(requireContext())
                 .setMessage(R.string.dialog_text)
@@ -37,12 +41,7 @@ class TopFragment : Fragment() {
         }
         callback.isEnabled = true
     }
-
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
-        initViewPager()
-    }
-    fun initViewPager(){
+    private fun initViewPager(){
         var adapter = ViewPagerAdapter(requireActivity().supportFragmentManager,lifecycle)
         pager.adapter = adapter
         var tabList = arrayListOf<String>(getString(R.string.artists),getString(R.string.tracks))

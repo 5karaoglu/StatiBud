@@ -1,4 +1,4 @@
-package com.example.contestifyfirsttry.Profile
+package com.example.contestifyfirsttry.profile
 
 import android.content.Context
 import android.util.Log
@@ -9,12 +9,8 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.contestifyfirsttry.R
-import com.example.contestifyfirsttry.detailed.DetailedAlbumTracksAdapter
-import com.example.contestifyfirsttry.model.Album
-import com.example.contestifyfirsttry.model.AlbumItems
 import com.example.contestifyfirsttry.model.Device
 import com.example.contestifyfirsttry.model.Devices
-import com.squareup.picasso.Picasso
 
 class AvailableDeviceAdapter (
     var context: Context,

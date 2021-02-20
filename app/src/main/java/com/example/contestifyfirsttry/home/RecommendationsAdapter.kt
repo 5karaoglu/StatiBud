@@ -1,4 +1,4 @@
-package com.example.contestifyfirsttry.Home
+package com.example.contestifyfirsttry.home
 
 import android.content.Context
 import android.view.LayoutInflater
@@ -8,9 +8,6 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.contestifyfirsttry.R
-import com.example.contestifyfirsttry.Search.QueryResultTrackAdapter
-import com.example.contestifyfirsttry.model.QueryResultTrackItem
-import com.example.contestifyfirsttry.model.QueryResultTracks
 import com.example.contestifyfirsttry.model.RecommendationTrack
 import com.example.contestifyfirsttry.model.Recommendations
 import com.squareup.picasso.Picasso

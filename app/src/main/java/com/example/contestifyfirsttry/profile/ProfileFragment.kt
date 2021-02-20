@@ -1,4 +1,4 @@
-package com.example.contestifyfirsttry.Profile
+package com.example.contestifyfirsttry.profile
 
 import android.content.ActivityNotFoundException
 import android.content.Context

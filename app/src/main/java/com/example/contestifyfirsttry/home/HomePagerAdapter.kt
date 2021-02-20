@@ -1,4 +1,4 @@
-package com.example.contestifyfirsttry.Home
+package com.example.contestifyfirsttry.home
 
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager

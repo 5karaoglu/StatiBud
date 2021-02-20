@@ -31,17 +31,9 @@
     <string name="country">Ülke:</string>
     <string name="account_status">Hesap Durumu:</string>
 
-    <string name="sample_id">0123456789</string>
-    <string name="sample_display_name">Beşir Karao</string>
-    <string name="sample_email">bsrk26@gmail.com</string>
-    <string name="sample_followers">522</string>
-    <string name="sample_country">UK</string>
-    <string name="sample_status">Premium</string>
-
     <!--Navigation Menu-->
     <string name="home">Ana Sayfa</string>
     <string name="top">En Çok</string>
-    <string name="Search">Arama</string>
     <string name="Profile">Profil</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
@@ -70,14 +62,14 @@
     <string name="albums">Albümler</string>
 
     <!--Detailed Track Fragment-->
-    <string name="danceability">Danceability</string>
-    <string name="energy">Energy</string>
-    <string name="loudness">Loudness</string>
-    <string name="speechiness">Speechiness</string>
-    <string name="acousticness">Acousticness</string>
-    <string name="instrumentalness">Instrumentalness</string>
-    <string name="liveness">Liveness</string>
-    <string name="valence">Valence</string>
+    <string name="danceability">Dansabilite</string>
+    <string name="energy">Enerji</string>
+    <string name="loudness">Gürültü</string>
+    <string name="speechiness">Lirikal</string>
+    <string name="acousticness">Akustik</string>
+    <string name="instrumentalness">Enstrümantal</string>
+    <string name="liveness">Canlı</string>
+    <string name="valence">Neşe</string>
 
     <!--Detailed Track Fragment-->
     <string name="track_name">Şarkı Adı</string>
@@ -107,7 +99,7 @@
     <string name="type_track">track</string>
     <string name="type_album">album</string>
     <string name="link_format">Daha fazla %s</string>
-    <string name="recommendations">Son Hareketlerine Göre Öneriler</string>
+    <string name="recommendations">Senin için tavsiyeler</string>
     <string name="recent_tracks">Son Dinlenenler</string>
     <string name="account_info">Hesap Bilgileri</string>
     <string name="available_devices">Hazır Cihazlar</string>
@@ -118,6 +110,22 @@
     <string name="spotibud">Android için Spotibud</string>
     <string name="share_three_header">Son 4 haftada Top 3 numaram</string>
     <string name="share_four_header">Son 4 haftada Top 3 numaram</string>
+    <string name="recommendations_description">Son zamanda dinlediklerine dayanarak</string>
+    <string name="share_header_description">Arkadaşlarınla paylaş !</string>
+    <string name="search_hint">Bir şarkı seç</string>
+    <string name="acoustic">Akustik</string>
+    <string name="dance">Dans Edilebilirlik</string>
+    <string name="instrumental">Enstrümantal</string>
+    <string name="live">Canlı</string>
+    <string name="button_text">ŞARKIYI BUL</string>
+    <string name="warn">Hiçbir şarkı seçilmedi</string>
+    <string name="search">Arama</string>
+    <string name="track_finder">TF</string>
+    <string name="button_error">Şarkı seçilmedi.</string>
+    <string name="song_found">Şarkı bulundu !</string>
+    <string name="tf_click">Şarkı seç</string>
+    <string name="ft_cancel">İptal</string>
+    <string name="ft_go_to_song">Şarkıya git</string>
 
 
 </resources>

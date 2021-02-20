@@ -1,4 +1,4 @@
-package com.example.contestifyfirsttry.Search
+package com.example.contestifyfirsttry.search
 
 import android.content.Context
 import android.os.Bundle

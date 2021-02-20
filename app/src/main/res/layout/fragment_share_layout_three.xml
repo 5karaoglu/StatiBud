@@ -1,14 +1,196 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".share.ShareLayoutThree">
+    android:id="@+id/shareLayout3"
+    android:layout_width="250dp"
+    android:layout_height="400dp"
+    android:layout_gravity="center"
+    android:background="@color/colorPrimaryDark"
+    tools:context=".share.ShareLayoutFour">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/shareLayout4Holder"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+        android:layout_height="match_parent">
 
-</FrameLayout>
+        <TextView
+            android:id="@+id/tvShareFourHeader"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:autoSizeMaxTextSize="25sp"
+            android:autoSizeMinTextSize="15sp"
+            android:autoSizeTextType="uniform"
+            android:gravity="center"
+            android:maxLines="1"
+            android:padding="10dp"
+            android:text="@string/share_four_header"
+            android:textColor="@color/white"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+
+        <RelativeLayout
+            android:id="@+id/reLayout"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_marginStart="21dp"
+            android:layout_marginBottom="14dp"
+            android:background="@color/gold"
+            android:padding="5dp"
+            app:layout_constraintBottom_toTopOf="@+id/reLayout2"
+            app:layout_constraintEnd_toStartOf="@+id/reLayout2"
+            app:layout_constraintHorizontal_bias="0.108"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tvShareFourHeader"
+            app:layout_constraintVertical_bias="0.0">
+
+            <ImageView
+                android:id="@+id/ivShareThreeOne"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:src="@mipmap/ic_launcher_round" />
+
+            <TextView
+                android:id="@+id/tvshareThreeItemOne"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentBottom="true"
+                android:layout_marginStart="5dp"
+                android:layout_marginEnd="5dp"
+                android:ellipsize="end"
+                android:maxLines="2"
+                android:textColor="@color/white"
+                android:textSize="12sp" />
+
+
+            <ProgressBar
+                android:id="@+id/pbShareThreeOne"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentBottom="true"
+                android:layout_marginStart="11dp"
+                android:layout_marginTop="14dp"
+                android:layout_marginEnd="14dp"
+                android:layout_marginBottom="11dp"
+                android:visibility="gone" />
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/reLayout2"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:orientation="vertical"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:padding="5dp"
+            android:background="@color/silver">
+
+            <ImageView
+                android:id="@+id/ivShareThreeTwo"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:src="@mipmap/ic_launcher_round" />
+            <TextView
+                android:id="@+id/tvshareThreeItemTwo"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentBottom="true"
+                android:layout_marginStart="5dp"
+                android:layout_marginEnd="5dp"
+                android:ellipsize="end"
+                android:maxLines="2"
+                android:textColor="@color/white"
+                android:textSize="12sp" />
+
+            <ProgressBar
+                android:visibility="gone"
+                android:id="@+id/pbShareThreeTwo"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentBottom="true"
+                android:layout_marginStart="11dp"
+                android:layout_marginTop="14dp"
+                android:layout_marginEnd="14dp"
+                android:layout_marginBottom="11dp" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/reLayout3"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_marginEnd="16dp"
+            android:background="@color/bronze"
+            android:orientation="vertical"
+            android:padding="5dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintStart_toEndOf="@+id/reLayout2"
+            app:layout_constraintTop_toBottomOf="@+id/reLayout2"
+            app:layout_constraintVertical_bias="0.42">
+
+            <ImageView
+                android:id="@+id/ivShareThreeThree"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:src="@mipmap/ic_launcher_round" />
+
+            <TextView
+                android:id="@+id/tvshareThreeItemThree"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentBottom="true"
+                android:layout_marginStart="5dp"
+                android:layout_marginEnd="5dp"
+                android:ellipsize="end"
+                android:maxLines="2"
+                android:textColor="@color/white"
+                android:textSize="12sp" />
+
+            <ProgressBar
+                android:id="@+id/pbShareThreeThree"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentBottom="true"
+                android:layout_marginStart="11dp"
+                android:layout_marginTop="14dp"
+                android:layout_marginEnd="14dp"
+                android:layout_marginBottom="11dp"
+                android:visibility="gone" />
+        </RelativeLayout>
+
+        <TextView
+            android:id="@+id/tvShareThreeSpotibud"
+            android:layout_width="182dp"
+            android:layout_height="16dp"
+            android:gravity="center"
+            android:text="@string/spotibud"
+            android:textColor="@color/white"
+            android:textSize="12sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

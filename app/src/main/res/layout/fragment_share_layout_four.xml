@@ -2,7 +2,7 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/shareLayout2"
+    android:id="@+id/shareLayout4"
     android:layout_width="250dp"
     android:layout_height="400dp"
     android:layout_gravity="center"
@@ -35,31 +35,40 @@
             android:id="@+id/linearLayout"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="12dp"
+            android:layout_marginStart="21dp"
+            android:layout_marginBottom="14dp"
+            android:gravity="center_horizontal"
             android:orientation="vertical"
+            app:layout_constraintBottom_toTopOf="@+id/linearLayout2"
             app:layout_constraintEnd_toStartOf="@+id/linearLayout2"
-            app:layout_constraintHorizontal_bias="1.0"
-            app:layout_constraintStart_toStartOf="@+id/linearLayout2"
-            app:layout_constraintTop_toBottomOf="@+id/tvShareFourHeader">
+            app:layout_constraintHorizontal_bias="0.161"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tvShareFourHeader"
+            app:layout_constraintVertical_bias="0.0">
 
-            <LinearLayout
+            <TextView
+                android:id="@+id/tvshareFourItemOne"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal">
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textColor="@color/white"
-                    android:textSize="12sp" />
-            </LinearLayout>
+                android:ellipsize="end"
+                android:maxLines="1"
+                android:textColor="@color/white"
+                android:textSize="12sp" />
 
             <de.hdodenhof.circleimageview.CircleImageView
                 android:id="@+id/ivShareFourOne"
-                android:layout_width="80dp"
-                android:layout_height="80dp"
+                android:layout_width="90dp"
+                android:layout_height="90dp"
                 android:src="@mipmap/ic_launcher_round"
                 app:civ_border_color="@color/gold"
-                app:civ_border_width="5dp"/>
+                app:civ_border_width="5dp" />
+
+            <ProgressBar
+                android:id="@+id/pbShareFourOne"
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                android:visibility="gone" />
+
         </LinearLayout>
 
         <LinearLayout
@@ -67,77 +76,71 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            app:layout_constraintBottom_toBottomOf="@+id/tvShareFourSpotibud"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
+            app:layout_constraintTop_toTopOf="parent"
+            android:gravity="center_horizontal">
 
-            <LinearLayout
+            <TextView
+                android:id="@+id/tvshareFourItemTwo"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="#1"
-                    android:textColor="@color/white"
-                    android:textSize="12sp" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textColor="@color/white"
-                    android:textSize="12sp" />
-            </LinearLayout>
+                android:textColor="@color/white"
+                android:textSize="12sp"
+                android:maxLines="1"
+                android:ellipsize="end"/>
 
             <de.hdodenhof.circleimageview.CircleImageView
                 android:id="@+id/ivShareFourTwo"
-                android:layout_width="80dp"
-                android:layout_height="80dp"
+                android:layout_width="90dp"
+                android:layout_height="90dp"
                 android:src="@mipmap/ic_launcher_round"
                 app:civ_border_color="@color/silver"
                 app:civ_border_width="5dp" />
+            <ProgressBar
+                android:id="@+id/pbShareFourTwo"
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                android:visibility="gone"/>
         </LinearLayout>
 
         <LinearLayout
             android:id="@+id/linearLayout3"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="32dp"
+            android:layout_marginEnd="16dp"
+            android:gravity="center_horizontal"
             android:orientation="vertical"
-            app:layout_constraintBottom_toTopOf="@+id/tvShareFourSpotibud"
-            app:layout_constraintEnd_toEndOf="@+id/linearLayout2"
-            app:layout_constraintHorizontal_bias="0.457"
-            app:layout_constraintStart_toEndOf="@+id/linearLayout2">
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintStart_toEndOf="@+id/linearLayout2"
+            app:layout_constraintTop_toBottomOf="@+id/linearLayout2"
+            app:layout_constraintVertical_bias="0.363">
 
-            <LinearLayout
+            <TextView
+                android:id="@+id/tvshareFourItemThree"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="#1"
-                    android:textColor="@color/white"
-                    android:textSize="12sp" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Arctic Monkeys"
-                    android:textColor="@color/white"
-                    android:textSize="12sp" />
-            </LinearLayout>
+                android:ellipsize="end"
+                android:maxLines="1"
+                android:textColor="@color/white"
+                android:textSize="12sp" />
 
             <de.hdodenhof.circleimageview.CircleImageView
                 android:id="@+id/ivShareFourThree"
+                android:layout_width="90dp"
+                android:layout_height="90dp"
+                android:src="@mipmap/ic_launcher_round"
+                app:civ_border_color="@color/bronze"
+                app:civ_border_width="5dp" />
+
+            <ProgressBar
+                android:id="@+id/pbShareFourThree"
                 android:layout_width="80dp"
                 android:layout_height="80dp"
-                android:src="@mipmap/ic_launcher_round"
-                app:civ_border_width="5dp"
-                app:civ_border_color="@color/bronze"/>
+                android:visibility="gone" />
         </LinearLayout>
 
         <TextView
@@ -151,6 +154,7 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent" />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <androidx.constraintlayout.widget.ConstraintLayout
