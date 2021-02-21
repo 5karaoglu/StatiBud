@@ -82,6 +82,9 @@
     <string name="dialog_accept">Yes</string>
     <string name="dialog_deny">No</string>
 
+    <string name="connection_text">Internet connection not found. Please connect to a network to continue using the application.</string>
+    <string name="connection_negative">Exit App</string>
+
     <!--Item Detailed Fragment-->
     <string name="artist_profile">PROFILE</string>
     <string name="artist_similar">SIMILAR ARTISTS</string>
@@ -136,6 +139,8 @@
     <string name="song_found">Song Found !</string>
     <string name="ft_go_to_song">Go to song</string>
     <string name="ft_cancel">Cancel</string>
+
+    <string name="song_not_found">No song found matching your preferences. Please change preferences and try again.</string>
 
 
 </resources>

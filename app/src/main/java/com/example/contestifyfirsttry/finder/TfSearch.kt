@@ -99,7 +99,7 @@ class TfSearch : Fragment(),
         if (requireActivity().currentFocus != null){
             inputManager.hideSoftInputFromWindow(requireActivity().currentFocus!!.windowToken, 0)
         }
-        etSearch.text.clear()
+        etTfSearch.text.clear()
     }
     private fun setSearchImageCross(isCross: Boolean){
         if(isCross){
@@ -135,6 +135,7 @@ class TfSearch : Fragment(),
         bundle.putString("name", queryResultTrackItem.name)
         bundle.putString("image", queryResultTrackItem.album.images[0].url)
         bundle.putString("artistName", queryResultTrackItem.album.artists[0].name)
+        hideKeyboard()
         findNavController().navigate(R.id.action_tfSearch_to_trackFinder, bundle)
     }
 }

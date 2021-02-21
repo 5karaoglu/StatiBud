@@ -126,6 +126,9 @@
     <string name="tf_click">Şarkı seç</string>
     <string name="ft_cancel">İptal</string>
     <string name="ft_go_to_song">Şarkıya git</string>
+    <string name="song_not_found">Aradığın tercihlere uygun şarkı bulunamadı. Lütfen tercihleri değiştirip tekrar dene.</string>
+    <string name="connection_text">İnternet bağlantısı bulunamadı.  Lütfen uygulamayı kullanmaya devam edebilmek için bir ağa bağlanın.</string>
+    <string name="connection_negative">Uygulamadan Çık</string>
 
 
 </resources>

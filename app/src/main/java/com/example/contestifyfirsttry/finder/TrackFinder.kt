@@ -3,6 +3,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.WindowManager
 import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
@@ -42,7 +43,6 @@ class TrackFinder : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         initExit()
 
-
         if (arguments != null) {
             val bundle = arguments
             selectedTrackInit(bundle!!)
@@ -63,7 +63,15 @@ class TrackFinder : Fragment() {
         viewModel = ViewModelProvider(this, factory).get(MainViewModel::class.java)
 
         viewModel!!.recommendations.observe(viewLifecycleOwner,
-            { t -> showTrack(t!!) })
+            { t ->
+                buttonProgress.visibility = View.GONE
+                buttonFind.isClickable = true
+                if (t.tracks.isNotEmpty()) {
+                    showTrack(t!!)
+                } else {
+                    Toast.makeText(requireContext(), getString(R.string.song_not_found), Toast.LENGTH_SHORT).show()
+                }
+            })
         initButton(token!!)
     }
     private fun initButton(token: String){
@@ -75,12 +83,16 @@ class TrackFinder : Fragment() {
         }
         buttonFind.setOnClickListener {
             if (arguments != null){
-                val acoustic = (tfSbAcoustic.progress/100).toString()
-                val dance = (tfSbDance.progress/100).toString()
-                val energy = (tfSbEnergy.progress/100).toString()
-                val instrumental = (tfSbInstrumental.progress/100).toString()
-                val live = (tfSbLive.progress/100).toString()
-                val valence = (tfSbValence.progress/100).toString()
+                val acoustic = (((tfSbAcoustic.progress/100).toFloat())/10).toString()
+                val dance = (((tfSbDance.progress/100).toFloat())/10).toString()
+                val energy = (((tfSbEnergy.progress/100).toFloat())/10).toString()
+                val instrumental = (((tfSbInstrumental.progress/100).toFloat())/10).toString()
+                val live = (((tfSbLive.progress/100).toFloat())/10).toString()
+                val valence = (((tfSbValence.progress/100).toFloat())/10).toString()
+
+                //button progressbar visibility
+                buttonProgress.visibility = View.VISIBLE
+                buttonFind.isClickable = false
 
                 viewModel!!.getRecommendedTrack(
                     token,
@@ -121,14 +133,22 @@ class TrackFinder : Fragment() {
         tvTfSelectedArtist.text = selectedTrackArtistName
     }
     private fun showTrack(recommendations: Recommendations){
+        //getting random recommended track from list
+        val random = (0..recommendations.tracks.size).random()
+        val id = recommendations.tracks[random].id
+        val name = recommendations.tracks[random].name
+        val image = recommendations.tracks[random].album.images[0].url
+        val artistId = recommendations.tracks[random].album.artists[0].id
+        val artistName = recommendations.tracks[random].album.artists[0].name
+
         val dialogBuilder = AlertDialog.Builder(requireContext())
             .setCancelable(false)
             .setPositiveButton(getString(R.string.ft_go_to_song)){dialog, which ->
                 val bundle = Bundle()
-                bundle.putString("id", recommendations.tracks[0].id)
-                bundle.putString("artistId", recommendations.tracks[0].album.artists[0].id)
-                bundle.putString("name", recommendations.tracks[0].name)
-                bundle.putString("image", recommendations.tracks[0].album.images[0].url)
+                bundle.putString("id", id)
+                bundle.putString("artistId", artistId)
+                bundle.putString("name", name)
+                bundle.putString("image", image)
                 findNavController().navigate(R.id.action_trackFinder_to_detailedTrackFragment, bundle)
             }.setNegativeButton(getString(R.string.ft_cancel),null)
         val inflater = this.layoutInflater
@@ -139,13 +159,15 @@ class TrackFinder : Fragment() {
         val tvArtist: TextView = dialogView.findViewById<View>(R.id.tvFtArtist) as TextView
 
         Picasso.get()
-            .load(recommendations.tracks[0].album.images[0].url)
+            .load(image)
             .fit().centerCrop()
             .into(iv)
-        tv.text = recommendations.tracks[0].name
-        tvArtist.text = recommendations.tracks[0].album.artists[0].name
+        tv.text = name
+        tvArtist.text = artistName
         val alertDialog = dialogBuilder.create()
         alertDialog.show()
+
+
     }
     private fun initExit(){
         val callback = requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner){

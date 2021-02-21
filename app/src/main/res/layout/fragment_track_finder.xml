@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -122,8 +123,8 @@
             android:paddingBottom="5dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:max="100"
-            android:progress="50"
+            android:max="1000"
+            android:progress="500"
             android:progressBackgroundTint="@color/colorgray" />
     </LinearLayout>
     <LinearLayout
@@ -148,8 +149,8 @@
             android:paddingBottom="5dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:max="100"
-            android:progress="50"
+            android:max="1000"
+            android:progress="500"
             android:progressBackgroundTint="@color/colorgray" />
     </LinearLayout>
     <LinearLayout
@@ -174,8 +175,8 @@
             android:paddingBottom="5dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:max="100"
-            android:progress="50"
+            android:max="1000"
+            android:progress="500"
             android:progressBackgroundTint="@color/colorgray" />
     </LinearLayout>
     <LinearLayout
@@ -200,8 +201,8 @@
             android:paddingBottom="5dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:max="100"
-            android:progress="50"
+            android:max="1000"
+            android:progress="500"
             android:progressBackgroundTint="@color/colorgray" />
     </LinearLayout>
     <LinearLayout
@@ -226,8 +227,8 @@
             android:paddingBottom="5dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:max="100"
-            android:progress="50"
+            android:max="1000"
+            android:progress="500"
             android:progressBackgroundTint="@color/colorgray" />
     </LinearLayout>
     <LinearLayout
@@ -252,26 +253,40 @@
             android:paddingBottom="5dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:max="100"
-            android:progress="50"
+            android:max="1000"
+            android:progress="500"
             android:progressBackgroundTint="@color/colorgray" />
     </LinearLayout>
-    <LinearLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:padding="10dp"
         android:orientation="vertical"
         android:gravity="center">
+        <ProgressBar
+            android:visibility="gone"
+            android:id="@+id/buttonProgress"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
         <Button
             android:id="@+id/buttonFind"
-            android:padding="5dp"
-            android:maxLines="1"
             android:layout_width="200dp"
             android:layout_height="wrap_content"
             android:background="@drawable/cardview_background3"
+            android:maxLines="1"
+            android:padding="5dp"
             android:text="@string/button_text"
-            android:textColor="@color/white"/>
+            android:textColor="@color/white"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
-    </LinearLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 </LinearLayout>

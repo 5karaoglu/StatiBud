@@ -5,9 +5,11 @@ import android.os.Bundle
 import android.util.Log
 import android.view.Menu
 import android.view.View
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.NavController
 import androidx.navigation.findNavController
+import com.example.contestifyfirsttry.ConnectionLiveData
 import com.example.contestifyfirsttry.R
 import com.google.android.gms.ads.AdRequest
 import com.google.android.gms.ads.AdView
@@ -22,10 +24,16 @@ class MainActivity : AppCompatActivity() {
     private var navController: NavController? = null
     private var mFirebaseAnalytics: FirebaseAnalytics? = null
     private var mAdView: AdView? = null
+    private lateinit var connectionLiveData: ConnectionLiveData
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+
+        val dialog = dialog()
+        connectionLiveData = ConnectionLiveData(this)
+        connectionLiveData.observe(this,
+            { isNetworkAvailable -> connectionBehaviour(isNetworkAvailable,dialog) })
         // Obtain the FirebaseAnalytics instance.
         mFirebaseAnalytics = FirebaseAnalytics.getInstance(this);
 
@@ -70,7 +78,22 @@ class MainActivity : AppCompatActivity() {
         val adRequest: AdRequest = AdRequest.Builder().build()
         mAdView!!.loadAd(adRequest)
     }
+    private fun dialog(): AlertDialog {
+        var dialog = AlertDialog.Builder(this)
+            .setMessage(R.string.connection_text)
+            .setCancelable(false)
+            .setNegativeButton(R.string.connection_negative) { dialog, which -> this.finish() }
+            .create()
+        return dialog
+    }
+    private fun connectionBehaviour(isNetworkAvailable: Boolean, dialog: AlertDialog){
+        if(!isNetworkAvailable){
+            dialog.show()
+        }else{
+            dialog.dismiss()
+        }
 
+    }
 
 
 
