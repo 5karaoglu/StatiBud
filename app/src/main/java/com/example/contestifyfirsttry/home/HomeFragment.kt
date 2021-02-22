@@ -247,7 +247,9 @@ class HomeFragment : Fragment(),
                     recyclerHomeTf.layoutManager = layoutManager
                     recyclerHomeTf.adapter = adapter
             } })
-        viewModel!!.trackFinderGetAll()
+        Thread{
+            viewModel!!.trackFinderGetAll()
+        }.start()
     }
     //TrackFinderItem OnClick
     override fun onItemClicked(track: TrackFinderTracks) {

@@ -2,6 +2,7 @@ package com.example.contestifyfirsttry.top
 
 import android.content.Context
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -18,9 +19,7 @@ import com.example.contestifyfirsttry.main.MainViewModel
 import com.example.contestifyfirsttry.model.Artists
 import com.example.contestifyfirsttry.model.Item
 import com.example.contestifyfirsttry.util.CustomViewModelFactory
-import kotlinx.android.synthetic.main.artists_fragment.*
 import kotlinx.android.synthetic.main.fragment_long_term.*
-import kotlinx.android.synthetic.main.tracks_fragment.*
 
 
 class LongTermFragment : Fragment(),
@@ -48,32 +47,35 @@ class LongTermFragment : Fragment(),
         var factory = CustomViewModelFactory(this,requireContext())
         viewModel = ViewModelProvider(this, factory!!).get(MainViewModel::class.java)
 
-        viewModel!!.tracksListLongTerm.observe(viewLifecycleOwner,
-            Observer<Tracks> { t -> generateDataTracks(t!!) })
+        viewModel!!.artistsListLongTerm.observe(viewLifecycleOwner,
+            Observer<Artists> { t ->
+                Log.d(TAG, "onViewCreated: long sup")
+                generateDataArtists (t!!)
+            })
 
-        viewModel.getMyArtists(token!!,"Long_term")
-        viewModel.getMyTracks(token!!,"Long_term")
+        viewModel.getMyArtists(token!!,"long_term")
+        viewModel.getMyTracks(token!!,"long_term")
         initRadioGroup()
     }
     private fun initRadioGroup() {
         radioGroupLongTerm.setOnCheckedChangeListener { group, checkedId ->
             when (checkedId) {
-                radioButton1LongTerm.id -> generateDataTracks(viewModel.tracksListLongTerm.value!!)
-                radioButton2LongTerm.id -> generateDataArtists(viewModel.artistsListLongTerm.value!!)
+                radioButton1LongTerm.id -> generateDataArtists(viewModel.artistsListLongTerm.value!!)
+                radioButton2LongTerm.id -> generateDataTracks(viewModel.tracksListLongTerm.value!!)
             }
         }
     }
     private fun generateDataTracks(tracks: Tracks){
         var adapter : TracksAdapter = TracksAdapter(requireContext(),tracks,this)
         var layoutManager: RecyclerView.LayoutManager = LinearLayoutManager(requireContext())
-        recyclerTracks.layoutManager = layoutManager
-        recyclerTracks.adapter = adapter
+        recyclerLongTerm.layoutManager = layoutManager
+        recyclerLongTerm.adapter = adapter
     }
     private fun generateDataArtists(artists: Artists){
         var adapter : ArtistsAdapter = ArtistsAdapter(requireContext(),artists,this)
         var layoutManager: RecyclerView.LayoutManager = LinearLayoutManager(requireContext())
-        recyclerArtists.layoutManager = layoutManager
-        recyclerArtists.adapter = adapter
+        recyclerLongTerm.layoutManager = layoutManager
+        recyclerLongTerm.adapter = adapter
     }
     //tracks onclick
     override fun onItemClicked(track: TrackItems) {

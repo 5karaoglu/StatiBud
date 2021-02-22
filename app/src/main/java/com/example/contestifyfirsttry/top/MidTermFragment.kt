@@ -2,6 +2,7 @@ package com.example.contestifyfirsttry.top
 
 import android.content.Context
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -18,9 +19,8 @@ import com.example.contestifyfirsttry.main.MainViewModel
 import com.example.contestifyfirsttry.model.Artists
 import com.example.contestifyfirsttry.model.Item
 import com.example.contestifyfirsttry.util.CustomViewModelFactory
-import kotlinx.android.synthetic.main.artists_fragment.*
 import kotlinx.android.synthetic.main.fragment_mid_term.*
-import kotlinx.android.synthetic.main.tracks_fragment.*
+
 
 
 class MidTermFragment : Fragment(),
@@ -47,32 +47,35 @@ class MidTermFragment : Fragment(),
         var factory = CustomViewModelFactory(this,requireContext())
         viewModel = ViewModelProvider(this, factory!!).get(MainViewModel::class.java)
 
-        viewModel!!.tracksListMidTerm.observe(viewLifecycleOwner,
-            Observer<Tracks> { t -> generateDataTracks(t!!) })
+        viewModel!!.artistsListMidTerm.observe(viewLifecycleOwner,
+            Observer<Artists> { t ->
+                Log.d(TAG, "onViewCreated: sup")
+                generateDataArtists(t!!)
+            })
 
-        viewModel.getMyArtists(token!!,"Mid_term")
-        viewModel.getMyTracks(token!!,"Mid_term")
+        viewModel.getMyArtists(token!!,"medium_term")
+        viewModel.getMyTracks(token!!,"medium_term")
         initRadioGroup()
     }
     private fun initRadioGroup() {
         radioGroupMidTerm.setOnCheckedChangeListener { group, checkedId ->
             when (checkedId) {
-                radioButton1MidTerm.id -> generateDataTracks(viewModel.tracksListMidTerm.value!!)
-                radioButton2MidTerm.id -> generateDataArtists(viewModel.artistsListMidTerm.value!!)
+                radioButton1MidTerm.id -> generateDataArtists(viewModel.artistsListMidTerm.value!!)
+                radioButton2MidTerm.id -> generateDataTracks(viewModel.tracksListMidTerm.value!!)
             }
         }
     }
     private fun generateDataTracks(tracks: Tracks){
-        var adapter : TracksAdapter = TracksAdapter(requireContext(),tracks,this)
+        var adapter : TracksAdapter = TracksAdapter(this.requireContext(),tracks,this)
         var layoutManager: RecyclerView.LayoutManager = LinearLayoutManager(requireContext())
-        recyclerTracks.layoutManager = layoutManager
-        recyclerTracks.adapter = adapter
+        recyclerMidTerm.layoutManager = layoutManager
+        recyclerMidTerm.adapter = adapter
     }
     private fun generateDataArtists(artists: Artists){
         var adapter : ArtistsAdapter = ArtistsAdapter(requireContext(),artists,this)
         var layoutManager: RecyclerView.LayoutManager = LinearLayoutManager(requireContext())
-        recyclerArtists.layoutManager = layoutManager
-        recyclerArtists.adapter = adapter
+        recyclerMidTerm.layoutManager = layoutManager
+        recyclerMidTerm.adapter = adapter
     }
     //tracks onclick
     override fun onItemClicked(track: TrackItems) {

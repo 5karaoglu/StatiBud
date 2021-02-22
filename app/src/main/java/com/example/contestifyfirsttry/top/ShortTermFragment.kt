@@ -2,6 +2,7 @@ package com.example.contestifyfirsttry.top
 
 import android.content.Context
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -18,9 +19,7 @@ import com.example.contestifyfirsttry.main.MainViewModel
 import com.example.contestifyfirsttry.model.Artists
 import com.example.contestifyfirsttry.model.Item
 import com.example.contestifyfirsttry.util.CustomViewModelFactory
-import kotlinx.android.synthetic.main.artists_fragment.*
 import kotlinx.android.synthetic.main.fragment_short_term.*
-import kotlinx.android.synthetic.main.tracks_fragment.*
 
 
 class ShortTermFragment : Fragment(),
@@ -47,8 +46,11 @@ class ShortTermFragment : Fragment(),
         var factory = CustomViewModelFactory(this,requireContext())
         viewModel = ViewModelProvider(this, factory!!).get(MainViewModel::class.java)
 
-        viewModel!!.tracksListShortTerm.observe(viewLifecycleOwner,
-            Observer<Tracks> { t -> generateDataTracks(t!!) })
+        viewModel!!.artistsListShortTerm.observe(viewLifecycleOwner,
+            Observer<Artists> { t ->
+                Log.d(TAG, "onViewCreated: short sup")
+                generateDataArtists(t!!)
+            })
 
         viewModel.getMyArtists(token!!,"short_term")
         viewModel.getMyTracks(token!!,"short_term")
@@ -57,22 +59,22 @@ class ShortTermFragment : Fragment(),
     private fun initRadioGroup() {
         radioGroupShortTerm.setOnCheckedChangeListener { group, checkedId ->
             when (checkedId) {
-                radioButton1ShortTerm.id -> generateDataTracks(viewModel.tracksListShortTerm.value!!)
-                radioButton2ShortTerm.id -> generateDataArtists(viewModel.artistsListShortTerm.value!!)
+                radioButton1ShortTerm.id -> generateDataArtists(viewModel.artistsListShortTerm.value!!)
+                radioButton2ShortTerm.id -> generateDataTracks(viewModel.tracksListShortTerm.value!!)
             }
         }
     }
     private fun generateDataTracks(tracks: Tracks){
         var adapter : TracksAdapter = TracksAdapter(requireContext(),tracks,this)
         var layoutManager: RecyclerView.LayoutManager = LinearLayoutManager(requireContext())
-        recyclerTracks.layoutManager = layoutManager
-        recyclerTracks.adapter = adapter
+        recyclerShortTerm.layoutManager = layoutManager
+        recyclerShortTerm.adapter = adapter
     }
     private fun generateDataArtists(artists: Artists){
         var adapter : ArtistsAdapter = ArtistsAdapter(requireContext(),artists,this)
         var layoutManager: RecyclerView.LayoutManager = LinearLayoutManager(requireContext())
-        recyclerArtists.layoutManager = layoutManager
-        recyclerArtists.adapter = adapter
+        recyclerShortTerm.layoutManager = layoutManager
+        recyclerShortTerm.adapter = adapter
     }
     //tracks onclick
     override fun onItemClicked(track: TrackItems) {
