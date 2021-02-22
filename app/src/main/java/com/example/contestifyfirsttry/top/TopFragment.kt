@@ -8,13 +8,14 @@ import android.view.ViewGroup
 import androidx.activity.addCallback
 import androidx.appcompat.app.AlertDialog
 import com.example.contestifyfirsttry.R
+import com.example.contestifyfirsttry.home.HomePagerAdapter
 import com.google.android.material.tabs.TabLayoutMediator
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.fragment_top.*
 
 
 class TopFragment : Fragment() {
-
+    private lateinit var adapter : ViewPagerAdapter
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -42,14 +43,12 @@ class TopFragment : Fragment() {
         callback.isEnabled = true
     }
     private fun initViewPager(){
-        var adapter = ViewPagerAdapter(requireActivity().supportFragmentManager,lifecycle)
-        pager.adapter = adapter
-        var tabList = arrayListOf<String>(getString(R.string.artists),getString(R.string.tracks))
-        TabLayoutMediator(tabLayoutFragmentTop,pager){tab, position ->
-            tab.text = tabList[position]
-        }.attach()
-        pager.offscreenPageLimit = 2
-        pager.currentItem = 0
+        val fList = arrayListOf<Fragment>(ShortTermFragment(), MidTermFragment(), LongTermFragment())
+        var titleList = arrayListOf<String>(getString(R.string.top_short_term),getString(R.string.top_mid_term),getString(R.string.top_long_term))
+        val adapter = ViewPagerAdapter(requireActivity().supportFragmentManager,fList,titleList)
+        pagerTop.adapter = adapter
+        pagerTop.offscreenPageLimit = 2
+        tabLayoutTop.setupWithViewPager(pagerTop)
     }
 
 }

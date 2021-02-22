@@ -132,6 +132,12 @@
     <string name="dt_info_header">Şarkı hakkında</string>
     <string name="home_tf">Daha Önce TrackFinder\'ı Kullanarak Bulduğun Şarkılar</string>
     <string name="home_tf_not_found">Liste boş. Şarkı bulmak için TrackFinder\'a git.</string>
+    <string name="top_artists">SANATÇILAR</string>
+    <string name="top_fragment_artists">SANATÇILAR</string>
+    <string name="top_fragment_tracks">ŞARKILAR</string>
+    <string name="top_short_term">4 hafta</string>
+    <string name="top_mid_term">6 ay</string>
+    <string name="top_long_term">ömürboyu</string>
 
 
 </resources>

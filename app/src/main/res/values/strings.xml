@@ -7,8 +7,9 @@
     <string name="linked_in">https://www.linkedin.com/in/besirkaraoglu/</string>
 
     <!--Top Fragment-->
-    <string name="artists">ARTISTS</string>
-    <string name="tracks">TRACKS</string>
+    <string name="top_short_term">4 weeks</string>
+    <string name="top_mid_term">6 months</string>
+    <string name="top_long_term">lifetime</string>
 
     <!--Single Track Layout-->
     <string name="album_name">Album Name:</string>
@@ -77,6 +78,10 @@
     <string name="short_term">4 weeks</string>
     <string name="mid_term">6 months</string>
     <string name="long_term">lifetime</string>
+
+    <!--top radio buttons-->
+    <string name="top_fragment_artists">ARTISTS</string>
+    <string name="top_fragment_tracks">TRACKS</string>
 
 
     <!--dialog texts-->

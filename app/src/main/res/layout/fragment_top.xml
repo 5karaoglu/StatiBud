@@ -18,28 +18,32 @@
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
                 android:layout_gravity="bottom"
-                android:id="@+id/tabLayoutFragmentTop"
+                android:id="@+id/tabLayoutTop"
                 android:background="@color/colorPrimary"
                 app:tabTextColor="@color/colorgray2">
                 <com.google.android.material.tabs.TabItem
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:text="ARTISTS"/>
+                    />
                 <com.google.android.material.tabs.TabItem
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:text="TRACKS"/>
+                    />
+                <com.google.android.material.tabs.TabItem
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    />
 
             </com.google.android.material.tabs.TabLayout>
         </RelativeLayout>
-    <androidx.viewpager2.widget.ViewPager2
+    <androidx.viewpager.widget.ViewPager
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_alignParentBottom="true"
         android:layout_alignParentStart="true"
         android:layout_alignParentEnd="true"
         android:layout_below="@+id/reLayout"
-        android:id="@+id/pager">
-    </androidx.viewpager2.widget.ViewPager2>
+        android:id="@+id/pagerTop">
+    </androidx.viewpager.widget.ViewPager>
 
 </RelativeLayout>

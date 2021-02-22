@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".top.LongTermFragment">
+    <RadioGroup
+        android:layout_width="match_parent"
+        android:layout_height="30dp"
+        android:id="@+id/radioGroupLongTerm"
+        android:weightSum="8"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:background="@color/colorPrimaryDark">
+        <RadioButton
+            android:layout_width="0dp"
+            android:layout_height="30dp"
+            android:id="@+id/radioButton1LongTerm"
+            android:layout_weight="4"
+            android:text="@string/top_fragment_artists"
+            android:gravity="center"
+            android:background="@drawable/radio_flat_selector"
+            android:button="@android:color/transparent"
+            android:checked="true"
+            android:textColor="@color/radio_flat_text_selector"/>
+        <RadioButton
+            android:layout_width="0dp"
+            android:layout_height="30dp"
+            android:id="@+id/radioButton2LongTerm"
+            android:gravity="center"
+            android:layout_weight="4"
+            android:text="@string/top_fragment_tracks"
+            android:background="@drawable/radio_flat_selector"
+            android:button="@android:color/transparent"
+            android:textColor="@color/radio_flat_text_selector"/>
+    </RadioGroup>
+    <androidx.recyclerview.widget.RecyclerView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/recyclerLongTerm"
+        tools:listitem="@layout/single_track_layout"
+        android:layout_below="@+id/radioGroupLongTerm"/>
+    
+</RelativeLayout>
