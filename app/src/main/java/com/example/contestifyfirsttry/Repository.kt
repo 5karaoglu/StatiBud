@@ -6,10 +6,7 @@ import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.room.Room
 import com.example.contestifyfirsttry.model.*
-import com.example.contestifyfirsttry.util.Api
-import com.example.contestifyfirsttry.util.AppDatabase
-import com.example.contestifyfirsttry.util.RetrofitInstance
-import com.example.contestifyfirsttry.util.Scopes
+import com.example.contestifyfirsttry.util.*
 import com.spotify.android.appremote.api.ConnectionParams
 import com.spotify.android.appremote.api.Connector
 import com.spotify.android.appremote.api.SpotifyAppRemote
@@ -53,6 +50,7 @@ class Repository(context: Context) {
     var respQueryResult = MutableLiveData<QueryResults>()
 
     var respSearchHistory = MutableLiveData<List<SearchHistory>>()
+    var respTrackFinderTracks = MutableLiveData<List<TrackFinderTracks>>()
 
     var respAvailableDevices = MutableLiveData<Devices>()
 
@@ -65,9 +63,11 @@ class Repository(context: Context) {
 
     private var service: Api = RetrofitInstance().getRefrofitInstance()!!.create(Api::class.java)
     private val db = Room.databaseBuilder(context.applicationContext, AppDatabase::class.java, "searchHistory").build()
+    private val tfDb = Room.databaseBuilder(context.applicationContext, TrackFinderDatabase::class.java,"trackfindertracks").build()
 
 
     //room methods
+    //Search History Database
     fun getAll(){
         respSearchHistory.postValue(db.dao().getAll())
     }
@@ -76,6 +76,16 @@ class Repository(context: Context) {
     }
     fun delete(searchHistory: SearchHistory){
         db.dao().delete(searchHistory)
+    }
+    //TrackFinder Database
+    fun trackFinderGetAll(){
+        respTrackFinderTracks.postValue(tfDb.trackFinderDao().getAll())
+    }
+    fun trackFinderInsert(tracks: TrackFinderTracks){
+        tfDb.trackFinderDao().insert(tracks)
+    }
+    fun trackFinderDeleteAll(){
+        tfDb.trackFinderDao().deleteAll()
     }
 
     fun getToken(activity: Activity){

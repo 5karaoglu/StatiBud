@@ -40,6 +40,7 @@ class MainViewModel(lifecycleOwner: LifecycleOwner,context: Context) : ViewModel
     var queryResults = MutableLiveData<QueryResults>()
 
     var searchHistory = MutableLiveData<List<SearchHistory>>()
+    var trackFinderTracks = MutableLiveData<List<TrackFinderTracks>>()
 
     var availableDevices = MutableLiveData<Devices>()
 
@@ -100,6 +101,9 @@ class MainViewModel(lifecycleOwner: LifecycleOwner,context: Context) : ViewModel
         repository.respSearchHistory.observe(lifecycleOwner,
             { t -> searchHistory.value = t })
 
+        repository.respTrackFinderTracks.observe(lifecycleOwner,
+            { t -> trackFinderTracks.value = t })
+
         repository.respAvailableDevices.observe(lifecycleOwner,
             { t -> availableDevices.value = t })
 
@@ -113,6 +117,15 @@ class MainViewModel(lifecycleOwner: LifecycleOwner,context: Context) : ViewModel
     }
     fun delete(searchHistory: SearchHistory){
         repository.delete(searchHistory)
+    }
+    fun trackFinderGetAll(){
+        repository.trackFinderGetAll()
+    }
+    fun trackFinderInsert(tracks: TrackFinderTracks){
+        repository.trackFinderInsert(tracks)
+    }
+    fun trackFinderDeleteAll(tracks: TrackFinderTracks){
+        repository.trackFinderDeleteAll()
     }
     //retrofit methods
     fun getMyArtists(token: String,timeRange:String){

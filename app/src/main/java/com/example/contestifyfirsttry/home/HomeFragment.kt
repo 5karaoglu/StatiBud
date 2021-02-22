@@ -34,7 +34,8 @@ import java.io.IOException
 
 class HomeFragment : Fragment(),
     RecommendationsAdapter.OnItemClickListener,
-    RecentTracksAdapter.OnItemClickListener{
+    RecentTracksAdapter.OnItemClickListener,
+    TrackFinderAdapter.OnItemClickListener{
     private var TAG = "Home Fragment"
 
     private var viewModel: MainViewModel? = null
@@ -60,6 +61,7 @@ class HomeFragment : Fragment(),
         initRecentTracks()
         getRecommendations(token!!)
         initUserInfo()
+        checkTrackFinderTracks()
 
     }
     private fun initExit(){
@@ -232,11 +234,30 @@ class HomeFragment : Fragment(),
             bundle.putString("image", recentTrack.track.album.images[0].url)
             findNavController().navigate(R.id.action_homeFragment_to_detailedTrackFragment, bundle)
     }
+    private fun checkTrackFinderTracks(){
+        viewModel!!.trackFinderTracks.observe(viewLifecycleOwner,
+            {trackFinderTracks ->
+                if (trackFinderTracks != null){
+                    reLayoutHomeTf.visibility = View.VISIBLE
 
-
-
-
-
+                    val adapter = TrackFinderAdapter(requireContext(),trackFinderTracks,this)
+                    val layoutManager = LinearLayoutManager(requireContext(),
+                        LinearLayoutManager.HORIZONTAL,
+                        false)
+                    recyclerHomeTf.layoutManager = layoutManager
+                    recyclerHomeTf.adapter = adapter
+            } })
+        viewModel!!.trackFinderGetAll()
+    }
+    //TrackFinderItem OnClick
+    override fun onItemClicked(track: TrackFinderTracks) {
+        val bundle = Bundle()
+        bundle.putString("id", track.trackId)
+        bundle.putString("artistId", track.artistId)
+        bundle.putString("name", track.trackName)
+        bundle.putString("image", track.albumImage)
+        findNavController().navigate(R.id.action_homeFragment_to_detailedTrackFragment, bundle)
+    }
 
 
 }
