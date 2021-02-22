@@ -32,6 +32,8 @@
                 android:src="@mipmap/ic_launcher"
                 app:layout_scrollFlags="scroll|enterAlways|enterAlwaysCollapsed"/>
             <ImageView
+                android:paddingStart="10dp"
+                android:paddingEnd="10dp"
                 android:layout_width="match_parent"
                 android:layout_height="160dp"
                 android:layout_gravity="bottom"
@@ -91,8 +93,7 @@
         android:backgroundTint="@color/colorPrimary"
         app:borderWidth="0dp"
         app:maxImageSize="40dp"
-        app:fabCustomSize="60dp"
-        android:contentDescription="Open Link in Spotify" />
+        app:fabCustomSize="60dp" />
     <androidx.core.widget.NestedScrollView
         android:id="@+id/nsvDetailedTrack"
         android:layout_width="match_parent"
@@ -100,15 +101,33 @@
         app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior"
 >
         <RelativeLayout
+            android:id="@+id/reLayoutDetailedTrack"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
-
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:id="@+id/reLayoutInfo">
+            <TextView
+                android:paddingTop="10dp"
+                android:paddingStart="10dp"
+                android:paddingEnd="10dp"
+                android:paddingBottom="5dp"
+                android:layout_marginTop="10dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/dt_info_header"
+                android:gravity="start"
+                android:textSize="20sp"
+                android:id="@+id/tvRecommendations"
+                android:scrollbars="none"
+                android:textColor="@color/white"
+                android:textStyle="normal"/>
             <LinearLayout
-                android:layout_margin="10dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center"
-                android:id="@+id/reLayoutInfo"
                 android:orientation="horizontal"
                 android:weightSum="3">
                 <LinearLayout
@@ -221,7 +240,10 @@
                 </LinearLayout>
 
             </LinearLayout>
+        </LinearLayout>
+
             <RelativeLayout
+                android:layout_marginTop="10dp"
                 android:layout_below="@id/reLayoutInfo"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

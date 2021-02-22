@@ -6,7 +6,7 @@ import androidx.fragment.app.FragmentPagerAdapter
 
 class HomePagerAdapter(fragmentManager: FragmentManager, private val titleArray: ArrayList<String>, private val tabArray: ArrayList<Fragment>) : FragmentPagerAdapter(fragmentManager) {
 
-    override fun getPageTitle(position: Int): CharSequence? {
+    override fun getPageTitle(position: Int): CharSequence {
         return titleArray[position]
     }
     override fun getCount(): Int {

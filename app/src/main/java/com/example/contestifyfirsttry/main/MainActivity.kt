@@ -9,8 +9,8 @@ import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.NavController
 import androidx.navigation.findNavController
-import com.example.contestifyfirsttry.ConnectionLiveData
 import com.example.contestifyfirsttry.R
+import com.example.contestifyfirsttry.util.ConnectionLiveData
 import com.google.android.gms.ads.AdRequest
 import com.google.android.gms.ads.AdView
 import com.google.android.gms.ads.MobileAds
@@ -54,6 +54,8 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun bottomNavSetup(){
+        bottomBar.itemIconTintActive = getColor(R.color.colorPrimaryDark)
+        bottomBar.itemIconTint = getColor(R.color.white)
 
         bottomBar.onItemSelected = {
             Log.d(TAG, "onItemSelected:$it ")
@@ -61,7 +63,8 @@ class MainActivity : AppCompatActivity() {
                 0 -> navController!!.navigate(R.id.homeFragment)
                 1 -> navController!!.navigate(R.id.topFragment)
                 2 -> navController!!.navigate(R.id.searchFragment)
-                3 -> navController!!.navigate(R.id.trackFinder)
+                3 -> navController!!.navigate(R.id.shareFragment)
+                4 -> navController!!.navigate(R.id.trackFinder)
             }
         }
         bottomBar.onItemReselected = {
@@ -70,8 +73,10 @@ class MainActivity : AppCompatActivity() {
                 0 -> navController!!.navigate(R.id.homeFragment)
                 1 -> navController!!.navigate(R.id.topFragment)
                 2 -> navController!!.navigate(R.id.searchFragment)
-                3 -> navController!!.navigate(R.id.trackFinder)
+                3 -> navController!!.navigate(R.id.shareFragment)
+                4 -> navController!!.navigate(R.id.trackFinder)
         }}
+
     }
     private fun setAd(){
         mAdView = findViewById<View>(R.id.adView) as AdView?

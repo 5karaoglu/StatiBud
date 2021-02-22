@@ -4,7 +4,7 @@
     xmlns:android="http://schemas.android.com/apk/res/android" >
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="50dp"
         android:orientation="horizontal"
         android:background="@color/colorPrimaryDark"
         android:gravity="center_vertical">
@@ -30,6 +30,7 @@
                 android:layout_marginBottom="4dp"
                 android:gravity="center"
                 android:maxLines="1"
+                android:textSize="12sp"
                 android:text="4m"
                 android:textColor="@color/colorgray" />
         </LinearLayout>
@@ -47,11 +48,12 @@
                 android:layout_marginBottom="5dp"
                 android:src="@mipmap/ic_launcher" />
             <TextView
+                android:layout_alignParentTop="true"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:id="@+id/tvRecentTrack"
                 android:text="I Bet You Looking Good On The DanceFloor"
-                android:textSize="15sp"
+                android:textSize="12sp"
                 android:ellipsize="marquee"
                 android:focusable="true"
                 android:focusableInTouchMode="true"
@@ -64,19 +66,22 @@
                 android:layout_toEndOf="@+id/ivRecentTrack"
                 android:layout_marginStart="10dp"
                 android:layout_marginTop="5dp"/>
+
             <TextView
+                android:layout_marginBottom="5dp"
+                android:id="@+id/tvRecentTrackArtist"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:id="@+id/tvRecentTrackArtist"
-                android:text="Arctic Monkeys"
-                android:maxLines="1"
-                android:ellipsize="end"
-                android:gravity="start"
-                android:textColor="@color/colorgray2"
-                android:textSize="10sp"
-                android:layout_toEndOf="@+id/ivRecentTrack"
                 android:layout_below="@+id/tvRecentTrack"
-                android:layout_marginStart="10dp"/>
+                android:layout_marginStart="10dp"
+                android:layout_toEndOf="@+id/ivRecentTrack"
+                android:layout_alignParentBottom="true"
+                android:ellipsize="end"
+                android:gravity="start|center_vertical"
+                android:maxLines="1"
+                android:text="Arctic Monkeys"
+                android:textColor="@color/colorgray2"
+                android:textSize="12sp" />
         </RelativeLayout>
 
     </LinearLayout>

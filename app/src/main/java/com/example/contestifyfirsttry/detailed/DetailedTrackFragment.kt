@@ -42,6 +42,7 @@ class DetailedTrackFragment : Fragment(), DetailedTrackArtistAdapter.OnItemClick
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        makeInvisible()
         //disabling onbackpressed
         val callback = requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner){}
         callback.isEnabled = true
@@ -52,29 +53,30 @@ class DetailedTrackFragment : Fragment(), DetailedTrackArtistAdapter.OnItemClick
 
         val bundle = this.arguments
         val name = bundle!!.getString("name")
-        val id = bundle!!.getString("id")
-        val image = bundle!!.getString("image")
+        val id = bundle.getString("id")
+        val image = bundle.getString("image")
         val artistId = bundle.getString("artistId")
         init(name!!,image!!)
 
         // ViewModel components
-        var factory = CustomViewModelFactory(this,requireContext())
+        val factory = CustomViewModelFactory(this,requireContext())
         viewmodel = ViewModelProvider(this, factory!!).get(MainViewModel::class.java)
 
         viewmodel!!.trackAudioFeatures.observe(viewLifecycleOwner,
             Observer<TrackAudioFeatures> { t ->
                 generateAudioFeature(t!!)
-                doVisibility()})
+                })
         viewmodel!!.track.observe(viewLifecycleOwner,
             Observer<TrackItems> { t ->
                 setAlbumImage(t!!)
                 setTrack(t)
                 viewmodel.getMultipleArtist(token!!,getArtists(t))})
         viewmodel!!.multipleArtists.observe(viewLifecycleOwner,
-            Observer<ArtistList> { t -> setArtists(t!!) })
+            Observer<ArtistList> { t -> setArtists(t!!)
+                makeVisible()})
         viewmodel.getTrackAudioFeatures(token!!,id!!)
         viewmodel.getArtist(token,artistId!!)
-        viewmodel.getTrack(token,id!!)
+        viewmodel.getTrack(token,id)
 
 
     }
@@ -187,8 +189,13 @@ class DetailedTrackFragment : Fragment(), DetailedTrackArtistAdapter.OnItemClick
         bundle.putString("image",artist.images[0].url)
         findNavController().navigate(R.id.action_detailedTrackFragment_to_itemDetailedFragment,bundle)
     }
-    private fun doVisibility(){
-        nsvDetailedTrack.visibility = View.VISIBLE
+    private fun makeInvisible(){
+        reLayoutDetailedTrack.visibility = View.GONE
+        fabDetailedTrack.visibility = View.GONE
+        pbDetailedTrack.visibility = View.VISIBLE
+    }
+    private fun makeVisible(){
+        reLayoutDetailedTrack.visibility = View.VISIBLE
         fabDetailedTrack.visibility = View.VISIBLE
         pbDetailedTrack.visibility = View.GONE
     }

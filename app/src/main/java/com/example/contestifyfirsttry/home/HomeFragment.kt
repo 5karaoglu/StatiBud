@@ -39,7 +39,7 @@ class HomeFragment : Fragment(),
 
     private var viewModel: MainViewModel? = null
     private var token:String? = null
-    private lateinit var adapter : HomePagerAdapter
+
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -53,8 +53,6 @@ class HomeFragment : Fragment(),
         super.onViewCreated(view, savedInstanceState)
         initExit()
         initVisibility()
-        initShareViewPager()
-        initShareButton()
         token = getToken()
         // ViewModel components
         var factory = CustomViewModelFactory(this, requireContext())
@@ -81,19 +79,9 @@ class HomeFragment : Fragment(),
             Observer<User> { t -> profileInit(t!!) })
         viewModel!!.getUser(token!!)
     }
-    private fun initShareButton(){
-        buttonShare.setOnClickListener {
-            val targetView = getTargetView()
-            val bitmap = getBitmapFromView(targetView)
-            val screenShotPath = getScreenshot(bitmap!!)
-            shareOnSocialMedia(screenShotPath)
-        }
-    }
 
-    override fun onStart() {
-        super.onStart()
-        initShareViewPager()
-    }
+
+
     private fun initVisibility(){
         liRecommendationPb.visibility = View.VISIBLE
         recyclerRecommendation.visibility = View.GONE
@@ -245,69 +233,9 @@ class HomeFragment : Fragment(),
             findNavController().navigate(R.id.action_homeFragment_to_detailedTrackFragment, bundle)
     }
 
-    private fun initShareViewPager(){
-        val titles = arrayListOf<String>("No.1", "No.2","No.3", "No.4")
-        val tabList = arrayListOf<Fragment>(ShareLayoutOne(), ShareLayoutTwo(),ShareLayoutThree(),ShareLayoutFour())
-        adapter = HomePagerAdapter(childFragmentManager, titles, tabList)
-        pagerHome.adapter = adapter
-        pagerHome.offscreenPageLimit = 4
-        tabLayoutHome.setupWithViewPager(pagerHome)}
 
-    ////////////////// Sharing image on social media section////////////
-    private fun getTargetView(): View {
-        var view : View? = null
-        when(pagerHome.currentItem){
-            0 -> view = requireActivity().findViewById<View>(R.id.shareLayout1)
-            1 -> view = requireActivity().findViewById<View>(R.id.shareLayout2)
-            2 -> view = requireActivity().findViewById<View>(R.id.shareLayout3)
-            3 -> view = requireActivity().findViewById<View>(R.id.shareLayout4)
-        }
-        return view!!
-    }
 
-    //saving bitmap to phone
-    private fun getScreenshot(bitmap: Bitmap):File{
-        var newFile : File? = null
-        try{
-            newFile = File(requireContext().filesDir,"screenShot.png")
-            Log.d(TAG, "getScreenshot: ${newFile.absolutePath}")
-            val out = FileOutputStream(newFile)
-            bitmap.compress(Bitmap.CompressFormat.PNG,100,out)
-            out.flush()
-            out.close()
-        }catch (e:IOException){
-            Log.d(TAG, "onViewCreated: ${e.message}")
-        }
-        return newFile!!
-    }
-    // getting current view as bitmap
-    private fun getBitmapFromView(view:View): Bitmap? {
-        val bitmap = Bitmap.createBitmap(view.width,view.height,Bitmap.Config.ARGB_8888)
-        val canvas = Canvas(bitmap)
-        view.draw(canvas)
-        return bitmap
-    }
-    //getting image from given file path
-    private fun shareOnSocialMedia(path: File){
-        if (path.exists()){
-            // Create the URI from the media
-            var imageUri = FileProvider.getUriForFile(requireContext(),
-                "com.example.contestifyfirsttry.provider",path)
-            Log.d(TAG, "shareOnInstagram: file exists $imageUri")
-            val sourceApplication = "com.example.contestifyfirsttry"
-            // Create the new Intent using the 'Send' action.
-            val share = Intent(Intent.ACTION_SEND)
-             // Set the MIME type
-            share.type = "image/*"
-            // Add the URI to the Intent.
-            share.putExtra("source_application", sourceApplication)
-            share.putExtra(Intent.EXTRA_STREAM, imageUri)
-            // Broadcast the Intent.
-            startActivity(Intent.createChooser(share, "Share to"))
-        }else{
-            Log.d(TAG, "shareOnInstagram: file dont exists")
-        }
-    }
+
 
 
 

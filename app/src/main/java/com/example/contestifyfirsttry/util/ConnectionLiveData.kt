@@ -1,4 +1,4 @@
-package com.example.contestifyfirsttry
+package com.example.contestifyfirsttry.util
 import android.content.Context
 import android.content.Context.CONNECTIVITY_SERVICE
 import android.net.ConnectivityManager

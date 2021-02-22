@@ -42,10 +42,10 @@
                 android:src="@drawable/shadow"
                 app:layout_scrollFlags="scroll|enterAlways|enterAlwaysCollapsed"/>
             <TextView
-                android:layout_marginStart="10dp"
-                android:layout_marginEnd="10dp"
+                android:paddingStart="10dp"
+                android:paddingEnd="10dp"
                 android:id="@+id/tvParallaxHeaderArtist"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="160dp"
                 android:layout_gravity="bottom|center_horizontal"
                 android:gravity="bottom|center_horizontal"
