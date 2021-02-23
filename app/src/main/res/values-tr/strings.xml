@@ -3,24 +3,7 @@
 
     <string name="current_position">#%d</string>
 
-    <!--links-->
-    <string name="linked_in">https://www.linkedin.com/in/besirkaraoglu/</string>
 
-    <!--Top Fragment-->
-    <string name="artists">SANATÇILAR</string>
-    <string name="tracks">ŞARKILAR</string>
-
-    <!--Single Track Layout-->
-    <string name="album_name">Album Name:</string>
-    <string name="artist">Artist:</string>
-    <string name="popularity">Popularity:</string>
-    <string name="explicit">Explicit:</string>
-    <string name="listen_song_on">Lısten Song On</string>
-    <string name="sample_track_name">Do I Wanna Know</string>
-    <string name="sample_album_name">AM</string>
-    <string name="sample_artist">The Last Shadow Puppets</string>
-    <string name="sample_popularity">9.9</string>
-    <string name="sample_rank">#1</string>
 
     <!--Profile Activity-->
     <string name="profile_header">Profil</string>
@@ -34,7 +17,6 @@
     <!--Navigation Menu-->
     <string name="home">Ana Sayfa</string>
     <string name="top">En Çok</string>
-    <string name="Profile">Profil</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="banner_ad_unit_id">ca-app-pub-3940256099942544/6300978111</string>
@@ -113,15 +95,11 @@
     <string name="recommendations_description">Son zamanda dinlediklerine dayanarak</string>
     <string name="share_header_description">Arkadaşlarınla paylaş !</string>
     <string name="search_hint">Bir şarkı seç</string>
-    <string name="acoustic">Akustik</string>
-    <string name="dance">Dans Edilebilirlik</string>
-    <string name="instrumental">Enstrümantal</string>
-    <string name="live">Canlı</string>
     <string name="button_text">ŞARKIYI BUL</string>
     <string name="warn">Hiçbir şarkı seçilmedi</string>
     <string name="search">Arama</string>
     <string name="track_finder">TF</string>
-    <string name="button_error">Şarkı seçilmedi.</string>
+    <string name="button_error">Şarkı veya tarz seçilmedi. Lütfen parametreleri kontrol et ve tekrar dene.</string>
     <string name="song_found">Şarkı bulundu !</string>
     <string name="tf_click">Şarkı seç</string>
     <string name="ft_cancel">İptal</string>
@@ -132,12 +110,25 @@
     <string name="dt_info_header">Şarkı hakkında</string>
     <string name="home_tf">Daha Önce TrackFinder\'ı Kullanarak Bulduğun Şarkılar</string>
     <string name="home_tf_not_found">Liste boş. Şarkı bulmak için TrackFinder\'a git.</string>
-    <string name="top_artists">SANATÇILAR</string>
     <string name="top_fragment_artists">SANATÇILAR</string>
     <string name="top_fragment_tracks">ŞARKILAR</string>
     <string name="top_short_term">4 hafta</string>
     <string name="top_mid_term">6 ay</string>
     <string name="top_long_term">ömürboyu</string>
+    <string name="dt_more_artists_header">Katkıda Bulunan Sanatçılar</string>
+    <string name="album">Albüm</string>
+    <string name="dt_audio_features_header">Ses Özellikleri</string>
+    <string name="dt_rating_header">Popülarite</string>
+    <string name="selected_song">Seçili Şarkı:</string>
+    <string name="selected_genre">Seçili Tarz:</string>
+    <string name="warn_genre">Hiçbir tarz seçilmedi</string>
+    <string name="tf_genre_click">Tür seç</string>
+    <string name="search_for_a_genre">Bir tarz ara..</string>
+    <string name="ft_refresh">Yenile</string>
+    <string name="go_to_trackfinder">Şarkı bulmak için TrackFinder\'a git</string>
+    <string name="trackfinder_warn">TrackFinder kaydı bulunamadı.</string>
+    <string name="clear_list">LİSTEYİ TEMİZLE</string>
+    <string name="top_header">En Çok Dinlediklerin</string>
 
 
 </resources>

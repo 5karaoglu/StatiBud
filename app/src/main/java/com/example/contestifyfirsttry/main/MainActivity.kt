@@ -43,6 +43,7 @@ class MainActivity : AppCompatActivity() {
 
         //navigation and bottom navigation
         navController = findNavController(R.id.fragment)
+        NavController.OnDestinationChangedListener { controller, destination, arguments ->  }
         bottomNavSetup()
 
 
@@ -54,8 +55,11 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun bottomNavSetup(){
-        bottomBar.itemIconTintActive = getColor(R.color.colorPrimaryDark)
-        bottomBar.itemIconTint = getColor(R.color.white)
+        bottomBar.itemIconTintActive = getColor(R.color.colorPrimary)
+        bottomBar.itemIconTint = getColor(R.color.colorgray2)
+        bottomBar.itemIconSize = 50f
+        bottomBar.barBackgroundColor = getColor(R.color.colorPrimary)
+        bottomBar.barIndicatorColor = getColor(R.color.colorgray2)
 
         bottomBar.onItemSelected = {
             Log.d(TAG, "onItemSelected:$it ")
@@ -67,15 +71,7 @@ class MainActivity : AppCompatActivity() {
                 4 -> navController!!.navigate(R.id.trackFinder)
             }
         }
-        bottomBar.onItemReselected = {
-            Log.d(TAG, "onItemRe-Selected:$it ")
-            when(it){
-                0 -> navController!!.navigate(R.id.homeFragment)
-                1 -> navController!!.navigate(R.id.topFragment)
-                2 -> navController!!.navigate(R.id.searchFragment)
-                3 -> navController!!.navigate(R.id.shareFragment)
-                4 -> navController!!.navigate(R.id.trackFinder)
-        }}
+
 
     }
     private fun setAd(){

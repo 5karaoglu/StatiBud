@@ -44,6 +44,8 @@ class MainViewModel(lifecycleOwner: LifecycleOwner,context: Context) : ViewModel
 
     var availableDevices = MutableLiveData<Devices>()
 
+    var genres = MutableLiveData<Genres>()
+
     init {
         repository.respArtistsShortTerm.observe(lifecycleOwner,
             { t -> artistsListShortTerm.value = t })
@@ -107,6 +109,9 @@ class MainViewModel(lifecycleOwner: LifecycleOwner,context: Context) : ViewModel
         repository.respAvailableDevices.observe(lifecycleOwner,
             { t -> availableDevices.value = t })
 
+        repository.respGenres.observe(lifecycleOwner,
+            { t -> genres.value = t })
+
     }
     //room methods
     fun getAll(){
@@ -124,7 +129,7 @@ class MainViewModel(lifecycleOwner: LifecycleOwner,context: Context) : ViewModel
     fun trackFinderInsert(tracks: TrackFinderTracks){
         repository.trackFinderInsert(tracks)
     }
-    fun trackFinderDeleteAll(tracks: TrackFinderTracks){
+    fun trackFinderDeleteAll(){
         repository.trackFinderDeleteAll()
     }
     //retrofit methods
@@ -143,9 +148,9 @@ class MainViewModel(lifecycleOwner: LifecycleOwner,context: Context) : ViewModel
     fun getRecommendations(token: String,artistSeed:String,trackSeed:String) {
         repository.getRecommendations(token, artistSeed, trackSeed)
     }
-    fun getRecommendedTrack(token: String,seedTrack:String,targetAcousticness:String,targetDanceability:String,targetEnergy:String,targetInstrumentalness:String,
+    fun getRecommendedTrack(token: String,seedTrack:String,seedGenre:String,targetAcousticness:String,targetDanceability:String,targetEnergy:String,targetInstrumentalness:String,
                             targetLiveness:String, targetValence:String) {
-        repository.getRecommendedTrack(token,seedTrack, targetAcousticness, targetDanceability, targetEnergy,
+        repository.getRecommendedTrack(token,seedTrack,seedGenre, targetAcousticness, targetDanceability, targetEnergy,
             targetInstrumentalness, targetLiveness, targetValence)
     }
     fun getToken(activity:Activity){
@@ -195,6 +200,9 @@ class MainViewModel(lifecycleOwner: LifecycleOwner,context: Context) : ViewModel
     }
     fun getAvailableDevices(token: String){
         repository.getAvailableDevices(token)
+    }
+    fun getGenres(token: String){
+        repository.getGenres(token)
     }
 
 

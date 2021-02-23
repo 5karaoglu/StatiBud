@@ -54,6 +54,8 @@ class Repository(context: Context) {
 
     var respAvailableDevices = MutableLiveData<Devices>()
 
+    var respGenres = MutableLiveData<Genres>()
+
     var scopes : Scopes? = null
     private val CLIENT_ID = "85e82d6c52384d2b9ada66f99f78648c"
     private val REDIRECT_URI = "http://com.example.contestifyfirsttry/callback"
@@ -192,11 +194,11 @@ class Repository(context: Context) {
 
         })
     }
-    fun getRecommendedTrack(token: String,seedTrack:String,targetAcousticness:String,targetDanceability:String,targetEnergy:String,targetInstrumentalness:String,
+    fun getRecommendedTrack(token: String,seedTrack:String,seedGenre:String,targetAcousticness:String,targetDanceability:String,targetEnergy:String,targetInstrumentalness:String,
                             targetLiveness:String,targetValence:String){
-        val call: Call<Recommendations> = service.getRecommendedTrack("Bearer $token",seedTrack,targetAcousticness,
+        val call: Call<Recommendations> = service.getRecommendedTrack("Bearer $token",seedTrack,seedGenre,targetAcousticness,
             targetDanceability, targetEnergy, targetInstrumentalness, targetLiveness, targetValence)
-        Log.d(TAG, "getRecommendations: ${call.request()}")
+        Log.d(TAG, "getRecommendedTrack: ${call.request()}")
         call.enqueue(object : Callback<Recommendations> {
             override fun onResponse(
                 call: Call<Recommendations>,
@@ -204,6 +206,7 @@ class Repository(context: Context) {
             ) {
                 if (response.isSuccessful) {
                     respRecommendations.value = response.body()!!
+                    Log.d(TAG, "onResponse: ${response.body()}")
                 } else
                     Log.d(TAG, "onResponse: ${response.body()}")
             }
@@ -455,6 +458,23 @@ class Repository(context: Context) {
             }
 
             override fun onFailure(call: Call<Devices>, t: Throwable) {
+                Log.d(TAG, "onFailure: ${t.message}")
+            }
+
+        })
+    }
+
+    fun getGenres(token: String){
+        var call: Call<Genres> = service.getGenres("Bearer $token")
+        Log.d(TAG, "getGenres: ${call.request()}")
+        call.enqueue(object : Callback<Genres> {
+            override fun onResponse(call: Call<Genres>, response: Response<Genres>) {
+                    respGenres.value = response.body()!!
+                    Log.d(TAG, "onResponse: ${response.body()}")
+                Log.d(TAG, "onResponse: ${response.message()}")
+            }
+
+            override fun onFailure(call: Call<Genres>, t: Throwable) {
                 Log.d(TAG, "onFailure: ${t.message}")
             }
 

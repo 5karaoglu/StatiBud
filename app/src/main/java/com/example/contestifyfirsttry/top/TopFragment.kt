@@ -49,6 +49,7 @@ class TopFragment : Fragment() {
         pagerTop.adapter = adapter
         pagerTop.offscreenPageLimit = 3
         tabLayoutTop.setupWithViewPager(pagerTop)
+
     }
 
 }

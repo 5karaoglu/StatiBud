@@ -125,26 +125,47 @@
             </RelativeLayout>
             <!--//trackfinder search history-->
             <RelativeLayout
-                android:visibility="gone"
                 android:id="@+id/reLayoutHomeTf"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/reLayoutRecommendations">
-                <TextView
-                    android:paddingTop="10dp"
-                    android:paddingStart="10dp"
-                    android:paddingEnd="10dp"
-                    android:paddingBottom="5dp"
-                    android:layout_marginTop="10dp"
+                <RelativeLayout
+                    android:id="@+id/homeTfHeaderHolder"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="@string/home_tf"
-                    android:gravity="start"
-                    android:textSize="15sp"
-                    android:id="@+id/tvHomeTf"
-                    android:scrollbars="none"
-                    android:textColor="@color/white"
-                    android:textStyle="normal"/>
+                    android:orientation="horizontal">
+                    <TextView
+                        android:paddingTop="10dp"
+                        android:paddingStart="10dp"
+                        android:paddingEnd="10dp"
+                        android:paddingBottom="5dp"
+                        android:layout_marginTop="10dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/home_tf"
+                        android:gravity="start"
+                        android:textSize="15sp"
+                        android:id="@+id/tvHomeTf"
+                        android:scrollbars="none"
+                        android:textColor="@color/white"
+                        android:textStyle="normal"
+                        android:layout_toStartOf="@+id/buttonClearList"/>
+                    <Button
+                        android:visibility="gone"
+                        android:padding="5dp"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginEnd="10dp"
+                        android:layout_alignParentEnd="true"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/ic_close_gray"
+                        android:id="@+id/buttonClearList"
+                        android:textSize="12sp"
+                        android:text="@string/clear_list"
+                        android:textColor="@color/colorAccent"
+                        android:layout_gravity="end"
+                        android:background="@color/colorPrimaryDark"/>
+                </RelativeLayout>
 
                 <androidx.recyclerview.widget.RecyclerView
                     android:visibility="gone"
@@ -157,24 +178,29 @@
                     android:layout_height="wrap_content"
                     android:id="@+id/recyclerHomeTf"
                     android:scrollbars="horizontal"
-                    android:layout_below="@+id/tvHomeTf"
+                    android:layout_below="@+id/homeTfHeaderHolder"
                     android:orientation="vertical" />
-
-
                 <LinearLayout
-                    android:id="@+id/liHomeTfPb"
+                    android:id="@+id/liHomeTfWarn"
                     android:layout_width="match_parent"
-                    android:layout_height="238dp"
-                    android:layout_below="@+id/tvHomeTf"
-                    android:layout_alignParentStart="true"
-                    android:layout_alignParentEnd="true"
+                    android:layout_height="150dp"
+                    android:layout_below="@id/homeTfHeaderHolder"
+                    android:orientation="vertical"
                     android:gravity="center">
-                    <ProgressBar
-                        android:id="@+id/pbHomeTf"
-                        android:layout_width="100dp"
-                        android:layout_height="100dp"
-                        android:layout_gravity="center" />
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/trackfinder_warn"
+                        android:textColor="@color/colorgray2"/>
+                    <TextView
+                        android:id="@+id/tvHomeGoTf"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/go_to_trackfinder"
+                        android:textColor="@color/colorAccent"/>
+
                 </LinearLayout>
+
             </RelativeLayout>
             <!--recent tracks-->
             <RelativeLayout

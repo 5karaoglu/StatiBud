@@ -1,27 +1,13 @@
 <resources>
-    <string name="app_name" translatable="false">Stats for Spotify</string>
+    <string name="app_name" translatable="false">Spotibud</string>
 
     <string name="current_position">#%d</string>
 
-    <!--links-->
-    <string name="linked_in">https://www.linkedin.com/in/besirkaraoglu/</string>
-
     <!--Top Fragment-->
+    <string name="top_header">Your Most Listened</string>
     <string name="top_short_term">4 weeks</string>
     <string name="top_mid_term">6 months</string>
     <string name="top_long_term">lifetime</string>
-
-    <!--Single Track Layout-->
-    <string name="album_name">Album Name:</string>
-    <string name="artist">Artist:</string>
-    <string name="popularity">Popularity:</string>
-    <string name="explicit">Explicit:</string>
-    <string name="listen_song_on">Lısten Song On</string>
-    <string name="sample_track_name">Do I Wanna Know</string>
-    <string name="sample_album_name">AM</string>
-    <string name="sample_artist">The Last Shadow Puppets</string>
-    <string name="sample_popularity">9.9</string>
-    <string name="sample_rank">#1</string>
 
     <!--Profile Fragment-->
     <string name="welcome_header" formatted="false">Welcome, %s</string>
@@ -35,6 +21,7 @@
     <string name="account_info">Account Info</string>
     <string name="available_devices">Available Devices</string>
 
+    <!--Home Fragment-->
     <string name="show_more">SHOW MORE</string>
     <string name="show_less">SHOW LESS</string>
     <string name="recommendations">Recommendations for you</string>
@@ -45,14 +32,17 @@
     <string name="share_header">Prepared For You</string>
     <string name="share_header_description">Share with your friends !</string>
 
+    <string name="trackfinder_warn">No TrackFinder log found.</string>
+    <string name="go_to_trackfinder">Go TrackFinder to find a song</string>
+    <string name="clear_list">CLEAR LIST</string>
+
     <!--Navigation Menu-->
     <string name="home">Home</string>
     <string name="top">Top</string>
     <string name="search">Search</string>
     <string name="share">Share</string>
     <string name="track_finder">TF</string>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+
     <string name="banner_ad_unit_id">ca-app-pub-3940256099942544/6300978111</string>
 
     <!--Search Fragment-->
@@ -103,6 +93,10 @@
 
     <!--Detailed Track Fragment-->
     <string name="dt_info_header">About this track</string>
+    <string name="dt_more_artists_header">Contributing Artists</string>
+    <string name="dt_audio_features_header">Audio Features</string>
+    <string name="dt_rating_header">Popularity</string>
+    <string name="album">Album</string>
     <string name="duration">duration</string>
     <string name="tempo">tempo</string>
     <string name="key">key</string>
@@ -141,14 +135,23 @@
     <string name="search_hint">Pick a song</string>
     <string name="button_text">FIND SONG</string>
     <string name="warn">No song selected</string>
-    <string name="button_error">Song did not selected.</string>
+    <string name="button_error">Song or genre did not selected. Please check parameters and try again.</string>
     <string name="tf_click">Select Song</string>
+
+    <string name="warn_genre">No genre selected</string>
+    <string name="tf_genre_click">Select Genre</string>
 
     <string name="song_found">Song Found !</string>
     <string name="ft_go_to_song">Go to song</string>
     <string name="ft_cancel">Cancel</string>
+    <string name="ft_refresh">Refresh</string>
+
 
     <string name="song_not_found">No song found matching your preferences. Please change preferences and try again.</string>
+
+    <string name="selected_song">Selected Song:</string>
+    <string name="selected_genre">Selected Genre:</string>
+    <string name="search_for_a_genre">Search for a genre..</string>
 
 
 </resources>

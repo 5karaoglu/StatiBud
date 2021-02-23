@@ -68,8 +68,9 @@ class DetailedTrackFragment : Fragment(), DetailedTrackArtistAdapter.OnItemClick
                 })
         viewmodel!!.track.observe(viewLifecycleOwner,
             Observer<TrackItems> { t ->
-                setAlbumImage(t!!)
-                setTrack(t)
+                setRating(t!!)
+                setAlbumImage(t)
+                openInSpotify(t)
                 viewmodel.getMultipleArtist(token!!,getArtists(t))})
         viewmodel!!.multipleArtists.observe(viewLifecycleOwner,
             Observer<ArtistList> { t -> setArtists(t!!)
@@ -116,7 +117,7 @@ class DetailedTrackFragment : Fragment(), DetailedTrackArtistAdapter.OnItemClick
     }
     private fun setArtists(artistList: ArtistList){
         var adapter : DetailedTrackArtistAdapter = DetailedTrackArtistAdapter(requireContext(),artistList,this)
-        var layoutManager: RecyclerView.LayoutManager = LinearLayoutManager(requireContext())
+        var layoutManager: RecyclerView.LayoutManager = LinearLayoutManager(requireContext(),LinearLayoutManager.HORIZONTAL,false)
         recyclerTrackArtist.layoutManager = layoutManager
         recyclerTrackArtist.adapter = adapter
     }
@@ -153,7 +154,7 @@ class DetailedTrackFragment : Fragment(), DetailedTrackArtistAdapter.OnItemClick
             findNavController().popBackStack()
         }
     }
-    private fun setTrack(track:TrackItems){
+    private fun openInSpotify(track:TrackItems){
         fabDetailedTrack.setOnClickListener {
           try {
 
@@ -165,13 +166,18 @@ class DetailedTrackFragment : Fragment(), DetailedTrackArtistAdapter.OnItemClick
           }
         }
     }
+    private fun setRating(track: TrackItems){
+        dtRatingBar.rating = track.popularity.toFloat()/20
+        Log.d(TAG, "setRating: ${track.popularity.toFloat() / 20}")
+    }
 
     private fun setAlbumImage(track: TrackItems){
         Picasso.get()
             .load(track.album.images[0].url)
             .fit().centerCrop()
             .into(imageViewAlbum)
-        textViewAlbumName.text = String.format(getString(R.string.link_format),track.album.name)
+        textViewAlbumName.text = track.album.name
+        textViewAlbumArtist.text = track.artists[0].name
 
         imageViewAlbum.setOnClickListener {
             val bundle = Bundle()
@@ -190,11 +196,13 @@ class DetailedTrackFragment : Fragment(), DetailedTrackArtistAdapter.OnItemClick
         findNavController().navigate(R.id.action_detailedTrackFragment_to_itemDetailedFragment,bundle)
     }
     private fun makeInvisible(){
+        dtRatingBar.visibility = View.GONE
         reLayoutDetailedTrack.visibility = View.GONE
         fabDetailedTrack.visibility = View.GONE
         pbDetailedTrack.visibility = View.VISIBLE
     }
     private fun makeVisible(){
+        dtRatingBar.visibility = View.VISIBLE
         reLayoutDetailedTrack.visibility = View.VISIBLE
         fabDetailedTrack.visibility = View.VISIBLE
         pbDetailedTrack.visibility = View.GONE

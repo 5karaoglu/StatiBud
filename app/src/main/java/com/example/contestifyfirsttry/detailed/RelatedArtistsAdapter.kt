@@ -25,10 +25,12 @@ class RelatedArtistsAdapter (
         var textView = itemView.findViewById<TextView>(R.id.tvRelatedArtist)
 
         fun bind(relatedArtist: RelatedArtist, position: Int,clickListener:OnItemClickListener) {
-            Picasso.get()
-                .load(relatedArtist.images[0].url)
-                .fit().centerCrop()
-                .into(imageView)
+            if (relatedArtist.images.isNotEmpty()){
+                Picasso.get()
+                    .load(relatedArtist.images[0].url)
+                    .fit().centerCrop()
+                    .into(imageView)
+            }
             textView.text = relatedArtist.name
 
             itemView.setOnClickListener {

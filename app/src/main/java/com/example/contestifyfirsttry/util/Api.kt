@@ -32,6 +32,7 @@ interface Api {
     @GET("recommendations?market=US&min_popularity=50")
     fun getRecommendedTrack(@Header("Authorization") token:String,
                             @Query("seed_tracks") seedTracks:String,
+                            @Query("seed_genres") seedGenre:String,
                             @Query("target_acousticness") targetAcousticness:String,
                             @Query("target_danceability") targetDanceability:String,
                             @Query("target_energy") targetEnergy:String,
@@ -80,4 +81,7 @@ interface Api {
 
     @GET("me/player/devices")
     fun getAvailableDevices(@Header("Authorization") token:String):Call<Devices>
+
+    @GET("recommendations/available-genre-seeds")
+    fun getGenres(@Header("Authorization") token:String):Call<Genres>
 }

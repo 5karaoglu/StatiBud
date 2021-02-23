@@ -4,6 +4,7 @@ import android.content.Context
 import android.content.Intent
 import android.graphics.Bitmap
 import android.graphics.Canvas
+import android.graphics.Paint
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -26,6 +27,7 @@ import com.example.contestifyfirsttry.share.ShareLayoutOne
 import com.example.contestifyfirsttry.share.ShareLayoutThree
 import com.example.contestifyfirsttry.share.ShareLayoutTwo
 import com.example.contestifyfirsttry.util.CustomViewModelFactory
+import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.fragment_home.*
 import java.io.File
 import java.io.FileOutputStream
@@ -53,6 +55,7 @@ class HomeFragment : Fragment(),
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initExit()
+        initHomeTfWarn()
         initVisibility()
         token = getToken()
         // ViewModel components
@@ -81,8 +84,6 @@ class HomeFragment : Fragment(),
             Observer<User> { t -> profileInit(t!!) })
         viewModel!!.getUser(token!!)
     }
-
-
 
     private fun initVisibility(){
         liRecommendationPb.visibility = View.VISIBLE
@@ -236,20 +237,43 @@ class HomeFragment : Fragment(),
     }
     private fun checkTrackFinderTracks(){
         viewModel!!.trackFinderTracks.observe(viewLifecycleOwner,
-            {trackFinderTracks ->
-                if (trackFinderTracks != null){
+            { trackFinderTracks ->
+                if (!trackFinderTracks.isNullOrEmpty()) {
+                    Log.d(TAG, "checkTrackFinderTracks: ${trackFinderTracks[0].trackName}")
+                    buttonClearList.visibility = View.VISIBLE
                     reLayoutHomeTf.visibility = View.VISIBLE
+                    liHomeTfWarn.visibility = View.GONE
+                    recyclerHomeTf.visibility=View.VISIBLE
 
-                    val adapter = TrackFinderAdapter(requireContext(),trackFinderTracks,this)
-                    val layoutManager = LinearLayoutManager(requireContext(),
+                    val adapter = TrackFinderAdapter(requireContext(), trackFinderTracks, this)
+                    val layoutManager = LinearLayoutManager(
+                        requireContext(),
                         LinearLayoutManager.HORIZONTAL,
-                        false)
+                        false
+                    )
                     recyclerHomeTf.layoutManager = layoutManager
                     recyclerHomeTf.adapter = adapter
-            } })
+                } else {
+                    liHomeTfWarn.visibility = View.VISIBLE
+                }
+            })
         Thread{
             viewModel!!.trackFinderGetAll()
         }.start()
+    }
+    private fun initHomeTfWarn(){
+        tvHomeGoTf.paintFlags = Paint.UNDERLINE_TEXT_FLAG
+        tvHomeGoTf.setOnClickListener {
+        }
+        buttonClearList.setOnClickListener {
+            Thread{
+                viewModel!!.trackFinderDeleteAll()
+            }.start()
+            recyclerHomeTf.visibility=View.GONE
+            liHomeTfWarn.visibility=View.VISIBLE
+            buttonClearList.visibility=View.GONE
+            Log.d(TAG, "initHomeTfWarn: Deleting Done!")
+        }
     }
     //TrackFinderItem OnClick
     override fun onItemClicked(track: TrackFinderTracks) {

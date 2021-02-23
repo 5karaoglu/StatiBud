@@ -31,7 +31,7 @@ class DetailedTrackArtistAdapter(
                 .fit().centerCrop()
                 .into(imageView)
 
-            textView.text = String.format(context.resources.getString(R.string.link_format),artist.name)
+            textView.text = artist.name
 
             itemView.setOnClickListener {
                 clickListener.onItemClicked(artist)
