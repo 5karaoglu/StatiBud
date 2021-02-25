@@ -14,10 +14,6 @@
         android:icon="@drawable/ic_search"
         android:title=""/>
     <item
-        android:id="@+id/shareFragment"
-        android:icon="@drawable/ic_share"
-        android:title=""/>
-    <item
         android:id="@+id/profileFragment"
         android:icon="@drawable/ic_note"
         android:title=""/>

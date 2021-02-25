@@ -7,16 +7,20 @@
 
     <fragment
         android:id="@+id/topFragment"
-        android:name="com.example.contestifyfirsttry.top.TopFragment"
+        android:name="com.uhi5d.spotibud.top.TopFragment"
         android:label="fragment_top"
         tools:layout="@layout/fragment_top">
 
         <action
             android:id="@+id/action_topFragment_to_searchFragment"
-            app:destination="@id/searchFragment" />
+            app:destination="@id/searchFragment"
+            app:enterAnim="@anim/fragment_fade_enter"
+            app:exitAnim="@android:anim/fade_out" />
         <action
             android:id="@+id/action_topFragment_to_itemDetailedFragment"
-            app:destination="@id/itemDetailedFragment">
+            app:destination="@id/itemDetailedFragment"
+            app:enterAnim="@anim/fragment_fade_enter"
+            app:exitAnim="@android:anim/fade_out">
 
         </action>
         <action
@@ -27,14 +31,18 @@
             app:destination="@id/homeFragment" />
         <action
             android:id="@+id/action_topFragment_to_trackFinder"
-            app:destination="@id/trackFinder" />
+            app:destination="@id/trackFinder"
+            app:enterAnim="@anim/fragment_fade_enter"
+            app:exitAnim="@android:anim/fade_out" />
         <action
             android:id="@+id/action_topFragment_to_shareFragment"
-            app:destination="@id/shareFragment" />
+            app:destination="@id/shareFragment"
+            app:enterAnim="@anim/fragment_fade_enter"
+            app:exitAnim="@android:anim/fade_out" />
     </fragment>
     <fragment
         android:id="@+id/searchFragment"
-        android:name="com.example.contestifyfirsttry.search.SearchFragment"
+        android:name="com.uhi5d.spotibud.search.SearchFragment"
         android:label="fragment_search"
         tools:layout="@layout/fragment_search">
         <action
@@ -64,16 +72,20 @@
     </fragment>
     <fragment
         android:id="@+id/profileFragment"
-        android:name="com.example.contestifyfirsttry.profile.ProfileFragment"
+        android:name="com.uhi5d.spotibud.profile.ProfileFragment"
         android:label="fragment_profile"
         tools:layout="@layout/fragment_profile">
         <action
             android:id="@+id/action_profileFragment_to_homeFragment"
-            app:destination="@id/homeFragment" />
+            app:destination="@id/homeFragment"
+            app:enterAnim="@android:anim/fade_in"
+            app:exitAnim="@android:anim/slide_out_right"
+            app:popEnterAnim="@android:anim/fade_in"
+            app:popExitAnim="@android:anim/slide_out_right" />
     </fragment>
     <fragment
         android:id="@+id/itemDetailedFragment"
-        android:name="com.example.contestifyfirsttry.detailed.DetailedArtistFragment"
+        android:name="com.uhi5d.spotibud.detailed.DetailedArtistFragment"
         android:label="fragment_item_detailed"
         tools:layout="@layout/fragment_detailed_artist">
         <action
@@ -84,7 +96,9 @@
             app:destination="@id/detailedAlbumFragment" />
         <action
             android:id="@+id/action_itemDetailedFragment_to_topFragment"
-            app:destination="@id/topFragment" />
+            app:destination="@id/topFragment"
+            app:popEnterAnim="@android:anim/fade_in"
+            app:popExitAnim="@android:anim/slide_out_right" />
         <action
             android:id="@+id/action_itemDetailedFragment_to_detailedTrackFragment"
             app:destination="@id/detailedTrackFragment" />
@@ -92,7 +106,7 @@
     </fragment>
     <fragment
         android:id="@+id/detailedTrackFragment"
-        android:name="com.example.contestifyfirsttry.detailed.DetailedTrackFragment"
+        android:name="com.uhi5d.spotibud.detailed.DetailedTrackFragment"
         android:label="fragment_detailed_track"
         tools:layout="@layout/fragment_detailed_track" >
         <action
@@ -113,7 +127,7 @@
     </fragment>
     <fragment
         android:id="@+id/detailedAlbumFragment"
-        android:name="com.example.contestifyfirsttry.detailed.DetailedAlbumFragment"
+        android:name="com.uhi5d.spotibud.detailed.DetailedAlbumFragment"
         android:label="fragment_detailed_album"
         tools:layout="@layout/fragment_detailed_album" >
         <action
@@ -131,31 +145,41 @@
     </fragment>
     <fragment
         android:id="@+id/homeFragment"
-        android:name="com.example.contestifyfirsttry.home.HomeFragment"
+        android:name="com.uhi5d.spotibud.home.HomeFragment"
         android:label="fragment_home"
-        tools:layout="@layout/fragment_home" >
+        tools:layout="@layout/fragment_home">
         <action
             android:id="@+id/action_homeFragment_to_topFragment"
-            app:destination="@id/topFragment" />
+            app:destination="@id/topFragment"
+            app:enterAnim="@anim/fragment_fade_enter"
+            app:exitAnim="@android:anim/fade_out" />
         <action
             android:id="@+id/action_homeFragment_to_searchFragment"
             app:destination="@id/searchFragment" />
         <action
             android:id="@+id/action_homeFragment_to_detailedTrackFragment"
-            app:destination="@id/detailedTrackFragment" />
+            app:destination="@id/detailedTrackFragment"
+            app:enterAnim="@anim/fragment_fade_enter"
+            app:exitAnim="@android:anim/fade_out" />
         <action
             android:id="@+id/action_homeFragment_to_trackFinder"
-            app:destination="@id/trackFinder" />
+            app:destination="@id/trackFinder"
+            app:enterAnim="@anim/fragment_fade_enter"
+            app:exitAnim="@android:anim/fade_out" />
         <action
             android:id="@+id/action_homeFragment_to_profileFragment"
-            app:destination="@id/profileFragment" />
+            app:destination="@id/profileFragment"
+            app:enterAnim="@anim/fragment_fade_enter"
+            app:exitAnim="@android:anim/fade_out" />
         <action
             android:id="@+id/action_homeFragment_to_shareFragment"
-            app:destination="@id/shareFragment" />
+            app:destination="@id/shareFragment"
+            app:enterAnim="@anim/fragment_fade_enter"
+            app:exitAnim="@android:anim/fade_out" />
     </fragment>
     <fragment
         android:id="@+id/detailedResult"
-        android:name="com.example.contestifyfirsttry.search.DetailedResult"
+        android:name="com.uhi5d.spotibud.search.DetailedResult"
         android:label="fragment_detailed_result"
         tools:layout="@layout/fragment_detailed_result" >
         <action
@@ -187,7 +211,7 @@
     </fragment>
     <fragment
         android:id="@+id/tfSearch"
-        android:name="com.example.contestifyfirsttry.finder.TfSearch"
+        android:name="com.uhi5d.spotibud.finder.TfSearch"
         android:label="fragment_tf_search"
         tools:layout="@layout/fragment_tf_search" >
         <action
@@ -196,7 +220,7 @@
     </fragment>
     <fragment
         android:id="@+id/shareFragment"
-        android:name="com.example.contestifyfirsttry.share.ShareFragment"
+        android:name="com.uhi5d.spotibud.share.ShareFragment"
         android:label="fragment_share"
         tools:layout="@layout/fragment_share" >
         <action

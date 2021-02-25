@@ -17,8 +17,6 @@
     <!--Navigation Menu-->
     <string name="home">Ana Sayfa</string>
     <string name="top">En Çok</string>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="banner_ad_unit_id">ca-app-pub-3940256099942544/6300978111</string>
 
     <!--Recent Fragment-->
@@ -95,7 +93,7 @@
     <string name="recommendations_description">Son zamanda dinlediklerine dayanarak</string>
     <string name="share_header_description">Arkadaşlarınla paylaş !</string>
     <string name="search_hint">Bir şarkı seç</string>
-    <string name="button_text">ŞARKIYI BUL</string>
+    <string name="button_text">ŞARKI BUL</string>
     <string name="warn">Hiçbir şarkı seçilmedi</string>
     <string name="search">Arama</string>
     <string name="track_finder">TF</string>
@@ -129,6 +127,23 @@
     <string name="trackfinder_warn">TrackFinder kaydı bulunamadı.</string>
     <string name="clear_list">LİSTEYİ TEMİZLE</string>
     <string name="top_header">En Çok Dinlediklerin</string>
+    <string name="help_got_it">Anladım!</string>
+    <string name="help_about">TrackFinder Hakkında</string>
+    <string name="help_what_is_text1">TrackFinder, aradığın şarkıyı bulmanı sağlayan bir araçtır.</string>
+    <string name="help_what_is">TrackFinder Nedir ?</string>
+    <string name="help_how_to">TrackFinder Nasıl Kullanılır ?</string>
+    <string name="help_how_to_text1">" 1)  \"Şarkı Seç\" butonuna basın. Açılan pencereden referans olmasını istediğiniz şarkıyı aratın."</string>
+    <string name="help_how_to_text2">" 2) \"Tarz Seç\" butonuna basın. Açılan pencereden referans olmasını istediğiniz tarzı aratın."</string>
+    <string name="help_how_to_text3">" 3) Barları kullanarak özellikleri ayarlayın."</string>
+    <string name="help_how_to_text4">" 4)\"ŞARKI BUL\"a basın ve sonuçlarınızın keyfini çıkarın :)"</string>
+    <string name="track_search_header">Şarkı Ara</string>
+    <string name="track_search_et_hint">Bir şeyler yaz…</string>
+    <string name="track_search_hide_keyboard">Klavyeyi Gizle</string>
+    <string name="track_search_cancel">İptal</string>
+    <string name="genre_search_header">Tarz Ara</string>
+    <string name="genre_search_et_hint">Bir şeyler yaz…</string>
+    <string name="genre_search_hide_keyboard">Klavyeyi Gizle</string>
+    <string name="genre_search_cancel">İptal</string>
 
 
 </resources>

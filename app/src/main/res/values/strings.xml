@@ -141,10 +141,33 @@
     <string name="warn_genre">No genre selected</string>
     <string name="tf_genre_click">Select Genre</string>
 
-    <string name="song_found">Song Found !</string>
+    <string name="song_found">Track Found !</string>
     <string name="ft_go_to_song">Go to song</string>
     <string name="ft_cancel">Cancel</string>
     <string name="ft_refresh">Refresh</string>
+
+    <!--help dialog-->
+    <string name="help_about">About TrackFinder</string>
+    <string name="help_what_is">What is TrackFinder ?</string>
+    <string name="help_what_is_text1">TrackFinder is a tool that allows you to find the song you are looking for.</string>
+    <string name="help_how_to">How to Use TrackFinder ?</string>
+    <string name="help_how_to_text1">" 1) Press the \"Select Song\" button. In the window that opens, search for the song you want to be a reference."</string>
+    <string name="help_how_to_text2"> 2) Press the "Select Genre" button. In the window that opens, search for the genre you want to be a reference.</string>
+    <string name="help_how_to_text3"> 3) Set features using bars.</string>
+    <string name="help_how_to_text4">" 4) Press \"FIND SONG\" and enjoy your results :)"</string>
+    <string name="help_got_it">Got It!</string>
+
+    <!--track search-->
+    <string name="track_search_header">Search Song</string>
+    <string name="track_search_et_hint">Write something…</string>
+    <string name="track_search_hide_keyboard">Hıde Keyboard</string>
+    <string name="track_search_cancel">Cancel</string>
+
+    <!--track search-->
+    <string name="genre_search_header">Search Genre</string>
+    <string name="genre_search_et_hint">Write something…</string>
+    <string name="genre_search_hide_keyboard">Hıde Keyboard</string>
+    <string name="genre_search_cancel">Cancel</string>
 
 
     <string name="song_not_found">No song found matching your preferences. Please change preferences and try again.</string>

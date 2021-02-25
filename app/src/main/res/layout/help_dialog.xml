@@ -1,0 +1,190 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout android:layout_height="match_parent"
+    android:layout_width="match_parent"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:background="@color/transparent_black">
+
+    <RelativeLayout
+
+        android:id="@+id/relTfSuccess"
+        android:layout_width="340dp"
+        android:layout_height="500dp"
+        android:background="@color/transparent_black"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_above="@+id/constr"
+            android:gravity="bottom|center_horizontal"
+            android:layout_alignParentTop="true"
+            android:padding="10dp"
+            android:text="@string/help_about"
+            android:textColor="@color/colorPrimaryDark"
+            android:textSize="20sp"
+            android:textStyle="bold" />
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/constr"
+            android:layout_width="340dp"
+            android:layout_height="400dp"
+            android:layout_above="@+id/buttonHolder"
+            android:layout_centerHorizontal="true"
+            android:background="@color/colorPrimaryDark">
+
+        <!--//what is-->
+            <TextView
+                android:layout_marginStart="10dp"
+                android:layout_marginEnd="10dp"
+                android:id="@+id/tvWhatIs"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:ellipsize="end"
+                android:maxLines="3"
+                android:padding="10dp"
+                android:gravity="center"
+                android:text="@string/help_what_is"
+                android:textColor="@color/white"
+                android:textSize="15sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:layout_marginStart="10dp"
+                android:layout_marginEnd="10dp"
+                android:id="@+id/tvWhatIsText1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ellipsize="end"
+                android:gravity="start"
+                android:maxLines="3"
+                android:padding="10dp"
+                android:lineSpacingMultiplier="1.3"
+                android:text="@string/help_what_is_text1"
+                android:textColor="@color/white"
+                android:textSize="12sp"
+                app:layout_constraintEnd_toEndOf="@+id/tvWhatIs"
+                app:layout_constraintStart_toStartOf="@+id/tvWhatIs"
+                app:layout_constraintTop_toBottomOf="@+id/tvWhatIs" />
+            <!--how to use-->
+
+            <TextView
+                android:id="@+id/tvHowTo"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_marginEnd="10dp"
+                android:ellipsize="end"
+                android:gravity="center"
+                android:maxLines="3"
+                android:padding="10dp"
+                android:text="@string/help_how_to"
+                android:textColor="@color/white"
+                android:textSize="15sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tvWhatIsText1" />
+
+            <TextView
+                android:layout_marginStart="10dp"
+                android:layout_marginEnd="10dp"
+                android:id="@+id/tvHowToText1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ellipsize="end"
+                android:gravity="start"
+                android:maxLines="3"
+                android:padding="10dp"
+                android:lineSpacingMultiplier="1.3"
+                android:text="@string/help_how_to_text1"
+                android:textColor="@color/white"
+                android:textSize="12sp"
+                app:layout_constraintEnd_toEndOf="@+id/tvHowTo"
+                app:layout_constraintStart_toStartOf="@+id/tvHowTo"
+                app:layout_constraintTop_toBottomOf="@+id/tvHowTo" />
+            <TextView
+                android:layout_marginStart="10dp"
+                android:layout_marginEnd="10dp"
+                android:id="@+id/tvHowToText2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ellipsize="end"
+                android:gravity="start"
+                android:maxLines="3"
+                android:padding="10dp"
+                android:lineSpacingMultiplier="1.3"
+                android:text="@string/help_how_to_text2"
+                android:textColor="@color/white"
+                android:textSize="12sp"
+                app:layout_constraintEnd_toEndOf="@+id/tvHowToText1"
+                app:layout_constraintStart_toStartOf="@+id/tvHowToText1"
+                app:layout_constraintTop_toBottomOf="@+id/tvHowToText1" />
+            <TextView
+                android:layout_marginStart="10dp"
+                android:layout_marginEnd="10dp"
+                android:id="@+id/tvHowToText3"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ellipsize="end"
+                android:gravity="start"
+                android:maxLines="3"
+                android:padding="10dp"
+                android:lineSpacingMultiplier="1.3"
+                android:text="@string/help_how_to_text3"
+                android:textColor="@color/white"
+                android:textSize="12sp"
+                app:layout_constraintEnd_toEndOf="@+id/tvHowToText2"
+                app:layout_constraintStart_toStartOf="@+id/tvHowToText2"
+                app:layout_constraintTop_toBottomOf="@+id/tvHowToText2" />
+            <TextView
+                android:layout_marginStart="10dp"
+                android:layout_marginEnd="10dp"
+                android:id="@+id/tvHowToText4"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ellipsize="end"
+                android:gravity="start"
+                android:maxLines="3"
+                android:padding="10dp"
+                android:lineSpacingMultiplier="1.3"
+                android:text="@string/help_how_to_text4"
+                android:textColor="@color/white"
+                android:textSize="12sp"
+                app:layout_constraintEnd_toEndOf="@+id/tvHowToText3"
+                app:layout_constraintStart_toStartOf="@+id/tvHowToText3"
+                app:layout_constraintTop_toBottomOf="@+id/tvHowToText3" />
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <LinearLayout
+            android:id="@+id/buttonHolder"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:gravity="end"
+            android:orientation="horizontal"
+            android:weightSum="12">
+
+
+            <Button
+                android:padding="10dp"
+                android:id="@+id/buttonGotIt"
+                android:layout_width="wrap_content"
+                android:layout_height="50dp"
+                android:text="@string/help_got_it"
+                android:background="@color/colorPrimaryDark"
+                android:textColor="@color/colorAccent"/>
+        </LinearLayout>
+
+
+    </RelativeLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

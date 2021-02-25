@@ -3,8 +3,8 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="250dp"
-    android:layout_height="400dp"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
     android:layout_gravity="center"
     android:background="@color/colorPrimaryDark"
     android:id="@+id/shareLayout1"
@@ -15,7 +15,7 @@
         android:id="@+id/shareLayout1Holder">
     <TextView
         android:id="@+id/tvShareOneHeader"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
         android:padding="10dp"
@@ -27,52 +27,64 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <ImageView
-        android:id="@+id/ivShareOne"
-        android:layout_width="200dp"
-        android:layout_height="200dp"
-        android:layout_marginBottom="4dp"
-        android:src="@mipmap/ic_launcher_round"
-        app:layout_constraintBottom_toTopOf="@+id/tvShareOneSpotibud"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        <ImageView
+            android:id="@+id/ivShareOne"
+            android:layout_width="360dp"
+            android:layout_height="360dp"
+            android:layout_marginBottom="36dp"
+            android:src="@mipmap/ic_launcher_round"
+            app:layout_constraintBottom_toTopOf="@+id/liSpotibud1"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
 
-    <TextView
-        android:id="@+id/tvShareOneArtistName"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:maxLines="2"
-        android:autoSizeTextType="uniform"
-        android:autoSizeMaxTextSize="40sp"
-        android:autoSizeMinTextSize="20sp"
-        android:ellipsize="end"
-        android:gravity="center"
-        android:paddingStart="5dp"
-        android:paddingEnd="5dp"
-        android:shadowDx="2"
-        android:shadowDy="2"
-        android:shadowRadius="4"
-        android:textColor="@color/colorAccent"
-        android:textSize="40sp"
-        android:textStyle="bold"
-        app:layout_constraintBottom_toTopOf="@+id/ivShareOne"
-        app:layout_constraintEnd_toEndOf="@id/ivShareOne"
-        app:layout_constraintStart_toStartOf="@+id/ivShareOne"
-        app:layout_constraintTop_toBottomOf="@+id/tvShareOneHeader" />
+        <TextView
+            android:id="@+id/tvShareOneArtistName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:autoSizeMaxTextSize="40sp"
+            android:autoSizeMinTextSize="20sp"
+            android:autoSizeTextType="uniform"
+            android:ellipsize="end"
+            android:gravity="center"
+            android:maxLines="2"
+            android:paddingStart="10dp"
+            android:paddingEnd="10dp"
+            android:shadowDx="2"
+            android:shadowDy="2"
+            android:shadowRadius="4"
+            android:textColor="@color/colorAccent"
+            android:textSize="40sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toTopOf="@+id/ivShareOne"
+            app:layout_constraintEnd_toEndOf="@id/ivShareOne"
+            app:layout_constraintStart_toStartOf="@+id/ivShareOne"
+            app:layout_constraintTop_toBottomOf="@+id/tvShareOneHeader"
+            app:layout_constraintVertical_bias="0.831" />
 
-    <TextView
-        android:id="@+id/tvShareOneSpotibud"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="5dp"
-        android:gravity="center"
-        android:padding="10dp"
-        android:text=""
-        android:textColor="@color/colorgray2"
-        android:textSize="12sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        <LinearLayout
+            android:id="@+id/liSpotibud1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent">
+            <ImageView
+                android:layout_width="35dp"
+                android:layout_height="35dp"
+                android:src="@mipmap/ic_launcher"/>
+            <TextView
+                android:id="@+id/tvShareOneSpotibud"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="15dp"
+                android:gravity="center"
+                android:padding="10dp"
+                android:text="@string/spotibud"
+                android:textColor="@color/colorgray2"
+                android:textSize="12sp" />
+        </LinearLayout>
+
     </androidx.constraintlayout.widget.ConstraintLayout>
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"

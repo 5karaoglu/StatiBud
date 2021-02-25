@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout android:layout_height="match_parent"
+    android:layout_width="match_parent"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:background="@color/transparent_black">
+
+    <RelativeLayout
+        android:id="@+id/relTfSuccess"
+        android:layout_width="340dp"
+        android:layout_height="500dp"
+        android:background="@color/colorPrimaryDark"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+        <RelativeLayout
+            android:id="@+id/buttonHolder"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:weightSum="12">
+
+            <Button
+                android:id="@+id/buttonCancel"
+                android:layout_width="wrap_content"
+                android:layout_height="50dp"
+                android:layout_alignParentEnd="true"
+                android:background="@color/colorPrimaryDark"
+                android:padding="10dp"
+                android:text="@string/track_search_cancel"
+                android:textColor="@color/colorAccent" />
+
+            <!--<Button
+                android:padding="10dp"
+                android:id="@+id/buttonHideKeyboard"
+                android:layout_width="wrap_content"
+                android:layout_height="50dp"
+                android:layout_alignParentEnd="true"
+                android:text="@string/track_search_hide_keyboard"
+                android:background="@color/colorPrimaryDark"
+                android:textColor="@color/colorAccent"/>-->
+        </RelativeLayout>
+
+        <TextView
+            android:layout_below="@+id/buttonHolder"
+            android:id="@+id/tvSearchTrackHeader"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="bottom|center_horizontal"
+            android:padding="10dp"
+            android:text="@string/track_search_header"
+            android:textColor="@color/white"
+            android:textSize="20sp"
+            android:textStyle="bold" />
+
+        <LinearLayout
+            android:id="@+id/constr"
+            android:layout_width="340dp"
+            android:layout_height="400dp"
+            android:layout_below="@+id/tvSearchTrackHeader"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:background="@color/colorPrimaryDark"
+            android:orientation="vertical"
+            android:padding="10dp">
+
+            <EditText
+                android:id="@+id/etSearchTrack"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/track_search_et_hint"
+                android:textColor="@color/colorgray2"
+                android:textColorHint="@color/colorgray"
+                android:textSize="15sp"
+                android:maxLines="1"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recyclerTfSearchTrack"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="10dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/etSearchTrack"
+                tools:listitem="@layout/detailed_single_track_item" />
+
+        </LinearLayout>
+    </RelativeLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

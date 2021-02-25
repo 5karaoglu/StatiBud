@@ -3,8 +3,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/shareLayout3"
-    android:layout_width="250dp"
-    android:layout_height="400dp"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
     android:layout_gravity="center"
     android:background="@color/colorPrimaryDark"
     tools:context=".share.ShareLayoutFour">
@@ -33,15 +33,16 @@
 
         <RelativeLayout
             android:id="@+id/reLayout"
-            android:layout_width="100dp"
-            android:layout_height="100dp"
+            android:layout_width="200dp"
+            android:layout_height="200dp"
             android:layout_marginStart="21dp"
+            android:layout_marginTop="10dp"
             android:layout_marginBottom="14dp"
             android:background="@color/gold"
             android:padding="5dp"
             app:layout_constraintBottom_toTopOf="@+id/reLayout2"
             app:layout_constraintEnd_toStartOf="@+id/reLayout2"
-            app:layout_constraintHorizontal_bias="0.108"
+            app:layout_constraintHorizontal_bias="0.043"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/tvShareFourHeader"
             app:layout_constraintVertical_bias="0.0">
@@ -85,21 +86,24 @@
 
         <RelativeLayout
             android:id="@+id/reLayout2"
-            android:layout_width="100dp"
-            android:layout_height="100dp"
+            android:layout_width="200dp"
+            android:layout_height="200dp"
+            android:background="@color/silver"
             android:orientation="vertical"
+            android:padding="5dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.497"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            android:padding="5dp"
-            android:background="@color/silver">
+            app:layout_constraintVertical_bias="0.48">
 
             <ImageView
                 android:id="@+id/ivShareThreeTwo"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:src="@mipmap/ic_launcher_round" />
+
             <TextView
                 android:id="@+id/tvshareThreeItemTwo"
                 android:layout_width="match_parent"
@@ -115,7 +119,6 @@
                 android:textSize="12sp" />
 
             <ProgressBar
-                android:visibility="gone"
                 android:id="@+id/pbShareThreeTwo"
                 android:layout_width="60dp"
                 android:layout_height="60dp"
@@ -126,13 +129,14 @@
                 android:layout_marginStart="11dp"
                 android:layout_marginTop="14dp"
                 android:layout_marginEnd="14dp"
-                android:layout_marginBottom="11dp" />
+                android:layout_marginBottom="11dp"
+                android:visibility="gone" />
         </RelativeLayout>
 
         <RelativeLayout
             android:id="@+id/reLayout3"
-            android:layout_width="100dp"
-            android:layout_height="100dp"
+            android:layout_width="200dp"
+            android:layout_height="200dp"
             android:layout_marginEnd="16dp"
             android:background="@color/bronze"
             android:orientation="vertical"
@@ -142,7 +146,7 @@
             app:layout_constraintHorizontal_bias="1.0"
             app:layout_constraintStart_toEndOf="@+id/reLayout2"
             app:layout_constraintTop_toBottomOf="@+id/reLayout2"
-            app:layout_constraintVertical_bias="0.42">
+            app:layout_constraintVertical_bias="0.131">
 
             <ImageView
                 android:id="@+id/ivShareThreeThree"
@@ -179,18 +183,29 @@
                 android:visibility="gone" />
         </RelativeLayout>
 
-        <TextView
-            android:id="@+id/tvShareThreeSpotibud"
-            android:layout_width="182dp"
-            android:layout_height="16dp"
-            android:gravity="center"
-            android:text="@string/spotibud"
-            android:textColor="@color/white"
-            android:textSize="12sp"
+        <LinearLayout
+            android:id="@+id/liSpotibud3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent" />
-
+            app:layout_constraintStart_toStartOf="parent">
+            <ImageView
+                android:layout_width="35dp"
+                android:layout_height="35dp"
+                android:src="@mipmap/ic_launcher"/>
+            <TextView
+                android:id="@+id/tvShareOneSpotibud"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="15dp"
+                android:gravity="center"
+                android:padding="10dp"
+                android:text="@string/spotibud"
+                android:textColor="@color/colorgray2"
+                android:textSize="12sp" />
+        </LinearLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

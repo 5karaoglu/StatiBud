@@ -13,18 +13,69 @@
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:id="@+id/appBarTF">
-            <androidx.appcompat.widget.Toolbar
-                android:layout_width="match_parent"
-                android:layout_height="match_parent">
-                <TextView
+                <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:gravity="center"
-                    android:text="TrackFinder"
-                    android:textColor="@color/white"
-                    android:textSize="25sp"
-                    android:maxLines="1"/>
-            </androidx.appcompat.widget.Toolbar>
+                    android:layout_height="match_parent">
+
+                    <TextView
+                        android:layout_marginStart="10dp"
+                        android:id="@+id/textView4"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:gravity="start|center_vertical"
+                        android:maxLines="1"
+                        android:text="TrackFinder"
+                        android:textColor="@color/white"
+                        android:textSize="25sp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <ImageView
+                        android:id="@+id/tfIvHelp"
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
+                        android:src="@drawable/ic_help"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:orientation="vertical"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        android:layout_marginEnd="10dp">
+                        <ProgressBar
+                            android:id="@+id/buttonProgress"
+                            android:layout_width="30dp"
+                            android:layout_height="30dp"
+                            android:visibility="gone"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+                        <Button
+                            android:id="@+id/buttonFind"
+                            android:layout_width="150dp"
+                            android:layout_height="wrap_content"
+                            android:background="@drawable/cardview_background3"
+                            android:maxLines="1"
+                            android:padding="5dp"
+                            android:text="@string/button_text"
+                            android:textColor="@color/white"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
         </com.google.android.material.appbar.AppBarLayout>
         <TextView
             android:paddingTop="10dp"
@@ -47,24 +98,15 @@
             android:id="@+id/tfSearchSection"
             android:orientation="vertical"
             android:gravity="center">
-            <TextView
-                android:padding="5dp"
-                android:id="@+id/tvTfWarn"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textColor="@color/colorgray2"
-                android:textSize="12sp"
-                android:gravity="center"
-                android:text="@string/warn"/>
-            <TextView
-                android:padding="5dp"
-                android:textSize="12sp"
-                android:id="@+id/tvSelectSong"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/tf_click"
-                android:textColor="@color/colorAccent"/>
-
+            <Button
+                android:id="@+id/buttonSelectSong"
+                android:padding="10dp"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="Click for selecting a song"
+                android:textAllCaps="false"
+                android:textColor="@color/colorAccent"
+                android:background="@color/colorPrimary"/>
             <RelativeLayout
                 android:visibility="gone"
                 android:layout_width="match_parent"
@@ -119,52 +161,51 @@
 
             </RelativeLayout>
         </LinearLayout>
+        <TextView
+            android:id="@+id/tvTfSelectedGenreText"
+            android:paddingTop="10dp"
+            android:paddingStart="10dp"
+            android:paddingEnd="10dp"
+            android:paddingBottom="5dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="@color/colorgray2"
+            android:textSize="12sp"
+            android:gravity="center"
+            android:text="@string/selected_genre"/>
         <LinearLayout
             android:padding="10dp"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="90dp"
             android:orientation="vertical"
             android:gravity="center">
-            <EditText
-                android:padding="5dp"
-                android:id="@+id/etGenre"
+            <Button
+                android:id="@+id/buttonSelectGenre"
+                android:padding="10dp"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="@string/search_for_a_genre"
-                android:textSize="12sp"
-                android:textColorHint="@color/colorgray2"
-                android:background="@color/colorgray"/>
-            <androidx.recyclerview.widget.RecyclerView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                tools:listitem="@layout/tf_genre_single"
-                android:orientation="horizontal"
-                tools:itemCount="1"
-                android:id="@+id/recyclerTfGenre"/>
+                android:layout_height="match_parent"
+                android:text="Click for selecting a genre"
+                android:textAllCaps="false"
+                android:textColor="@color/colorAccent"
+                android:background="@color/colorPrimary"/>
             <LinearLayout
+                android:visibility="gone"
                 android:id="@+id/liGenreResult"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:orientation="horizontal"
                 android:padding="5dp"
                 android:gravity="center">
-                <TextView
-                    android:id="@+id/tvTfSelectedGenreText"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textColor="@color/colorgray2"
-                    android:textSize="12sp"
-                    android:gravity="center"
-                    android:text="@string/selected_genre"/>
+
                 <LinearLayout
-                    android:padding="8dp"
+                    android:padding="10dp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
                     android:gravity="center"
                     android:background="@drawable/cardview_background">
                     <TextView
-                        android:padding="1dp"
+                        android:padding="5dp"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:id="@+id/tvSelectedGenre"
@@ -173,22 +214,13 @@
                         android:textSize="12sp"/>
                     <ImageView
                         android:id="@+id/ivSelectedGenreCancel"
-                        android:padding="1dp"
+                        android:padding="5dp"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:src="@drawable/ic_close_12"/>
                 </LinearLayout>
             </LinearLayout>
-            <TextView
-                android:visibility="gone"
-                android:padding="10dp"
-                android:id="@+id/tvTfWarnGenre"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textColor="@color/colorgray2"
-                android:textSize="12sp"
-                android:gravity="center"
-                android:text="@string/warn_genre"/>
+
 
         </LinearLayout>
         <LinearLayout
@@ -365,36 +397,7 @@
                 android:progress="500"
                 android:progressBackgroundTint="@color/colorgray" />
         </LinearLayout>
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:padding="10dp"
-            android:orientation="vertical"
-            android:gravity="center">
-            <ProgressBar
-                android:visibility="gone"
-                android:id="@+id/buttonProgress"
-                android:layout_width="30dp"
-                android:layout_height="30dp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-            <Button
-                android:id="@+id/buttonFind"
-                android:layout_width="200dp"
-                android:layout_height="wrap_content"
-                android:background="@drawable/cardview_background3"
-                android:maxLines="1"
-                android:padding="5dp"
-                android:text="@string/button_text"
-                android:textColor="@color/white"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
 
-        </androidx.constraintlayout.widget.ConstraintLayout>
 
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
