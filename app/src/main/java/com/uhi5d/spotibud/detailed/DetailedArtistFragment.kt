@@ -11,7 +11,6 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.activity.addCallback
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
@@ -20,7 +19,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.uhi5d.spotibud.main.MainViewModel
 import com.uhi5d.spotibud.R
 import com.uhi5d.spotibud.model.*
-import com.uhi5d.spotibud.util.CustomViewModelFactory
+import com.uhi5d.spotibud.main.CustomViewModelFactory
 import com.google.android.material.appbar.AppBarLayout
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.fragment_detailed_artist.*
@@ -55,34 +54,34 @@ class DetailedArtistFragment : Fragment(),
         val name = bundle.get("name") as String
         val id = bundle.get("id") as String
         if (bundle.get("image") != null ){
-            var image : String? = null
+            val image : String?
             image =   bundle.get("image") as String
             init(id, name)
             initImage(image)
         }else{
-            var image : Int? = null
+            val image : Int?
             image =   R.drawable.ic_close_gray
             init(id, name)
             initImage(image)
         }
         // ViewModel components
-        var factory = CustomViewModelFactory(this,requireContext())
-        viewmodel = ViewModelProvider(this, factory!!).get(MainViewModel::class.java)
-        viewmodel!!.artist.observe(viewLifecycleOwner,
-            Observer<Item> { t -> /*generateRelatedArtists(t!!)*/ })
-        viewmodel!!.artistTopTracks.observe(viewLifecycleOwner,
-            Observer<ArtistTopTracks> { t ->
+        val factory = CustomViewModelFactory(this,requireContext())
+        viewmodel = ViewModelProvider(this, factory).get(MainViewModel::class.java)
+        /*viewmodel.artist.observe(viewLifecycleOwner,
+             { t -> *//*generateRelatedArtists(t!!)*//* })*/
+        viewmodel.artistTopTracks.observe(viewLifecycleOwner,
+             { t ->
                 generateTopTracks(t!!)
                 doVisibility()})
-        viewmodel!!.artistAlbums.observe(viewLifecycleOwner,
-            Observer<ArtistAlbums> { t -> generateAlbums(t!!) })
-        viewmodel!!.relatedArtists.observe(viewLifecycleOwner,
-            Observer<RelatedArtists> { t -> generateRelatedArtists(t!!) })
+        viewmodel.artistAlbums.observe(viewLifecycleOwner,
+             { t -> generateAlbums(t!!) })
+        viewmodel.relatedArtists.observe(viewLifecycleOwner,
+             { t -> generateRelatedArtists(t!!) })
 
-        viewmodel.getArtist(token!!,id!!)
-        viewmodel.getArtistTopTracks(token, id!!)
-        viewmodel.getArtistAlbums(token, id!!)
-        viewmodel.getRelatedArtists(token!!,id!!)
+        /*viewmodel.getArtist(requireContext(),token!!, id)*/
+        viewmodel.getArtistTopTracks(requireContext(),token!!, id)
+        viewmodel.getArtistAlbums(requireContext(),token, id)
+        viewmodel.getRelatedArtists(requireContext(), token, id)
     }
     private fun initImage(image: String){
         Picasso.get()
@@ -139,21 +138,21 @@ class DetailedArtistFragment : Fragment(),
     }
 
     private fun generateTopTracks(tracks: ArtistTopTracks){
-        var adapter : ArtistTopTracksAdapter = ArtistTopTracksAdapter(requireContext(),tracks,this)
-        var layoutManager: RecyclerView.LayoutManager = LinearLayoutManager(requireContext())
+        val adapter = ArtistTopTracksAdapter(requireContext(),tracks,this)
+        val layoutManager: RecyclerView.LayoutManager = LinearLayoutManager(requireContext())
         recyclerTopTracks.layoutManager = layoutManager
         recyclerTopTracks.adapter = adapter
     }
     private fun generateAlbums(albums: ArtistAlbums){
-        var adapter : ArtistAlbumsAdapter = ArtistAlbumsAdapter(requireContext(),albums,this)
-        var layoutManager: RecyclerView.LayoutManager = LinearLayoutManager(requireContext(),
+        val adapter = ArtistAlbumsAdapter(requireContext(),albums,this)
+        val layoutManager: RecyclerView.LayoutManager = LinearLayoutManager(requireContext(),
             LinearLayoutManager.HORIZONTAL,false)
         recyclerAlbums.layoutManager = layoutManager
         recyclerAlbums.adapter = adapter
     }
     private fun generateRelatedArtists(relatedArtists:RelatedArtists){
-        var adapter : RelatedArtistsAdapter = RelatedArtistsAdapter(requireContext(),relatedArtists,this)
-        var gridLayoutManager = GridLayoutManager(context,3, GridLayoutManager.VERTICAL,false)
+        val adapter = RelatedArtistsAdapter(requireContext(),relatedArtists,this)
+        val gridLayoutManager = GridLayoutManager(context,3, GridLayoutManager.VERTICAL,false)
         recyclerRelatedArtists.layoutManager = gridLayoutManager
         recyclerRelatedArtists.adapter = adapter
     }

@@ -67,6 +67,7 @@
                             android:maxLines="1"
                             android:padding="5dp"
                             android:text="@string/button_text"
+                            android:textSize="12sp"
                             android:textColor="@color/white"
                             app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintEnd_toEndOf="parent"
@@ -78,6 +79,7 @@
                 </androidx.constraintlayout.widget.ConstraintLayout>
         </com.google.android.material.appbar.AppBarLayout>
         <TextView
+            android:layout_marginTop="10dp"
             android:paddingTop="10dp"
             android:paddingStart="10dp"
             android:paddingEnd="10dp"
@@ -103,7 +105,7 @@
                 android:padding="10dp"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:text="Click for selecting a song"
+                android:text="@string/tf_select_song"
                 android:textAllCaps="false"
                 android:textColor="@color/colorAccent"
                 android:background="@color/colorPrimary"/>
@@ -184,7 +186,7 @@
                 android:padding="10dp"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:text="Click for selecting a genre"
+                android:text="@string/ft_select_genre"
                 android:textAllCaps="false"
                 android:textColor="@color/colorAccent"
                 android:background="@color/colorPrimary"/>
@@ -224,7 +226,7 @@
 
         </LinearLayout>
         <LinearLayout
-            android:paddingTop="5dp"
+            android:paddingTop="10dp"
             android:paddingBottom="5dp"
             android:paddingStart="10dp"
             android:paddingEnd="10dp"
@@ -249,11 +251,11 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:max="1000"
-                android:progress="500"
+                android:progress="100"
                 android:progressBackgroundTint="@color/colorgray" />
         </LinearLayout>
         <LinearLayout
-            android:paddingTop="5dp"
+            android:paddingTop="10dp"
             android:paddingBottom="5dp"
             android:paddingStart="10dp"
             android:paddingEnd="10dp"
@@ -278,11 +280,11 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:max="1000"
-                android:progress="500"
+                android:progress="100"
                 android:progressBackgroundTint="@color/colorgray" />
         </LinearLayout>
         <LinearLayout
-            android:paddingTop="5dp"
+            android:paddingTop="10dp"
             android:paddingBottom="5dp"
             android:paddingStart="10dp"
             android:paddingEnd="10dp"
@@ -307,11 +309,11 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:max="1000"
-                android:progress="500"
+                android:progress="100"
                 android:progressBackgroundTint="@color/colorgray" />
         </LinearLayout>
         <LinearLayout
-            android:paddingTop="5dp"
+            android:paddingTop="10dp"
             android:paddingBottom="5dp"
             android:paddingStart="10dp"
             android:paddingEnd="10dp"
@@ -336,11 +338,11 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:max="1000"
-                android:progress="500"
+                android:progress="100"
                 android:progressBackgroundTint="@color/colorgray" />
         </LinearLayout>
         <LinearLayout
-            android:paddingTop="5dp"
+            android:paddingTop="10dp"
             android:paddingBottom="5dp"
             android:paddingStart="10dp"
             android:paddingEnd="10dp"
@@ -365,11 +367,11 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:max="1000"
-                android:progress="500"
+                android:progress="100"
                 android:progressBackgroundTint="@color/colorgray" />
         </LinearLayout>
         <LinearLayout
-            android:paddingTop="5dp"
+            android:paddingTop="10dp"
             android:paddingBottom="5dp"
             android:paddingStart="10dp"
             android:paddingEnd="10dp"
@@ -394,7 +396,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:max="1000"
-                android:progress="500"
+                android:progress="100"
                 android:progressBackgroundTint="@color/colorgray" />
         </LinearLayout>
 

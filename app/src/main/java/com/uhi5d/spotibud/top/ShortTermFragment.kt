@@ -17,7 +17,7 @@ import com.uhi5d.spotibud.Tracks
 import com.uhi5d.spotibud.main.MainViewModel
 import com.uhi5d.spotibud.model.Artists
 import com.uhi5d.spotibud.model.Item
-import com.uhi5d.spotibud.util.CustomViewModelFactory
+import com.uhi5d.spotibud.main.CustomViewModelFactory
 import kotlinx.android.synthetic.main.fragment_short_term.*
 
 
@@ -73,10 +73,10 @@ class ShortTermFragment : Fragment(),
             })
 
         Thread{
-            viewModel.getMyArtists(token!!,"short_term")
+            viewModel.getMyArtists(requireContext(),token!!,"short_term")
         }.start()
         Thread{
-            viewModel.getMyTracks(token!!,"short_term")
+            viewModel.getMyTracks(requireContext(),token!!,"short_term")
         }.start()
     }
     private fun initRadioGroup() {

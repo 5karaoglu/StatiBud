@@ -1,4 +1,4 @@
-package com.uhi5d.spotibud.util
+package com.uhi5d.spotibud.repository
 
 import com.uhi5d.spotibud.model.Artists
 import com.uhi5d.spotibud.TrackItems
@@ -69,9 +69,6 @@ interface Api {
 
     @GET("albums/{id}")
     fun getAlbum(@Header("Authorization") token:String, @Path("id") albumId:String):Call<Album>
-
-    @GET("albums/{id}/tracks")
-    fun getAlbumTracks(@Header("Authorization") token:String, @Path("id") albumId:String):Call<AlbumTracks>
 
     @GET("search?type=artist%2Calbum%2Ctrack&limit=3")
     fun search(@Header("Authorization") token:String, @Query("q") query:String):Call<QueryResults>

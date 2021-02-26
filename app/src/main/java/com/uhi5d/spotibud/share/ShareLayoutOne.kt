@@ -11,7 +11,7 @@ import androidx.lifecycle.ViewModelProvider
 import com.uhi5d.spotibud.main.MainViewModel
 import com.uhi5d.spotibud.R
 import com.uhi5d.spotibud.model.Artists
-import com.uhi5d.spotibud.util.CustomViewModelFactory
+import com.uhi5d.spotibud.main.CustomViewModelFactory
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.fragment_share_layout_one.*
 
@@ -36,14 +36,14 @@ class ShareLayoutOne : Fragment() {
 
         // ViewModel components
         var factory = CustomViewModelFactory(this,requireContext())
-        viewModel = ViewModelProvider(this, factory!!).get(MainViewModel::class.java)
+        viewModel = ViewModelProvider(this, factory).get(MainViewModel::class.java)
 
-        viewModel!!.artistsListShortTerm.observe(viewLifecycleOwner,
+        viewModel.artistsListShortTerm.observe(viewLifecycleOwner,
             Observer<Artists> { t ->
                 generateLayout(t!!)
                 makeVisible()
             })
-        viewModel!!.getMyArtistsLimited(token!!,"short_term",1)
+        viewModel.getMyArtistsLimited(requireContext(),token!!,"short_term",1)
     }
     private fun generateLayout(artists: Artists){
         tvShareOneArtistName.text = artists.items[0].name

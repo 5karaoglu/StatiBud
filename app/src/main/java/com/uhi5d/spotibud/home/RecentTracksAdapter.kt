@@ -39,14 +39,14 @@ class RecentTracksAdapter(var context: Context, var dataList: RecentTracks, var 
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecentTracksViewHolder {
-        var layoutInflater: LayoutInflater = LayoutInflater.from(context)
-        var view = layoutInflater.inflate(R.layout.single_recent_played,parent,false)
+        val layoutInflater: LayoutInflater = LayoutInflater.from(context)
+        val view = layoutInflater.inflate(R.layout.single_recent_played,parent,false)
         return RecentTracksViewHolder(view)
     }
 
 
     override fun onBindViewHolder(holder: RecentTracksViewHolder, position: Int) {
-        var recentTrack = dataList.items[position]
+        val recentTrack = dataList.items[position]
         holder.bind(recentTrack,clickListener)
 
     }

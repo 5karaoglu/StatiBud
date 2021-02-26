@@ -1,4 +1,4 @@
-package com.uhi5d.spotibud.util
+package com.uhi5d.spotibud.repository
 
 class Scopes {
     val USER_READ_PRIVATE = "user-read-private"

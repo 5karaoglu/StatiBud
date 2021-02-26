@@ -13,7 +13,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.uhi5d.spotibud.main.MainViewModel
 import com.uhi5d.spotibud.R
 import com.uhi5d.spotibud.model.*
-import com.uhi5d.spotibud.util.CustomViewModelFactory
+import com.uhi5d.spotibud.main.CustomViewModelFactory
 import kotlinx.android.synthetic.main.fragment_detailed_result.*
 
 
@@ -48,10 +48,10 @@ class DetailedResult : Fragment(),
 
         // ViewModel components
         var factory = CustomViewModelFactory(this,requireContext())
-        viewmodel = ViewModelProvider(this, factory!!).get(MainViewModel::class.java)
-        viewmodel!!.queryResults.observe(viewLifecycleOwner,
-            { t -> generateData(t!!,type!!) })
-        viewmodel.getQueryResultDefined(token!!,type!!, q)
+        viewmodel = ViewModelProvider(this, factory).get(MainViewModel::class.java)
+        viewmodel.queryResults.observe(viewLifecycleOwner,
+            { t -> generateData(t!!, type) })
+        viewmodel.getQueryResultDefined(requireContext(),token!!, type, q)
 
         init()
 

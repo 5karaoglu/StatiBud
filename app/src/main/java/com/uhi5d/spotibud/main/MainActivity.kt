@@ -35,7 +35,7 @@ class MainActivity : AppCompatActivity() {
         connectionLiveData.observe(this,
             { isNetworkAvailable -> connectionBehaviour(isNetworkAvailable,dialog) })
         // Obtain the FirebaseAnalytics instance.
-        mFirebaseAnalytics = FirebaseAnalytics.getInstance(this);
+        mFirebaseAnalytics = FirebaseAnalytics.getInstance(this)
 
         //ad section
         MobileAds.initialize(this)
@@ -43,7 +43,6 @@ class MainActivity : AppCompatActivity() {
 
         //navigation and bottom navigation
         navController = findNavController(R.id.fragment)
-        NavController.OnDestinationChangedListener { controller, destination, arguments ->  }
         bottomNavSetup()
 
 
@@ -55,9 +54,9 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun bottomNavSetup(){
-        bottomBar.itemIconTintActive = getColor(R.color.colorPrimary)
+        bottomBar.itemIconTintActive = getColor(R.color.colorPrimaryDark)
         bottomBar.itemIconTint = getColor(R.color.colorgray2)
-        bottomBar.itemIconSize = 50f
+        bottomBar.itemIconSize = 70f
         bottomBar.barBackgroundColor = getColor(R.color.colorPrimary)
         bottomBar.barIndicatorColor = getColor(R.color.colorgray2)
 
@@ -79,12 +78,11 @@ class MainActivity : AppCompatActivity() {
         mAdView!!.loadAd(adRequest)
     }
     private fun dialog(): AlertDialog {
-        var dialog = AlertDialog.Builder(this)
+        return AlertDialog.Builder(this)
             .setMessage(R.string.connection_text)
             .setCancelable(false)
-            .setNegativeButton(R.string.connection_negative) { dialog, which -> this.finish() }
+            .setNegativeButton(R.string.connection_negative) { _, _ -> finish() }
             .create()
-        return dialog
     }
     private fun connectionBehaviour(isNetworkAvailable: Boolean, dialog: AlertDialog){
         if(!isNetworkAvailable){

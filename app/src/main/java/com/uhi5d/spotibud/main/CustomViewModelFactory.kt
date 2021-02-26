@@ -1,4 +1,4 @@
-package com.uhi5d.spotibud.util
+package com.uhi5d.spotibud.main
 
 import android.content.Context
 import androidx.lifecycle.LifecycleOwner

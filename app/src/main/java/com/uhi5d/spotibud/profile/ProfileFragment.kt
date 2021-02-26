@@ -17,7 +17,7 @@ import com.uhi5d.spotibud.main.MainViewModel
 import com.uhi5d.spotibud.R
 import com.uhi5d.spotibud.model.Device
 import com.uhi5d.spotibud.model.Devices
-import com.uhi5d.spotibud.util.CustomViewModelFactory
+import com.uhi5d.spotibud.main.CustomViewModelFactory
 import com.google.android.material.appbar.AppBarLayout
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.fragment_profile.*
@@ -44,11 +44,11 @@ class ProfileFragment : Fragment(), AvailableDeviceAdapter.OnItemClickListener {
         val sharedPreferences = requireActivity().getSharedPreferences("spotifystatsapp", Context.MODE_PRIVATE)
         val token = sharedPreferences.getString("token","")
 
-        var factory = CustomViewModelFactory(this,requireContext())
+        val factory = CustomViewModelFactory(this,requireContext())
         viewModel = ViewModelProvider(this,factory).get(MainViewModel::class.java)
         viewModel.availableDevices.observe(viewLifecycleOwner,
             {t -> generateAvailableDevices(t!!)})
-        viewModel.getAvailableDevices(token!!)
+        viewModel.getAvailableDevices(requireContext(),token!!)
 
         val bundle = requireArguments()
         initCollapsingToolbar(bundle)
@@ -59,8 +59,8 @@ class ProfileFragment : Fragment(), AvailableDeviceAdapter.OnItemClickListener {
     }
 
     private fun generateAvailableDevices(devices: Devices){
-        var adapter = AvailableDeviceAdapter(requireContext(),devices,this)
-        var layoutManager = LinearLayoutManager(requireContext())
+        val adapter = AvailableDeviceAdapter(requireContext(),devices,this)
+        val layoutManager = LinearLayoutManager(requireContext())
         recyclerDevices.layoutManager = layoutManager
         recyclerDevices.adapter = adapter
     }

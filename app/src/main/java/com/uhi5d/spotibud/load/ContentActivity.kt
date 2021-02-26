@@ -10,7 +10,7 @@ import androidx.lifecycle.ViewModelProvider
 import com.uhi5d.spotibud.R
 import com.uhi5d.spotibud.main.MainActivity
 import com.uhi5d.spotibud.main.MainViewModel
-import com.uhi5d.spotibud.util.CustomViewModelFactory
+import com.uhi5d.spotibud.main.CustomViewModelFactory
 import com.spotify.sdk.android.auth.AuthorizationClient
 import com.spotify.sdk.android.auth.AuthorizationResponse
 import kotlinx.android.synthetic.main.activity_content.*
@@ -33,8 +33,14 @@ class ContentActivity : AppCompatActivity() {
         viewmodel = ViewModelProvider(this, factory!!).get(MainViewModel::class.java)
 
         button.setOnClickListener {
+            button.text = getString(R.string.button_clicked)
+            button.isClickable = false
             viewmodel!!.getToken(this)
         }
+        button.setTextColor(getColor(R.color.colorPrimaryDark))
+        textView3.setTextColor(getColor(R.color.colorgray))
+        textViewVersion.setTextColor(getColor(R.color.colorgray))
+        textView2.setTextColor(getColor(R.color.colorgray2))
     }
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
@@ -43,6 +49,7 @@ class ContentActivity : AppCompatActivity() {
             val response = AuthorizationClient.getResponse(resultCode,data)
             when(response.type){
                 AuthorizationResponse.Type.TOKEN -> {
+                    button.text = getString(R.string.button_response)
                     Log.d(TAG, "onActivityResult: ${response.accessToken}")
                     val intent = Intent(this, MainActivity::class.java)
                     val sharedPreferences = this.getSharedPreferences("spotifystatsapp",Context.MODE_PRIVATE)
@@ -52,12 +59,15 @@ class ContentActivity : AppCompatActivity() {
                     startActivity(intent)
                     finish()
                 }
-                else -> Toast.makeText(
+                else -> {Toast.makeText(
                     this,
                     response.error,
                     Toast.LENGTH_SHORT
                 )
                     .show()
+                    button.text = getString(R.string.button_start)
+                    button.isClickable = true
+                }
 
             }
         }

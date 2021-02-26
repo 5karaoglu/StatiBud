@@ -1,4 +1,4 @@
-package com.uhi5d.spotibud.util
+package com.uhi5d.spotibud.repository
 
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory

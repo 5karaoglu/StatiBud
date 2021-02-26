@@ -5,12 +5,14 @@ import android.content.Context
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.uhi5d.spotibud.Repository
+import com.uhi5d.spotibud.repository.Repository
 import com.uhi5d.spotibud.TrackItems
 import com.uhi5d.spotibud.Tracks
 import com.uhi5d.spotibud.model.*
 
 class MainViewModel(lifecycleOwner: LifecycleOwner,context: Context) : ViewModel() {
+    var repository : Repository = Repository(context)
+
     var artistsListShortTerm = MutableLiveData<Artists>()
     var artistsListMidTerm = MutableLiveData<Artists>()
     var artistsListLongTerm = MutableLiveData<Artists>()
@@ -21,7 +23,6 @@ class MainViewModel(lifecycleOwner: LifecycleOwner,context: Context) : ViewModel
 
     var recommendations = MutableLiveData<Recommendations>()
 
-    var repository : Repository = Repository(context)
     var recentTracks = MutableLiveData<RecentTracks>()
     var user = MutableLiveData<User>()
 
@@ -133,76 +134,70 @@ class MainViewModel(lifecycleOwner: LifecycleOwner,context: Context) : ViewModel
         repository.trackFinderDeleteAll()
     }
     //retrofit methods
-    fun getMyArtists(token: String,timeRange:String){
-        repository.getMyFavArtists(token,timeRange)
+    fun getMyArtists(context: Context,token: String,timeRange:String){
+        repository.getMyFavArtists(context, token,timeRange)
     }
-    fun getMyArtistsLimited(token: String, timeRange:String, limit: Int){
-        repository.getMyFavArtistsLimited(token,timeRange,limit)
+    fun getMyArtistsLimited(context: Context,token: String, timeRange:String, limit: Int){
+        repository.getMyFavArtistsLimited(context, token,timeRange,limit)
     }
-    fun getMyTracks(token: String,timeRange:String){
-        repository.getMyFavTracks(token,timeRange)
+    fun getMyTracks(context: Context,token: String,timeRange:String){
+        repository.getMyFavTracks(context, token,timeRange)
     }
-    fun getMyTracksLimited(token: String,timeRange:String,limit: Int){
-        repository.getMyFavTracksLimited(token,timeRange,limit)
+    fun getMyTracksLimited(context: Context,token: String,timeRange:String,limit: Int){
+        repository.getMyFavTracksLimited(context, token,timeRange,limit)
     }
-    fun getRecommendations(token: String,artistSeed:String,trackSeed:String) {
-        repository.getRecommendations(token, artistSeed, trackSeed)
+    fun getRecommendations(context: Context,token: String,artistSeed:String,trackSeed:String) {
+        repository.getRecommendations(context, token, artistSeed, trackSeed)
     }
-    fun getRecommendedTrack(token: String,seedTrack:String,seedGenre:String,targetAcousticness:String,targetDanceability:String,targetEnergy:String,targetInstrumentalness:String,
+    fun getRecommendedTrack(context: Context,token: String,seedTrack:String,seedGenre:String,targetAcousticness:String,targetDanceability:String,targetEnergy:String,targetInstrumentalness:String,
                             targetLiveness:String, targetValence:String) {
-        repository.getRecommendedTrack(token,seedTrack,seedGenre, targetAcousticness, targetDanceability, targetEnergy,
+        repository.getRecommendedTrack(context, token,seedTrack,seedGenre, targetAcousticness, targetDanceability, targetEnergy,
             targetInstrumentalness, targetLiveness, targetValence)
     }
     fun getToken(activity:Activity){
         repository.getToken(activity)
     }
-    fun playSong(context: Context,songUri:String){
-        repository.playSong(context,songUri)
+    fun getUser(context: Context,token: String){
+        repository.getUser(context, token)
     }
-    fun getUser(token: String){
-        repository.getUser(token)
+    fun getRecentTracks(context: Context,token: String){
+        repository.getRecentTracks(context, token)
     }
-    fun getRecentTracks(token: String){
-        repository.getRecentTracks(token)
+    fun getArtist(context: Context,token: String,id:String){
+        repository.getArtist(context, token,id)
     }
-    fun getArtist(token: String,id:String){
-        repository.getArtist(token,id)
+    fun getMultipleArtist(context: Context,token: String,id:String){
+        repository.getMultipleArtists(context, token,id)
     }
-    fun getMultipleArtist(token: String,id:String){
-        repository.getMultipleArtists(token,id)
+    fun getArtistTopTracks(context: Context,token: String,id:String){
+        repository.getArtistTopTracks(context, token,id)
     }
-    fun getArtistTopTracks(token: String,id:String){
-        repository.getArtistTopTracks(token,id)
+    fun getArtistAlbums(context: Context, token: String,id:String){
+        repository.getArtistAlbums(context,token,id)
     }
-    fun getArtistAlbums(token: String,id:String){
-        repository.getArtistAlbums(token,id)
+    fun getRelatedArtists(context: Context,token: String,id:String){
+        repository.getRelatedArtists(context, token,id)
     }
-    fun getRelatedArtists(token: String,id:String){
-        repository.getRelatedArtists(token,id)
+    fun getTrack(context: Context, token: String,id:String){
+        repository.getTrack(context,token,id)
     }
-    fun getTrack(token: String,id:String){
-        repository.getTrack(token,id)
+    fun getTrackAudioFeatures(context: Context, token: String,id:String){
+        repository.getTrackAudioFeatures(context, token,id)
     }
-    fun getTrackAudioFeatures(token: String,id:String){
-        repository.getTrackAudioFeatures(token,id)
+    fun getAlbum(context: Context,token: String,id:String){
+        repository.getAlbum(context, token,id)
     }
-    fun getAlbum(token: String,id:String){
-        repository.getAlbum(token,id)
+    fun getQueryResult(context: Context,token: String,q:String){
+        repository.getQueryResult(context, token,q)
     }
-    fun getAlbumTracks(token: String,id:String){
-        repository.getAlbumTracks(token,id)
+    fun getQueryResultDefined(context: Context,token: String,type:String,q:String){
+        repository.getQueryResultDefined(context, token,type,q)
     }
-    fun getQueryResult(token: String,q:String){
-        repository.getQueryResult(token,q)
+    fun getAvailableDevices(context: Context,token: String){
+        repository.getAvailableDevices(context, token)
     }
-    fun getQueryResultDefined(token: String,type:String,q:String){
-        repository.getQueryResultDefined(token,type,q)
-    }
-    fun getAvailableDevices(token: String){
-        repository.getAvailableDevices(token)
-    }
-    fun getGenres(token: String){
-        repository.getGenres(token)
+    fun getGenres(context: Context,token: String){
+        repository.getGenres(context, token)
     }
 
 

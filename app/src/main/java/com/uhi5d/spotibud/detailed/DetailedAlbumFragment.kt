@@ -11,7 +11,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.activity.addCallback
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -19,7 +18,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.uhi5d.spotibud.main.MainViewModel
 import com.uhi5d.spotibud.R
 import com.uhi5d.spotibud.model.*
-import com.uhi5d.spotibud.util.CustomViewModelFactory
+import com.uhi5d.spotibud.main.CustomViewModelFactory
 import com.google.android.material.appbar.AppBarLayout
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.fragment_detailed_album.*
@@ -56,14 +55,14 @@ class DetailedAlbumFragment : Fragment(), DetailedAlbumTracksAdapter.OnItemClick
         init(id,name,image)
 
         // ViewModel components
-        var factory = CustomViewModelFactory(this,requireContext())
-        viewmodel = ViewModelProvider(this, factory!!).get(MainViewModel::class.java)
+        val factory = CustomViewModelFactory(this,requireContext())
+        viewmodel = ViewModelProvider(this, factory).get(MainViewModel::class.java)
 
-        viewmodel!!.album.observe(viewLifecycleOwner,
-            Observer<Album> { t ->
+        viewmodel.album.observe(viewLifecycleOwner,
+             { t ->
                 generateAlbumTracks(t!!)
                 doVisibility()})
-        viewmodel.getAlbum(token!!,id!!)
+        viewmodel.getAlbum(requireContext(),token!!, id)
     }
     private fun doVisibility(){
         nsvDetailedAlbum.visibility = View.VISIBLE
@@ -72,8 +71,8 @@ class DetailedAlbumFragment : Fragment(), DetailedAlbumTracksAdapter.OnItemClick
     }
 
     private fun generateAlbumTracks(album: Album){
-        var adapter : DetailedAlbumTracksAdapter = DetailedAlbumTracksAdapter(requireContext(),album,this)
-        var layoutManager: RecyclerView.LayoutManager = LinearLayoutManager(requireContext())
+        val adapter  = DetailedAlbumTracksAdapter(requireContext(),album,this)
+        val layoutManager: RecyclerView.LayoutManager = LinearLayoutManager(requireContext())
         recyclerAlbumTracks.layoutManager = layoutManager
         recyclerAlbumTracks.adapter = adapter
         setCopyright(album)
@@ -131,8 +130,8 @@ class DetailedAlbumFragment : Fragment(), DetailedAlbumTracksAdapter.OnItemClick
         fabDetailedAlbum.setOnClickListener {
             try {
 
-                var uri = Uri.parse("http://open.spotify.com/album/${id}")
-                var intent = Intent(Intent.ACTION_VIEW,uri)
+                val uri = Uri.parse("http://open.spotify.com/album/${id}")
+                val intent = Intent(Intent.ACTION_VIEW,uri)
                 startActivity(intent)
             }catch (ex: ActivityNotFoundException){
                 Log.d(TAG, "setTrack: ${ex.message}")

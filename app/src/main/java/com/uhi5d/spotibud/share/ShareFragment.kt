@@ -53,7 +53,7 @@ class ShareFragment : Fragment() {
         }
     }
     private fun initShareViewPager(){
-        val titles = arrayListOf<String>("No.1", "No.2","No.3", "No.4")
+        val titles = arrayListOf<String>("1", "2","3", "4")
         val tabList = arrayListOf<Fragment>(ShareLayoutOne(), ShareLayoutTwo(),ShareLayoutThree(),ShareLayoutFour())
         adapter = HomePagerAdapter(childFragmentManager, titles, tabList)
         pagerHome.adapter = adapter

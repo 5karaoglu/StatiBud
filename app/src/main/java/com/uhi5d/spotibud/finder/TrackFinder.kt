@@ -11,26 +11,23 @@ import android.widget.*
 import androidx.activity.addCallback
 import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.uhi5d.spotibud.R
-import com.uhi5d.spotibud.finder.GenreAdapter
-import com.uhi5d.spotibud.main.MainViewModel
-import com.uhi5d.spotibud.model.Recommendations
-import com.uhi5d.spotibud.model.TrackFinderTracks
-import com.uhi5d.spotibud.util.CustomViewModelFactory
 import com.squareup.picasso.Picasso
 import com.uhi5d.spotibud.Functions
+import com.uhi5d.spotibud.R
+import com.uhi5d.spotibud.finder.GenreAdapter
 import com.uhi5d.spotibud.finder.TfSearchResultsAdapter
+import com.uhi5d.spotibud.main.MainViewModel
 import com.uhi5d.spotibud.model.QueryResultTrackItem
 import com.uhi5d.spotibud.model.QueryResults
-import kotlinx.android.synthetic.main.fragment_tf_search.*
+import com.uhi5d.spotibud.model.Recommendations
+import com.uhi5d.spotibud.model.TrackFinderTracks
+import com.uhi5d.spotibud.main.CustomViewModelFactory
 import kotlinx.android.synthetic.main.fragment_track_finder.*
-import kotlinx.android.synthetic.main.track_search.*
 
 
 class TrackFinder : Fragment(),
@@ -41,14 +38,8 @@ class TrackFinder : Fragment(),
     private var token: String? = null
     private var functions = Functions()
 
-    private var selectedTrackId : String? = null
-    private var selectedTrackName : String? = null
-    private var selectedTrackImage : String? = null
-    private var selectedTrackArtistId : String? = null
-    private var selectedTrackArtistName : String? = null
     private var genreList : List<String>? = null
     private var filteredGenreList : MutableList<String> = mutableListOf()
-    private var selectedGenre : String? = null
 
     private var trackMap  = HashMap<String,String>()
     private var genreMap  = HashMap<String,String>()
@@ -94,7 +85,7 @@ class TrackFinder : Fragment(),
                 genreList = t.genres
                 Log.d(TAG, "onViewCreated: done")
             })
-        viewModel!!.getGenres(token!!)
+        viewModel!!.getGenres(requireContext(),token!!)
 
         viewModel!!.recommendations.observe(viewLifecycleOwner,
             { t ->
@@ -158,7 +149,6 @@ class TrackFinder : Fragment(),
 
             val et: EditText = dialogView.findViewById<View>(R.id.etSearchTrack) as EditText
             val recycler: RecyclerView = dialogView.findViewById<View>(R.id.recyclerTfSearchTrack) as RecyclerView
-            val buttonHideKeyboard: Button = dialogView.findViewById<View>(R.id.buttonHideKeyboard) as Button
             val buttonCancel: Button = dialogView.findViewById<View>(R.id.buttonCancel) as Button
             songAlertDialog = songAdapter.create()
 
@@ -175,7 +165,7 @@ class TrackFinder : Fragment(),
             }
 
             viewModel!!.queryResults.observe(viewLifecycleOwner,
-                Observer { t -> adaptSongs(t!!)})
+                { t -> adaptSongs(t!!)})
 
             et.addTextChangedListener(object : TextWatcher{
                 override fun beforeTextChanged(
@@ -199,7 +189,7 @@ class TrackFinder : Fragment(),
                         }
                         q = functions.encodeString(s.toString())
                         Log.d(TAG, "afterTextChanged: $q")
-                        viewModel!!.getQueryResult(token!!, q!!)
+                        viewModel!!.getQueryResult(requireContext(),token!!, q!!)
                     } else {
                         recycler.visibility=View.GONE
                         hideKeyboard()
@@ -207,9 +197,6 @@ class TrackFinder : Fragment(),
                 }
 
             })
-            buttonHideKeyboard.setOnClickListener {
-                hideKeyboard()
-            }
             buttonCancel.setOnClickListener {
                 songAlertDialog.dismiss()
             }
@@ -228,7 +215,6 @@ class TrackFinder : Fragment(),
 
             val et: EditText = dialogView.findViewById<View>(R.id.etSearchGenre) as EditText
             val recycler: RecyclerView = dialogView.findViewById<View>(R.id.recyclerTfSearchGenre) as RecyclerView
-            val buttonHideKeyboard: Button = dialogView.findViewById<View>(R.id.buttonHideKeyboardGenre) as Button
             val buttonCancel: Button = dialogView.findViewById<View>(R.id.buttonCancelGenre) as Button
             genreAlertDialog = genreAdapter.create()
 
@@ -275,9 +261,6 @@ class TrackFinder : Fragment(),
                 }
 
             })
-            buttonHideKeyboard.setOnClickListener {
-                hideKeyboard()
-            }
             buttonCancel.setOnClickListener {
                 genreAlertDialog.dismiss()
             }
@@ -329,6 +312,7 @@ class TrackFinder : Fragment(),
                 buttonFind.isClickable = false
 
                 viewModel!!.getRecommendedTrack(
+                    requireContext(),
                     token,
                     trackMap["id"]!!,
                     genreMap["genre"]!!,
@@ -418,7 +402,7 @@ class TrackFinder : Fragment(),
                 .setCancelable(false)
                 .setPositiveButton(
                     R.string.dialog_accept
-                ) { dialog, which -> requireActivity().finish() }
+                ) { _, _ -> requireActivity().finish() }
                 .setNegativeButton(R.string.dialog_deny, null)
                 .show()
         }

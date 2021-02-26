@@ -8,53 +8,87 @@
     android:background="@color/colorPrimaryDark">
 
     <ImageView
-        android:layout_width="350dp"
-        android:layout_height="150dp"
+        android:layout_width="256px"
+        android:layout_height="256px"
         android:layout_marginBottom="16dp"
-        android:src="@drawable/logo1trans"
-        app:layout_constraintBottom_toTopOf="@+id/textView2"
+        android:src="@mipmap/ic_launcher_round"
+        app:layout_constraintBottom_toTopOf="@+id/textView5"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.491"
+        app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent" />
 
     <TextView
+        android:id="@+id/textView5"
+        android:layout_width="300dp"
+        android:layout_height="70dp"
+        android:gravity="center"
+        android:shadowColor="@color/colorAccent"
+        android:shadowDx="10"
+        android:shadowDy="10"
+        android:shadowRadius="20"
+        android:text="@string/spotibud_header"
+        android:textColor="@color/colorAccent"
+        android:textSize="50sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.495"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.479" />
+
+    <TextView
         android:id="@+id/textView2"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
+        android:gravity="center"
+        android:padding="10dp"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="56dp"
-        android:text="Your No.1 Tool For Spotify"
+        android:layout_marginBottom="60dp"
+        android:text="@string/spotibud_des"
         android:textColor="@color/colorgray2"
         android:textStyle="italic"
-        app:layout_constraintBottom_toTopOf="@+id/button"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView5"
+        app:layout_constraintVertical_bias="0.177" />
+
+    <TextView
+        android:layout_margin="10dp"
+        android:id="@+id/textViewVersion"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:padding="10dp"
+        android:text="@string/version"
+        android:textColor="@color/colorgray"
+        android:textSize="12sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <Button
         android:id="@+id/button"
         android:layout_width="164dp"
         android:layout_height="71dp"
-        android:background="@color/colorAccent"
-        android:text="Logın wıth Spotıfy"
+        android:layout_marginTop="60dp"
+        android:background="@color/colorPrimary"
+        android:textColor="@color/white"
+        android:text="@string/button_start"
         android:textSize="20sp"
         android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.789" />
+        app:layout_constraintTop_toBottomOf="@+id/textView2" />
 
     <TextView
         android:id="@+id/textView3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="16dp"
         android:padding="10dp"
-        android:text="uhi5d.2021"
+        android:text="@string/bottom_dev_name"
         android:textColor="@color/colorgray"
-        android:textStyle="italic|bold"
+        android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/button"
-        app:layout_constraintVertical_bias="0.844" />
+        app:layout_constraintStart_toStartOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -11,7 +11,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.activity.addCallback
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -19,7 +18,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.uhi5d.spotibud.*
 import com.uhi5d.spotibud.main.MainViewModel
 import com.uhi5d.spotibud.model.*
-import com.uhi5d.spotibud.util.CustomViewModelFactory
+import com.uhi5d.spotibud.main.CustomViewModelFactory
 import com.google.android.material.appbar.AppBarLayout
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.fragment_detailed_track.*
@@ -60,24 +59,24 @@ class DetailedTrackFragment : Fragment(), DetailedTrackArtistAdapter.OnItemClick
 
         // ViewModel components
         val factory = CustomViewModelFactory(this,requireContext())
-        viewmodel = ViewModelProvider(this, factory!!).get(MainViewModel::class.java)
+        viewmodel = ViewModelProvider(this, factory).get(MainViewModel::class.java)
 
-        viewmodel!!.trackAudioFeatures.observe(viewLifecycleOwner,
-            Observer<TrackAudioFeatures> { t ->
+        viewmodel.trackAudioFeatures.observe(viewLifecycleOwner,
+             { t ->
                 generateAudioFeature(t!!)
                 })
-        viewmodel!!.track.observe(viewLifecycleOwner,
-            Observer<TrackItems> { t ->
+        viewmodel.track.observe(viewLifecycleOwner,
+             { t ->
                 setRating(t!!)
                 setAlbumImage(t)
                 openInSpotify(t)
-                viewmodel.getMultipleArtist(token!!,getArtists(t))})
-        viewmodel!!.multipleArtists.observe(viewLifecycleOwner,
-            Observer<ArtistList> { t -> setArtists(t!!)
+                viewmodel.getMultipleArtist(requireContext(),token!!,getArtists(t))})
+        viewmodel.multipleArtists.observe(viewLifecycleOwner,
+             { t -> setArtists(t!!)
                 makeVisible()})
-        viewmodel.getTrackAudioFeatures(token!!,id!!)
-        viewmodel.getArtist(token,artistId!!)
-        viewmodel.getTrack(token,id)
+        viewmodel.getTrackAudioFeatures(requireContext(),token!!,id!!)
+        viewmodel.getArtist(requireContext(),token,artistId!!)
+        viewmodel.getTrack(requireContext(),token,id)
 
 
     }
@@ -116,8 +115,8 @@ class DetailedTrackFragment : Fragment(), DetailedTrackArtistAdapter.OnItemClick
         return str
     }
     private fun setArtists(artistList: ArtistList){
-        var adapter : DetailedTrackArtistAdapter = DetailedTrackArtistAdapter(requireContext(),artistList,this)
-        var layoutManager: RecyclerView.LayoutManager = LinearLayoutManager(requireContext(),LinearLayoutManager.HORIZONTAL,false)
+        val adapter = DetailedTrackArtistAdapter(requireContext(),artistList,this)
+        val layoutManager: RecyclerView.LayoutManager = LinearLayoutManager(requireContext(),LinearLayoutManager.HORIZONTAL,false)
         recyclerTrackArtist.layoutManager = layoutManager
         recyclerTrackArtist.adapter = adapter
     }
@@ -158,8 +157,8 @@ class DetailedTrackFragment : Fragment(), DetailedTrackArtistAdapter.OnItemClick
         fabDetailedTrack.setOnClickListener {
           try {
 
-              var uri = Uri.parse("http://open.spotify.com/track/${track.id}")
-              var intent = Intent(Intent.ACTION_VIEW,uri)
+              val uri = Uri.parse("http://open.spotify.com/track/${track.id}")
+              val intent = Intent(Intent.ACTION_VIEW,uri)
               startActivity(intent)
           }catch (ex:ActivityNotFoundException){
               Log.d(TAG, "setTrack: ${ex.message}")

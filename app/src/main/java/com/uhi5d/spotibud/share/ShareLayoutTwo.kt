@@ -10,9 +10,9 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.uhi5d.spotibud.main.MainViewModel
 import com.uhi5d.spotibud.R
-import com.uhi5d.spotibud.model.Artists
-import com.uhi5d.spotibud.util.CustomViewModelFactory
+import com.uhi5d.spotibud.main.CustomViewModelFactory
 import com.squareup.picasso.Picasso
+import com.uhi5d.spotibud.Tracks
 import kotlinx.android.synthetic.main.fragment_share_layout_two.*
 
 
@@ -36,19 +36,19 @@ class ShareLayoutTwo : Fragment() {
 
         // ViewModel components
         var factory = CustomViewModelFactory(this,requireContext())
-        viewModel = ViewModelProvider(this, factory!!).get(MainViewModel::class.java)
+        viewModel = ViewModelProvider(this, factory).get(MainViewModel::class.java)
 
-        viewModel!!.artistsListShortTerm.observe(viewLifecycleOwner,
-            Observer<Artists> { t ->
+        viewModel.tracksListShortTerm.observe(viewLifecycleOwner,
+            Observer<Tracks> { t ->
                 generateLayout(t!!)
                 makeVisible()
             })
-        viewModel!!.getMyArtistsLimited(token!!,"short_term",2)
+        viewModel.getMyTracksLimited(requireContext(),token!!,"short_term",1)
     }
-    private fun generateLayout(artists: Artists){
-        tvShareTwoArtistName.text = artists.items[1].name
+    private fun generateLayout(tracks: Tracks){
+        tvShareTwoArtistName.text = tracks.items[0].name
         Picasso.get()
-            .load(artists.items[1].images[1].url)
+            .load(tracks.items[0].album.images[0].url)
             .fit().centerCrop()
             .into(ivShareTwo)
     }

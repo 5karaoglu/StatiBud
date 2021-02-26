@@ -3,6 +3,15 @@
 
     <string name="current_position">#%d</string>
 
+    <!--Login Activity-->
+    <string name="spotibud_header" translatable="false">Spotibud</string>
+    <string name="spotibud_des" translatable="false">No.1 tool for Spotify</string>
+    <string name="button_start">LOGIN WITH SPOTIFY</string>
+    <string name="button_clicked">PLEASE WAIT</string>
+    <string name="button_response">LOADING…</string>
+    <string name="version" translatable="false">version 1.0</string>
+    <string name="bottom_dev_name" translatable="false">uhi5d | 2021</string>
+
     <!--Top Fragment-->
     <string name="top_header">Your Most Listened</string>
     <string name="top_short_term">4 weeks</string>
@@ -146,6 +155,9 @@
     <string name="ft_cancel">Cancel</string>
     <string name="ft_refresh">Refresh</string>
 
+    <string name="tf_select_song">Select Song</string>
+    <string name="ft_select_genre">Select Genre</string>
+
     <!--help dialog-->
     <string name="help_about">About TrackFinder</string>
     <string name="help_what_is">What is TrackFinder ?</string>
@@ -163,7 +175,7 @@
     <string name="track_search_hide_keyboard">Hıde Keyboard</string>
     <string name="track_search_cancel">Cancel</string>
 
-    <!--track search-->
+    <!--genre search-->
     <string name="genre_search_header">Search Genre</string>
     <string name="genre_search_et_hint">Write something…</string>
     <string name="genre_search_hide_keyboard">Hıde Keyboard</string>

@@ -46,7 +46,7 @@ class TopFragment : Fragment() {
     }
     private fun initViewPager(){
         val fList = arrayListOf<Fragment>(ShortTermFragment(), MidTermFragment(), LongTermFragment())
-        var titleList = arrayListOf<String>(getString(R.string.top_short_term),getString(R.string.top_mid_term),getString(R.string.top_long_term))
+        val titleList = arrayListOf<String>(getString(R.string.top_short_term),getString(R.string.top_mid_term),getString(R.string.top_long_term))
         val adapter = ViewPagerAdapter(childFragmentManager,fList,titleList)
         pagerTop.adapter = adapter
         pagerTop.offscreenPageLimit = 3

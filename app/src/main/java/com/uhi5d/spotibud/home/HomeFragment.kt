@@ -10,7 +10,6 @@ import android.view.ViewGroup
 import androidx.activity.addCallback
 import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -18,7 +17,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.uhi5d.spotibud.*
 import com.uhi5d.spotibud.main.MainViewModel
 import com.uhi5d.spotibud.model.*
-import com.uhi5d.spotibud.util.CustomViewModelFactory
+import com.uhi5d.spotibud.main.CustomViewModelFactory
 import kotlinx.android.synthetic.main.fragment_home.*
 
 
@@ -54,7 +53,7 @@ class HomeFragment : Fragment(),
             token = sharedPreferences.getString("token", "")
             Log.d(TAG, "onViewCreated:$token ")
         // ViewModel components
-        var factory = CustomViewModelFactory(this, requireContext())
+        val factory = CustomViewModelFactory(this, requireContext())
         viewModel = ViewModelProvider(this, factory).get(MainViewModel::class.java)
         initRecentTracks()
         initUserInfo()
@@ -74,7 +73,7 @@ class HomeFragment : Fragment(),
                 .setMessage(R.string.dialog_text)
                 .setCancelable(false)
                 .setPositiveButton(R.string.dialog_accept
-                ) { dialog, which -> requireActivity().finish() }
+                ) { _, _ -> requireActivity().finish() }
                 .setNegativeButton(R.string.dialog_deny,null)
                 .show()
         }
@@ -82,9 +81,9 @@ class HomeFragment : Fragment(),
     }
     private fun initUserInfo(){
         viewModel!!.user.observe(requireActivity(),
-            Observer<User> { t -> profileInit(t!!) })
+             { t -> profileInit(t!!) })
         Thread{
-            viewModel!!.getUser(token!!)
+            viewModel!!.getUser(requireContext(),token!!)
         }.start()
 
     }
@@ -114,12 +113,12 @@ class HomeFragment : Fragment(),
 
     private fun initRecentTracks(){
         viewModel!!.recentTracks.observe(requireActivity(),
-            Observer<RecentTracks> { t ->
+             { t ->
                 generateDataRecentTracks(t!!, 5)
-                recyclerButtonClick(t!!)
+                recyclerButtonClick(t)
             })
         Thread{
-            viewModel!!.getRecentTracks(token!!)
+            viewModel!!.getRecentTracks(requireContext(),token!!)
         }.start()
 
     }
@@ -127,17 +126,18 @@ class HomeFragment : Fragment(),
         liRecentPb.visibility = View.GONE
         coLayoutRecent.visibility = View.VISIBLE
 
-        var adapter : RecentTracksAdapter = RecentTracksAdapter(
+        val adapter = RecentTracksAdapter(
             requireContext(),
             tracks,
             this,
             customItemCount
         )
-        var layoutManager: RecyclerView.LayoutManager = LinearLayoutManager(requireContext())
+        val layoutManager: RecyclerView.LayoutManager = LinearLayoutManager(requireContext())
         recyclerRecentHome.layoutManager = layoutManager
         recyclerRecentHome.adapter = adapter
     }
     private fun recyclerButtonClick(tracks: RecentTracks){
+        //holding current size if expanded or not
         var size = 0
         buttonRecyclerExpand.setOnClickListener {
             if (size == 0){
@@ -156,37 +156,37 @@ class HomeFragment : Fragment(),
         var aS : String? = null
         var tS : String? = null
         viewModel!!.artistsListShortTerm.observe(viewLifecycleOwner,
-            Observer<Artists> { t ->
+             { t ->
                if (aS == null){
                    aS = artistSeed(t!!)
                    Thread{
-                       viewModel!!.getMyTracksLimited(token, "short_term", 2)
+                       viewModel!!.getMyTracksLimited(requireContext(),token, "short_term", 2)
                    }.start()
                }
             })
         viewModel!!.tracksListShortTerm.observe(viewLifecycleOwner,
-            Observer<Tracks> { t ->
+             { t ->
                 if (tS == null){
                     tS = trackSeed(t!!)
                     Thread{
-                        viewModel!!.getRecommendations(token, aS!!, tS!!)
+                        viewModel!!.getRecommendations(requireContext(),token, aS!!, tS!!)
                     }.start()
                 }
             })
         viewModel!!.recommendations.observe(viewLifecycleOwner,
-            Observer<Recommendations> { t ->
+             { t ->
                 generateRecommendations(t!!)
             })
         Thread{
-            viewModel!!.getMyArtistsLimited(token!!, "short_term", 2)
+            viewModel!!.getMyArtistsLimited(requireContext(),token, "short_term", 2)
         }.start()
         }
     private fun generateRecommendations(recommendations: Recommendations){
         liRecommendationPb.visibility = View.GONE
         recyclerRecommendation.visibility = View.VISIBLE
 
-        var adapter = RecommendationsAdapter(requireContext(), recommendations, this)
-        var layoutManager = LinearLayoutManager(
+        val adapter = RecommendationsAdapter(requireContext(), recommendations, this)
+        val layoutManager = LinearLayoutManager(
             requireContext(),
             LinearLayoutManager.HORIZONTAL,
             false
@@ -277,12 +277,12 @@ class HomeFragment : Fragment(),
         }
     }
     //TrackFinderItem OnClick
-    override fun onItemClicked(track: TrackFinderTracks) {
+    override fun onItemClicked(tracks: TrackFinderTracks) {
         val bundle = Bundle()
-        bundle.putString("id", track.trackId)
-        bundle.putString("artistId", track.artistId)
-        bundle.putString("name", track.trackName)
-        bundle.putString("image", track.albumImage)
+        bundle.putString("id", tracks.trackId)
+        bundle.putString("artistId", tracks.artistId)
+        bundle.putString("name", tracks.trackName)
+        bundle.putString("image", tracks.albumImage)
         findNavController().navigate(R.id.action_homeFragment_to_detailedTrackFragment, bundle)
     }
 

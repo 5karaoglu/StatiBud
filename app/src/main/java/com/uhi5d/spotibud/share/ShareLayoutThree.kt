@@ -11,7 +11,7 @@ import androidx.lifecycle.ViewModelProvider
 import com.uhi5d.spotibud.R
 import com.uhi5d.spotibud.Tracks
 import com.uhi5d.spotibud.main.MainViewModel
-import com.uhi5d.spotibud.util.CustomViewModelFactory
+import com.uhi5d.spotibud.main.CustomViewModelFactory
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.fragment_share_layout_three.*
 
@@ -34,14 +34,14 @@ class ShareLayoutThree : Fragment() {
 
         // ViewModel components
         var factory = CustomViewModelFactory(this,requireContext())
-        viewModel = ViewModelProvider(this, factory!!).get(MainViewModel::class.java)
+        viewModel = ViewModelProvider(this, factory).get(MainViewModel::class.java)
 
-        viewModel!!.tracksListShortTerm.observe(viewLifecycleOwner,
+        viewModel.tracksListShortTerm.observe(viewLifecycleOwner,
             Observer<Tracks> { t ->
                 generateLayout(t!!)
                 makeVisible()
             })
-        viewModel!!.getMyTracksLimited(token!!,"short_term",3)
+        viewModel.getMyTracksLimited(requireContext(),token!!,"short_term",3)
 
     }
     private fun generateLayout(tracks: Tracks){

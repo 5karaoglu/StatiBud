@@ -8,10 +8,10 @@ import java.util.concurrent.TimeUnit
 
 class Functions {
     private val TAG = "Functions"
-    private val SECOND = 1000;
-    private val MINUTE = 60 * SECOND;
-    private val HOUR = 60 * MINUTE;
-    private val DAY = 24 * HOUR;
+    private val SECOND = 1000
+    private val MINUTE = 60 * SECOND
+    private val HOUR = 60 * MINUTE
+    private val DAY = 24 * HOUR
     fun getTime(timestamp:String): String? {
         var time: String? = null
         var parsedDate = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'", Locale.getDefault() )

@@ -67,7 +67,7 @@
     <string name="tv_artists_more">Tüm sanatçıları göster</string>
     <string name="tv_tracks_more">Tüm şarkıları göster</string>
     <string name="tv_albums_more">Tüm albümleri göster</string>
-    <string name="detailed_search_header">%2$s \"%1$s</string>
+    <string name="detailed_search_header">%2$s "%1$s</string>
     <string name="artist_header">Sanatçılarda</string>
     <string name="track_header">Şarkılarda</string>
     <string name="album_header">Albümlerde</string>
@@ -144,6 +144,11 @@
     <string name="genre_search_et_hint">Bir şeyler yaz…</string>
     <string name="genre_search_hide_keyboard">Klavyeyi Gizle</string>
     <string name="genre_search_cancel">İptal</string>
+    <string name="tf_select_song">Şarkı Seç</string>
+    <string name="ft_select_genre">Tarz Seç</string>
+    <string name="button_start">SPOTİFY İLE GİRİŞ YAP</string>
+    <string name="button_clicked">LÜTFEN BEKLE</string>
+    <string name="button_response">YÜKLENİYOR…</string>
 
 
 </resources>

@@ -21,7 +21,7 @@ import com.uhi5d.spotibud.Functions
 import com.uhi5d.spotibud.main.MainViewModel
 import com.uhi5d.spotibud.R
 import com.uhi5d.spotibud.model.*
-import com.uhi5d.spotibud.util.CustomViewModelFactory
+import com.uhi5d.spotibud.main.CustomViewModelFactory
 import kotlinx.android.synthetic.main.fragment_search.*
 
 
@@ -55,7 +55,7 @@ class SearchFragment : Fragment(),
 
         // ViewModel components
         var factory = CustomViewModelFactory(this, requireContext())
-        viewmodel = ViewModelProvider(this, factory!!).get(MainViewModel::class.java)
+        viewmodel = ViewModelProvider(this, factory).get(MainViewModel::class.java)
 
 
         viewmodel.queryResults.observe(viewLifecycleOwner,
@@ -123,7 +123,7 @@ class SearchFragment : Fragment(),
                     }
                     q = functions.encodeString(s.toString())
                     Log.d(TAG, "afterTextChanged: $q")
-                    viewmodel.getQueryResult(token, q!!)
+                    viewmodel.getQueryResult(requireContext(),token, q!!)
                 } else {
                     visibilityGone()
                 }
