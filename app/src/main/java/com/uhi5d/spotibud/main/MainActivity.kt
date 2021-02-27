@@ -12,7 +12,6 @@ import androidx.navigation.findNavController
 import com.google.android.gms.ads.AdRequest
 import com.google.android.gms.ads.AdView
 import com.google.android.gms.ads.MobileAds
-import com.google.android.gms.ads.RequestConfiguration
 import com.google.firebase.analytics.FirebaseAnalytics
 import com.uhi5d.spotibud.R
 import com.uhi5d.spotibud.util.ConnectionLiveData
@@ -83,7 +82,6 @@ class MainActivity : AppCompatActivity() {
         MobileAds.initialize(this)
         mAdView = findViewById<View>(R.id.adView) as AdView?
         val adRequest: AdRequest = AdRequest.Builder().build()
-        RequestConfiguration.Builder().setTestDeviceIds(listOf("96B280562F400226257E0179879676DF"))
         mAdView!!.loadAd(adRequest)
     }
 
