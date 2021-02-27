@@ -9,12 +9,13 @@ import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.NavController
 import androidx.navigation.findNavController
-import com.uhi5d.spotibud.R
-import com.uhi5d.spotibud.util.ConnectionLiveData
 import com.google.android.gms.ads.AdRequest
 import com.google.android.gms.ads.AdView
 import com.google.android.gms.ads.MobileAds
+import com.google.android.gms.ads.RequestConfiguration
 import com.google.firebase.analytics.FirebaseAnalytics
+import com.uhi5d.spotibud.R
+import com.uhi5d.spotibud.util.ConnectionLiveData
 import kotlinx.android.synthetic.main.activity_main.*
 
 
@@ -38,8 +39,8 @@ class MainActivity : AppCompatActivity() {
         mFirebaseAnalytics = FirebaseAnalytics.getInstance(this)
 
         //ad section
-        MobileAds.initialize(this)
         setAd()
+
 
         //navigation and bottom navigation
         navController = findNavController(R.id.fragment)
@@ -62,7 +63,7 @@ class MainActivity : AppCompatActivity() {
 
         bottomBar.onItemSelected = {
             Log.d(TAG, "onItemSelected:$it ")
-            when(it){
+            when (it) {
                 0 -> navController!!.navigate(R.id.homeFragment)
                 1 -> navController!!.navigate(R.id.topFragment)
                 2 -> navController!!.navigate(R.id.searchFragment)
@@ -72,11 +73,20 @@ class MainActivity : AppCompatActivity() {
 
 
     }
-    private fun setAd(){
+
+    override fun onResume() {
+        super.onResume()
+        adView.resume()
+    }
+
+    private fun setAd() {
+        MobileAds.initialize(this)
         mAdView = findViewById<View>(R.id.adView) as AdView?
         val adRequest: AdRequest = AdRequest.Builder().build()
+        RequestConfiguration.Builder().setTestDeviceIds(listOf("96B280562F400226257E0179879676DF"))
         mAdView!!.loadAd(adRequest)
     }
+
     private fun dialog(): AlertDialog {
         return AlertDialog.Builder(this)
             .setMessage(R.string.connection_text)
