@@ -4,237 +4,32 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
     app:startDestination="@id/homeFragment">
-
-    <fragment
-        android:id="@+id/topFragment"
-        android:name="com.uhi5d.spotibud.top.TopFragment"
-        android:label="fragment_top"
-        tools:layout="@layout/fragment_top">
-
-        <action
-            android:id="@+id/action_topFragment_to_searchFragment"
-            app:destination="@id/searchFragment"
-            app:enterAnim="@anim/fragment_fade_enter"
-            app:exitAnim="@android:anim/fade_out" />
-        <action
-            android:id="@+id/action_topFragment_to_itemDetailedFragment"
-            app:destination="@id/itemDetailedFragment"
-            app:enterAnim="@anim/fragment_fade_enter"
-            app:exitAnim="@android:anim/fade_out">
-
-        </action>
-        <action
-            android:id="@+id/action_topFragment_to_detailedTrackFragment"
-            app:destination="@id/detailedTrackFragment" />
-        <action
-            android:id="@+id/action_topFragment_to_homeFragment"
-            app:destination="@id/homeFragment" />
-        <action
-            android:id="@+id/action_topFragment_to_trackFinder"
-            app:destination="@id/trackFinder"
-            app:enterAnim="@anim/fragment_fade_enter"
-            app:exitAnim="@android:anim/fade_out" />
-        <action
-            android:id="@+id/action_topFragment_to_shareFragment"
-            app:destination="@id/shareFragment"
-            app:enterAnim="@anim/fragment_fade_enter"
-            app:exitAnim="@android:anim/fade_out" />
-    </fragment>
-    <fragment
-        android:id="@+id/searchFragment"
-        android:name="com.uhi5d.spotibud.search.SearchFragment"
-        android:label="fragment_search"
-        tools:layout="@layout/fragment_search">
-        <action
-            android:id="@+id/action_searchFragment_to_topFragment"
-            app:destination="@id/topFragment" />
-        <action
-            android:id="@+id/action_searchFragment_to_homeFragment"
-            app:destination="@id/homeFragment" />
-        <action
-            android:id="@+id/action_searchFragment_to_itemDetailedFragment"
-            app:destination="@id/itemDetailedFragment" />
-        <action
-            android:id="@+id/action_searchFragment_to_detailedTrackFragment"
-            app:destination="@id/detailedTrackFragment" />
-        <action
-            android:id="@+id/action_searchFragment_to_detailedAlbumFragment"
-            app:destination="@id/detailedAlbumFragment" />
-        <action
-            android:id="@+id/action_searchFragment_to_detailedResult"
-            app:destination="@id/detailedResult" />
-        <action
-            android:id="@+id/action_searchFragment_to_trackFinder"
-            app:destination="@id/trackFinder" />
-        <action
-            android:id="@+id/action_searchFragment_to_shareFragment"
-            app:destination="@id/shareFragment" />
-    </fragment>
-    <fragment
-        android:id="@+id/profileFragment"
-        android:name="com.uhi5d.spotibud.profile.ProfileFragment"
-        android:label="fragment_profile"
-        tools:layout="@layout/fragment_profile">
-        <action
-            android:id="@+id/action_profileFragment_to_homeFragment"
-            app:destination="@id/homeFragment"
-            app:enterAnim="@android:anim/fade_in"
-            app:exitAnim="@android:anim/slide_out_right"
-            app:popEnterAnim="@android:anim/fade_in"
-            app:popExitAnim="@android:anim/slide_out_right" />
-    </fragment>
-    <fragment
-        android:id="@+id/itemDetailedFragment"
-        android:name="com.uhi5d.spotibud.detailed.DetailedArtistFragment"
-        android:label="fragment_item_detailed"
-        tools:layout="@layout/fragment_detailed_artist">
-        <action
-            android:id="@+id/action_itemDetailedFragment_self"
-            app:destination="@id/itemDetailedFragment" />
-        <action
-            android:id="@+id/action_itemDetailedFragment_to_detailedAlbumFragment"
-            app:destination="@id/detailedAlbumFragment" />
-        <action
-            android:id="@+id/action_itemDetailedFragment_to_topFragment"
-            app:destination="@id/topFragment"
-            app:popEnterAnim="@android:anim/fade_in"
-            app:popExitAnim="@android:anim/slide_out_right" />
-        <action
-            android:id="@+id/action_itemDetailedFragment_to_detailedTrackFragment"
-            app:destination="@id/detailedTrackFragment" />
-
-    </fragment>
-    <fragment
-        android:id="@+id/detailedTrackFragment"
-        android:name="com.uhi5d.spotibud.detailed.DetailedTrackFragment"
-        android:label="fragment_detailed_track"
-        tools:layout="@layout/fragment_detailed_track" >
-        <action
-            android:id="@+id/action_detailedTrackFragment_self"
-            app:destination="@id/detailedTrackFragment" />
-        <action
-            android:id="@+id/action_detailedTrackFragment_to_itemDetailedFragment"
-            app:destination="@id/itemDetailedFragment" />
-        <action
-            android:id="@+id/action_detailedTrackFragment_to_detailedAlbumFragment"
-            app:destination="@id/detailedAlbumFragment" />
-        <action
-            android:id="@+id/action_detailedTrackFragment_to_topFragment"
-            app:destination="@id/topFragment" />
-        <action
-            android:id="@+id/action_detailedTrackFragment_to_trackFinder"
-            app:destination="@id/trackFinder" />
-    </fragment>
-    <fragment
-        android:id="@+id/detailedAlbumFragment"
-        android:name="com.uhi5d.spotibud.detailed.DetailedAlbumFragment"
-        android:label="fragment_detailed_album"
-        tools:layout="@layout/fragment_detailed_album" >
-        <action
-            android:id="@+id/action_detailedAlbumFragment_self"
-            app:destination="@id/detailedAlbumFragment" />
-        <action
-            android:id="@+id/action_detailedAlbumFragment_to_detailedTrackFragment"
-            app:destination="@id/detailedTrackFragment" />
-        <action
-            android:id="@+id/action_detailedAlbumFragment_to_itemDetailedFragment"
-            app:destination="@id/itemDetailedFragment" />
-        <action
-            android:id="@+id/action_detailedAlbumFragment_to_topFragment"
-            app:destination="@id/topFragment" />
-    </fragment>
     <fragment
         android:id="@+id/homeFragment"
         android:name="com.uhi5d.spotibud.home.HomeFragment"
         android:label="fragment_home"
         tools:layout="@layout/fragment_home">
         <action
-            android:id="@+id/action_homeFragment_to_topFragment"
-            app:destination="@id/topFragment"
-            app:enterAnim="@anim/fragment_fade_enter"
-            app:exitAnim="@android:anim/fade_out" />
-        <action
-            android:id="@+id/action_homeFragment_to_searchFragment"
-            app:destination="@id/searchFragment" />
-        <action
             android:id="@+id/action_homeFragment_to_detailedTrackFragment"
-            app:destination="@id/detailedTrackFragment"
-            app:enterAnim="@anim/fragment_fade_enter"
-            app:exitAnim="@android:anim/fade_out" />
-        <action
-            android:id="@+id/action_homeFragment_to_trackFinder"
-            app:destination="@id/trackFinder"
-            app:enterAnim="@anim/fragment_fade_enter"
-            app:exitAnim="@android:anim/fade_out" />
-        <action
-            android:id="@+id/action_homeFragment_to_profileFragment"
-            app:destination="@id/profileFragment"
-            app:enterAnim="@anim/fragment_fade_enter"
-            app:exitAnim="@android:anim/fade_out" />
-        <action
-            android:id="@+id/action_homeFragment_to_shareFragment"
-            app:destination="@id/shareFragment"
-            app:enterAnim="@anim/fragment_fade_enter"
-            app:exitAnim="@android:anim/fade_out" />
-    </fragment>
-    <fragment
-        android:id="@+id/detailedResult"
-        android:name="com.uhi5d.spotibud.search.DetailedResult"
-        android:label="fragment_detailed_result"
-        tools:layout="@layout/fragment_detailed_result" >
-        <action
-            android:id="@+id/action_detailedResult_to_itemDetailedFragment"
-            app:destination="@id/itemDetailedFragment" />
-        <action
-            android:id="@+id/action_detailedResult_to_detailedTrackFragment"
             app:destination="@id/detailedTrackFragment" />
-        <action
-            android:id="@+id/action_detailedResult_to_detailedAlbumFragment"
-            app:destination="@id/detailedAlbumFragment" />
-        <action
-            android:id="@+id/action_detailedResult_to_searchFragment"
-            app:destination="@id/searchFragment" />
     </fragment>
     <fragment
-        android:id="@+id/trackFinder"
-        android:name="TrackFinder"
-        android:label="TrackFinder" >
-        <action
-            android:id="@+id/action_trackFinder_to_tfSearch"
-            app:destination="@id/tfSearch" />
-        <action
-            android:id="@+id/action_trackFinder_to_detailedTrackFragment"
-            app:destination="@id/detailedTrackFragment" />
-        <action
-            android:id="@+id/action_trackFinder_to_shareFragment"
-            app:destination="@id/shareFragment" />
-    </fragment>
+        android:id="@+id/searchFragment"
+        android:name="com.uhi5d.spotibud.search.SearchFragment"
+        android:label="fragment_search"
+        tools:layout="@layout/fragment_search" />
     <fragment
-        android:id="@+id/tfSearch"
-        android:name="com.uhi5d.spotibud.finder.TfSearch"
-        android:label="fragment_tf_search"
-        tools:layout="@layout/fragment_tf_search" >
-        <action
-            android:id="@+id/action_tfSearch_to_trackFinder"
-            app:destination="@id/trackFinder" />
-    </fragment>
+        android:id="@+id/topFragment"
+        android:name="com.uhi5d.spotibud.top.TopFragment"
+        android:label="fragment_top"
+        tools:layout="@layout/fragment_top" />
     <fragment
-        android:id="@+id/shareFragment"
-        android:name="com.uhi5d.spotibud.share.ShareFragment"
-        android:label="fragment_share"
-        tools:layout="@layout/fragment_share" >
-        <action
-            android:id="@+id/action_shareFragment_to_homeFragment"
-            app:destination="@id/homeFragment" />
-        <action
-            android:id="@+id/action_shareFragment_to_topFragment"
-            app:destination="@id/topFragment" />
-        <action
-            android:id="@+id/action_shareFragment_to_searchFragment"
-            app:destination="@id/searchFragment" />
-        <action
-            android:id="@+id/action_shareFragment_to_trackFinder"
-            app:destination="@id/trackFinder" />
-    </fragment>
-
+        android:id="@+id/trackFinderFragment"
+        android:name="TrackFinderFragment"
+        android:label="TrackFinderFragment" />
+    <fragment
+        android:id="@+id/detailedTrackFragment"
+        android:name="com.uhi5d.spotibud.detailed.DetailedTrackFragment"
+        android:label="fragment_detailed_track"
+        tools:layout="@layout/fragment_detailed_track" />
 </navigation>

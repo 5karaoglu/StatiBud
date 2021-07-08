@@ -8,16 +8,17 @@ import android.view.View
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.NavController
-import androidx.navigation.findNavController
+import androidx.navigation.fragment.NavHostFragment
 import com.google.android.gms.ads.AdRequest
 import com.google.android.gms.ads.AdView
 import com.google.android.gms.ads.MobileAds
 import com.google.firebase.analytics.FirebaseAnalytics
 import com.uhi5d.spotibud.R
 import com.uhi5d.spotibud.util.ConnectionLiveData
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.activity_main.*
 
-
+@AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
     private val TAG = "MainActivity"
 
@@ -33,7 +34,7 @@ class MainActivity : AppCompatActivity() {
         val dialog = dialog()
         connectionLiveData = ConnectionLiveData(this)
         connectionLiveData.observe(this,
-            { isNetworkAvailable -> connectionBehaviour(isNetworkAvailable,dialog) })
+            { isNetworkAvailable -> connectionBehaviour(isNetworkAvailable, dialog) })
         // Obtain the FirebaseAnalytics instance.
         mFirebaseAnalytics = FirebaseAnalytics.getInstance(this)
 
@@ -42,7 +43,9 @@ class MainActivity : AppCompatActivity() {
 
 
         //navigation and bottom navigation
-        navController = findNavController(R.id.fragment)
+        val navHostFragment =
+            supportFragmentManager.findFragmentById(R.id.fragment) as NavHostFragment
+        navController = navHostFragment.navController
         bottomNavSetup()
 
 
@@ -66,7 +69,7 @@ class MainActivity : AppCompatActivity() {
                 0 -> navController!!.navigate(R.id.homeFragment)
                 1 -> navController!!.navigate(R.id.topFragment)
                 2 -> navController!!.navigate(R.id.searchFragment)
-                3 -> navController!!.navigate(R.id.trackFinder)
+                3 -> navController!!.navigate(R.id.trackFinderFragment)
             }
         }
 

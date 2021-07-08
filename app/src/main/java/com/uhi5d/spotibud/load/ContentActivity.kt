@@ -2,17 +2,17 @@ package com.uhi5d.spotibud.load
 
 import android.content.Context
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
-import com.uhi5d.spotibud.R
-import com.uhi5d.spotibud.main.MainActivity
-import com.uhi5d.spotibud.main.MainViewModel
-import com.uhi5d.spotibud.main.CustomViewModelFactory
 import com.spotify.sdk.android.auth.AuthorizationClient
 import com.spotify.sdk.android.auth.AuthorizationResponse
+import com.uhi5d.spotibud.R
+import com.uhi5d.spotibud.main.CustomViewModelFactory
+import com.uhi5d.spotibud.main.MainActivity
+import com.uhi5d.spotibud.main.MainViewModel
 import kotlinx.android.synthetic.main.activity_content.*
 
 class ContentActivity : AppCompatActivity() {
@@ -20,6 +20,7 @@ class ContentActivity : AppCompatActivity() {
 
 
     private val REQUEST_CODE = 1337
+
 
     private var factory: CustomViewModelFactory? = null
     private var viewmodel: MainViewModel? = null
@@ -52,19 +53,34 @@ class ContentActivity : AppCompatActivity() {
                     button.text = getString(R.string.button_response)
                     Log.d(TAG, "onActivityResult: ${response.accessToken}")
                     val intent = Intent(this, MainActivity::class.java)
-                    val sharedPreferences = this.getSharedPreferences("spotifystatsapp",Context.MODE_PRIVATE)
+                    val sharedPreferences =
+                        this.getSharedPreferences("spotifystatsapp", Context.MODE_PRIVATE)
                     val editor = sharedPreferences.edit()
-                    editor.putString("token",response.accessToken)
+                    editor.putString("token", response.accessToken)
                     editor.apply()
                     startActivity(intent)
                     finish()
                 }
-                else -> {Toast.makeText(
+                AuthorizationResponse.Type.ERROR -> Toast.makeText(
                     this,
-                    response.error,
+                    "Error: ${response.error}",
                     Toast.LENGTH_SHORT
                 )
                     .show()
+                else -> {
+                    Toast.makeText(
+                        this,
+                        "${response.error} Code: ${response.code}",
+                        Toast.LENGTH_SHORT
+                    )
+                        .show()
+                    Log.e(TAG, "onActivityResult: ${response.type}")
+                    Log.e(TAG, "onActivityResult: ${response.code}")
+                    Log.e(TAG, "onActivityResult: ${response.error}")
+                    Log.e(TAG, "onActivityResult: ${response.accessToken}")
+                    Log.e(TAG, "onActivityResult: ${response.state}")
+                    Log.e(TAG, "onActivityResult: ${response.expiresIn}")
+
                     button.text = getString(R.string.button_start)
                     button.isClickable = true
                 }

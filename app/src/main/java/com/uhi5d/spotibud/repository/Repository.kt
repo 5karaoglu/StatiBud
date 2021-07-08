@@ -4,136 +4,126 @@ import android.app.Activity
 import android.content.Context
 import android.util.Log
 import android.widget.Toast
-import androidx.lifecycle.MutableLiveData
-import androidx.room.Room
-import com.uhi5d.spotibud.model.*
-import com.uhi5d.spotibud.util.*
 import com.spotify.sdk.android.auth.AuthorizationClient
 import com.spotify.sdk.android.auth.AuthorizationRequest
 import com.spotify.sdk.android.auth.AuthorizationResponse
 import com.uhi5d.spotibud.TrackItems
 import com.uhi5d.spotibud.Tracks
+import com.uhi5d.spotibud.model.*
+import com.uhi5d.spotibud.util.*
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.flow
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import javax.inject.Inject
 
-class Repository(context: Context) {
+class Repository
+@Inject constructor(val searchHistoryDao: SearchHistoryDao, val apiService: ApiService) {
 
     private val TAG = "Repository"
 
-    var respArtistsShortTerm = MutableLiveData<Artists>()
-    var respArtistsMidTerm = MutableLiveData<Artists>()
-    var respArtistsLongTerm = MutableLiveData<Artists>()
-
-    var respTracksShortTerm = MutableLiveData<Tracks>()
-    var respTracksMidTerm = MutableLiveData<Tracks>()
-    var respTracksLongTerm = MutableLiveData<Tracks>()
-
-    var respRecommendations = MutableLiveData<Recommendations>()
-
-    var respUser = MutableLiveData<User>()
-    var respRecentTracks = MutableLiveData<RecentTracks>()
-
-    var respArtist = MutableLiveData<Item>()
-    var respMultipleArtists = MutableLiveData<ArtistList>()
-    var respArtistTopTracks = MutableLiveData<ArtistTopTracks>()
-    var respArtistAlbums = MutableLiveData<ArtistAlbums>()
-    var respRelatedArtists = MutableLiveData<RelatedArtists>()
-
-    var respTrack = MutableLiveData<TrackItems>()
-    var respTrackAudioFeatures = MutableLiveData<TrackAudioFeatures>()
-
-    var respAlbum = MutableLiveData<Album>()
-    var respAlbumTracks = MutableLiveData<AlbumTracks>()
-
-    var respQueryResult = MutableLiveData<QueryResults>()
-
-    var respSearchHistory = MutableLiveData<List<SearchHistory>>()
-    var respTrackFinderTracks = MutableLiveData<List<TrackFinderTracks>>()
-
-    var respAvailableDevices = MutableLiveData<Devices>()
-
-    var respGenres = MutableLiveData<Genres>()
-
-    var scopes : Scopes? = null
+    var scopes: Scopes? = null
     private val CLIENT_ID = "d3810deed3744f56b5cc8a5a905c803f"
-    private val REDIRECT_URI = "http://com.uhi5d.spotibud/callback"
+    private val REDIRECT_URI = "com.uhi5d.spotibud://callback"
     private val REQUEST_CODE = 1337
 
-    private var service: Api = RetrofitInstance().getRefrofitInstance()!!.create(Api::class.java)
-    private val db = Room.databaseBuilder(context.applicationContext, AppDatabase::class.java, "searchHistory").build()
-    private val tfDb = Room.databaseBuilder(context.applicationContext, TrackFinderDatabase::class.java,"trackfindertracks").build()
+    /////////////////////DB CALLS////////////////////
+    fun getAllSH() = searchHistoryDao.getAllSH()
 
-
-    //room methods
-    //Search History Database
-    fun getAll(){
-        respSearchHistory.postValue(db.dao().getAll())
-    }
-    fun insert(searchHistory: SearchHistory){
-        db.dao().insert(searchHistory)
-    }
-    fun delete(searchHistory: SearchHistory){
-        db.dao().delete(searchHistory)
-    }
-    //TrackFinder Database
-    fun trackFinderGetAll(){
-        respTrackFinderTracks.postValue(tfDb.trackFinderDao().getAll())
-    }
-    fun trackFinderInsert(tracks: TrackFinderTracks){
-        tfDb.trackFinderDao().insert(tracks)
-    }
-    fun trackFinderDeleteAll(){
-        tfDb.trackFinderDao().deleteAll()
+    suspend fun insertSH(searchHistory: SearchHistory): Flow<DataState<Long>> = flow {
+        emit(DataState.Loading)
+        try {
+            val sH = searchHistoryDao.insertSH(searchHistory)
+            emit(DataState.Success(sH))
+        } catch (e: Exception) {
+            emit(DataState.Error(e))
+        }
     }
 
-    fun getToken(activity: Activity){
+    suspend fun deleteSH(searchHistory: SearchHistory): Flow<DataState<Int>> = flow {
+        emit(DataState.Loading)
+        try {
+            val sH = searchHistoryDao.deleteSH(searchHistory)
+            if (sH != 0) {
+                emit(DataState.Success(sH))
+            } else {
+                emit(DataState.Error(Throwable()))
+            }
+        } catch (e: Exception) {
+            emit(DataState.Error(e))
+        }
+    }
+
+    fun getAllTFT() = searchHistoryDao.getAllTFT()
+
+    suspend fun insertTFT(tracks: TrackFinderTracks): Flow<DataState<Long>> = flow {
+        emit(DataState.Loading)
+        try {
+            val sH = searchHistoryDao.insertTFT(tracks)
+            emit(DataState.Success(sH))
+        } catch (e: Exception) {
+            emit(DataState.Error(e))
+        }
+    }
+
+    suspend fun deleteAllTFT() = searchHistoryDao.deleteAllTFT()
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////
+    suspend fun getToken(activity: Activity) {
         scopes = Scopes()
-        val request = AuthorizationRequest.Builder(CLIENT_ID, AuthorizationResponse.Type.TOKEN, REDIRECT_URI)
-            .setScopes(arrayOf(scopes!!.USER_READ_PRIVATE, scopes!!.PLAYLIST_READ, scopes!!.PLAYLIST_READ_PRIVATE, scopes!!.USER_READ_PRIVATE,
-                scopes!!.USER_TOP_READ,scopes!!.USER_READ_RECENTLY_PLAYED,scopes!!.USER_READ_EMAIL,scopes!!.USER_READ_PLAYBACK_STATE))
-            .build()
+        val request =
+            AuthorizationRequest.Builder(CLIENT_ID, AuthorizationResponse.Type.TOKEN, REDIRECT_URI)
+                .setScopes(
+                    arrayOf(
+                        scopes!!.USER_READ_PRIVATE,
+                        scopes!!.PLAYLIST_READ,
+                        scopes!!.PLAYLIST_READ_PRIVATE,
+                        scopes!!.USER_READ_PRIVATE,
+                        scopes!!.USER_TOP_READ,
+                        scopes!!.USER_READ_RECENTLY_PLAYED,
+                        scopes!!.USER_READ_EMAIL,
+                        scopes!!.USER_READ_PLAYBACK_STATE
+                    )
+                )
+                .build()
 
-        AuthorizationClient.openLoginActivity(activity,REQUEST_CODE,request)
+        AuthorizationClient.openLoginActivity(activity, REQUEST_CODE, request)
     }
 
-    fun getMyFavArtists(context: Context,token:String,timeRange:String) {
-        val call: Call<Artists> = service.getMyArtists("Bearer $token",timeRange)
+
+    suspend fun getMyFavArtists(token: String, timeRange: String): Flow<DataState<Artists>> = flow {
+        emit(DataState.Loading)
+        try {
+            val res = apiService.getMyArtists(token, timeRange)
+            emit(DataState.Success(res))
+        } catch (e: Exception) {
+            emit(DataState.Error(e))
+        }
+    }
+
+    fun getMyFavArtistsLimited(context: Context, token: String, timeRange: String, limit: Int) {
+        val call: Call<Artists> = service.getMyArtistsLimited("Bearer $token", timeRange, limit)
 
         call.enqueue(object : Callback<Artists> {
             override fun onResponse(call: Call<Artists>, response: Response<Artists>) {
                 if (response.isSuccessful) {
-                    when (timeRange) {
-                        "short_term" -> respArtistsShortTerm.value = response.body()!!
-                        "medium_term" -> respArtistsMidTerm.value = response.body()!!
-                        "long_term" -> respArtistsLongTerm.value = response.body()!!
-                    }
-                } else {
-                    Toast.makeText(context, "Top Artists Error. Code: ${response.code()}", Toast.LENGTH_SHORT).show()
-                }
-            }
-
-            override fun onFailure(call: Call<Artists>, t: Throwable) {
-                Toast.makeText(context, "Top Artists Error: ${t.message}", Toast.LENGTH_SHORT).show()
-            }
-
-        })
-    }
-
-    fun getMyFavArtistsLimited(context: Context,token:String, timeRange:String, limit: Int) {
-        val call:Call<Artists> = service.getMyArtistsLimited("Bearer $token",timeRange,limit)
-
-        call.enqueue(object : Callback<Artists> {
-            override fun onResponse(call: Call<Artists>, response: Response<Artists>) {
-                if (response.isSuccessful) {
+                    Log.d(TAG, "onResponse: ${response.code()}")
+                    Log.d(TAG, "onResponse: ${response.message()}")
                     Log.d(TAG, "onResponse: ${response.body()}")
                     respArtistsShortTerm.value = response.body()!!
                 } else {
-                    Toast.makeText(context, "Top Artists Error. Code: ${response.code()}", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(
+                        context,
+                        "Top Artists Error. Code: ${response.code()}",
+                        Toast.LENGTH_SHORT
+                    ).show()
                 }
             }
+
             override fun onFailure(call: Call<Artists>, t: Throwable) {
-                Toast.makeText(context, "Top Artists Error: ${t.message}", Toast.LENGTH_SHORT).show()
+                Toast.makeText(context, "Top Artists Error: ${t.message}", Toast.LENGTH_SHORT)
+                    .show()
             }
 
         })

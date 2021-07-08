@@ -9,7 +9,7 @@
     <string name="button_start">LOGIN WITH SPOTIFY</string>
     <string name="button_clicked">PLEASE WAIT</string>
     <string name="button_response">LOADING…</string>
-    <string name="version" translatable="false">version 1.0</string>
+    <string name="version" translatable="false">version 1.2</string>
     <string name="bottom_dev_name" translatable="false">uhi5d | 2021</string>
 
     <!--Top Fragment-->

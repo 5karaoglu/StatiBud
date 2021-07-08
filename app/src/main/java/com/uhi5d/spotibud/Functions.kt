@@ -1,20 +1,33 @@
 package com.uhi5d.spotibud
 
+import android.app.Activity
+import android.content.Context
 import android.util.Log
+import android.view.inputmethod.InputMethodManager
 import java.net.URLEncoder
 import java.text.SimpleDateFormat
 import java.util.*
 import java.util.concurrent.TimeUnit
 
 class Functions {
+    companion object {
+        private fun hideKeyboard(activity: Activity) {
+            if (activity.currentFocus != null) {
+                val inputManager: InputMethodManager =
+                    activity.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+                inputManager.hideSoftInputFromWindow(activity.currentFocus!!.windowToken, 0)
+            }
+        }
+    }
+
     private val TAG = "Functions"
     private val SECOND = 1000
     private val MINUTE = 60 * SECOND
     private val HOUR = 60 * MINUTE
     private val DAY = 24 * HOUR
-    fun getTime(timestamp:String): String? {
+    fun getTime(timestamp: String): String? {
         var time: String? = null
-        var parsedDate = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'", Locale.getDefault() )
+        var parsedDate = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'", Locale.getDefault())
         parsedDate.timeZone = TimeZone.getTimeZone("GMT")
         var date = parsedDate.parse(timestamp)
 

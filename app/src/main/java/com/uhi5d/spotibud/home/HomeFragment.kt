@@ -10,33 +10,45 @@ import android.view.ViewGroup
 import androidx.activity.addCallback
 import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProvider
+import androidx.fragment.app.viewModels
+import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.uhi5d.spotibud.*
+import com.uhi5d.spotibud.databinding.FragmentHomeBinding
 import com.uhi5d.spotibud.main.MainViewModel
 import com.uhi5d.spotibud.model.*
-import com.uhi5d.spotibud.main.CustomViewModelFactory
+import com.uhi5d.spotibud.util.DataState
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.fragment_home.*
 
-
+@AndroidEntryPoint
 class HomeFragment : Fragment(),
     RecommendationsAdapter.OnItemClickListener,
     RecentTracksAdapter.OnItemClickListener,
-    TrackFinderAdapter.OnItemClickListener{
+    TrackFinderAdapter.OnItemClickListener {
     private var TAG = "Home Fragment"
 
-    private var viewModel: MainViewModel? = null
-    private var token:String? = null
+    private var _binding: FragmentHomeBinding? = null
+    val binding: FragmentHomeBinding
+        get() = _binding!!
+
+    private val viewModel: MainViewModel by viewModels()
+    private var token: String? = null
 
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_home, container, false)
+    ): View {
+        _binding = FragmentHomeBinding.inflate(inflater, container, false)
+        return binding.root
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -45,27 +57,21 @@ class HomeFragment : Fragment(),
         initExit()
         initHomeTfWarn()
         initVisibility()
-            //getting token
-            val sharedPreferences = requireActivity().getSharedPreferences(
-                "spotifystatsapp",
-                Context.MODE_PRIVATE
-            )
+        //getting token
+        val sharedPreferences = requireActivity().getSharedPreferences(
+            "spotifystatsapp",
+            Context.MODE_PRIVATE
+        )
             token = sharedPreferences.getString("token", "")
             Log.d(TAG, "onViewCreated:$token ")
-        // ViewModel components
-        val factory = CustomViewModelFactory(this, requireContext())
-        viewModel = ViewModelProvider(this, factory).get(MainViewModel::class.java)
+
         initRecentTracks()
         initUserInfo()
         checkTrackFinderTracks()
         getRecommendations(token!!)
     }
 
-    override fun onDestroyView() {
-        super.onDestroyView()
-        liRecommendationPb.visibility = View.VISIBLE
-        recyclerRecommendation.visibility = View.GONE
-    }
+
 
     private fun initExit(){
         val callback = requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner){
@@ -80,10 +86,10 @@ class HomeFragment : Fragment(),
         callback.isEnabled = true
     }
     private fun initUserInfo(){
-        viewModel!!.user.observe(requireActivity(),
-             { t -> profileInit(t!!) })
-        Thread{
-            viewModel!!.getUser(requireContext(),token!!)
+        viewModel.user.observe(requireActivity(),
+            { t -> profileInit(t!!) })
+        Thread {
+            viewModel.getUser(requireContext(), token!!)
         }.start()
 
     }
@@ -112,13 +118,13 @@ class HomeFragment : Fragment(),
 
 
     private fun initRecentTracks(){
-        viewModel!!.recentTracks.observe(requireActivity(),
-             { t ->
+        viewModel.recentTracks.observe(requireActivity(),
+            { t ->
                 generateDataRecentTracks(t!!, 5)
                 recyclerButtonClick(t)
             })
-        Thread{
-            viewModel!!.getRecentTracks(requireContext(),token!!)
+        Thread {
+            viewModel.getRecentTracks(requireContext(), token!!)
         }.start()
 
     }
@@ -155,31 +161,29 @@ class HomeFragment : Fragment(),
     private fun getRecommendations(token: String){
         var aS : String? = null
         var tS : String? = null
-        viewModel!!.artistsListShortTerm.observe(viewLifecycleOwner,
-             { t ->
-               if (aS == null){
-                   aS = artistSeed(t!!)
-                   Thread{
-                       viewModel!!.getMyTracksLimited(requireContext(),token, "short_term", 2)
-                   }.start()
-               }
-            })
-        viewModel!!.tracksListShortTerm.observe(viewLifecycleOwner,
-             { t ->
-                if (tS == null){
-                    tS = trackSeed(t!!)
-                    Thread{
-                        viewModel!!.getRecommendations(requireContext(),token, aS!!, tS!!)
+        viewModel.artistsListShortTerm.observe(viewLifecycleOwner,
+            { t ->
+                if (aS == null) {
+                    aS = artistSeed(t!!)
+                    Thread {
+                        viewModel.getMyTracksLimited(requireContext(), token, "short_term", 2)
                     }.start()
                 }
             })
-        viewModel!!.recommendations.observe(viewLifecycleOwner,
-             { t ->
+        viewModel.tracksListShortTerm.observe(viewLifecycleOwner,
+            { t ->
+                if (tS == null) {
+                    tS = trackSeed(t!!)
+                    Thread {
+                        viewModel.getRecommendations(requireContext(), token, aS!!, tS!!)
+                    }.start()
+                }
+            })
+        viewModel.recommendations.observe(viewLifecycleOwner,
+            { t ->
                 generateRecommendations(t!!)
             })
-        Thread{
-            viewModel!!.getMyArtistsLimited(requireContext(),token, "short_term", 2)
-        }.start()
+        viewModel.getMyArtistsLimited(requireContext(), token, "short_term", 2)
         }
     private fun generateRecommendations(recommendations: Recommendations){
         liRecommendationPb.visibility = View.GONE
@@ -237,14 +241,15 @@ class HomeFragment : Fragment(),
             findNavController().navigate(R.id.action_homeFragment_to_detailedTrackFragment, bundle)
     }
     private fun checkTrackFinderTracks(){
-        viewModel!!.trackFinderTracks.observe(viewLifecycleOwner,
+        viewModel.trackFinderTracks.observe(
+            viewLifecycleOwner,
             { trackFinderTracks ->
                 if (!trackFinderTracks.isNullOrEmpty()) {
                     Log.d(TAG, "checkTrackFinderTracks: ${trackFinderTracks[0].trackName}")
                     buttonClearList.visibility = View.VISIBLE
                     reLayoutHomeTf.visibility = View.VISIBLE
                     liHomeTfWarn.visibility = View.GONE
-                    recyclerHomeTf.visibility=View.VISIBLE
+                    recyclerHomeTf.visibility = View.VISIBLE
 
                     val adapter = TrackFinderAdapter(requireContext(), trackFinderTracks, this)
                     val layoutManager = LinearLayoutManager(
@@ -259,7 +264,7 @@ class HomeFragment : Fragment(),
                 }
             })
         Thread{
-            viewModel!!.trackFinderGetAll()
+            viewModel.trackFinderGetAll()
         }.start()
     }
     private fun initHomeTfWarn(){
@@ -268,7 +273,7 @@ class HomeFragment : Fragment(),
         }
         buttonClearList.setOnClickListener {
             Thread{
-                viewModel!!.trackFinderDeleteAll()
+                viewModel.trackFinderDeleteAll()
             }.start()
             recyclerHomeTf.visibility=View.GONE
             liHomeTfWarn.visibility=View.VISIBLE
@@ -276,6 +281,7 @@ class HomeFragment : Fragment(),
             Log.d(TAG, "initHomeTfWarn: Deleting Done!")
         }
     }
+
     //TrackFinderItem OnClick
     override fun onItemClicked(tracks: TrackFinderTracks) {
         val bundle = Bundle()
@@ -284,6 +290,23 @@ class HomeFragment : Fragment(),
         bundle.putString("name", tracks.trackName)
         bundle.putString("image", tracks.albumImage)
         findNavController().navigate(R.id.action_homeFragment_to_detailedTrackFragment, bundle)
+    }
+
+    private val dataStateObserver = Observer<DataState<List<TrackFinderTracks>>> { dataState ->
+        when (dataState) {
+            is DataState.Success -> {
+            }
+            is DataState.Error -> {
+
+            }
+            DataState.Loading -> {
+            }
+        }
+    }
+    private val tfListener = object : TrackFinderAdapter.OnItemClickListener {
+        override fun onItemClicked(tracks: TrackFinderTracks) {
+
+        }
     }
 
 

@@ -2,16 +2,19 @@ package com.uhi5d.spotibud.main
 
 import android.app.Activity
 import android.content.Context
-import androidx.lifecycle.LifecycleOwner
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
-import com.uhi5d.spotibud.repository.Repository
+import androidx.lifecycle.*
 import com.uhi5d.spotibud.TrackItems
 import com.uhi5d.spotibud.Tracks
 import com.uhi5d.spotibud.model.*
+import com.uhi5d.spotibud.repository.Repository
+import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class MainViewModel(lifecycleOwner: LifecycleOwner,context: Context) : ViewModel() {
-    var repository : Repository = Repository(context)
+@HiltViewModel
+class MainViewModel
+@Inject constructor(val repository: Repository) : ViewModel() {
 
     var artistsListShortTerm = MutableLiveData<Artists>()
     var artistsListMidTerm = MutableLiveData<Artists>()
@@ -40,105 +43,59 @@ class MainViewModel(lifecycleOwner: LifecycleOwner,context: Context) : ViewModel
 
     var queryResults = MutableLiveData<QueryResults>()
 
-    var searchHistory = MutableLiveData<List<SearchHistory>>()
-    var trackFinderTracks = MutableLiveData<List<TrackFinderTracks>>()
+    private var _searchHistory = MutableLiveData<List<SearchHistory>>()
+    val searchHistory: LiveData<List<SearchHistory>>
+        get() = _searchHistory
+
+    private var _trackFinderTracks = MutableLiveData<List<TrackFinderTracks>>()
+    val trackFinderTracks: LiveData<List<TrackFinderTracks>>
+        get() = _trackFinderTracks
 
     var availableDevices = MutableLiveData<Devices>()
 
     var genres = MutableLiveData<Genres>()
 
-    init {
-        repository.respArtistsShortTerm.observe(lifecycleOwner,
-            { t -> artistsListShortTerm.value = t })
-        repository.respArtistsMidTerm.observe(lifecycleOwner,
-            { t -> artistsListMidTerm.value = t })
-        repository.respArtistsLongTerm.observe(lifecycleOwner,
-            { t -> artistsListLongTerm.value = t })
 
-        repository.respTracksShortTerm.observe(lifecycleOwner,
-            { t -> tracksListShortTerm.value = t })
-        repository.respTracksMidTerm.observe(lifecycleOwner,
-            { t -> tracksListMidTerm.value = t })
-        repository.respTracksLongTerm.observe(lifecycleOwner,
-            { t -> tracksListLongTerm.value = t })
-
-        repository.respRecommendations.observe(lifecycleOwner,
-            { t -> recommendations.value = t })
-
-        repository.respUser.observe(lifecycleOwner,
-            { t -> user.value = t })
-
-        repository.respRecentTracks.observe(lifecycleOwner,
-            { t -> recentTracks.value = t })
-
-        repository.respArtist.observe(lifecycleOwner,
-            { t -> artist.value = t })
-
-        repository.respMultipleArtists.observe(lifecycleOwner,
-            { t -> multipleArtists.value = t })
-
-        repository.respArtistTopTracks.observe(lifecycleOwner,
-            { t -> artistTopTracks.value = t })
-
-        repository.respArtistAlbums.observe(lifecycleOwner,
-            { t -> artistAlbums.value = t })
-
-        repository.respRelatedArtists.observe(lifecycleOwner,
-            { t -> relatedArtists.value = t })
-
-        repository.respTrack.observe(lifecycleOwner,
-            { t -> track.value = t })
-
-        repository.respTrackAudioFeatures.observe(lifecycleOwner,
-            { t -> trackAudioFeatures.value = t })
-
-        repository.respAlbumTracks.observe(lifecycleOwner,
-            { t -> albumTracks.value = t })
-
-        repository.respAlbum.observe(lifecycleOwner,
-            { t -> album.value = t })
-
-        repository.respQueryResult.observe(lifecycleOwner,
-            { t -> queryResults.value = t })
-
-        repository.respSearchHistory.observe(lifecycleOwner,
-            { t -> searchHistory.value = t })
-
-        repository.respTrackFinderTracks.observe(lifecycleOwner,
-            { t -> trackFinderTracks.value = t })
-
-        repository.respAvailableDevices.observe(lifecycleOwner,
-            { t -> availableDevices.value = t })
-
-        repository.respGenres.observe(lifecycleOwner,
-            { t -> genres.value = t })
-
-    }
     //room methods
-    fun getAll(){
-        repository.getAll()
+    fun getAllSH() = viewModelScope.launch {
+        repository.getAllSH().collect {
+            _searchHistory.postValue(it)
+        }
     }
-    fun insert(searchHistory: SearchHistory){
-        repository.insert(searchHistory)
+
+    fun insertSH(searchHistory: SearchHistory) = viewModelScope.launch {
+        repository.insertSH(searchHistory).collect {
+
+        }
     }
-    fun delete(searchHistory: SearchHistory){
-        repository.delete(searchHistory)
+
+    fun deleteSH(searchHistory: SearchHistory) = viewModelScope.launch {
+        repository.deleteSH(searchHistory)
     }
-    fun trackFinderGetAll(){
-        repository.trackFinderGetAll()
+
+    fun getAllTFT() = viewModelScope.launch {
+        repository.getAllTFT().collect {
+            _trackFinderTracks.postValue(it)
+        }
     }
-    fun trackFinderInsert(tracks: TrackFinderTracks){
-        repository.trackFinderInsert(tracks)
+
+    fun insertTFT(tracks: TrackFinderTracks) = viewModelScope.launch {
+        repository.insertTFT(tracks)
     }
-    fun trackFinderDeleteAll(){
-        repository.trackFinderDeleteAll()
+
+    fun deleteAllTFT() = viewModelScope.launch {
+        repository.deleteAllTFT()
     }
+
     //retrofit methods
-    fun getMyArtists(context: Context,token: String,timeRange:String){
-        repository.getMyFavArtists(context, token,timeRange)
+    fun getMyArtists(context: Context, token: String, timeRange: String) = viewModelScope.launch {
+        repository.getMyFavArtists(token, timeRange).collect {
+
+        }
     }
-    fun getMyArtistsLimited(context: Context,token: String, timeRange:String, limit: Int){
-        repository.getMyFavArtistsLimited(context, token,timeRange,limit)
+
+    fun getMyArtistsLimited(context: Context, token: String, timeRange: String, limit: Int) {
+        repository.getMyFavArtistsLimited(context, token, timeRange, limit)
     }
     fun getMyTracks(context: Context,token: String,timeRange:String){
         repository.getMyFavTracks(context, token,timeRange)
