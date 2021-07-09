@@ -1,4 +1,4 @@
-package com.uhi5d.spotibud.repository
+package com.uhi5d.spotibud.data.local
 
 import androidx.room.Dao
 import androidx.room.Delete

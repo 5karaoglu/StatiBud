@@ -9,6 +9,8 @@ import com.spotify.sdk.android.auth.AuthorizationRequest
 import com.spotify.sdk.android.auth.AuthorizationResponse
 import com.uhi5d.spotibud.TrackItems
 import com.uhi5d.spotibud.Tracks
+import com.uhi5d.spotibud.data.local.SearchHistoryDao
+import com.uhi5d.spotibud.data.remote.ApiService
 import com.uhi5d.spotibud.model.*
 import com.uhi5d.spotibud.util.*
 import kotlinx.coroutines.flow.Flow
@@ -365,19 +367,30 @@ class Repository
 
         })
     }
-    fun getAlbum(context: Context,token: String,id:String){
-        val call: Call<Album> = service.getAlbum("Bearer $token",id)
+    fun getAlbum(context: Context,token: String,id:String) {
+        val call: Call<_root_ide_package_.com.uhi5d.spotibud.domain.model.Album> =
+            service.getAlbum("Bearer $token", id)
 
-        call.enqueue(object : Callback<Album> {
-            override fun onResponse(call: Call<Album>, response: Response<Album>) {
-                if (response.isSuccessful){
+        call.enqueue(object : Callback<_root_ide_package_.com.uhi5d.spotibud.domain.model.Album> {
+            override fun onResponse(
+                call: Call<_root_ide_package_.com.uhi5d.spotibud.domain.model.Album>,
+                response: Response<_root_ide_package_.com.uhi5d.spotibud.domain.model.Album>
+            ) {
+                if (response.isSuccessful) {
                     respAlbum.value = response.body()!!
-                }else{
-                    Toast.makeText(context, "Album Error. Code: ${response.code()}", Toast.LENGTH_SHORT).show()
+                } else {
+                    Toast.makeText(
+                        context,
+                        "Album Error. Code: ${response.code()}",
+                        Toast.LENGTH_SHORT
+                    ).show()
                 }
             }
 
-            override fun onFailure(call: Call<Album>, t: Throwable) {
+            override fun onFailure(
+                call: Call<_root_ide_package_.com.uhi5d.spotibud.domain.model.Album>,
+                t: Throwable
+            ) {
                 Toast.makeText(context, "Album Error: ${t.message}", Toast.LENGTH_SHORT).show()
             }
 

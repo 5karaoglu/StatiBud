@@ -6,24 +6,22 @@ import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
 import android.util.Log
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.activity.addCallback
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.uhi5d.spotibud.main.MainViewModel
-import com.uhi5d.spotibud.R
-import com.uhi5d.spotibud.model.*
-import com.uhi5d.spotibud.main.CustomViewModelFactory
 import com.google.android.material.appbar.AppBarLayout
 import com.squareup.picasso.Picasso
+import com.uhi5d.spotibud.R
+import com.uhi5d.spotibud.main.CustomViewModelFactory
+import com.uhi5d.spotibud.main.MainViewModel
+import com.uhi5d.spotibud.model.*
 import kotlinx.android.synthetic.main.fragment_detailed_album.*
-import kotlinx.android.synthetic.main.fragment_detailed_album.collapsingToolbarArtist
-import kotlinx.android.synthetic.main.fragment_detailed_album.imageView
 
 class DetailedAlbumFragment : Fragment(), DetailedAlbumTracksAdapter.OnItemClickListener {
     private val TAG = "DetailedAlbum Fragment"
@@ -70,30 +68,35 @@ class DetailedAlbumFragment : Fragment(), DetailedAlbumTracksAdapter.OnItemClick
         pbDetailedAlbum.visibility = View.GONE
     }
 
-    private fun generateAlbumTracks(album: Album){
-        val adapter  = DetailedAlbumTracksAdapter(requireContext(),album,this)
+    private fun generateAlbumTracks(album: _root_ide_package_.com.uhi5d.spotibud.domain.model.Album) {
+        val adapter = DetailedAlbumTracksAdapter(requireContext(), album, this)
         val layoutManager: RecyclerView.LayoutManager = LinearLayoutManager(requireContext())
         recyclerAlbumTracks.layoutManager = layoutManager
         recyclerAlbumTracks.adapter = adapter
         setCopyright(album)
     }
-    private fun setCopyright(album: Album){
+
+    private fun setCopyright(album: _root_ide_package_.com.uhi5d.spotibud.domain.model.Album) {
         tvCopyright.text = album.copyrights[0].text
         tvLabel.text = album.label
-        tvRelease.text = String.format("Released: %s",album.release_date)
+        tvRelease.text = String.format("Released: %s", album.release_date)
     }
 
-    override fun onItemClicked(track: AlbumItems) {
+    override fun onItemClicked(track: _root_ide_package_.com.uhi5d.spotibud.domain.model.AlbumItems) {
         val bundle = Bundle()
-        bundle.putString("name",track.name)
+        bundle.putString("name", track.name)
         bundle.putString("image", albumCover)
-        bundle.putString("id",track.id)
-        bundle.putString("artistId",track.artists[0].id)
-        val sharedPreferences = requireActivity().getSharedPreferences("spotifystatsapp",Context.MODE_PRIVATE)
+        bundle.putString("id", track.id)
+        bundle.putString("artistId", track.artists[0].id)
+        val sharedPreferences =
+            requireActivity().getSharedPreferences("spotifystatsapp", Context.MODE_PRIVATE)
         val editor = sharedPreferences.edit()
-        editor.putString("id",track.id)
+        editor.putString("id", track.id)
         editor.apply()
-        findNavController().navigate(R.id.action_detailedAlbumFragment_to_detailedTrackFragment,bundle)
+        findNavController().navigate(
+            R.id.action_detailedAlbumFragment_to_detailedTrackFragment,
+            bundle
+        )
     }
     private fun init(id:String, name:String, image:String){
         Picasso.get()

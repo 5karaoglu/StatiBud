@@ -11,9 +11,9 @@ import com.uhi5d.spotibud.R
 import com.uhi5d.spotibud.model.*
 
 
-class DetailedAlbumTracksAdapter (
+class DetailedAlbumTracksAdapter(
     var context: Context,
-    var dataList: Album,
+    var dataList: _root_ide_package_.com.uhi5d.spotibud.domain.model.Album,
     var itemClickListener: OnItemClickListener
 ) : RecyclerView.Adapter<DetailedAlbumTracksAdapter.AlbumTracksViewHolder>() {
 
@@ -23,11 +23,15 @@ class DetailedAlbumTracksAdapter (
         var textViewName = itemView.findViewById<TextView>(R.id.tvTrackName)
         var textViewArtist = itemView.findViewById<TextView>(R.id.tvArtistName)
 
-        fun bind(track: AlbumItems, position: Int, clickListener:OnItemClickListener) {
+        fun bind(
+            track: _root_ide_package_.com.uhi5d.spotibud.domain.model.AlbumItems,
+            position: Int,
+            clickListener: OnItemClickListener
+        ) {
 
             textViewName.text = track.name
             textViewArtist.text = track.artists[0].name
-            if (track.explicit){
+            if (track.explicit) {
                 imageView.visibility = View.VISIBLE
             }
 
@@ -57,7 +61,7 @@ class DetailedAlbumTracksAdapter (
     }
 
     interface OnItemClickListener {
-        fun onItemClicked(track: AlbumItems)
+        fun onItemClicked(track: _root_ide_package_.com.uhi5d.spotibud.domain.model.AlbumItems)
 
     }
 

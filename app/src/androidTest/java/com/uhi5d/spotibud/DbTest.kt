@@ -4,9 +4,9 @@ import android.content.Context
 import androidx.room.Room
 import androidx.test.core.app.ApplicationProvider
 import androidx.test.ext.junit.runners.AndroidJUnit4
+import com.uhi5d.spotibud.data.local.AppDatabase
+import com.uhi5d.spotibud.data.local.SearchHistoryDao
 import com.uhi5d.spotibud.model.SearchHistory
-import com.uhi5d.spotibud.repository.AppDatabase
-import com.uhi5d.spotibud.repository.SearchHistoryDao
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.runBlocking
 import org.hamcrest.MatcherAssert.assertThat
@@ -27,7 +27,7 @@ class DbTest {
     fun createDb() {
         val context = ApplicationProvider.getApplicationContext<Context>()
         appDatabase = Room.inMemoryDatabaseBuilder(context, AppDatabase::class.java).build()
-        searchHistoryDao = appDatabase.dao()
+        searchHistoryDao = appDatabase.shDao()
     }
 
     @After

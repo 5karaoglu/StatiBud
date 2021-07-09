@@ -38,7 +38,7 @@ class MainViewModel
     var track = MutableLiveData<TrackItems>()
     var trackAudioFeatures = MutableLiveData<TrackAudioFeatures>()
 
-    var album = MutableLiveData<Album>()
+    var album = MutableLiveData<_root_ide_package_.com.uhi5d.spotibud.domain.model.Album>()
     var albumTracks = MutableLiveData<AlbumTracks>()
 
     var queryResults = MutableLiveData<QueryResults>()
