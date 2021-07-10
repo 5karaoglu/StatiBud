@@ -1,4 +1,4 @@
-package com.uhi5d.spotibud.home
+package com.uhi5d.spotibud.ui.home
 
 import android.content.Context
 import android.view.LayoutInflater
@@ -7,15 +7,16 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.squareup.picasso.Picasso
 import com.uhi5d.spotibud.R
 import com.uhi5d.spotibud.model.RecommendationTrack
 import com.uhi5d.spotibud.model.Recommendations
-import com.squareup.picasso.Picasso
 
 class RecommendationsAdapter(
     var context: Context,
     var dataList: Recommendations,
-    var clickListener : OnItemClickListener) : RecyclerView.Adapter<RecommendationsAdapter.RecommendationsViewHolder>() {
+    var clickListener : OnItemClickListener
+) : RecyclerView.Adapter<RecommendationsAdapter.RecommendationsViewHolder>() {
 
 
     class RecommendationsViewHolder(itemView: View): RecyclerView.ViewHolder(itemView) {

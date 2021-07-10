@@ -1,4 +1,4 @@
-package com.uhi5d.spotibud.home
+package com.uhi5d.spotibud.ui.home
 
 import android.content.Context
 import android.view.LayoutInflater
@@ -7,14 +7,15 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.squareup.picasso.Picasso
 import com.uhi5d.spotibud.R
 import com.uhi5d.spotibud.model.TrackFinderTracks
-import com.squareup.picasso.Picasso
 
 class TrackFinderAdapter(
     var context: Context,
     var dataList: List<TrackFinderTracks>,
-    var clickListener : OnItemClickListener) : RecyclerView.Adapter<TrackFinderAdapter.TfViewHolder>() {
+    var clickListener : OnItemClickListener
+) : RecyclerView.Adapter<TrackFinderAdapter.TfViewHolder>() {
 
 
     class TfViewHolder(itemView: View): RecyclerView.ViewHolder(itemView) {

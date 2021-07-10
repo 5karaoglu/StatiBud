@@ -24,41 +24,31 @@ import retrofit2.http.Query
 
 interface WebService {
 
-    @GET("me/top/artists?limit=50")
-    suspend fun getMyArtists(
-        @Header("Authorization") token: String,
-        @Query("time_range") timeRange: String
-    ): MyArtists
 
     @GET("me/top/artists")
-    suspend fun getMyArtistsLimited(
+    suspend fun getMyArtists(
         @Header("Authorization") token: String,
         @Query("time_range") timeRange: String,
-        @Query("limit") limit: Int
+        @Query("limit") limit: Int? = 50
     ): MyArtists
 
-    @GET("me/top/tracks?limit=50")
+    @GET("me/top/tracks")
     suspend fun getMyTracks(
         @Header("Authorization") token: String,
-        @Query("time_range") timeRange: String
-    ): MyTracks
-
-    @GET("me/top/tracks")
-    suspend fun getMyTracksLimited(
-        @Header("Authorization") token: String,
         @Query("time_range") timeRange: String,
-        @Query("limit") limit: Int
+        @Query("limit") limit: Int? = 50
     ): MyTracks
 
-    @GET("recommendations?market=US")
+    @GET("recommendations")
     suspend fun getRecommendations(
         @Header("Authorization") token: String,
         @Query("seed_artists") seedArtists: String,
-        @Query("seed_tracks") seedTracks: String
+        @Query("seed_tracks") seedTracks: String,
+        @Query("market") market:String? = "US"
     ): Recommendations
 
-    @GET("recommendations?market=US")
-    suspend fun getRecommendedTrack(
+    @GET("recommendations")
+    suspend fun getRecommendations(
         @Header("Authorization") token: String,
         @Query("seed_tracks") seedTracks: String,
         @Query("seed_genres") seedGenre: String,
@@ -67,14 +57,20 @@ interface WebService {
         @Query("target_energy") targetEnergy: String,
         @Query("target_instrumentalness") targetInstrumentalness: String,
         @Query("target_liveness") targetLiveness: String,
-        @Query("target_valence") targetValence: String
+        @Query("target_valence") targetValence: String,
+        @Query("market") market:String? = "US"
     ): Recommendations
 
     @GET("me")
-    suspend fun getMyProfile(@Header("Authorization") token: String): CurrentUser
+    suspend fun getMyProfile(
+        @Header("Authorization") token: String
+    ): CurrentUser
 
-    @GET("me/player/recently-played?limit=20")
-    suspend fun getUserRecentPlayed(@Header("Authorization") token: String): RecentTracks
+    @GET("me/player/recently-played")
+    suspend fun getMyRecentPlayed(
+        @Header("Authorization") token: String,
+        @Query("limit") limit: Int? = 20
+    ): RecentTracks
 
     @GET("artists/{id}")
     suspend fun getArtist(
@@ -88,10 +84,11 @@ interface WebService {
         @Query("ids") ids: String
     ): Artists
 
-    @GET("artists/{id}/albums?include_groups=album&market=us")
+    @GET("artists/{id}/albums")
     suspend fun getArtistAlbums(
         @Header("Authorization") token: String,
-        @Path("id") artistId: String
+        @Path("id") artistId: String,
+        @Query("market") market:String? = "US"
     ): ArtistAlbums
 
     @GET("artists/{id}/related-artists")
@@ -100,10 +97,11 @@ interface WebService {
         @Path("id") artistId: String
     ): RelatedArtists
 
-    @GET("artists/{id}/top-tracks?market=us")
+    @GET("artists/{id}/top-tracks")
     suspend fun getArtistTopTracks(
         @Header("Authorization") token: String,
-        @Path("id") artistId: String
+        @Path("id") artistId: String,
+        @Query("market") market:String? = "US"
     ): ArtistTopTracks
 
     @GET("audio-features/{id}")
@@ -129,7 +127,7 @@ interface WebService {
         @Header("Authorization") token: String,
         @Query("q") query: String,
         @Query("type") type: String? = "artist%2album%2track",
-        @Query("limit") limit: String? = "3"
+        @Query("limit") limit: Int? = 3
     ): SearchResults
 
 

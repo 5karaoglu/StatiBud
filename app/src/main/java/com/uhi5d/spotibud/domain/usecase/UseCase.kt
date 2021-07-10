@@ -1,4 +1,4 @@
-package com.uhi5d.spotibud.domain.repository
+package com.uhi5d.spotibud.domain.usecase
 
 import com.uhi5d.spotibud.domain.model.MyArtists
 import com.uhi5d.spotibud.domain.model.MyTracks
@@ -19,16 +19,20 @@ import com.uhi5d.spotibud.domain.model.trackaudiofeatures.TrackAudioFeatures
 import com.uhi5d.spotibud.util.DataState
 import kotlinx.coroutines.flow.Flow
 
-interface Repository {
+interface UseCase {
+
+
     suspend fun getMyTopArtists(
-        token:String,
+        token: String,
         timeRange: String,
-        limit: Int? = null): Flow<DataState<MyArtists>>
+        limit: Int? = null
+    ): Flow<DataState<MyArtists>>
 
     suspend fun getMyTopTracks(
-        token:String,
+        token: String,
         timeRange: String,
-        limit: Int? = null): Flow<DataState<MyTracks>>
+        limit: Int? = null
+    ): Flow<DataState<MyTracks>>
 
     suspend fun getRecommendations(
         token: String,
@@ -47,12 +51,12 @@ interface Repository {
         targetInstrumentalness: String,
         targetLiveness: String,
         targetValence: String,
-        market:String? = null
+        market: String? = null
     ): Flow<DataState<Recommendations>>
 
     suspend fun getMyProfile(
         token: String
-    ):Flow<DataState<CurrentUser>>
+    ): Flow<DataState<CurrentUser>>
 
     suspend fun getMyRecentPlayed(
         token: String,
@@ -106,18 +110,17 @@ interface Repository {
         query: String,
         type: String? = null,
         limit: Int? = null
-    ):Flow<DataState<SearchResults>>
+    ): Flow<DataState<SearchResults>>
 
     suspend fun getAvailableDevices(
         token: String
-    ):Flow<DataState<Devices>>
+    ): Flow<DataState<Devices>>
 
     suspend fun getGenres(
         token: String
-    ):Genres
+    ): Genres
 
     suspend fun saveGenres(
         genres: Genres
     )
-
 }

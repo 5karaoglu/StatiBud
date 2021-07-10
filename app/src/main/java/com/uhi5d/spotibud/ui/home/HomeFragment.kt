@@ -1,4 +1,4 @@
-package com.uhi5d.spotibud.home
+package com.uhi5d.spotibud.ui.home
 
 import android.content.Context
 import android.graphics.Paint

@@ -5,15 +5,15 @@ import android.graphics.Bitmap
 import android.graphics.Canvas
 import android.os.Bundle
 import android.util.Log
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.content.FileProvider
+import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.uhi5d.spotibud.R
-import com.uhi5d.spotibud.home.HomePagerAdapter
 import com.uhi5d.spotibud.main.MainViewModel
+import com.uhi5d.spotibud.ui.home.HomePagerAdapter
 import kotlinx.android.synthetic.main.fragment_share.*
 import java.io.File
 import java.io.FileOutputStream

@@ -5,9 +5,7 @@ import androidx.room.Room
 import androidx.test.core.app.ApplicationProvider
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.uhi5d.spotibud.data.local.AppDatabase
-import com.uhi5d.spotibud.data.local.SearchHistoryDao
 import com.uhi5d.spotibud.model.SearchHistory
-import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.runBlocking
 import org.hamcrest.MatcherAssert.assertThat
 import org.hamcrest.Matchers.equalTo

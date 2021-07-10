@@ -1,4 +1,4 @@
-package com.uhi5d.spotibud.home
+package com.uhi5d.spotibud.ui.home
 
 import android.content.Context
 import android.view.LayoutInflater
@@ -7,11 +7,11 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.squareup.picasso.Picasso
 import com.uhi5d.spotibud.Functions
 import com.uhi5d.spotibud.R
 import com.uhi5d.spotibud.model.Items
 import com.uhi5d.spotibud.model.RecentTracks
-import com.squareup.picasso.Picasso
 
 class RecentTracksAdapter(var context: Context, var dataList: RecentTracks, var clickListener: OnItemClickListener, var customItemCount: Int) : RecyclerView.Adapter<RecentTracksAdapter.RecentTracksViewHolder>() {
 

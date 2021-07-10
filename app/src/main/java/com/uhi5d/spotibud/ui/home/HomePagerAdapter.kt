@@ -1,4 +1,4 @@
-package com.uhi5d.spotibud.home
+package com.uhi5d.spotibud.ui.home
 
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
