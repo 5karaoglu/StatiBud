@@ -1,7 +1,6 @@
 package com.uhi5d.spotibud.data.repository
 
 import com.uhi5d.spotibud.data.local.LocalDataSource
-import com.uhi5d.spotibud.data.local.entity.asList
 import com.uhi5d.spotibud.data.remote.RemoteDataSource
 import com.uhi5d.spotibud.domain.model.MyArtists
 import com.uhi5d.spotibud.domain.model.MyTracks
@@ -148,6 +147,6 @@ class RepositoryImpl
     }
 
     override suspend fun saveGenres(genres: Genres) {
-        localDataSource.saveGenres(genres.asList())
+        localDataSource.saveGenres(genres)
     }
 }

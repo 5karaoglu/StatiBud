@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.home.HomeFragment"
+    tools:context=".presentation.ui.home.HomeFragment"
     android:background="@color/colorPrimaryDark">
 
     <androidx.core.widget.NestedScrollView
@@ -15,56 +15,12 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center">
-            <com.google.android.material.appbar.AppBarLayout
-                android:layout_marginTop="5dp"
-                android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:id="@+id/homeToolbar"
-                android:gravity="center_vertical"
-                android:layout_alignParentTop="true"
-                android:layout_alignParentStart="true"
-                android:background="@color/colorPrimaryDark">
-                <androidx.appcompat.widget.Toolbar
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent">
-                <RelativeLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:gravity="center">
-
-                    <ImageView
-                        android:layout_alignParentTop="true"
-                        android:layout_alignParentBottom="true"
-                        android:id="@+id/buttonProfile"
-                        android:src="@drawable/ic_person"
-                        android:layout_width="30dp"
-                        android:layout_height="30dp"
-                        android:layout_marginEnd="10dp"
-                        android:layout_alignParentEnd="true" />
-
-                    <TextView
-                        android:paddingStart="10dp"
-                        android:paddingEnd="10dp"
-                        android:id="@+id/tvHomeHeader"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:gravity="start|center_vertical"
-                        android:textColor="@color/white"
-                        android:textSize="20sp"
-                        android:textStyle="bold"
-                        android:layout_toStartOf="@id/buttonProfile"
-                        android:layout_alignParentStart="true"
-                        android:layout_alignParentBottom="true"
-                        android:layout_alignParentTop="true"/>
-                </RelativeLayout>
-                </androidx.appcompat.widget.Toolbar>
-            </com.google.android.material.appbar.AppBarLayout>
 
             <RelativeLayout
                 android:id="@+id/reLayoutRecommendations"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/homeToolbar">
+                android:layout_alignParentTop="true">
                 <TextView
                     android:paddingTop="10dp"
                     android:paddingStart="10dp"
@@ -93,6 +49,22 @@
                     android:scrollbars="none"
                     android:textColor="@color/colorgray2"
                     android:textStyle="normal"/>
+                <com.facebook.shimmer.ShimmerFrameLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/tvRecommendationsDes"
+                    app:shimmer_auto_start="true"
+                    android:id="@+id/shimmerLayout">
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="horizontal">
+                        <include layout="@layout/recommendation_single_item_shimmer"/>
+                        <include layout="@layout/recommendation_single_item_shimmer"/>
+                        <include layout="@layout/recommendation_single_item_shimmer"/>
+                        <include layout="@layout/recommendation_single_item_shimmer"/>
+                    </LinearLayout>
+                </com.facebook.shimmer.ShimmerFrameLayout>
                 <androidx.recyclerview.widget.RecyclerView
                     android:visibility="gone"
                     android:clipToPadding="false"
@@ -106,59 +78,42 @@
                     android:scrollbars="horizontal"
                     android:layout_below="@+id/tvRecommendationsDes"
                     android:orientation="vertical" />
-
-
-                <LinearLayout
-                    android:id="@+id/liRecommendationPb"
-                    android:layout_width="wrap_content"
-                    android:layout_height="210dp"
-                    android:layout_below="@+id/tvRecommendationsDes"
-                    android:layout_alignParentStart="true"
-                    android:layout_alignParentEnd="true"
-                    android:gravity="center">
-                    <ProgressBar
-                        android:id="@+id/pbDetailedArtist"
-                        android:layout_width="100dp"
-                        android:layout_height="100dp"
-                        android:layout_gravity="center" />
-                </LinearLayout>
             </RelativeLayout>
             <!--//trackfinder search history-->
             <RelativeLayout
-                android:id="@+id/reLayoutHomeTf"
+                android:visibility="gone"
+                android:id="@+id/trackFinderGroup"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/reLayoutRecommendations">
                 <RelativeLayout
                     android:id="@+id/homeTfHeaderHolder"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="70dp"
                     android:orientation="horizontal">
 
                     <TextView
                         android:id="@+id/tvHomeTf"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_alignParentEnd="true"
-                        android:layout_marginTop="10dp"
-                        android:gravity="start"
+                        android:layout_height="match_parent"
+                        android:layout_alignParentStart="true"
+                        android:layout_alignParentTop="true"
+                        android:layout_alignParentBottom="true"
+                        android:layout_toStartOf="@+id/buttonClearList"
+                        android:gravity="start|center_vertical"
                         android:paddingStart="10dp"
-                        android:paddingTop="10dp"
                         android:paddingEnd="10dp"
-                        android:paddingBottom="5dp"
-                        android:scrollbars="none"
                         android:text="@string/home_tf"
                         android:textColor="@color/white"
                         android:textSize="15sp"
                         android:textStyle="normal" />
                     <Button
-                        android:visibility="gone"
                         android:padding="5dp"
                         android:layout_marginTop="10dp"
                         android:layout_marginEnd="10dp"
                         android:layout_alignParentEnd="true"
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        android:layout_height="50dp"
                         android:src="@drawable/ic_close_gray"
                         android:id="@+id/buttonClearList"
                         android:textSize="12sp"
@@ -169,7 +124,6 @@
                 </RelativeLayout>
 
                 <androidx.recyclerview.widget.RecyclerView
-                    android:visibility="gone"
                     android:clipToPadding="false"
                     android:background="@color/colorPrimaryDark"
                     android:layout_marginBottom="10dp"
@@ -181,26 +135,7 @@
                     android:scrollbars="horizontal"
                     android:layout_below="@+id/homeTfHeaderHolder"
                     android:orientation="vertical" />
-                <LinearLayout
-                    android:id="@+id/liHomeTfWarn"
-                    android:layout_width="match_parent"
-                    android:layout_height="150dp"
-                    android:layout_below="@id/homeTfHeaderHolder"
-                    android:orientation="vertical"
-                    android:gravity="center">
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/trackfinder_warn"
-                        android:textColor="@color/colorgray2"/>
-                    <TextView
-                        android:id="@+id/tvHomeGoTf"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/go_to_trackfinder"
-                        android:textColor="@color/colorAccent"/>
 
-                </LinearLayout>
 
             </RelativeLayout>
             <!--recent tracks-->
@@ -208,7 +143,7 @@
                 android:layout_marginTop="20dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/reLayoutHomeTf">
+                android:layout_below="@+id/trackFinderGroup">
                 <TextView
                     android:padding="10dp"
                     android:id="@+id/tvRecentTracks"
@@ -262,11 +197,9 @@
                         android:layout_width="180dp"
                         android:layout_height="50dp"
                         android:layout_below="@id/recyclerRecentHome"
-                        android:autoSizeMaxTextSize="12sp"
-                        android:autoSizeMinTextSize="10sp"
-                        android:autoSizeTextType="uniform"
                         android:background="@drawable/button_background2"
                         android:text="@string/show_more"
+                        android:textSize="12sp"
                         android:textColor="@color/white"
                         app:layout_constraintBottom_toBottomOf="@+id/recyclerRecentHome"
                         app:layout_constraintEnd_toEndOf="@+id/recyclerRecentHome"
@@ -275,20 +208,24 @@
                         app:layout_constraintTop_toBottomOf="@id/recyclerRecentHome" />
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
-                <LinearLayout
-                    android:id="@+id/liRecentPb"
-                    android:layout_width="wrap_content"
-                    android:layout_height="187dp"
+                <com.facebook.shimmer.ShimmerFrameLayout
                     android:layout_below="@+id/tvRecentTracks"
-                    android:layout_alignParentStart="true"
-                    android:layout_alignParentEnd="true"
-                    android:gravity="center">
-                    <ProgressBar
-                        android:id="@+id/pbRecent"
-                        android:layout_width="100dp"
-                        android:layout_height="100dp"
-                        android:layout_gravity="center" />
-                </LinearLayout>
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/shimmerRecentTracks"
+                    app:shimmer_auto_start="true">
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="vertical">
+                        <include layout="@layout/single_recent_played_shimmer"/>
+                        <include layout="@layout/single_recent_played_shimmer"/>
+                        <include layout="@layout/single_recent_played_shimmer"/>
+                        <include layout="@layout/single_recent_played_shimmer"/>
+                        <include layout="@layout/single_recent_played_shimmer"/>
+                        <include layout="@layout/single_recent_played_shimmer"/>
+                    </LinearLayout>
+                </com.facebook.shimmer.ShimmerFrameLayout>
             </RelativeLayout>
         </RelativeLayout>
     </androidx.core.widget.NestedScrollView>

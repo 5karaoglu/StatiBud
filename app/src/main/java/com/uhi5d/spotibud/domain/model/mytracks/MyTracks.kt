@@ -72,3 +72,11 @@ data class MyTracksArtist(
     val type: String?,
     val uri: String?
 )
+
+fun MyTracks.getTrackIds(): String {
+    var str = ""
+    this.items!!.forEach {
+        str = str + it.id + ","
+    }
+    return str
+}

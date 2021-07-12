@@ -3,10 +3,10 @@ package com.uhi5d.spotibud.top
 import android.content.Context
 import android.os.Bundle
 import android.util.Log
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -17,7 +17,6 @@ import com.uhi5d.spotibud.Tracks
 import com.uhi5d.spotibud.main.MainViewModel
 import com.uhi5d.spotibud.model.Artists
 import com.uhi5d.spotibud.model.Item
-import com.uhi5d.spotibud.main.CustomViewModelFactory
 import kotlinx.android.synthetic.main.fragment_short_term.*
 
 

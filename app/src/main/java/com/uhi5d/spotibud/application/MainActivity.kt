@@ -1,28 +1,31 @@
-package com.uhi5d.spotibud.main
+package com.uhi5d.spotibud.application
 
 
 import android.os.Bundle
-import android.util.Log
-import android.view.Menu
 import android.view.View
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
+import androidx.navigation.ui.NavigationUI
 import com.google.android.gms.ads.AdRequest
 import com.google.android.gms.ads.AdView
 import com.google.android.gms.ads.MobileAds
 import com.google.firebase.analytics.FirebaseAnalytics
 import com.uhi5d.spotibud.R
 import com.uhi5d.spotibud.util.ConnectionLiveData
+import com.uhi5d.spotibud.util.showToast
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.activity_main.*
+import javax.inject.Inject
 
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
     private val TAG = "MainActivity"
 
-    private var navController: NavController? = null
+    @Inject
+    lateinit var toastHelper: ToastHelper
+    private lateinit var navController: NavController
     private var mFirebaseAnalytics: FirebaseAnalytics? = null
     private var mAdView: AdView? = null
     private lateinit var connectionLiveData: ConnectionLiveData
@@ -31,6 +34,13 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
+        setSupportActionBar(toolbar)
+        //navigation and bottom navigation
+        val navHostFragment =
+            supportFragmentManager.findFragmentById(R.id.fragment) as NavHostFragment
+        navController = navHostFragment.navController
+        NavigationUI.setupActionBarWithNavController(this,navController)
+
         val dialog = dialog()
         connectionLiveData = ConnectionLiveData(this)
         connectionLiveData.observe(this,
@@ -38,42 +48,17 @@ class MainActivity : AppCompatActivity() {
         // Obtain the FirebaseAnalytics instance.
         mFirebaseAnalytics = FirebaseAnalytics.getInstance(this)
 
+        toastHelper.toastMessages.observe(this){
+            showToast(it)
+        }
+
         //ad section
         setAd()
 
-
-        //navigation and bottom navigation
-        val navHostFragment =
-            supportFragmentManager.findFragmentById(R.id.fragment) as NavHostFragment
-        navController = navHostFragment.navController
-        bottomNavSetup()
-
-
-    }
-    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
-        menuInflater.inflate(R.menu.bottom_nav_menu, menu)
-        bottomBar.setupWithNavController(menu!!, navController!!)
-        return true
     }
 
-    private fun bottomNavSetup(){
-        bottomBar.itemIconTintActive = getColor(R.color.colorPrimaryDark)
-        bottomBar.itemIconTint = getColor(R.color.colorgray2)
-        bottomBar.itemIconSize = 70f
-        bottomBar.barBackgroundColor = getColor(R.color.colorPrimary)
-        bottomBar.barIndicatorColor = getColor(R.color.colorgray2)
-
-        bottomBar.onItemSelected = {
-            Log.d(TAG, "onItemSelected:$it ")
-            when (it) {
-                0 -> navController!!.navigate(R.id.homeFragment)
-                1 -> navController!!.navigate(R.id.topFragment)
-                2 -> navController!!.navigate(R.id.searchFragment)
-                3 -> navController!!.navigate(R.id.trackFinderFragment)
-            }
-        }
-
-
+    override fun onSupportNavigateUp(): Boolean {
+        return navController.navigateUp()
     }
 
     override fun onResume() {

@@ -26,11 +26,9 @@ object DatabaseModule {
 
     @Singleton
     @Provides
-    fun provideShDao(db: AppDatabase) = db.shDao()
+    fun provideGenresDao(db: AppDatabase) = db.genresDao()
 
-    @Singleton
-    @Provides
-    fun provideTftDao(db: AppDatabase) = db.tftDao()
+
 
 
 }

@@ -2,10 +2,11 @@ package com.uhi5d.spotibud.data.local
 
 import androidx.room.Database
 import androidx.room.RoomDatabase
-import com.uhi5d.spotibud.domain.model.genres.Genres
+import com.uhi5d.spotibud.data.local.entity.GenresEntity
+
 
 @Database(
-    entities = [Genres::class],
+    entities = [GenresEntity::class],
     version = 1,
     exportSchema = false
 )

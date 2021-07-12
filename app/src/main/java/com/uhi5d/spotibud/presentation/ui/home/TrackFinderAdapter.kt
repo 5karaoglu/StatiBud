@@ -1,4 +1,4 @@
-package com.uhi5d.spotibud.ui.home
+package com.uhi5d.spotibud.presentation.ui.home
 
 import android.content.Context
 import android.view.LayoutInflater

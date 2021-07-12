@@ -3,11 +3,12 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".search.SearchFragment"
     android:background="@color/colorPrimaryDark">
-    <com.google.android.material.appbar.AppBarLayout
+    <androidx.appcompat.widget.Toolbar
         android:layout_width="match_parent"
-        android:layout_height="50dp"
+        android:layout_height="?attr/actionBarSize"
         android:id="@+id/appBarSearch"
         android:layout_alignParentTop="true"
         android:layout_alignParentStart="true"
@@ -19,6 +20,7 @@
             android:layout_marginStart="10dp"
             android:layout_marginEnd="10dp">
            <EditText
+               android:visibility="gone"
                android:id="@+id/etSearch"
                android:layout_width="match_parent"
                android:layout_height="match_parent"
@@ -30,19 +32,27 @@
                android:textSize="15sp"
                android:singleLine="true"/>
             <ImageView
+                android:visibility="gone"
                 android:layout_marginStart="5dp"
                 android:layout_width="24dp"
                 android:layout_height="match_parent"
                 android:layout_alignParentEnd="true"
                 android:id="@+id/ivSearch"
                 android:src="@drawable/ic_search"/>
-
-
+            <androidx.appcompat.widget.SearchView
+                android:id="@+id/searchView"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:backgroundTint="@color/silver"
+                android:background="@drawable/searchview_background"
+                android:layout_margin="5dp"
+                app:queryHint="Search Something"/>
         </RelativeLayout>
 
-    </com.google.android.material.appbar.AppBarLayout>
+    </androidx.appcompat.widget.Toolbar>
     <!--search history section-->
     <RelativeLayout
+        android:visibility="gone"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/reLayoutSearchHistory"
@@ -66,110 +76,36 @@
             tools:itemCount="1"/>
     </RelativeLayout>
     <!--result section-->
-    <androidx.core.widget.NestedScrollView
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:visibility="gone"
+        android:id="@+id/recyclerSearch"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/appBarSearch">
-        <RelativeLayout
+        android:padding="10dp"
+        tools:itemCount="2"
+        android:layout_below="@id/appBarSearch"
+        tools:listitem="@layout/search_albumtrack_single" />
+    <com.facebook.shimmer.ShimmerFrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/appBarSearch"
+        android:id="@+id/shimmerLayout">
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-            <TextView
-                android:paddingStart="5dp"
-                android:paddingEnd="5dp"
-                android:layout_marginTop="5dp"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/tv_artists"
-                android:id="@+id/tvArtists"
-                android:textSize="23sp"
-                android:gravity="start"
-                android:textColor="@color/white" />
-            <androidx.recyclerview.widget.RecyclerView
-                android:padding="10dp"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                tools:listitem="@layout/search_artist_single"
-                android:layout_below="@id/tvArtists"
-                android:id="@+id/recyclerSearchArtists"
-                android:orientation="horizontal"
-                android:scrollbars="horizontal"
-                tools:itemCount="1"/>
-            <TextView
-                android:paddingStart="5dp"
-                android:paddingEnd="5dp"
-                android:layout_marginTop="5dp"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/tv_artists_more"
-                android:id="@+id/tvArtistsMore"
-                android:textSize="14sp"
-                android:gravity="start"
-                android:textColor="@color/colorgray2"
-                android:layout_below="@id/recyclerSearchArtists"/>
-            <TextView
-                android:paddingStart="5dp"
-                android:paddingEnd="5dp"
-                android:layout_marginTop="5dp"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/tv_tracks"
-                android:id="@+id/tvTracks"
-                android:textSize="23sp"
-                android:gravity="start"
-                android:textColor="@color/white"
-                android:layout_below="@id/tvArtistsMore"/>
-            <androidx.recyclerview.widget.RecyclerView
-                android:padding="10dp"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                tools:listitem="@layout/search_albumtrack_single"
-                android:layout_below="@id/tvTracks"
-                android:id="@+id/recyclerSearchTracks"
-                tools:itemCount="3"/>
-            <TextView
-                android:paddingStart="5dp"
-                android:paddingEnd="5dp"
-                android:layout_marginTop="5dp"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/tv_tracks_more"
-                android:id="@+id/tvTracksMore"
-                android:textSize="14sp"
-                android:gravity="start"
-                android:textColor="@color/colorgray2"
-                android:layout_below="@id/recyclerSearchTracks"/>
-            <TextView
-                android:paddingStart="5dp"
-                android:paddingEnd="5dp"
-                android:layout_marginTop="5dp"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/tv_albums"
-                android:id="@+id/tvAlbums"
-                android:textSize="23sp"
-                android:gravity="start"
-                android:textColor="@color/white"
-                android:layout_below="@id/tvTracksMore"/>
-            <androidx.recyclerview.widget.RecyclerView
-                android:padding="10dp"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                tools:listitem="@layout/search_albumtrack_single"
-                android:layout_below="@id/tvAlbums"
-                android:id="@+id/recyclerSearchAlbums"
-                tools:itemCount="2"/>
-            <TextView
-                android:paddingStart="5dp"
-                android:paddingEnd="5dp"
-                android:layout_marginTop="5dp"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/tv_albums_more"
-                android:id="@+id/tvAlbumsMore"
-                android:textSize="14sp"
-                android:gravity="start"
-                android:textColor="@color/colorgray2"
-                android:layout_below="@id/recyclerSearchAlbums"/>
-        </RelativeLayout>
-    </androidx.core.widget.NestedScrollView>
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+            <include layout="@layout/search_albumtrack_single_shimmer"/>
+            <include layout="@layout/search_albumtrack_single_shimmer"/>
+            <include layout="@layout/search_albumtrack_single_shimmer"/>
+            <include layout="@layout/search_albumtrack_single_shimmer"/>
+            <include layout="@layout/search_albumtrack_single_shimmer"/>
+            <include layout="@layout/search_albumtrack_single_shimmer"/>
+            <include layout="@layout/search_albumtrack_single_shimmer"/>
+            <include layout="@layout/search_albumtrack_single_shimmer"/>
+            <include layout="@layout/search_albumtrack_single_shimmer"/>
+            <include layout="@layout/search_albumtrack_single_shimmer"/>
+        </LinearLayout>
+    </com.facebook.shimmer.ShimmerFrameLayout>
+
 </RelativeLayout>

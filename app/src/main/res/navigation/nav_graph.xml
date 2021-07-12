@@ -6,18 +6,34 @@
     app:startDestination="@id/homeFragment">
     <fragment
         android:id="@+id/homeFragment"
-        android:name="com.uhi5d.spotibud.ui.home.HomeFragment"
+        android:name="com.uhi5d.spotibud.presentation.ui.home.HomeFragment"
         android:label="fragment_home"
         tools:layout="@layout/fragment_home">
         <action
             android:id="@+id/action_homeFragment_to_detailedTrackFragment"
             app:destination="@id/detailedTrackFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_profileFragment"
+            app:destination="@id/profileFragment" />
     </fragment>
     <fragment
         android:id="@+id/searchFragment"
         android:name="com.uhi5d.spotibud.search.SearchFragment"
         android:label="fragment_search"
-        tools:layout="@layout/fragment_search" />
+        tools:layout="@layout/fragment_search" >
+        <action
+            android:id="@+id/action_searchFragment_to_detailedTrackFragment"
+            app:destination="@id/detailedTrackFragment" />
+        <action
+            android:id="@+id/action_searchFragment_to_detailedAlbumFragment"
+            app:destination="@id/detailedAlbumFragment" />
+        <action
+            android:id="@+id/action_searchFragment_to_detailedArtistFragment"
+            app:destination="@id/detailedArtistFragment" />
+        <action
+            android:id="@+id/action_searchFragment_to_detailedResult"
+            app:destination="@id/detailedResultsFragment" />
+    </fragment>
     <fragment
         android:id="@+id/topFragment"
         android:name="com.uhi5d.spotibud.top.TopFragment"
@@ -31,5 +47,61 @@
         android:id="@+id/detailedTrackFragment"
         android:name="com.uhi5d.spotibud.detailed.DetailedTrackFragment"
         android:label="fragment_detailed_track"
-        tools:layout="@layout/fragment_detailed_track" />
+        tools:layout="@layout/fragment_detailed_track" >
+        <argument
+            android:name="RecentTracksItem"
+            app:argType="com.uhi5d.spotibud.domain.model.recenttracks.RecentTracksItem"
+            app:nullable="true" />
+        <argument
+            android:name="RecommendationsItem"
+            app:argType="com.uhi5d.spotibud.domain.model.RecommendationsTrack"
+            app:nullable="true" />
+        <argument
+            android:name="SearchResultsTrack"
+            app:argType="com.uhi5d.spotibud.domain.model.searchresults.SearchResultsTracksItem"
+            app:nullable="true" />
+    </fragment>
+    <fragment
+        android:id="@+id/profileFragment"
+        android:name="com.uhi5d.spotibud.profile.ProfileFragment"
+        android:label="fragment_profile"
+        tools:layout="@layout/fragment_profile" />
+    <fragment
+        android:id="@+id/detailedAlbumFragment"
+        android:name="com.uhi5d.spotibud.detailed.DetailedAlbumFragment"
+        android:label="fragment_detailed_album"
+        tools:layout="@layout/fragment_detailed_album" >
+        <argument
+            android:name="SearchResultsAlbum"
+            app:argType="com.uhi5d.spotibud.domain.model.searchresults.SearchResultsAlbumsItem"
+            app:nullable="true" />
+    </fragment>
+    <fragment
+        android:id="@+id/detailedArtistFragment"
+        android:name="com.uhi5d.spotibud.detailed.DetailedArtistFragment"
+        android:label="fragment_detailed_artist"
+        tools:layout="@layout/fragment_detailed_artist" >
+        <argument
+            android:name="SearchResultsArtist"
+            app:argType="com.uhi5d.spotibud.domain.model.searchresults.SearchResultsArtistsItem"
+            app:nullable="true" />
+    </fragment>
+    <fragment
+        android:id="@+id/detailedResultsFragment"
+        android:name="com.uhi5d.spotibud.search.DetailedResultsFragment"
+        android:label="fragment_detailed_result"
+        tools:layout="@layout/fragment_detailed_result" >
+        <argument
+            android:name="Header"
+            app:argType="string" />
+        <action
+            android:id="@+id/action_detailedResultsFragment_to_detailedTrackFragment"
+            app:destination="@id/detailedTrackFragment" />
+        <action
+            android:id="@+id/action_detailedResultsFragment_to_detailedAlbumFragment"
+            app:destination="@id/detailedAlbumFragment" />
+        <action
+            android:id="@+id/action_detailedResultsFragment_to_detailedArtistFragment"
+            app:destination="@id/detailedArtistFragment" />
+    </fragment>
 </navigation>

@@ -13,7 +13,6 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.uhi5d.spotibud.R
 import com.uhi5d.spotibud.main.MainViewModel
-import com.uhi5d.spotibud.ui.home.HomePagerAdapter
 import kotlinx.android.synthetic.main.fragment_share.*
 import java.io.File
 import java.io.FileOutputStream

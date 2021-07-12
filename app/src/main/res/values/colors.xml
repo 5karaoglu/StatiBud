@@ -12,5 +12,7 @@
     <color name="silver">#D7D7D7</color>
     <color name="bronze">#6A3805</color>
 
+    <color name="shimmer_placeholder">#dddddd</color>
+
     <color name="transparent_black">#80000000</color>
 </resources>

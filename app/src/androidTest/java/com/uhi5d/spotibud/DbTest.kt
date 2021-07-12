@@ -1,20 +1,7 @@
 package com.uhi5d.spotibud
 
-import android.content.Context
-import androidx.room.Room
-import androidx.test.core.app.ApplicationProvider
-import androidx.test.ext.junit.runners.AndroidJUnit4
-import com.uhi5d.spotibud.data.local.AppDatabase
-import com.uhi5d.spotibud.model.SearchHistory
-import kotlinx.coroutines.runBlocking
-import org.hamcrest.MatcherAssert.assertThat
-import org.hamcrest.Matchers.equalTo
-import org.junit.After
-import org.junit.Before
-import org.junit.Test
-import org.junit.runner.RunWith
-import java.io.IOException
 
+/*
 @RunWith(AndroidJUnit4::class)
 class DbTest {
 
@@ -66,4 +53,4 @@ class DbTest {
 
         assertThat(all.first()[0].name, equalTo(list[0].name))
     }
-}
+}*/

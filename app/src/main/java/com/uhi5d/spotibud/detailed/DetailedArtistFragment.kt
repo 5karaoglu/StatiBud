@@ -5,25 +5,23 @@ import android.content.Context
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.activity.addCallback
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.uhi5d.spotibud.main.MainViewModel
-import com.uhi5d.spotibud.R
-import com.uhi5d.spotibud.model.*
-import com.uhi5d.spotibud.main.CustomViewModelFactory
 import com.google.android.material.appbar.AppBarLayout
 import com.squareup.picasso.Picasso
+import com.uhi5d.spotibud.R
+import com.uhi5d.spotibud.main.MainViewModel
+import com.uhi5d.spotibud.model.*
 import kotlinx.android.synthetic.main.fragment_detailed_artist.*
-import kotlinx.android.synthetic.main.fragment_detailed_artist.imageView
 
 class DetailedArtistFragment : Fragment(),
     ArtistAlbumsAdapter.OnItemClickListener,

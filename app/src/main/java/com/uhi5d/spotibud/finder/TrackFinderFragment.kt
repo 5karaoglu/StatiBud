@@ -1,44 +1,14 @@
-import android.content.Context
-import android.os.Bundle
-import android.text.Editable
-import android.text.TextWatcher
-import android.util.Log
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
-import android.widget.*
-import androidx.activity.addCallback
-import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.viewModels
-import androidx.navigation.fragment.findNavController
-import androidx.recyclerview.widget.GridLayoutManager
-import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
-import com.squareup.picasso.Picasso
-import com.uhi5d.spotibud.Functions
-import com.uhi5d.spotibud.R
-import com.uhi5d.spotibud.databinding.FragmentTrackFinderBinding
-import com.uhi5d.spotibud.finder.GenreAdapter
-import com.uhi5d.spotibud.finder.TfSearchResultsAdapter
-import com.uhi5d.spotibud.main.MainViewModel
-import com.uhi5d.spotibud.model.QueryResultTrackItem
-import com.uhi5d.spotibud.model.QueryResults
-import com.uhi5d.spotibud.model.Recommendations
-import com.uhi5d.spotibud.model.TrackFinderTracks
-import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.android.synthetic.main.fragment_track_finder.*
 
-@AndroidEntryPoint
-class TrackFinderFragment : Fragment(),
-    GenreAdapter.OnItemClickListener,
+
+class TrackFinderFragment : Fragment()
+   /* GenreAdapter.OnItemClickListener,
     TfSearchResultsAdapter.OnItemClickListener {
     private var TAG = "TrackFinder Fragment"
     private var _binding: FragmentTrackFinderBinding? = null
     val binding: FragmentTrackFinderBinding
         get() = _binding!!
 
-    private val viewModel: MainViewModel by viewModels()
     private var token: String? = null
     private var functions = Functions()
 
@@ -439,6 +409,5 @@ class TrackFinderFragment : Fragment(),
             trackMap["artistName"] = queryResultTrackItem.album.artists[0].name
             songAlertDialog.dismiss()
             mapCheck()
-    }
+    }*/
 
-}

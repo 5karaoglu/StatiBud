@@ -1,10 +1,12 @@
 package com.uhi5d.spotibud.domain.model.recenttracks
 
 
+import android.os.Parcelable
 import com.google.gson.annotations.SerializedName
 import com.uhi5d.spotibud.domain.model.ExternalIds
 import com.uhi5d.spotibud.domain.model.ExternalUrls
 import com.uhi5d.spotibud.domain.model.Image
+import kotlinx.android.parcel.Parcelize
 
 data class RecentTracks(
     val cursors: Cursors?,
@@ -13,13 +15,13 @@ data class RecentTracks(
     val limit: Int?,
     val next: String?
 )
-
+@Parcelize
 data class RecentTracksItem(
     val context: Any?,
     @SerializedName("played_at")
     val playedAt: String?,
     val track: RecentTracksTrack?
-)
+): Parcelable
 
 data class RecentTracksTrack(
     val album: RecentTracksAlbum?,

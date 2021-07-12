@@ -26,3 +26,13 @@ data class MyArtistsItem(
     val type: String?,
     val uri: String?
 )
+
+fun MyArtists.getArtistIds(): String {
+    var str = ""
+    this.items!!.forEach {
+        str = str + it.id + ","
+    }
+    return str
+}
+
+

@@ -18,7 +18,6 @@ import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.appbar.AppBarLayout
 import com.squareup.picasso.Picasso
 import com.uhi5d.spotibud.R
-import com.uhi5d.spotibud.main.CustomViewModelFactory
 import com.uhi5d.spotibud.main.MainViewModel
 import com.uhi5d.spotibud.model.*
 import kotlinx.android.synthetic.main.fragment_detailed_album.*

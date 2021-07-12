@@ -1,9 +1,22 @@
 package com.uhi5d.spotibud.data.local.entity
 
+import androidx.room.Entity
+import androidx.room.PrimaryKey
 import com.uhi5d.spotibud.domain.model.genres.Genres
 
-fun List<String>.asGenres() =
-    Genres(this)
+@Entity(tableName = "table_genres")
+data class GenresEntity(
+    @PrimaryKey(autoGenerate = true)
+    val tId: Int = 0,
 
-fun Genres.asList() =
-    this.genres!!
+    val genre: String
+)
+
+fun Genres.asGenresEntity() = this.genres.map {
+    GenresEntity(genre = it)
+}
+fun List<GenresEntity>.asGenres(): Genres {
+    val list = mutableListOf<String>()
+    this.forEach { list.add(it.genre) }
+    return Genres(list)
+}

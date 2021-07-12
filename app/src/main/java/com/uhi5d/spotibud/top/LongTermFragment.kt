@@ -17,7 +17,6 @@ import com.uhi5d.spotibud.Tracks
 import com.uhi5d.spotibud.main.MainViewModel
 import com.uhi5d.spotibud.model.Artists
 import com.uhi5d.spotibud.model.Item
-import com.uhi5d.spotibud.main.CustomViewModelFactory
 import kotlinx.android.synthetic.main.fragment_long_term.*
 
 

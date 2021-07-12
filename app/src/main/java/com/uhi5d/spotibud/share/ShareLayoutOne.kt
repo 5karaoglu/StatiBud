@@ -2,17 +2,16 @@ package com.uhi5d.spotibud.share
 
 import android.content.Context
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
-import com.uhi5d.spotibud.main.MainViewModel
-import com.uhi5d.spotibud.R
-import com.uhi5d.spotibud.model.Artists
-import com.uhi5d.spotibud.main.CustomViewModelFactory
 import com.squareup.picasso.Picasso
+import com.uhi5d.spotibud.R
+import com.uhi5d.spotibud.main.MainViewModel
+import com.uhi5d.spotibud.model.Artists
 import kotlinx.android.synthetic.main.fragment_share_layout_one.*
 
 
