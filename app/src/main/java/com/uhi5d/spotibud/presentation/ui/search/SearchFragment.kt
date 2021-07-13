@@ -1,4 +1,4 @@
-package com.uhi5d.spotibud.search
+package com.uhi5d.spotibud.presentation.ui.search
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -13,6 +13,7 @@ import com.uhi5d.spotibud.databinding.FragmentSearchBinding
 import com.uhi5d.spotibud.domain.model.searchresults.SearchResultsAlbumsItem
 import com.uhi5d.spotibud.domain.model.searchresults.SearchResultsArtistsItem
 import com.uhi5d.spotibud.domain.model.searchresults.SearchResultsTracksItem
+import com.uhi5d.spotibud.search.SearchFragmentDirections
 import com.uhi5d.spotibud.util.DataState
 import com.uhi5d.spotibud.util.showIf
 import dagger.hilt.android.AndroidEntryPoint
@@ -80,7 +81,7 @@ class SearchFragment : Fragment(),
 
     override fun onTrackItemClicked(item: SearchResultsTracksItem) {
         val action = SearchFragmentDirections.actionSearchFragmentToDetailedTrackFragment(
-            null,null,item
+            null, null, item
         )
         findNavController().navigate(action)
     }

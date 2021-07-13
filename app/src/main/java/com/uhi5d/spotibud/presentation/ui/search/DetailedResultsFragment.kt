@@ -1,4 +1,4 @@
-package com.uhi5d.spotibud.search
+package com.uhi5d.spotibud.presentation.ui.search
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -13,13 +13,15 @@ import com.uhi5d.spotibud.databinding.FragmentDetailedResultBinding
 import com.uhi5d.spotibud.domain.model.searchresults.SearchResultsAlbumsItem
 import com.uhi5d.spotibud.domain.model.searchresults.SearchResultsArtistsItem
 import com.uhi5d.spotibud.domain.model.searchresults.SearchResultsTracksItem
+import com.uhi5d.spotibud.search.DetailedResultsFragmentArgs
+import com.uhi5d.spotibud.search.DetailedResultsFragmentDirections
 import com.uhi5d.spotibud.util.DataState
 import com.uhi5d.spotibud.util.showIf
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class DetailedResultsFragment : Fragment(),
-DetailedResultsAdapter.OnItemClickListener{
+    DetailedResultsAdapter.OnItemClickListener {
     private val TAG = "Detailed Results"
 
     private var _binding: FragmentDetailedResultBinding? = null
@@ -72,18 +74,27 @@ DetailedResultsAdapter.OnItemClickListener{
     }
 
     override fun onTrackItemClicked(item: SearchResultsTracksItem) {
-        val action = DetailedResultsFragmentDirections.actionDetailedResultsFragmentToDetailedTrackFragment(null,
-        null,item)
+        val action =
+            DetailedResultsFragmentDirections.actionDetailedResultsFragmentToDetailedTrackFragment(
+                null,
+                null, item
+            )
         findNavController().navigate(action)
     }
 
     override fun onArtistItemClicked(item: SearchResultsArtistsItem) {
-        val action = DetailedResultsFragmentDirections.actionDetailedResultsFragmentToDetailedArtistFragment(item)
+        val action =
+            DetailedResultsFragmentDirections.actionDetailedResultsFragmentToDetailedArtistFragment(
+                item
+            )
         findNavController().navigate(action)
     }
 
     override fun onAlbumItemClicked(item: SearchResultsAlbumsItem) {
-        val action = DetailedResultsFragmentDirections.actionDetailedResultsFragmentToDetailedAlbumFragment(item)
+        val action =
+            DetailedResultsFragmentDirections.actionDetailedResultsFragmentToDetailedAlbumFragment(
+                item
+            )
         findNavController().navigate(action)
     }
 }

@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".presentation.ui.mostlistened.MlTracksFragment">
+    <RadioGroup
+        android:layout_width="match_parent"
+        android:layout_height="30dp"
+        android:id="@+id/rg"
+        android:weightSum="9"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:background="@color/colorPrimary">
+        <RadioButton
+            android:layout_width="0dp"
+            android:layout_height="30dp"
+            android:id="@+id/rb1"
+            android:layout_weight="3"
+            android:text="@string/short_term"
+            android:gravity="center"
+            android:background="@drawable/radio_flat_selector"
+            android:button="@android:color/transparent"
+            android:checked="true"
+            android:textColor="@color/radio_flat_text_selector"/>
+        <RadioButton
+            android:layout_width="0dp"
+            android:layout_height="30dp"
+            android:id="@+id/rb2"
+            android:gravity="center"
+            android:layout_weight="3"
+            android:text="@string/mid_term"
+            android:background="@drawable/radio_flat_selector"
+            android:button="@android:color/transparent"
+            android:textColor="@color/radio_flat_text_selector"/>
+        <RadioButton
+            android:layout_width="0dp"
+            android:layout_height="30dp"
+            android:id="@+id/rb3"
+            android:gravity="center"
+            android:layout_weight="3"
+            android:text="@string/long_term"
+            android:background="@drawable/radio_flat_selector"
+            android:button="@android:color/transparent"
+            android:textColor="@color/radio_flat_text_selector"/>
+    </RadioGroup>
+    <androidx.recyclerview.widget.RecyclerView
+        android:visibility="gone"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/recycler"
+        tools:listitem="@layout/single_track_layout"
+        android:layout_below="@+id/rg"/>
+    <com.facebook.shimmer.ShimmerFrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/rg"
+        android:id="@+id/shimmerLayout">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+            <include layout="@layout/single_track_layout_shimmer"/>
+            <include layout="@layout/single_track_layout_shimmer"/>
+            <include layout="@layout/single_track_layout_shimmer"/>
+            <include layout="@layout/single_track_layout_shimmer"/>
+            <include layout="@layout/single_track_layout_shimmer"/>
+        </LinearLayout>
+    </com.facebook.shimmer.ShimmerFrameLayout>
+
+
+</RelativeLayout>

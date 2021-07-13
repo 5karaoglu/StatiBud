@@ -2,7 +2,11 @@ package com.uhi5d.spotibud.presentation.ui.home
 
 import android.content.SharedPreferences
 import androidx.lifecycle.*
-import com.uhi5d.spotibud.domain.model.*
+import com.uhi5d.spotibud.domain.model.MyArtists
+import com.uhi5d.spotibud.domain.model.Recommendations
+import com.uhi5d.spotibud.domain.model.getArtistIds
+import com.uhi5d.spotibud.domain.model.mytracks.MyTracks
+import com.uhi5d.spotibud.domain.model.mytracks.getTrackIds
 import com.uhi5d.spotibud.domain.model.recenttracks.RecentTracks
 import com.uhi5d.spotibud.domain.usecase.UseCase
 import com.uhi5d.spotibud.util.DataState

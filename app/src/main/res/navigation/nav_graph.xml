@@ -18,7 +18,7 @@
     </fragment>
     <fragment
         android:id="@+id/searchFragment"
-        android:name="com.uhi5d.spotibud.search.SearchFragment"
+        android:name="com.uhi5d.spotibud.presentation.ui.search.SearchFragment"
         android:label="fragment_search"
         tools:layout="@layout/fragment_search" >
         <action
@@ -35,10 +35,10 @@
             app:destination="@id/detailedResultsFragment" />
     </fragment>
     <fragment
-        android:id="@+id/topFragment"
-        android:name="com.uhi5d.spotibud.top.TopFragment"
-        android:label="fragment_top"
-        tools:layout="@layout/fragment_top" />
+        android:id="@+id/mlFragment"
+        android:name="com.uhi5d.spotibud.presentation.ui.mostlistened.MostListenedFragment"
+        android:label="fragment_most_listened"
+        tools:layout="@layout/fragment_most_listened" />
     <fragment
         android:id="@+id/trackFinderFragment"
         android:name="TrackFinderFragment"
@@ -63,7 +63,7 @@
     </fragment>
     <fragment
         android:id="@+id/profileFragment"
-        android:name="com.uhi5d.spotibud.profile.ProfileFragment"
+        android:name="com.uhi5d.spotibud.presentation.ui.home.profile.ProfileFragment"
         android:label="fragment_profile"
         tools:layout="@layout/fragment_profile" />
     <fragment
@@ -88,7 +88,7 @@
     </fragment>
     <fragment
         android:id="@+id/detailedResultsFragment"
-        android:name="com.uhi5d.spotibud.search.DetailedResultsFragment"
+        android:name="com.uhi5d.spotibud.presentation.ui.search.DetailedResultsFragment"
         android:label="fragment_detailed_result"
         tools:layout="@layout/fragment_detailed_result" >
         <argument

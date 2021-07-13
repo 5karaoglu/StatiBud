@@ -4,8 +4,8 @@ import android.content.SharedPreferences
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.lifecycle.Observer
 import com.uhi5d.spotibud.domain.model.MyArtists
-import com.uhi5d.spotibud.domain.model.MyTracks
 import com.uhi5d.spotibud.domain.model.Recommendations
+import com.uhi5d.spotibud.domain.model.mytracks.MyTracks
 import com.uhi5d.spotibud.domain.usecase.UseCase
 import com.uhi5d.spotibud.presentation.ui.home.HomeViewModel
 import com.uhi5d.spotibud.util.DataState
@@ -44,8 +44,10 @@ class HomeViewModelTest {
                 "",null,"",null))
                 .`when`(useCase).getMyTopArtists("","")
 
-            doReturn(MyTracks("", emptyList(),null,
-                "",null,"",null))
+            doReturn(
+                MyTracks("", emptyList(),null,
+                "",null,"",null)
+            )
                 .`when`(useCase).getMyTopTracks("","")
 
             val viewModel = HomeViewModel(useCase,sharedPreferences)

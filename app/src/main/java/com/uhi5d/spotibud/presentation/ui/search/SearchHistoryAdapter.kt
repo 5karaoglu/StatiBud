@@ -1,4 +1,4 @@
-package com.uhi5d.spotibud.search
+package com.uhi5d.spotibud.presentation.ui.search
 
 import android.content.Context
 import android.util.Log
@@ -9,14 +9,15 @@ import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.squareup.picasso.Picasso
 import com.uhi5d.spotibud.R
 import com.uhi5d.spotibud.model.SearchHistory
-import com.squareup.picasso.Picasso
 
 class SearchHistoryAdapter (
     var context: Context,
     var dataList: List<SearchHistory>,
-    var clickListener : OnItemClickListener) : RecyclerView.Adapter<SearchHistoryAdapter.SearchHistoryHolder>() {
+    var clickListener : OnItemClickListener
+) : RecyclerView.Adapter<SearchHistoryAdapter.SearchHistoryHolder>() {
 
 
     class SearchHistoryHolder(itemView: View): RecyclerView.ViewHolder(itemView) {

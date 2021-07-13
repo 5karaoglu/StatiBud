@@ -2,7 +2,6 @@ package com.uhi5d.spotibud.data.remote
 
 
 import com.uhi5d.spotibud.domain.model.MyArtists
-import com.uhi5d.spotibud.domain.model.MyTracks
 import com.uhi5d.spotibud.domain.model.Recommendations
 import com.uhi5d.spotibud.domain.model.album.Album
 import com.uhi5d.spotibud.domain.model.artist.Artist
@@ -12,6 +11,7 @@ import com.uhi5d.spotibud.domain.model.artisttoptracks.ArtistTopTracks
 import com.uhi5d.spotibud.domain.model.currentuser.CurrentUser
 import com.uhi5d.spotibud.domain.model.devices.Devices
 import com.uhi5d.spotibud.domain.model.genres.Genres
+import com.uhi5d.spotibud.domain.model.mytracks.MyTracks
 import com.uhi5d.spotibud.domain.model.recenttracks.RecentTracks
 import com.uhi5d.spotibud.domain.model.relatedartists.RelatedArtists
 import com.uhi5d.spotibud.domain.model.searchresults.SearchResults

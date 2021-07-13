@@ -1,4 +1,4 @@
-package com.uhi5d.spotibud.search
+package com.uhi5d.spotibud.presentation.ui.search
 
 import android.graphics.Rect
 import android.view.View

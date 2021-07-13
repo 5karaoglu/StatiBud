@@ -1,11 +1,14 @@
-package com.uhi5d.spotibud.domain.model
+package com.uhi5d.spotibud.domain.model.mytracks
 
 
 import com.google.gson.annotations.SerializedName
+import com.uhi5d.spotibud.domain.model.ExternalIds
+import com.uhi5d.spotibud.domain.model.ExternalUrls
+import com.uhi5d.spotibud.domain.model.Image
 
 data class MyTracks(
     val href: String?,
-    val items: List<MyTrackItem>?,
+    val items: List<MyTracksItem>?,
     val limit: Int?,
     val next: String?,
     val offset: Int?,
@@ -13,7 +16,7 @@ data class MyTracks(
     val total: Int?
 )
 
-data class MyTrackItem(
+data class MyTracksItem(
     val album: MyTracksAlbum?,
     val artists: List<MyTracksArtist>?,
     @SerializedName("available_markets")
