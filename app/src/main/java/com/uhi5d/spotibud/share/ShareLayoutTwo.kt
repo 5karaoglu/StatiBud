@@ -1,5 +1,6 @@
 package com.uhi5d.spotibud.share
 
+/*
 import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -59,4 +60,4 @@ class ShareLayoutTwo : Fragment() {
         shareLayout2Holder.visibility  = View.GONE
         shareLayout2Pb.visibility = View.VISIBLE
     }
-}
+}*/

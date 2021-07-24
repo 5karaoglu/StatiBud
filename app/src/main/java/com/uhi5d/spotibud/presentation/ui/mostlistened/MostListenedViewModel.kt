@@ -1,10 +1,11 @@
 package com.uhi5d.spotibud.presentation.ui.mostlistened
 
-import android.content.SharedPreferences
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.asLiveData
 import androidx.lifecycle.viewModelScope
 import com.uhi5d.spotibud.application.ToastHelper
+import com.uhi5d.spotibud.data.local.datastore.DataStoreManager
 import com.uhi5d.spotibud.domain.model.MyArtistsItem
 import com.uhi5d.spotibud.domain.model.mytracks.MyTracksItem
 import com.uhi5d.spotibud.domain.usecase.UseCase
@@ -17,7 +18,7 @@ import javax.inject.Inject
 @HiltViewModel
 class MostListenedViewModel
 @Inject constructor(
-    private val sharedPreferences: SharedPreferences,
+    private val dataStoreManager: DataStoreManager,
     private val useCase: UseCase,
     private val toastHelper: ToastHelper
 ): ViewModel(){
@@ -28,10 +29,10 @@ class MostListenedViewModel
     private val _myArtists: MutableLiveData<MutableMap<String, List<MyArtistsItem>>> = MutableLiveData()
     val myArtists get() = _myArtists
 
-    private fun getToken() = sharedPreferences.getString("token",null)
+    private val token = dataStoreManager.getToken.asLiveData(viewModelScope.coroutineContext)
 
     fun getMyTracks(timeRange: String) = viewModelScope.launch {
-        useCase.getMyTopTracks(getToken()!!,timeRange).collect { state ->
+        useCase.getMyTopTracks(token.value!!,timeRange).collect { state ->
             when(state){
                 is DataState.Success -> {
                     _myTracks.value!![timeRange] = state.data.items!!
@@ -44,7 +45,7 @@ class MostListenedViewModel
         }
     }
     fun getMyArtists(timeRange: String) = viewModelScope.launch {
-        useCase.getMyTopArtists(getToken()!!,timeRange).collect { state ->
+        useCase.getMyTopArtists(token.value!!,timeRange).collect { state ->
             when(state){
                 is DataState.Success -> {
                     _myArtists.value!![timeRange] = state.data.items!!

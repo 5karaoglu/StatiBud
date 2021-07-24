@@ -6,7 +6,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.squareup.picasso.Picasso
 import com.uhi5d.spotibud.databinding.RecommendationSingleItemBinding
-import com.uhi5d.spotibud.domain.model.RecommendationsTrack
+import com.uhi5d.spotibud.domain.model.recommendations.RecommendationsTrack
 import com.uhi5d.spotibud.util.BaseViewHolder
 
 class RecommendationsAdapter(

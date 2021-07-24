@@ -1,5 +1,6 @@
 package com.uhi5d.spotibud.presentation.ui.search
 
+/*
 import android.content.Context
 import android.util.Log
 import android.view.LayoutInflater
@@ -11,7 +12,7 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.squareup.picasso.Picasso
 import com.uhi5d.spotibud.R
-import com.uhi5d.spotibud.model.SearchHistory
+
 
 class SearchHistoryAdapter (
     var context: Context,
@@ -90,4 +91,4 @@ class SearchHistoryAdapter (
         fun onDeleteClicked(searchHistory: SearchHistory)
     }
 
-}
+}*/

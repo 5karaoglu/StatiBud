@@ -1,4 +1,6 @@
 package com.uhi5d.spotibud.presentation.ui.home
+/*
+
 
 import android.content.Context
 import android.view.LayoutInflater
@@ -9,7 +11,6 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.squareup.picasso.Picasso
 import com.uhi5d.spotibud.R
-import com.uhi5d.spotibud.model.TrackFinderTracks
 
 class TrackFinderAdapter(
     var context: Context,
@@ -57,4 +58,4 @@ class TrackFinderAdapter(
         fun onItemClicked(tracks: TrackFinderTracks)
     }
 
-}
+}*/

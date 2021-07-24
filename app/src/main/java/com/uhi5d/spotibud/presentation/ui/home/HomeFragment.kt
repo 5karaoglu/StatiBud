@@ -8,8 +8,9 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.uhi5d.spotibud.R
 import com.uhi5d.spotibud.databinding.FragmentHomeBinding
-import com.uhi5d.spotibud.domain.model.RecommendationsTrack
 import com.uhi5d.spotibud.domain.model.recenttracks.RecentTracksItem
+import com.uhi5d.spotibud.domain.model.recommendations.RecommendationsTrack
+import com.uhi5d.spotibud.presentation.ui.detailed.track.toDetailedTrackFragmentModel
 import com.uhi5d.spotibud.util.DataState
 import com.uhi5d.spotibud.util.showIf
 import dagger.hilt.android.AndroidEntryPoint
@@ -107,13 +108,14 @@ RecentTracksAdapter.OnItemClickListener{
 
     override fun onItemClicked(recommendationsTrack: RecommendationsTrack) {
         val action = HomeFragmentDirections.actionHomeFragmentToDetailedTrackFragment(
-            null,recommendationsTrack,null)
+            recommendationsTrack.toDetailedTrackFragmentModel()
+        )
         findNavController().navigate(action)
     }
 
     override fun onItemClicked(recentTrack: RecentTracksItem) {
         val action = HomeFragmentDirections.actionHomeFragmentToDetailedTrackFragment(
-            recentTrack,null,null)
+            recentTrack.toDetailedTrackFragmentModel())
         findNavController().navigate(action)
     }
 

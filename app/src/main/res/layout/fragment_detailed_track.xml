@@ -4,94 +4,85 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".detailed.DetailedTrackFragment"
+    tools:context=".presentation.ui.detailed.track.DetailedTrackFragment"
     android:background="@color/colorPrimaryDark">
-    <com.google.android.material.appbar.AppBarLayout
-        android:id="@+id/appBarDetailedTrack"
+   <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/appBarDetailed"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
         android:fitsSystemWindows="true">
         <com.google.android.material.appbar.CollapsingToolbarLayout
-            android:id="@+id/collapsingToolbarTrack"
+            android:id="@+id/collapsingToolbar"
             android:layout_width="match_parent"
-            android:layout_height="400dp"
+            android:layout_height="wrap_content"
             android:fitsSystemWindows="true"
             app:contentScrim="@color/colorPrimary"
             app:expandedTitleMarginEnd="64dp"
             app:expandedTitleMarginStart="48dp"
             app:layout_scrollFlags="scroll|exitUntilCollapsed">
-            <ImageView
+            <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:id="@+id/imageView"
-                app:layout_collapseMode="parallax"
-                android:fitsSystemWindows="true"
-                android:scaleType="centerCrop"
-                android:minHeight="50dp"
-                android:src="@mipmap/ic_launcher"
-                app:layout_scrollFlags="scroll|enterAlways|enterAlwaysCollapsed"/>
-            <ImageView
-                android:layout_width="match_parent"
-                android:layout_height="160dp"
-                android:layout_gravity="bottom"
-                app:layout_collapseMode="pin"
-                android:fitsSystemWindows="true"
-                android:scaleType="centerCrop"
-                android:minHeight="50dp"
-                android:src="@drawable/shadow"
-                app:layout_scrollFlags="scroll|enterAlways|enterAlwaysCollapsed"/>
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_gravity="bottom|center_horizontal"
-                android:orientation="vertical"
-                android:gravity="center_horizontal"
-                app:layout_collapseMode="parallax">
+                android:layout_height="match_parent">
+                <ImageView
+                    android:layout_width="200dp"
+                    android:layout_height="200dp"
+                    android:layout_alignParentTop="true"
+                    android:layout_centerInParent="true"
+                    android:layout_margin="20dp"
+                    android:layout_gravity="center_horizontal"
+                    android:id="@+id/iv"
+                    android:src="@mipmap/ic_launcher"
+                    app:layout_scrollFlags="scroll|enterAlways|enterAlwaysCollapsed"/>
                 <TextView
-                    android:layout_marginStart="10dp"
-                    android:layout_marginEnd="10dp"
-                    android:id="@+id/tvParallaxHeaderTrack"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@id/tvArtistName"
+                    android:layout_below="@id/iv"
+                    android:text="Love Yoksunları"
+                    android:layout_gravity="center_horizontal"
+                    android:textColor="@color/white"
+                    android:textSize="25sp"
+                    android:gravity="center_horizontal"
+                    android:textStyle="bold"
+                    android:layout_centerHorizontal="true"
+                    android:layout_margin="10dp"
+                    android:padding="5dp"
+                    app:layout_collapseMode="parallax"/>
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="bottom|center_horizontal"
-                    android:gravity="bottom|center_horizontal"
-                    android:textSize="30sp"
-                    android:ellipsize="end"
-                    android:maxLines="2"
-                    android:textStyle="bold"
-                    android:layout_marginBottom="10dp"
-                    android:textColor="@color/white"
-                    android:shadowColor="@color/black"
-                    android:shadowDx="2"
-                    android:shadowDy="2"
-                    android:shadowRadius="4" />
-                <TextView
-                    android:padding="5dp"
-                    android:layout_marginTop="10dp"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/dt_rating_header"
-                    android:gravity="center"
-                    android:textSize="15sp"
-                    android:id="@+id/tvRating"
-                    android:scrollbars="none"
-                    android:textColor="@color/white"
-                    android:textStyle="normal"/>
-                <RatingBar
-                    android:id="@+id/dtRatingBar"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:numStars="5"
-                    android:progress="5"
-                    android:max="10"
-                    android:stepSize="0.1"
-                    android:clickable="false"
-                    android:progressTint="@color/colorAccent"
-                    android:progressBackgroundTint="@color/colorPrimary" />
-            </LinearLayout>
+                    android:gravity="center_horizontal"
+                    android:orientation="vertical"
+                    android:id="@+id/linear"
+                    android:layout_below="@+id/tvArtistName"
+                    android:layout_margin="10dp">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/tvPop"
+                        android:text="@string/popularity"
+                        android:textColor="@color/white"
+                        android:textSize="20sp"
+                        android:gravity="center_horizontal"
+                        android:textStyle="bold"
+                        android:layout_margin="10dp"
+                        android:padding="5dp"/>
+                    <RatingBar
+                        android:id="@+id/dtRatingBar"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:numStars="5"
+                        android:progress="5"
+                        android:max="10"
+                        android:stepSize="0.1"
+                        android:clickable="false"
+                        android:progressTint="@color/colorAccent"
+                        android:progressBackgroundTint="@color/colorPrimary" />
+                </LinearLayout>
+            </RelativeLayout>
             <androidx.appcompat.widget.Toolbar
-                android:id="@+id/detailedToolbarTrack"
+                android:id="@+id/detailedToolbar"
                 android:layout_width="match_parent"
                 app:titleTextAppearance="@style/TextAppearance.AppCompat.Medium"
                 app:titleTextColor="@android:color/white"
@@ -101,11 +92,6 @@
                 app:layout_collapseMode="pin"/>
         </com.google.android.material.appbar.CollapsingToolbarLayout>
     </com.google.android.material.appbar.AppBarLayout>
-    <ProgressBar
-        android:id="@+id/pbDetailedTrack"
-        android:layout_width="100dp"
-        android:layout_height="100dp"
-        android:layout_gravity="center" />
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/fabDetailedTrack"
         android:visibility="gone"
@@ -283,223 +269,13 @@
                 android:textColor="@color/white"
                 android:textStyle="normal"/>
 
-            <RelativeLayout
-                android:layout_marginTop="10dp"
+            <include layout="@layout/audio_features"
+                android:id="@+id/audio"
                 android:layout_below="@id/tvAudioFeatures"
-                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:id="@+id/reLayoutFeatures">
-                <RelativeLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="10dp"
-                    android:layout_marginTop="5dp"
-                    android:layout_marginEnd="10dp"
-                    android:layout_marginBottom="5dp"
-                    android:layout_alignParentStart="true"
-                    android:id="@+id/reLayoutDanceability">
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/danceability"
-                        android:textColor="@color/colorgray2"
-                        android:id="@+id/tvDanceability"/>
-                    <ProgressBar
-                        android:layout_below="@id/tvDanceability"
-                        android:id="@+id/pbDanceability"
-                        android:layout_width="170dp"
-                        android:layout_height="20dp"
-                        android:progressBackgroundTint="@color/colorgray2"
-                        android:progressTint="@color/colorAccent"
-                        style="@style/Widget.AppCompat.ProgressBar.Horizontal"
-                        android:max="100"
-                        android:progress="50"
-                        android:scaleY="1"
-                        android:indeterminateOnly="false"
-                        android:scrollbarSize="300dp"/>
-                </RelativeLayout>
-                <RelativeLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="10dp"
-                    android:layout_marginTop="5dp"
-                    android:layout_marginEnd="10dp"
-                    android:layout_marginBottom="5dp"
-                    android:id="@+id/reLayoutAcousticness"
-                    android:layout_alignParentEnd="true">
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/acousticness"
-                        android:textColor="@color/colorgray2"
-                        android:id="@+id/tvAcousticness"/>
-                    <ProgressBar
-                        android:layout_below="@id/tvAcousticness"
-                        android:id="@+id/pbAcousticness"
-                        android:layout_width="170dp"
-                        android:layout_height="20dp"
-                        android:progressBackgroundTint="@color/colorgray2"
-                        android:progressTint="@color/colorAccent"
-                        style="@style/Widget.AppCompat.ProgressBar.Horizontal"
-                        android:max="100"
-                        android:progress="50"
-                        android:scaleY="1"
-                        android:indeterminateOnly="false"
-                        android:scrollbarSize="300dp"/>
-                </RelativeLayout>
-                <RelativeLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="10dp"
-                    android:layout_marginTop="5dp"
-                    android:layout_marginEnd="10dp"
-                    android:layout_marginBottom="5dp"
-                    android:layout_alignParentStart="true"
-                    android:layout_below="@id/reLayoutDanceability"
-                    android:id="@+id/reLayoutEnergy">
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/energy"
-                        android:textColor="@color/colorgray2"
-                        android:id="@+id/tvEnergy"/>
-                    <ProgressBar
-                        android:layout_below="@id/tvEnergy"
-                        android:id="@+id/pbEnergy"
-                        android:layout_width="170dp"
-                        android:layout_height="20dp"
-                        android:progressBackgroundTint="@color/colorgray2"
-                        android:progressTint="@color/colorAccent"
-                        style="@style/Widget.AppCompat.ProgressBar.Horizontal"
-                        android:max="100"
-                        android:progress="50"
-                        android:scaleY="1"
-                        android:indeterminateOnly="false"
-                        android:scrollbarSize="300dp"/>
-                </RelativeLayout>
-                <RelativeLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="10dp"
-                    android:layout_marginTop="5dp"
-                    android:layout_marginEnd="10dp"
-                    android:layout_marginBottom="10dp"
-                    android:layout_below="@id/reLayoutAcousticness"
-                    android:id="@+id/reLayoutInstrumentalness"
-                    android:layout_alignParentEnd="true">
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/instrumentalness"
-                        android:textColor="@color/colorgray2"
-                        android:id="@+id/tvInstrumentalness"/>
-                    <ProgressBar
-                        android:layout_below="@id/tvInstrumentalness"
-                        android:id="@+id/pbInstrumentalness"
-                        android:layout_width="170dp"
-                        android:layout_height="20dp"
-                        android:progressBackgroundTint="@color/colorgray2"
-                        android:progressTint="@color/colorAccent"
-                        style="@style/Widget.AppCompat.ProgressBar.Horizontal"
-                        android:max="100"
-                        android:progress="50"
-                        android:scaleY="1"
-                        android:indeterminateOnly="false"
-                        android:scrollbarSize="300dp"/>
-                </RelativeLayout>
-                <RelativeLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="10dp"
-                    android:layout_marginTop="5dp"
-                    android:layout_marginEnd="10dp"
-                    android:layout_marginBottom="5dp"
-                    android:layout_alignParentStart="true"
-                    android:layout_below="@id/reLayoutEnergy"
-                    android:id="@+id/reLayoutLiveness">
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/liveness"
-                        android:textColor="@color/colorgray2"
-                        android:id="@+id/tvLiveness"/>
-                    <ProgressBar
-                        android:layout_below="@id/tvLiveness"
-                        android:id="@+id/pbLiveness"
-                        android:layout_width="170dp"
-                        android:layout_height="20dp"
-                        android:progressBackgroundTint="@color/colorgray2"
-                        android:progressTint="@color/colorAccent"
-                        style="@style/Widget.AppCompat.ProgressBar.Horizontal"
-                        android:max="100"
-                        android:progress="50"
-                        android:scaleY="1"
-                        android:indeterminateOnly="false"
-                        android:scrollbarSize="300dp"/>
-                </RelativeLayout>
-                <RelativeLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="10dp"
-                    android:layout_marginTop="5dp"
-                    android:layout_marginEnd="10dp"
-                    android:layout_marginBottom="5dp"
-                    android:id="@+id/reLayoutSpeechiness"
-                    android:layout_below="@id/reLayoutInstrumentalness"
-                    android:layout_alignParentEnd="true">
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/speechiness"
-                        android:textColor="@color/colorgray2"
-                        android:id="@+id/tvSpeechiness"/>
-                    <ProgressBar
-                        android:layout_below="@id/tvSpeechiness"
-                        android:id="@+id/pbSpeechiness"
-                        android:layout_width="170dp"
-                        android:layout_height="20dp"
-                        android:progressBackgroundTint="@color/colorgray2"
-                        android:progressTint="@color/colorAccent"
-                        style="@style/Widget.AppCompat.ProgressBar.Horizontal"
-                        android:max="100"
-                        android:progress="50"
-                        android:scaleY="1"
-                        android:indeterminateOnly="false"
-                        android:scrollbarSize="300dp"/>
-                </RelativeLayout>
-                <RelativeLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="10dp"
-                    android:layout_marginTop="5dp"
-                    android:layout_marginEnd="10dp"
-                    android:layout_marginBottom="5dp"
-                    android:layout_alignParentStart="true"
-                    android:layout_below="@id/reLayoutLiveness"
-                    android:id="@+id/reLayoutValence">
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/valence"
-                        android:textColor="@color/colorgray2"
-                        android:id="@+id/tvValence"/>
-                    <ProgressBar
-                        android:layout_below="@id/tvValence"
-                        android:id="@+id/pbValence"
-                        android:layout_width="170dp"
-                        android:layout_height="20dp"
-                        android:progressBackgroundTint="@color/colorgray2"
-                        android:progressTint="@color/colorAccent"
-                        style="@style/Widget.AppCompat.ProgressBar.Horizontal"
-                        android:max="100"
-                        android:progress="50"
-                        android:scaleY="1"
-                        android:indeterminateOnly="false"
-                        android:scrollbarSize="300dp"/>
-                </RelativeLayout>
-            </RelativeLayout>
+                android:layout_width="wrap_content"/>
             <TextView
-                android:layout_below="@+id/reLayoutFeatures"
+                android:layout_below="@id/audio"
                 android:paddingTop="10dp"
                 android:paddingStart="10dp"
                 android:paddingEnd="10dp"

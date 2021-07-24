@@ -1,10 +1,19 @@
 <resources>
-    <string name="app_name" translatable="false">Spotibud</string>
+    <string name="app_name" translatable="false">SpotiBud</string>
 
     <string name="current_position">#%d</string>
 
+
+
+    <!--Login Fragment-->
+    <string name="token_success" formatted="false">Success! Token expires in %s seconds.</string>
+    <string name="token_fail" formatted="false">Token could not get! Cause: %s</string>
+
+    <string name="auth_response_error" formatted="false">Error on getting auth response. Try again !</string>
+    <string name="auth_denied" formatted="false">Error. Auth denied ! Cause: %s</string>
+
     <!--Login Activity-->
-    <string name="spotibud_header" translatable="false">Spotibud</string>
+    <string name="spotibud_header" translatable="false">SpotiBud</string>
     <string name="spotibud_des" translatable="false">No.1 tool for Spotify</string>
     <string name="button_start">LOGIN WITH SPOTIFY</string>
     <string name="button_clicked">PLEASE WAIT</string>
@@ -81,6 +90,15 @@
     <!--top radio buttons-->
     <string name="top_fragment_artists">ARTISTS</string>
     <string name="top_fragment_tracks">TRACKS</string>
+
+    <!--RECOMMENDATION-->
+    <string name="reco_selected_track">Track not selected</string>
+    <string name="reco_selected_artist">Click to select</string>
+
+    <string name="search_result_empty">No results found !</string>
+    <string name="search_result_fail">Error ! </string>
+
+    <string name="popularity">Popularity :</string>
 
 
     <!--dialog texts-->
@@ -178,7 +196,7 @@
     <!--genre search-->
     <string name="genre_search_header">Search Genre</string>
     <string name="genre_search_et_hint">Write something…</string>
-    <string name="genre_search_hide_keyboard">Hıde Keyboard</string>
+    <string name="genre_search_hide_keyboard">Hide Keyboard</string>
     <string name="genre_search_cancel">Cancel</string>
 
 

@@ -1,13 +1,13 @@
 package com.uhi5d.spotibud.presentation.ui.home
 
-import android.content.SharedPreferences
 import androidx.lifecycle.*
+import com.uhi5d.spotibud.data.local.datastore.DataStoreManager
 import com.uhi5d.spotibud.domain.model.MyArtists
-import com.uhi5d.spotibud.domain.model.Recommendations
 import com.uhi5d.spotibud.domain.model.getArtistIds
 import com.uhi5d.spotibud.domain.model.mytracks.MyTracks
 import com.uhi5d.spotibud.domain.model.mytracks.getTrackIds
 import com.uhi5d.spotibud.domain.model.recenttracks.RecentTracks
+import com.uhi5d.spotibud.domain.model.recommendations.Recommendations
 import com.uhi5d.spotibud.domain.usecase.UseCase
 import com.uhi5d.spotibud.util.DataState
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -21,7 +21,7 @@ import javax.inject.Inject
 class HomeViewModel
 @Inject constructor(
     private val useCase: UseCase,
-    private val sharedPreferences: SharedPreferences
+    private val dataStoreManager: DataStoreManager
 ) :ViewModel(){
 
     private val _artists : MutableLiveData<DataState<MyArtists>> = MutableLiveData()
@@ -54,7 +54,7 @@ class HomeViewModel
 
 
 
-    private fun getToken() = sharedPreferences.getString("token", null)
+    val token = dataStoreManager.getToken.asLiveData(viewModelScope.coroutineContext)
 
     fun getRecommendations() {
         getMyTopArtists()
@@ -64,7 +64,7 @@ class HomeViewModel
             if (pair.first is DataState.Success && pair.second is DataState.Success) {
                 viewModelScope.launch {
                     useCase.getRecommendations(
-                        getToken()!!,
+                        token.value!!,
                         (pair.first as DataState.Success<MyArtists>).data.getArtistIds(),
                         (pair.second as DataState.Success<MyTracks>).data.getTrackIds()
                     )
@@ -76,7 +76,7 @@ class HomeViewModel
         }}
 
     fun getRecentTracks() = viewModelScope.launch {
-        val token = getToken()
+        val token = token.value
         if (token != null){
             useCase.getMyRecentPlayed(token).collect { state ->
                 when(state){
@@ -96,14 +96,14 @@ class HomeViewModel
 
 
     private fun getMyTopArtists() = viewModelScope.launch {
-        useCase.getMyTopArtists(getToken()!!, "short-term", 2)
+        useCase.getMyTopArtists(token.value!!, "short-term", 2)
             .collect { state ->
                 _artists.value = state
             }
     }
 
     private fun getMyTopTracks() = viewModelScope.launch {
-        useCase.getMyTopTracks(getToken()!!, "short-term", 2)
+        useCase.getMyTopTracks(token.value!!, "short-term", 2)
             .collect { state ->
                 _tracks.value = state
             }

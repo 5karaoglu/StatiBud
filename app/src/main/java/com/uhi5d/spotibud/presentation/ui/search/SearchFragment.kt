@@ -13,7 +13,9 @@ import com.uhi5d.spotibud.databinding.FragmentSearchBinding
 import com.uhi5d.spotibud.domain.model.searchresults.SearchResultsAlbumsItem
 import com.uhi5d.spotibud.domain.model.searchresults.SearchResultsArtistsItem
 import com.uhi5d.spotibud.domain.model.searchresults.SearchResultsTracksItem
-import com.uhi5d.spotibud.search.SearchFragmentDirections
+import com.uhi5d.spotibud.presentation.ui.detailed.album.toDetailedAlbumFragmentModel
+import com.uhi5d.spotibud.presentation.ui.detailed.artist.toDetailedArtistFragmentModel
+import com.uhi5d.spotibud.presentation.ui.detailed.track.toDetailedTrackFragmentModel
 import com.uhi5d.spotibud.util.DataState
 import com.uhi5d.spotibud.util.showIf
 import dagger.hilt.android.AndroidEntryPoint
@@ -81,21 +83,21 @@ class SearchFragment : Fragment(),
 
     override fun onTrackItemClicked(item: SearchResultsTracksItem) {
         val action = SearchFragmentDirections.actionSearchFragmentToDetailedTrackFragment(
-            null, null, item
+            item.toDetailedTrackFragmentModel()
         )
         findNavController().navigate(action)
     }
 
     override fun onArtistItemClicked(item: SearchResultsArtistsItem) {
-        val action = SearchFragmentDirections.actionSearchFragmentToDetailedArtistFragment(
-            item
+        val action = SearchFragmentDirections.actionSearchFragmentToDetailedArtistFragment2(
+            item.toDetailedArtistFragmentModel()
         )
         findNavController().navigate(action)
     }
 
     override fun onAlbumItemClicked(item: SearchResultsAlbumsItem) {
-        val action = SearchFragmentDirections.actionSearchFragmentToDetailedAlbumFragment(
-            item
+        val action = SearchFragmentDirections.actionSearchFragmentToDetailedAlbumFragment2(
+            item.toDetailedAlbumFragmentModel()
         )
         findNavController().navigate(action)
     }

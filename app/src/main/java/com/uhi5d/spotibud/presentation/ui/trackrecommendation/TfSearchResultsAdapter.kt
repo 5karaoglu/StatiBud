@@ -1,5 +1,6 @@
-package com.uhi5d.spotibud.finder
+package com.uhi5d.spotibud.presentation.ui.trackrecommendation
 
+/*
 import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
@@ -16,7 +17,8 @@ import com.squareup.picasso.Picasso
 class TfSearchResultsAdapter(
     var context: Context,
     var dataList: QueryResults,
-    var clickListener : OnItemClickListener) : RecyclerView.Adapter<TfSearchResultsAdapter.TfViewHolder>() {
+    var clickListener : OnItemClickListener
+) : RecyclerView.Adapter<TfSearchResultsAdapter.TfViewHolder>() {
 
 
     class TfViewHolder(itemView: View): RecyclerView.ViewHolder(itemView) {
@@ -58,4 +60,4 @@ class TfSearchResultsAdapter(
         fun onItemClicked(queryResultTrackItem: QueryResultTrackItem)
     }
 
-}
+}*/

@@ -1,10 +1,7 @@
 package com.uhi5d.spotibud.presentation.ui.search
 
-import android.content.SharedPreferences
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
+import androidx.lifecycle.*
+import com.uhi5d.spotibud.data.local.datastore.DataStoreManager
 import com.uhi5d.spotibud.domain.model.searchresults.SearchResults
 import com.uhi5d.spotibud.domain.usecase.UseCase
 import com.uhi5d.spotibud.util.DataState
@@ -17,18 +14,17 @@ import javax.inject.Inject
 @HiltViewModel
 class DetailedResultsViewModel
 @Inject constructor(
-    private val sharedPreferences: SharedPreferences,
+    private val dataStoreManager: DataStoreManager,
     private val useCase: UseCase
 ): ViewModel(){
 
     private val _searchResults: MutableLiveData<DataState<SearchResults>> = MutableLiveData()
     val searchResults : LiveData<DataState<SearchResults>> get() = _searchResults
 
-    private fun getToken() = sharedPreferences.getString("token",null)
-
+    private val token = dataStoreManager.getToken.asLiveData(viewModelScope.coroutineContext)
     @InternalCoroutinesApi
     fun search(str: String, type:String) = viewModelScope.launch {
-        useCase.search(getToken()!!,str,type,50).collect(object : FlowCollector<DataState<SearchResults>>{
+        useCase.search(token.value!!,str,type,50).collect(object : FlowCollector<DataState<SearchResults>>{
             override suspend fun emit(value: DataState<SearchResults>) {
                 when(value){
                     is DataState.Success -> {}

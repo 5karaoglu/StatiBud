@@ -3,8 +3,9 @@ package com.uhi5d.spotibud.data.repository
 import com.uhi5d.spotibud.data.local.LocalDataSource
 import com.uhi5d.spotibud.data.remote.RemoteDataSource
 import com.uhi5d.spotibud.domain.model.MyArtists
-import com.uhi5d.spotibud.domain.model.Recommendations
+import com.uhi5d.spotibud.domain.model.accesstoken.AccessToken
 import com.uhi5d.spotibud.domain.model.album.Album
+import com.uhi5d.spotibud.domain.model.albumstracks.AlbumsTracksResponse
 import com.uhi5d.spotibud.domain.model.artist.Artist
 import com.uhi5d.spotibud.domain.model.artistalbums.ArtistAlbums
 import com.uhi5d.spotibud.domain.model.artists.Artists
@@ -14,6 +15,7 @@ import com.uhi5d.spotibud.domain.model.devices.Devices
 import com.uhi5d.spotibud.domain.model.genres.Genres
 import com.uhi5d.spotibud.domain.model.mytracks.MyTracks
 import com.uhi5d.spotibud.domain.model.recenttracks.RecentTracks
+import com.uhi5d.spotibud.domain.model.recommendations.Recommendations
 import com.uhi5d.spotibud.domain.model.relatedartists.RelatedArtists
 import com.uhi5d.spotibud.domain.model.searchresults.SearchResults
 import com.uhi5d.spotibud.domain.model.track.Track
@@ -22,6 +24,8 @@ import com.uhi5d.spotibud.domain.repository.Repository
 import com.uhi5d.spotibud.util.DataState
 import kotlinx.coroutines.InternalCoroutinesApi
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.flow.flow
 import javax.inject.Inject
 
 class RepositoryImpl
@@ -142,11 +146,42 @@ class RepositoryImpl
     }
 
     @InternalCoroutinesApi
-    override suspend fun getGenres(token: String): Genres {
-        return localDataSource.getAllGenres()
+    override suspend fun getGenres(token: String): Flow<DataState<Genres>> = flow {
+        val genres = localDataSource.getAllGenres()
+        if(genres.genres.isEmpty()){
+            remoteDataSource.getGenres(token).collect { state ->
+                when(state){
+                    is DataState.Success -> {
+                        saveGenres(state.data)
+                        emit(DataState.Success(localDataSource.getAllGenres()))
+                    }
+                    is DataState.Fail -> emit(state)
+                }
+            }
+        }else{
+            emit(DataState.Success(genres))
+        }
     }
 
     override suspend fun saveGenres(genres: Genres) {
         localDataSource.saveGenres(genres)
+    }
+
+    override fun getAlbumsTracks(
+        token: String,
+        albumId: String
+    ): Flow<DataState<AlbumsTracksResponse>> {
+        return remoteDataSource.getAlbumsTracks(token, albumId)
+    }
+
+    override fun getToken(
+        url:String,
+        clientId: String,
+        grantType: String,
+        code: String,
+        redirectUri: String,
+        codeVerifier: String
+    ): Flow<DataState<AccessToken>> {
+        return remoteDataSource.getToken(url,clientId, grantType, code, redirectUri, codeVerifier)
     }
 }

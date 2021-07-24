@@ -1,13 +1,11 @@
 package com.uhi5d.spotibud.domain.model.searchresults
 
 
-import android.os.Parcelable
 import com.google.gson.annotations.SerializedName
 import com.uhi5d.spotibud.domain.model.ExternalIds
 import com.uhi5d.spotibud.domain.model.ExternalUrls
 import com.uhi5d.spotibud.domain.model.Followers
 import com.uhi5d.spotibud.domain.model.Image
-import kotlinx.android.parcel.Parcelize
 
 data class SearchResults(
     val albums: SearchResultsAlbums?,
@@ -24,7 +22,7 @@ data class SearchResultsAlbums(
     val previous: Any?,
     val total: Int?
 )
-@Parcelize
+
 data class SearchResultsAlbumsItem(
     @SerializedName("album_type")
     val albumType: String?,
@@ -45,7 +43,7 @@ data class SearchResultsAlbumsItem(
     val totalTracks: Int?,
     val type: String?,
     val uri: String?
-): Parcelable
+)
 
 data class SearchResultsAlbumsItemArtist(
     @SerializedName("external_urls")
@@ -66,7 +64,7 @@ data class SearchResultsArtists(
     val previous: Any?,
     val total: Int?
 )
-@Parcelize
+
 data class SearchResultsArtistsItem(
     @SerializedName("external_urls")
     val externalUrls: ExternalUrls?,
@@ -79,7 +77,7 @@ data class SearchResultsArtistsItem(
     val popularity: Int?,
     val type: String?,
     val uri: String?
-):Parcelable
+)
 
 data class SearchResultsTracks(
     val href: String?,
@@ -90,7 +88,7 @@ data class SearchResultsTracks(
     val previous: Any?,
     val total: Int?
 )
-@Parcelize
+
 data class SearchResultsTracksItem(
     val album: SearchResultsAlbumsItem?,
     val artists: List<SearchResultsArtists>?,
@@ -117,4 +115,4 @@ data class SearchResultsTracksItem(
     val trackNumber: Int?,
     val type: String?,
     val uri: String?
-): Parcelable
+)

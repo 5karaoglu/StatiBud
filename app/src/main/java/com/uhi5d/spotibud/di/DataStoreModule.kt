@@ -1,7 +1,7 @@
 package com.uhi5d.spotibud.di
 
 import android.content.Context
-import android.content.SharedPreferences
+import com.uhi5d.spotibud.data.local.datastore.DataStoreManager
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -11,10 +11,10 @@ import javax.inject.Singleton
 
 @InstallIn(SingletonComponent::class)
 @Module
-object SharedPreferencesModule {
+object DataStoreModule {
 
     @Provides
     @Singleton
-    fun provideSharedPrefs(@ApplicationContext context: Context): SharedPreferences =
-        context.getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE)
+    fun provideDataStoreManager(@ApplicationContext context: Context): DataStoreManager =
+        DataStoreManager(context)
 }

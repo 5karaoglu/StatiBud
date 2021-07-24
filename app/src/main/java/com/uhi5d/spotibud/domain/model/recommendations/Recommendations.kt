@@ -1,9 +1,10 @@
-package com.uhi5d.spotibud.domain.model
+package com.uhi5d.spotibud.domain.model.recommendations
 
 
-import android.os.Parcelable
 import com.google.gson.annotations.SerializedName
-import kotlinx.android.parcel.Parcelize
+import com.uhi5d.spotibud.domain.model.ExternalIds
+import com.uhi5d.spotibud.domain.model.ExternalUrls
+import com.uhi5d.spotibud.domain.model.Image
 
 data class Recommendations(
     val seeds: List<RecommendationsSeed>?,
@@ -57,7 +58,6 @@ data class RecommendationsSeed(
     val initialPoolSize: Int?,
     val type: String?
 )
-@Parcelize
 data class RecommendationsTrack(
     val album: RecommendationsAlbum?,
     val artists: List<RecommendationsArtist>?,
@@ -86,4 +86,4 @@ data class RecommendationsTrack(
     val trackNumber: Int?,
     val type: String?,
     val uri: String?
-): Parcelable
+)
