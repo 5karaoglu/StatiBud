@@ -1,6 +1,9 @@
 package com.uhi5d.spotibud.presentation.ui.detailed.track
 
 import android.os.Parcelable
+import com.uhi5d.spotibud.domain.model.albumstracks.AlbumsTracksItem
+import com.uhi5d.spotibud.domain.model.artisttoptracks.ArtistTopTracksTrack
+import com.uhi5d.spotibud.domain.model.mytracks.MyTracksItem
 import com.uhi5d.spotibud.domain.model.recenttracks.RecentTracksItem
 import com.uhi5d.spotibud.domain.model.recommendations.RecommendationsTrack
 import com.uhi5d.spotibud.domain.model.searchresults.SearchResultsTracksItem
@@ -21,4 +24,13 @@ fun RecommendationsTrack.toDetailedTrackFragmentModel() = DetailedTrackFragmentM
 )
 fun SearchResultsTracksItem.toDetailedTrackFragmentModel() = DetailedTrackFragmentModel(
     this.id!!, this.name!!, this.album?.images?.get(0)?.url!!
+)
+fun ArtistTopTracksTrack.toDetailedTrackFragmentModel() = DetailedTrackFragmentModel(
+    this.id!!, this.name!!, this.album?.images?.get(0)?.url!!
+)
+fun MyTracksItem.toDetailedTrackFragmentModel() = DetailedTrackFragmentModel(
+    this.id!!, this.name!!, this.album?.images?.get(0)?.url!!
+)
+fun AlbumsTracksItem.toDetailedTrackFragmentModel() = DetailedTrackFragmentModel(
+    this.id!!, this.name!!, ""
 )

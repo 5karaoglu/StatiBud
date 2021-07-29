@@ -5,6 +5,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.asLiveData
 import androidx.lifecycle.viewModelScope
 import com.uhi5d.spotibud.data.local.datastore.DataStoreManager
+import com.uhi5d.spotibud.domain.model.album.Album
 import com.uhi5d.spotibud.domain.model.albumstracks.AlbumsTracksResponse
 import com.uhi5d.spotibud.domain.model.artistalbums.ArtistAlbums
 import com.uhi5d.spotibud.domain.model.artists.Artists
@@ -24,73 +25,80 @@ class DetailedViewModel
 @Inject constructor(
     private val useCase: UseCase,
     dataStoreManager: DataStoreManager
-): ViewModel(){
+) : ViewModel() {
 
-    private val _artistsTopTracks : MutableLiveData<DataState<ArtistTopTracks>> = MutableLiveData()
+    private val _artistsTopTracks: MutableLiveData<DataState<ArtistTopTracks>> = MutableLiveData()
     val artistsTopTracks get() = _artistsTopTracks
 
-    private val _artistsAlbums : MutableLiveData<DataState<ArtistAlbums>> = MutableLiveData()
+    private val _artistsAlbums: MutableLiveData<DataState<ArtistAlbums>> = MutableLiveData()
     val artistsAlbums get() = _artistsAlbums
 
-    private val _relatedArtists : MutableLiveData<DataState<RelatedArtists>> = MutableLiveData()
+    private val _relatedArtists: MutableLiveData<DataState<RelatedArtists>> = MutableLiveData()
     val relatedArtists get() = _relatedArtists
 
-    private val _albumTracks : MutableLiveData<DataState<AlbumsTracksResponse>> = MutableLiveData()
+    private val _albumTracks: MutableLiveData<DataState<AlbumsTracksResponse>> = MutableLiveData()
     val albumTracks get() = _albumTracks
 
-    private val _audioFeatures : MutableLiveData<DataState<TrackAudioFeatures>> = MutableLiveData()
+    private val _audioFeatures: MutableLiveData<DataState<TrackAudioFeatures>> = MutableLiveData()
     val audioFeatures get() = _audioFeatures
 
-    private val _track : MutableLiveData<DataState<Track>> = MutableLiveData()
+    private val _track: MutableLiveData<DataState<Track>> = MutableLiveData()
     val track get() = _track
 
-    private val _artists : MutableLiveData<DataState<Artists>> = MutableLiveData()
+    private val _artists: MutableLiveData<DataState<Artists>> = MutableLiveData()
     val artists get() = _artists
+
+    private val _album: MutableLiveData<DataState<Album>> = MutableLiveData()
+    val album get() = _album
 
     val token = dataStoreManager.getToken.asLiveData(viewModelScope.coroutineContext)
 
-    fun getArtistsTopTracks(artistId: String,market:String) = viewModelScope.launch {
-        if (token.value != null)
-            useCase.getArtistTopTracks(token.value!!,artistId,market).collect { state ->
+    fun getArtistsTopTracks(token: String, artistId: String, market: String) =
+        viewModelScope.launch {
+            useCase.getArtistTopTracks(token, artistId, market).collect { state ->
                 _artistsTopTracks.value = state
             }
+        }
+
+    fun getArtistsAlbums(token: String, artistId: String, market: String) = viewModelScope.launch {
+        useCase.getArtistAlbums(token, artistId, market).collect { state ->
+            _artistsAlbums.value = state
+        }
     }
 
-    fun getArtistsAlbums(artistId: String,market:String) = viewModelScope.launch {
-        if (token.value != null)
-            useCase.getArtistAlbums(token.value!!,artistId,market).collect { state ->
-                _artistsAlbums.value = state
-            }
+    fun getRelatedArtists(token: String, artistId: String, market: String) = viewModelScope.launch {
+        useCase.getArtistRelatedArtists(token, artistId).collect { state ->
+            _relatedArtists.value = state
+        }
     }
 
-    fun getRelatedArtists(artistId: String,market:String) = viewModelScope.launch {
-        if (token.value != null)
-            useCase.getArtistRelatedArtists(token.value!!,artistId).collect { state ->
-                _relatedArtists.value = state
-            }
-    }
-
-    fun getAlbumsTracks(albumId:String) = viewModelScope.launch {
-        useCase.getAlbumsTracks(token.value!!,albumId).collect{ state ->
+    fun getAlbumsTracks(token: String, albumId: String) = viewModelScope.launch {
+        useCase.getAlbumsTracks(token, albumId).collect { state ->
             _albumTracks.value = state
         }
     }
 
-    fun getTracksAudioFeatures(trackId:String) = viewModelScope.launch {
-        useCase.getTrackAudioFeature(token.value!!,trackId).collect { state ->
+    fun getTracksAudioFeatures(token: String, trackId: String) = viewModelScope.launch {
+        useCase.getTrackAudioFeature(token, trackId).collect { state ->
             _audioFeatures.value = state
         }
     }
 
-    fun getTrack(trackId: String) = viewModelScope.launch {
-        useCase.getTrack(token.value!!,trackId).collect { state ->
+    fun getTrack(token: String, trackId: String) = viewModelScope.launch {
+        useCase.getTrack(token, trackId).collect { state ->
             _track.value = state
         }
     }
 
-    fun getArtists(artistIds:String) = viewModelScope.launch {
-        useCase.getSeveralArtists(token.value!!,artistIds).collect { state ->
+    fun getArtists(token: String, artistIds: String) = viewModelScope.launch {
+        useCase.getSeveralArtists(token, artistIds).collect { state ->
             _artists.value = state
+        }
+    }
+
+    fun getAlbum(token: String, albumId: String) = viewModelScope.launch {
+        useCase.getAlbum(token, albumId).collect { state ->
+            _album.value = state
         }
     }
 

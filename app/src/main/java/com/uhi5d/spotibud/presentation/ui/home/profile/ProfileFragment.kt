@@ -46,24 +46,29 @@ class ProfileFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        viewModel.getProfileInfo()
+        viewModel.token.observe(viewLifecycleOwner){
+            if (it.length > 10){
+                viewModel.getProfileInfo(it)
+                viewModel.getAvailableDevices(it)
+            }
+        }
+
         viewModel.profileInfo.observe(viewLifecycleOwner){ state ->
+            binding.successScreen.showIf {_ -> state is DataState.Success }
+            binding.shimmer.showIf {_ -> state is  DataState.Loading }
             when(state){
                 is DataState.Success -> {setUser(state.data)
                 initCollapsingToolbar(state.data)}
-                DataState.Empty -> TODO()
                 is DataState.Fail -> TODO()
-                DataState.Loading -> TODO()
             }
         }
-        viewModel.getAvailableDevices()
+
         viewModel.devices.observe(viewLifecycleOwner){
-            binding.shimmerLayout.showIf {_ -> it is DataState.Loading }
+            binding.devicesLayout.showIf {_ -> it is DataState.Success }
+            binding.shimmer.showIf {_ -> it is  DataState.Loading }
             when(it){
                 is DataState.Success -> {generateAvailableDevices(it.data)}
-                DataState.Empty -> TODO()
                 is DataState.Fail -> TODO()
-                DataState.Loading -> TODO()
             }
         }
 

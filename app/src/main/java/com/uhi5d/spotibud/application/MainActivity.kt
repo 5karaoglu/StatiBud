@@ -3,11 +3,11 @@ package com.uhi5d.spotibud.application
 
 import android.os.Bundle
 import android.view.View
+import android.widget.PopupMenu
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
-import androidx.navigation.ui.NavigationUI
 import com.google.android.gms.ads.AdRequest
 import com.google.android.gms.ads.AdView
 import com.google.android.gms.ads.MobileAds
@@ -32,14 +32,30 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        setTheme(R.style.AppTheme)
+
         setContentView(R.layout.activity_main)
 
-        setSupportActionBar(toolbar)
         //navigation and bottom navigation
         val navHostFragment =
             supportFragmentManager.findFragmentById(R.id.fragment) as NavHostFragment
         navController = navHostFragment.navController
-        NavigationUI.setupActionBarWithNavController(this,navController)
+
+        val popupMenu = PopupMenu(this, null)
+        popupMenu.inflate(R.menu.bottom_nav_menu)
+        val menu = popupMenu.menu
+        bottomBar.setupWithNavController(menu, navController)
+
+        navController.addOnDestinationChangedListener { _, destination, _ ->
+            if (destination.id == R.id.loginFragment){
+                bottomBar.visibility = View.GONE
+                reAd.visibility = View.GONE
+            }else{
+                bottomBar.visibility = View.VISIBLE
+                reAd.visibility = View.VISIBLE
+            }
+        }
+
 
         val dialog = dialog()
         connectionLiveData = ConnectionLiveData(this)
@@ -57,9 +73,6 @@ class MainActivity : AppCompatActivity() {
 
     }
 
-    override fun onSupportNavigateUp(): Boolean {
-        return navController.navigateUp()
-    }
 
     override fun onResume() {
         super.onResume()

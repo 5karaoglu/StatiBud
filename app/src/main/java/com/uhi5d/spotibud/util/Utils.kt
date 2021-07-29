@@ -39,12 +39,15 @@ fun getLocation(context: Context): String? {
     return context.resources.configuration.locales.getFirstMatch(Locale.getISOCountries())?.country
 }
 
-fun ImageView.loadWithPicasso(uri:String){
-    Picasso.get()
-        .load(uri)
-        .fit().centerInside()
-        .error(R.drawable.ic_baseline_not_interested_24)
-        .into(this)
+fun ImageView.loadWithPicasso(uri: String?) {
+    if (uri != null) {
+        Picasso.get()
+            .load(uri)
+            .fit().centerInside()
+            .error(R.drawable.ic_baseline_not_interested_24)
+            .into(this)
+
+    }
 }
 
 fun List<TrackArtist>.toQuery(): String {
@@ -61,5 +64,16 @@ fun List<TrackArtist>.toQuery(): String {
     }
 
     Log.d(TAG, "getArtists: $str")
+    return str
+}
+
+fun List<String>.toSeed(): String{
+    var str = ""
+    for (i in this){
+       str = "$str$i,"
+    }
+    if (str.endsWith(",")){
+        str = str.substring(0,str.length - 1)
+    }
     return str
 }

@@ -28,7 +28,10 @@ class GenreAdapter (
         }else{
             selectedList.remove(item)
         }
-
+        notifyDataSetChanged()
+    }
+    fun getSelectedList(): List<String>{
+        return selectedList
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {

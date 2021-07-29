@@ -138,8 +138,8 @@ interface WebService {
     suspend fun search(
         @Header("Authorization") token: String,
         @Query("q") query: String,
-        @Query("type") type: String? = "artist%2album%2track",
-        @Query("limit") limit: Int? = 3
+        @Query("limit") limit: Int? = 3,
+        @Query("type") type: String? = "artist,album,track"
     ): SearchResults
 
 

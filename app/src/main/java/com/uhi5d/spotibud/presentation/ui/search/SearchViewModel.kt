@@ -21,11 +21,11 @@ class SearchViewModel
     private val _searchResults : MutableLiveData<DataState<SearchResults>> = MutableLiveData()
     val searchResults : LiveData<DataState<SearchResults>> get() = _searchResults
 
-    private val token = dataStoreManager.getToken.asLiveData(viewModelScope.coroutineContext)
+    val token = dataStoreManager.getToken.asLiveData(viewModelScope.coroutineContext)
 
     @InternalCoroutinesApi
-    fun search(query: String) = viewModelScope.launch {
-        useCase.search(token.value!!,query,limit = 3).collect(object : FlowCollector<DataState<SearchResults>>{
+    fun search(token:String,query: String) = viewModelScope.launch {
+        useCase.search(token,query,limit = 3).collect(object : FlowCollector<DataState<SearchResults>>{
             override suspend fun emit(value: DataState<SearchResults>) {
                 when(value){
                     is DataState.Success -> {_searchResults.value = value}

@@ -46,7 +46,18 @@
         android:layout_gravity="bottom"
         android:background="@color/colorPrimary"
         android:layout_below="@id/appBarTop"
-        app:tabTextColor="@color/colorgray2" />
+        app:tabTextColor="@color/colorgray2"
+        >
+        <com.google.android.material.tabs.TabItem
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:text="TRACKS"
+            />
+        <com.google.android.material.tabs.TabItem
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:text="ARTISTS"/>
+    </com.google.android.material.tabs.TabLayout>
 
     <androidx.viewpager2.widget.ViewPager2
         android:id="@+id/viewPager2"

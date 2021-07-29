@@ -110,6 +110,12 @@ interface Repository {
         limit: Int? = null
     ):Flow<DataState<SearchResults>>
 
+    suspend fun search(
+        token: String,
+        query: String,
+        limit: Int? = null
+    ):Flow<DataState<SearchResults>>
+
     suspend fun getAvailableDevices(
         token: String
     ):Flow<DataState<Devices>>

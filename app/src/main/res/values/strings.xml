@@ -1,11 +1,21 @@
 <resources>
     <string name="app_name" translatable="false">SpotiBud</string>
 
-    <string name="current_position">#%d</string>
+    <string name="current_position">%d</string>
 
+    <string name="try_again">TRY AGAIN</string>
 
+    <!--bottom menu-->
+    <string name="home">Home</string>
+    <string name="search">Search</string>
+    <string name="top">Top</string>
+    <string name="reco">TR</string>
+
+    <string name="datastate_error">Error ! Cause: %s</string>
 
     <!--Login Fragment-->
+    <string name="button_login">LOGIN WITH</string>
+    <string name="please_wait">PLEASE WAIT</string>
     <string name="token_success" formatted="false">Success! Token expires in %s seconds.</string>
     <string name="token_fail" formatted="false">Token could not get! Cause: %s</string>
 
@@ -28,7 +38,7 @@
     <string name="top_long_term">lifetime</string>
 
     <!--Profile Fragment-->
-    <string name="welcome_header" formatted="false">Welcome, %s</string>
+    <string name="welcome_header">Welcome, %s</string>
     <string name="id">ID:</string>
     <string name="display_name">Display Name:</string>
     <string name="email">Email:</string>
@@ -54,12 +64,6 @@
     <string name="go_to_trackfinder">Go TrackFinder to find a song</string>
     <string name="clear_list">CLEAR LIST</string>
 
-    <!--Navigation Menu-->
-    <string name="home">Home</string>
-    <string name="top">Top</string>
-    <string name="search">Search</string>
-    <string name="share">Share</string>
-    <string name="track_finder">TF</string>
 
     <string name="banner_ad_unit_id">ca-app-pub-3940256099942544/6300978111</string>
 
@@ -79,7 +83,7 @@
     <string name="album_header">Albums</string>
 
     <!--Detailed Search Fragment-->
-    <string name="detailed_search_header">"%1$s" in %2$s</string>
+    <string name="detailed_search_header">\"%1$s\" in %2$s</string>
 
 
     <!--time ranges-->
@@ -99,6 +103,8 @@
     <string name="search_result_fail">Error ! </string>
 
     <string name="popularity">Popularity :</string>
+
+    <string name="tr_find_button_error">Empty field detected! You have to choose track and genres</string>
 
 
     <!--dialog texts-->
@@ -207,6 +213,7 @@
     <string name="search_for_a_genre">Search for a genre..</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="reco_header">Recommendations</string>
 
 
 </resources>

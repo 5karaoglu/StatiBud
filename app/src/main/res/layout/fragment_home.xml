@@ -4,232 +4,267 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".presentation.ui.home.HomeFragment"
-    android:background="@color/colorPrimaryDark">
-
-    <androidx.core.widget.NestedScrollView
+    android:background="@color/colorPrimaryDark"
+    tools:context=".presentation.ui.home.HomeFragment">
+    <RelativeLayout
+        android:id="@+id/shimmer"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        >
-        <RelativeLayout
+        android:layout_height="match_parent">
+        <include layout="@layout/fragment_home_shimmer"/>
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:visibility="gone"
+        android:id="@+id/success"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?actionBarSize"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <TextView
+                    android:id="@+id/tvHeader"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_toStartOf="@+id/buttonProfile"
+                    android:gravity="center_vertical"
+                    android:maxLines="1"
+                    android:text="@string/welcome_header"
+                    android:textColor="@color/white"
+                    android:textSize="22sp" />
+
+                <ImageButton
+                    android:id="@+id/buttonProfile"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentTop="true"
+                    android:layout_alignParentEnd="true"
+                    android:layout_centerVertical="true"
+                    android:layout_margin="10dp"
+                    android:background="@drawable/button_background2"
+                    android:padding="5dp"
+                    android:src="@drawable/ic_person" />
+            </RelativeLayout>
+        </androidx.appcompat.widget.Toolbar>
+
+        <androidx.core.widget.NestedScrollView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:gravity="center">
+            android:layout_below="@+id/toolbar">
 
             <RelativeLayout
-                android:id="@+id/reLayoutRecommendations"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_alignParentTop="true">
-                <TextView
-                    android:paddingTop="10dp"
-                    android:paddingStart="10dp"
-                    android:paddingEnd="10dp"
-                    android:paddingBottom="5dp"
-                    android:layout_marginTop="10dp"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="@string/recommendations"
-                    android:gravity="start"
-                    android:textSize="15sp"
-                    android:id="@+id/tvRecommendations"
-                    android:scrollbars="none"
-                    android:textColor="@color/white"
-                    android:textStyle="normal"/>
-                <TextView
-                    android:paddingStart="10dp"
-                    android:paddingEnd="10dp"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="@string/recommendations_description"
-                    android:gravity="start"
-                    android:textSize="12sp"
-                    android:layout_below="@id/tvRecommendations"
-                    android:id="@+id/tvRecommendationsDes"
-                    android:scrollbars="none"
-                    android:textColor="@color/colorgray2"
-                    android:textStyle="normal"/>
-                <com.facebook.shimmer.ShimmerFrameLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@+id/tvRecommendationsDes"
-                    app:shimmer_auto_start="true"
-                    android:id="@+id/shimmerLayout">
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:orientation="horizontal">
-                        <include layout="@layout/recommendation_single_item_shimmer"/>
-                        <include layout="@layout/recommendation_single_item_shimmer"/>
-                        <include layout="@layout/recommendation_single_item_shimmer"/>
-                        <include layout="@layout/recommendation_single_item_shimmer"/>
-                    </LinearLayout>
-                </com.facebook.shimmer.ShimmerFrameLayout>
-                <androidx.recyclerview.widget.RecyclerView
-                    android:visibility="gone"
-                    android:clipToPadding="false"
-                    android:background="@color/colorPrimaryDark"
-                    android:layout_marginBottom="10dp"
-                    tools:listitem="@layout/recommendation_single_item"
-                    tools:itemCount="1"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/recyclerRecommendation"
-                    android:scrollbars="horizontal"
-                    android:layout_below="@+id/tvRecommendationsDes"
-                    android:orientation="vertical" />
-            </RelativeLayout>
-            <!--//trackfinder search history-->
-            <RelativeLayout
-                android:visibility="gone"
-                android:id="@+id/trackFinderGroup"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/reLayoutRecommendations">
+                android:gravity="center">
+
                 <RelativeLayout
-                    android:id="@+id/homeTfHeaderHolder"
+                    android:id="@+id/reLayoutRecommendations"
                     android:layout_width="match_parent"
-                    android:layout_height="70dp"
-                    android:orientation="horizontal">
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentTop="true">
 
-                    <TextView
-                        android:id="@+id/tvHomeTf"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:layout_alignParentStart="true"
-                        android:layout_alignParentTop="true"
-                        android:layout_alignParentBottom="true"
-                        android:layout_toStartOf="@+id/buttonClearList"
-                        android:gravity="start|center_vertical"
-                        android:paddingStart="10dp"
-                        android:paddingEnd="10dp"
-                        android:text="@string/home_tf"
-                        android:textColor="@color/white"
-                        android:textSize="15sp"
-                        android:textStyle="normal" />
-                    <Button
-                        android:padding="5dp"
-                        android:layout_marginTop="10dp"
-                        android:layout_marginEnd="10dp"
-                        android:layout_alignParentEnd="true"
+                    <RelativeLayout
+                        android:id="@+id/recoSuccess"
                         android:layout_width="wrap_content"
-                        android:layout_height="50dp"
-                        android:src="@drawable/ic_close_gray"
-                        android:id="@+id/buttonClearList"
-                        android:textSize="12sp"
-                        android:text="@string/clear_list"
-                        android:textColor="@color/colorAccent"
-                        android:layout_gravity="end"
-                        android:background="@color/colorPrimaryDark"/>
+                        android:layout_height="wrap_content"
+                        >
+
+                        <TextView
+                            android:id="@+id/tvRecommendations"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="10dp"
+                            android:gravity="start"
+                            android:paddingStart="10dp"
+                            android:paddingTop="10dp"
+                            android:paddingEnd="10dp"
+                            android:paddingBottom="5dp"
+                            android:scrollbars="none"
+                            android:text="@string/recommendations"
+                            android:textColor="@color/white"
+                            android:textSize="15sp"
+                            android:textStyle="normal" />
+
+                        <TextView
+                            android:id="@+id/tvRecommendationsDes"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@id/tvRecommendations"
+                            android:gravity="start"
+                            android:paddingStart="10dp"
+                            android:paddingEnd="10dp"
+                            android:scrollbars="none"
+                            android:text="@string/recommendations_description"
+                            android:textColor="@color/colorgray2"
+                            android:textSize="12sp"
+                            android:textStyle="normal" />
+
+                        <androidx.recyclerview.widget.RecyclerView
+                            android:id="@+id/recyclerRecommendation"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@+id/tvRecommendationsDes"
+                            android:layout_marginBottom="10dp"
+                            android:background="@color/colorPrimaryDark"
+                            android:clipToPadding="false"
+                            android:orientation="vertical"
+                            android:scrollbars="horizontal"
+                            tools:itemCount="1"
+                            tools:listitem="@layout/recommendation_single_item" />
+                    </RelativeLayout>
                 </RelativeLayout>
 
-                <androidx.recyclerview.widget.RecyclerView
-                    android:clipToPadding="false"
-                    android:background="@color/colorPrimaryDark"
-                    android:layout_marginBottom="10dp"
-                    tools:listitem="@layout/recommendation_single_item"
-                    tools:itemCount="1"
+                <!--//trackfinder search history-->
+                <RelativeLayout
+                    android:id="@+id/trackFinderGroup"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:id="@+id/recyclerHomeTf"
-                    android:scrollbars="horizontal"
-                    android:layout_below="@+id/homeTfHeaderHolder"
-                    android:orientation="vertical" />
+                    android:layout_below="@+id/reLayoutRecommendations"
+                    android:visibility="gone">
 
+                    <RelativeLayout
+                        android:id="@+id/homeTfHeaderHolder"
+                        android:layout_width="match_parent"
+                        android:layout_height="70dp"
+                        android:orientation="horizontal">
 
-            </RelativeLayout>
-            <!--recent tracks-->
-            <RelativeLayout
-                android:layout_marginTop="20dp"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/trackFinderGroup">
-                <TextView
-                    android:padding="10dp"
-                    android:id="@+id/tvRecentTracks"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:gravity="center_vertical"
-                    android:text="@string/recent_tracks"
-                    android:textColor="@color/white"
-                    android:textSize="15sp"
-                    android:textStyle="normal"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
-                <androidx.constraintlayout.widget.ConstraintLayout
-                    android:visibility="gone"
-                    android:layout_marginBottom="10dp"
-                    android:id="@+id/coLayoutRecent"
-                    android:layout_below="@id/tvRecentTracks"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:gravity="center">
+                        <TextView
+                            android:id="@+id/tvHomeTf"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_alignParentStart="true"
+                            android:layout_alignParentTop="true"
+                            android:layout_alignParentBottom="true"
+                            android:layout_toStartOf="@+id/buttonClearList"
+                            android:gravity="start|center_vertical"
+                            android:paddingStart="10dp"
+                            android:paddingEnd="10dp"
+                            android:text="@string/home_tf"
+                            android:textColor="@color/white"
+                            android:textSize="15sp"
+                            android:textStyle="normal" />
+
+                        <Button
+                            android:id="@+id/buttonClearList"
+                            android:layout_width="wrap_content"
+                            android:layout_height="50dp"
+                            android:layout_alignParentEnd="true"
+                            android:layout_gravity="end"
+                            android:layout_marginTop="10dp"
+                            android:layout_marginEnd="10dp"
+                            android:background="@color/colorPrimaryDark"
+                            android:padding="5dp"
+                            android:src="@drawable/ic_close_gray"
+                            android:text="@string/clear_list"
+                            android:textColor="@color/colorAccent"
+                            android:textSize="12sp" />
+                    </RelativeLayout>
+
                     <androidx.recyclerview.widget.RecyclerView
-                        android:id="@+id/recyclerRecentHome"
+                        android:id="@+id/recyclerHomeTf"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:layout_below="@+id/homeTfHeaderHolder"
+                        android:layout_marginBottom="10dp"
                         android:background="@color/colorPrimaryDark"
-                        android:fadingEdgeLength="50dp"
-                        android:paddingStart="5dp"
-                        android:layout_marginBottom="10dp"
-                        android:paddingEnd="5dp"
-                        android:requiresFadingEdge="horizontal|vertical"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintHorizontal_bias="0.0"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent"
-                        tools:itemCount="3"
-                        tools:listitem="@layout/single_recent_played" />
+                        android:clipToPadding="false"
+                        android:orientation="vertical"
+                        android:scrollbars="horizontal"
+                        tools:itemCount="1"
+                        tools:listitem="@layout/recommendation_single_item" />
 
-                    <ImageView
-                        android:layout_width="match_parent"
-                        android:layout_height="30dp"
-                        android:src="@drawable/shadow"
-                        app:layout_constraintBottom_toBottomOf="@+id/recyclerRecentHome"
-                        app:layout_constraintEnd_toEndOf="@+id/recyclerRecentHome"
-                        app:layout_constraintHorizontal_bias="0.55"
-                        app:layout_constraintStart_toStartOf="@+id/recyclerRecentHome" />
 
-                    <Button
-                        android:id="@+id/buttonRecyclerExpand"
-                        android:layout_marginBottom="10dp"
-                        android:layout_width="180dp"
-                        android:layout_height="50dp"
-                        android:layout_below="@id/recyclerRecentHome"
-                        android:background="@drawable/button_background2"
-                        android:text="@string/show_more"
-                        android:textSize="12sp"
-                        android:textColor="@color/white"
-                        app:layout_constraintBottom_toBottomOf="@+id/recyclerRecentHome"
-                        app:layout_constraintEnd_toEndOf="@+id/recyclerRecentHome"
-                        app:layout_constraintHorizontal_bias="0.497"
-                        app:layout_constraintStart_toStartOf="@+id/recyclerRecentHome"
-                        app:layout_constraintTop_toBottomOf="@id/recyclerRecentHome" />
-
-                </androidx.constraintlayout.widget.ConstraintLayout>
-                <com.facebook.shimmer.ShimmerFrameLayout
-                    android:layout_below="@+id/tvRecentTracks"
+                </RelativeLayout>
+                <!--recent tracks-->
+                <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:id="@+id/shimmerRecentTracks"
-                    app:shimmer_auto_start="true">
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:orientation="vertical">
-                        <include layout="@layout/single_recent_played_shimmer"/>
-                        <include layout="@layout/single_recent_played_shimmer"/>
-                        <include layout="@layout/single_recent_played_shimmer"/>
-                        <include layout="@layout/single_recent_played_shimmer"/>
-                        <include layout="@layout/single_recent_played_shimmer"/>
-                        <include layout="@layout/single_recent_played_shimmer"/>
-                    </LinearLayout>
-                </com.facebook.shimmer.ShimmerFrameLayout>
-            </RelativeLayout>
-        </RelativeLayout>
-    </androidx.core.widget.NestedScrollView>
+                    android:layout_below="@+id/trackFinderGroup"
+                    android:layout_marginTop="20dp">
 
+
+                    <RelativeLayout
+                        android:id="@+id/recentSuccess"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content">
+
+                        <TextView
+                            android:id="@+id/tvRecentTracks"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="center_vertical"
+                            android:padding="10dp"
+                            android:text="@string/recent_tracks"
+                            android:textColor="@color/white"
+                            android:textSize="15sp"
+                            android:textStyle="normal"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                        <androidx.constraintlayout.widget.ConstraintLayout
+                            android:id="@+id/coLayoutRecent"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@id/tvRecentTracks"
+                            android:layout_marginBottom="10dp"
+                            android:gravity="center">
+
+                            <androidx.recyclerview.widget.RecyclerView
+                                android:id="@+id/recyclerRecentHome"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginBottom="10dp"
+                                android:background="@color/colorPrimaryDark"
+                                android:fadingEdgeLength="50dp"
+                                android:paddingStart="5dp"
+                                android:paddingEnd="5dp"
+                                android:requiresFadingEdge="horizontal|vertical"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintHorizontal_bias="0.0"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toTopOf="parent"
+                                tools:itemCount="3"
+                                tools:listitem="@layout/single_recent_played" />
+
+                            <ImageView
+                                android:layout_width="match_parent"
+                                android:layout_height="30dp"
+                                android:src="@drawable/shadow"
+                                app:layout_constraintBottom_toBottomOf="@+id/recyclerRecentHome"
+                                app:layout_constraintEnd_toEndOf="@+id/recyclerRecentHome"
+                                app:layout_constraintHorizontal_bias="0.55"
+                                app:layout_constraintStart_toStartOf="@+id/recyclerRecentHome" />
+
+                            <Button
+                                android:id="@+id/buttonRecyclerExpand"
+                                android:layout_width="180dp"
+                                android:layout_height="50dp"
+                                android:layout_below="@id/recyclerRecentHome"
+                                android:layout_marginBottom="10dp"
+                                android:background="@drawable/button_background2"
+                                android:text="@string/show_more"
+                                android:textColor="@color/white"
+                                android:textSize="12sp"
+                                app:layout_constraintBottom_toBottomOf="@+id/recyclerRecentHome"
+                                app:layout_constraintEnd_toEndOf="@+id/recyclerRecentHome"
+                                app:layout_constraintStart_toStartOf="@+id/recyclerRecentHome"
+                                app:layout_constraintTop_toBottomOf="@id/recyclerRecentHome" />
+                        </androidx.constraintlayout.widget.ConstraintLayout>
+                    </RelativeLayout>
+
+
+                </RelativeLayout>
+            </RelativeLayout>
+        </androidx.core.widget.NestedScrollView>
+    </RelativeLayout>
 
 
 </RelativeLayout>

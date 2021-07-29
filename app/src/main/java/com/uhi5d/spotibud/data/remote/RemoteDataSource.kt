@@ -1,6 +1,5 @@
 package com.uhi5d.spotibud.data.remote
 
-import android.util.Log
 import com.uhi5d.spotibud.domain.model.MyArtists
 import com.uhi5d.spotibud.domain.model.accesstoken.AccessToken
 import com.uhi5d.spotibud.domain.model.album.Album
@@ -39,7 +38,6 @@ class RemoteDataSource
                     url, clientId, grantType,
                     code, redirectUri, codeVerifier,
                 )
-                Log.d("TAG", "getToken: ${response.code()}")
                emit(DataState.Success(response.body()!!))
 
             }catch (e:Exception){
@@ -308,7 +306,7 @@ class RemoteDataSource
         }.flowOn(Dispatchers.IO)
     }
 
-     suspend fun search(
+    suspend fun search(
         token: String,
         query: String,
         type: String?,
@@ -317,7 +315,29 @@ class RemoteDataSource
         return flow {
             emit(DataState.Loading)
             try {
-                val response = webService.search(token, query, type,limit)
+                val response = webService.search(token, query,limit, type)
+                if (response.albums?.items.isNullOrEmpty() &&
+                    response.artists?.items.isNullOrEmpty() &&
+                    response.tracks?.items.isNullOrEmpty()){
+                    emit(DataState.Empty)
+                }else{
+                    emit(DataState.Success(response))
+                }
+            }catch (e: Exception){
+                emit(DataState.Fail(e))
+            }
+        }.flowOn(Dispatchers.IO)
+    }
+
+    suspend fun search(
+        token: String,
+        query: String,
+        limit: Int?
+    ): Flow<DataState<SearchResults>> {
+        return flow {
+            emit(DataState.Loading)
+            try {
+                val response = webService.search(token, query,limit)
                 if (response.albums?.items.isNullOrEmpty() &&
                     response.artists?.items.isNullOrEmpty() &&
                     response.tracks?.items.isNullOrEmpty()){

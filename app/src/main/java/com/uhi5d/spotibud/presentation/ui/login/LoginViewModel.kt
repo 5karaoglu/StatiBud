@@ -42,7 +42,7 @@ class LoginViewModel
         useCase.getToken(url,clientId, grantType, code, redirectUri, codeVerifier).collect { state ->
             _token.value = state
             when(state){
-                is DataState.Success -> dataStoreManager.saveToken(state.data.accessToken)
+                is DataState.Success -> dataStoreManager.saveToken("Bearer ${state.data.accessToken}")
             }
         }
     }

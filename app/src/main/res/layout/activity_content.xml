@@ -8,8 +8,8 @@
     android:background="@color/colorPrimaryDark">
 
     <ImageView
-        android:layout_width="256px"
-        android:layout_height="256px"
+        android:layout_width="102dp"
+        android:layout_height="102dp"
         android:layout_marginBottom="16dp"
         android:src="@mipmap/ic_launcher_round"
         app:layout_constraintBottom_toTopOf="@+id/textView5"

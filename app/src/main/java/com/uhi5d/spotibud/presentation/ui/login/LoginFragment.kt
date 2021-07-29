@@ -7,15 +7,15 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.content.res.AppCompatResources
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.navigation.fragment.findNavController
+import androidx.navigation.findNavController
 import com.uhi5d.spotibud.R
 import com.uhi5d.spotibud.application.PkceUtil
 import com.uhi5d.spotibud.databinding.FragmentLoginBinding
 import com.uhi5d.spotibud.di.TOKEN_BASE_URL
 import com.uhi5d.spotibud.util.DataState
-import com.uhi5d.spotibud.util.showIf
 import com.uhi5d.spotibud.util.showToast
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -69,28 +69,33 @@ class LoginFragment : Fragment() {
                     "&code_challenge=$codeChallenge" +
                     "&code_challenge_method=S256"))
             Log.d("TAG", "onViewCreated: $codeChallenge")
+            buttonLoadingState()
             startActivity(intent)
         }
         viewModel.token.observe(viewLifecycleOwner){ state ->
-            binding.pb.showIf { state is DataState.Loading }
+
             when(state){
                 is DataState.Success -> {
                     token = state.data.accessToken
-                    showToast(String.format(getString(R.string.token_success),state.data.expiresIn))
+                    buttonSuccessState()
+                    try {
+                        view.findNavController().navigate(R.id.action_loginFragment_to_inAppNav)
+                    }catch (e:Exception){
+                        throw Exception(e)
+                    }
                 }
                 is DataState.Fail ->
                     showToast(String.format(getString(R.string.token_fail),state.e.message))
+                DataState.Loading -> {
+                    buttonLoadingState()
+                }
             }
+
         }
 
 
 
-        viewModel.t.observe(viewLifecycleOwner){
-            if (it == token){
-                val action = LoginFragmentDirections.actionLoginFragmentToNavigation()
-                findNavController().navigate(action)
-            }
-        }
+
     }
 
     override fun onResume() {
@@ -112,6 +117,23 @@ class LoginFragment : Fragment() {
             }else{
              showToast(String.format(getString(R.string.auth_denied),uri.getQueryParameter("error")))
             }
+        }
+    }
+
+
+    private fun buttonLoadingState(){
+        with(binding.buttonLogin){
+            isEnabled = false
+            text = getString(R.string.please_wait)
+            setCompoundDrawables(null,null,null,null)
+        }
+    }
+
+    private fun buttonSuccessState(){
+        with(binding.buttonLogin){
+            isEnabled = true
+            text = getString(R.string.button_login)
+            setCompoundDrawables(null,null,AppCompatResources.getDrawable(requireContext(),R.drawable.ic_spotify_logo_with_text),null)
         }
     }
 }

@@ -34,6 +34,9 @@ class SearchFragment : Fragment(),
     private var _binding : FragmentSearchBinding? = null
     private val binding get() = _binding!!
 
+    private lateinit var token: String
+    private lateinit var query: String
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -65,9 +68,12 @@ class SearchFragment : Fragment(),
         /*binding.etSearch.addTextChangedListener(search)*/
         viewModel.searchResults.observe(viewLifecycleOwner){ state ->
             binding.shimmerLayout.showIf { state is DataState.Loading }
+            binding.recyclerSearch.showIf { state is DataState.Success }
             when(state){
                 is DataState.Success -> {
-                    searchResultsAdapter.setSearchResults(state.data)
+                    searchResultsAdapter.setSearchResultsTracks(state.data.tracks!!)
+                    searchResultsAdapter.setSearchResultsArtists(state.data.artists!!)
+                    searchResultsAdapter.setSearchResultsAlbums(state.data.albums!!)
                 }
                 DataState.Empty -> {}
                 is DataState.Fail -> {
@@ -75,6 +81,11 @@ class SearchFragment : Fragment(),
                 DataState.Loading -> {}
             }
 
+        }
+        viewModel.token.observe(viewLifecycleOwner){
+            if (it.length > 10){
+                token = it
+            }
         }
 
     }
@@ -103,7 +114,8 @@ class SearchFragment : Fragment(),
     }
 
     override fun onHeaderItemClicked(header: String) {
-        TODO("Not yet implemented")
+        val action = SearchFragmentDirections.actionSearchFragmentToDetailedResultsFragment(header,query)
+        findNavController().navigate(action)
     }
 
     @InternalCoroutinesApi
@@ -114,26 +126,12 @@ class SearchFragment : Fragment(),
         }
 
         override fun onQueryTextChange(newText: String?): Boolean {
-            if (newText != null) {
-                viewModel.search(newText)
+            if (newText != null && this@SearchFragment::token.isInitialized) {
+                viewModel.search(token,newText)
+                query = newText
             }
             return false
         }
     }
-
-   /* @InternalCoroutinesApi
-    val search = object : android.text.TextWatcher {
-        override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
-        }
-
-        override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-        }
-
-        override fun afterTextChanged(s: Editable?) {
-            if (s != null) {
-                viewModel.search(s.toString())
-            }
-        }
-    }*/
 
 }

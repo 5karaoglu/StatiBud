@@ -13,15 +13,13 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.appbar.AppBarLayout
-import com.squareup.picasso.Picasso
 import com.uhi5d.spotibud.databinding.FragmentDetailedAlbumBinding
+import com.uhi5d.spotibud.domain.model.album.Album
 import com.uhi5d.spotibud.domain.model.albumstracks.AlbumsTracksItem
 import com.uhi5d.spotibud.presentation.ui.detailed.ALBUM_URI
 import com.uhi5d.spotibud.presentation.ui.detailed.DetailedViewModel
-import com.uhi5d.spotibud.util.CustomItemDecoration
-import com.uhi5d.spotibud.util.DEFAULT_MARGIN
-import com.uhi5d.spotibud.util.DataState
-import com.uhi5d.spotibud.util.showToast
+import com.uhi5d.spotibud.presentation.ui.detailed.track.toDetailedTrackFragmentModel
+import com.uhi5d.spotibud.util.*
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.fragment_detailed_album.*
 
@@ -34,6 +32,7 @@ class DetailedAlbumFragment : Fragment(),
     private val args: DetailedAlbumFragmentArgs by navArgs()
 
     private lateinit var albumTracksAdapter: DetailedAlbumTracksAdapter
+    private lateinit var crAdapter: DetailedAlbumCopyrightsAdapter
 
     private var _binding : FragmentDetailedAlbumBinding? = null
     private val binding get() = _binding!!
@@ -54,6 +53,7 @@ class DetailedAlbumFragment : Fragment(),
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         albumTracksAdapter = DetailedAlbumTracksAdapter(requireContext(),this)
+        crAdapter = DetailedAlbumCopyrightsAdapter(requireContext())
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -63,27 +63,45 @@ class DetailedAlbumFragment : Fragment(),
             layoutManager = LinearLayoutManager(requireContext())
             addItemDecoration(CustomItemDecoration(DEFAULT_MARGIN))
         }
-        viewModel.getAlbumsTracks(args.detailedAlbumFragmentModel.id)
-        viewModel.albumTracks.observe(viewLifecycleOwner){ state ->
-            when(state){
-                is DataState.Success -> {albumTracksAdapter.setAlbumTracks(state.data.items!!)}
-                DataState.Empty -> TODO()
-                is DataState.Fail -> TODO()
-                DataState.Loading -> TODO()
+        with(binding.recyclerCopyright){
+            adapter = crAdapter
+            layoutManager = LinearLayoutManager(requireContext())
+            addItemDecoration(CustomItemDecoration(0))
+        }
+        viewModel.token.observe(viewLifecycleOwner){
+            if (it.length > 10){
+                viewModel.getAlbum(it,args.detailedAlbumFragmentModel.id)
+                viewModel.getAlbumsTracks(it,args.detailedAlbumFragmentModel.id)
             }
         }
-        init(args.detailedAlbumFragmentModel.id,
-            args.detailedAlbumFragmentModel.name,
-            args.detailedAlbumFragmentModel.imageUri)
+
+        viewModel.albumTracks.observe(viewLifecycleOwner){ state ->
+            when(state){
+                is DataState.Success -> {albumTracksAdapter.setAlbumTracks(state.data.items!!) }
+
+            }
+        }
+        viewModel.album.observe(viewLifecycleOwner){ state ->
+            binding.success.showIf { state is DataState.Success }
+            when(state){
+                is DataState.Success -> {init(state.data)
+                    state.data.copyrights?.let { crAdapter.setList(it) }
+                    binding.shimmer.hide()}
+
+            }
+        }
     }
 
-    private fun init(id:String, name:String, image:String){
-        Picasso.get()
-            .load(image)
-            .fit().centerCrop()
-            .into(binding.iv)
+    private fun init(album:Album){
+        with(binding){
+            iv.loadWithPicasso(album.images!![0].url!!)
+            tvAlbumName.text = album.name
+            dtRatingBar.rating = (album.popularity!!.toFloat()/20)
+            tvRelease.text = album.releaseDate
+            tvLabel.text = album.label
+        }
 
-        detailedAlbumToolbar.setNavigationOnClickListener {
+        binding.detailedAlbumToolbar.setNavigationOnClickListener {
             findNavController().popBackStack()
         }
 
@@ -96,7 +114,7 @@ class DetailedAlbumFragment : Fragment(),
                 scrollRange = appBarLayout?.totalScrollRange!!
             }
             if (scrollRange + verticalOffset == 0){
-                binding.collapsingToolbar.title = name
+                binding.collapsingToolbar.title = album.name
                 isShow = true
             } else if (isShow){
                 binding.collapsingToolbar.title = " "
@@ -117,5 +135,9 @@ class DetailedAlbumFragment : Fragment(),
     }
 
     override fun onItemClicked(item: AlbumsTracksItem) {
+        val action = DetailedAlbumFragmentDirections.actionDetailedAlbumFragmentToDetailedTrackFragment(
+            item.toDetailedTrackFragmentModel()
+        )
+        findNavController().navigate(action)
     }
 }

@@ -6,6 +6,8 @@ enum class TimeRange(val str: String){
     LONG("long_term")
 }
 
+val timeRangeList = listOf<String>("short_term","medium_term","long_term")
+
 enum class MlType{
     ARTISTS,TRACKS
 }

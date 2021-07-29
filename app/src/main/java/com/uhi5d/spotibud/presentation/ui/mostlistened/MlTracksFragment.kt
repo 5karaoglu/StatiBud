@@ -1,18 +1,21 @@
 package com.uhi5d.spotibud.presentation.ui.mostlistened
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.RadioGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.uhi5d.spotibud.R
 import com.uhi5d.spotibud.databinding.FragmentMlTracksBinding
 import com.uhi5d.spotibud.domain.model.MyArtistsItem
 import com.uhi5d.spotibud.domain.model.mytracks.MyTracksItem
-import com.uhi5d.spotibud.util.hide
-import com.uhi5d.spotibud.util.show
+import com.uhi5d.spotibud.presentation.ui.detailed.track.toDetailedTrackFragmentModel
+import com.uhi5d.spotibud.util.*
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -21,23 +24,26 @@ class MlTracksFragment : Fragment(),
 
     private val viewModel: MostListenedViewModel by viewModels()
     private var _binding: FragmentMlTracksBinding? = null
-    private val binding get() =  _binding!!
+    private val binding get() = _binding!!
 
-    private var list : MutableMap<String,List<MyTracksItem>>? = null
+    private lateinit var shortList: List<MyTracksItem>
+    private lateinit var mediumList: List<MyTracksItem>
+    private lateinit var longList: List<MyTracksItem>
+
     private var checkedRadioButton = 0
     private lateinit var mostListenedAdapter: MostListenedAdapter
     private val margin = 10
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        mostListenedAdapter = MostListenedAdapter(requireContext(),this)
+        mostListenedAdapter = MostListenedAdapter(requireContext(), this)
     }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-       _binding = FragmentMlTracksBinding.inflate(inflater,container,false)
+        _binding = FragmentMlTracksBinding.inflate(inflater, container, false)
         return binding.root
     }
 
@@ -48,45 +54,120 @@ class MlTracksFragment : Fragment(),
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        with(binding){
+        with(binding) {
             recycler.adapter = mostListenedAdapter
-            recycler.layoutManager = LinearLayoutManager(requireContext(),LinearLayoutManager.VERTICAL,false)
-            recycler.addItemDecoration(MlItemDecoration(margin))
+            recycler.layoutManager =
+                LinearLayoutManager(requireContext())
+            recycler.addItemDecoration(CustomItemDecoration(DEFAULT_MARGIN))
         }
-        binding.rg.setOnCheckedChangeListener(changedListener)
-        for(i in TimeRange.values()){
-            viewModel.getMyTracks(i.str)
+
+        viewModel.myTracksShort.observe(viewLifecycleOwner) { state ->
+            when (state) {
+                is DataState.Success -> {
+                    shortList = state.data.items!!
+                    if (checkedRadioButton == 0){
+                        mostListenedAdapter.setTracksList(shortList)
+                    }
+                    setScreenToSuccess()
+                }
+                is DataState.Fail -> {
+                }
+            }
         }
-        viewModel.myTracks.observe(viewLifecycleOwner){
-            binding.shimmerLayout.hide()
-            binding.recycler.show()
-            list = it
+        viewModel.myTracksMedium.observe(viewLifecycleOwner) { state ->
+            when (state) {
+                is DataState.Success -> {
+                    mediumList = state.data.items!!
+                    setScreenToSuccess()
+                }
+                is DataState.Fail -> {
+                }
+            }
+        }
+        viewModel.myTracksLong.observe(viewLifecycleOwner) { state ->
+            when (state) {
+                is DataState.Success -> {
+                    longList = state.data.items!!
+                    setScreenToSuccess()
+                }
+                is DataState.Fail -> {
+                }
+            }
+        }
+        binding.rg.setOnCheckedChangeListener {
+                group, checkedId ->
+            Log.d(TAG, "onViewCreated: $checkedId")
+            when (checkedId) {
+                R.id.rb1 -> {
+                    Log.d("TAG", "onViewCreated: short")
+                    if (this::shortList.isInitialized) {
+                        mostListenedAdapter.setTracksList(shortList)
+                        checkedRadioButton = 0
+                    }
+                }
+                R.id.rb2  -> {
+                    if (this::mediumList.isInitialized) {
+                        Log.d("TAG", "onViewCreated: m")
+                        mostListenedAdapter.setTracksList(mediumList)
+                        checkedRadioButton = 1
+                    }
+                }
+                R.id.rb3 -> {
+                    if (this::longList.isInitialized) {
+                        Log.d("TAG", "onViewCreated: l")
+                        mostListenedAdapter.setTracksList(longList)
+                        checkedRadioButton = 2
+                    }
+                }
+                else -> Log.d(TAG, "onViewCreated: else")
+            }
         }
     }
 
-    private val changedListener = RadioGroup.OnCheckedChangeListener { group, checkedId ->
-        when(group.checkedRadioButtonId){
-            binding.rb1.id -> {mostListenedAdapter.setTracksList(
-                list?.get(TimeRange.SHORT.str)!!
-            )
-                checkedRadioButton = 0}
-            binding.rb2.id -> {mostListenedAdapter.setTracksList(
-                list?.get(TimeRange.MEDIUM.str)!!
-            )
-                checkedRadioButton = 1}
-            binding.rb3.id -> {mostListenedAdapter.setTracksList(
-                list?.get(TimeRange.LONG.str)!!
-            )
-                checkedRadioButton = 2}
+    private fun changedListener() = RadioGroup.OnCheckedChangeListener { group, checkedId ->
+        Log.d(TAG, "$checkedId:")
+        when (checkedId) {
+            R.id.rb1 -> {
+                Log.d("TAG", "onViewCreated: short")
+                if (this::shortList.isInitialized) {
+                    mostListenedAdapter.setTracksList(shortList)
+                    checkedRadioButton = 0
+                }
+            }
+            R.id.rb2  -> {
+                if (this::mediumList.isInitialized) {
+                    Log.d("TAG", "onViewCreated: m")
+                    mostListenedAdapter.setTracksList(mediumList)
+                    checkedRadioButton = 1
+                }
+            }
+            R.id.rb3 -> {
+                if (this::longList.isInitialized) {
+                    Log.d("TAG", "onViewCreated: l")
+                    mostListenedAdapter.setTracksList(longList)
+                    checkedRadioButton = 2
+                }
+            }
         }
     }
 
-    override fun OnTrackItemClicked(item: MyTracksItem) {
-        TODO("Not yet implemented")
+    private fun setScreenToSuccess() {
+        with(binding) {
+            if (shimmer.visibility == View.VISIBLE &&
+                success.visibility == View.GONE) {
+                binding.shimmer.hide()
+                binding.success.show()
+            }
+        }
     }
 
-    override fun OnArtistItemClicked(item: MyArtistsItem) {
-        TODO("Not yet implemented")
+    override fun onTrackItemClicked(item: MyTracksItem) {
+        val action = MlTracksFragmentDirections.actionMlTracksFragmentToDetailedTrackFragment(
+            item.toDetailedTrackFragmentModel()
+        )
+        findNavController().navigate(action)
     }
+
+    override fun onArtistItemClicked(item: MyArtistsItem) {}
 
 }

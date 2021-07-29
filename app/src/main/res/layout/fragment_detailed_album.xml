@@ -4,10 +4,16 @@
     android:layout_height="match_parent"
     android:layout_width="match_parent"
     tools:context=".presentation.ui.detailed.album.DetailedAlbumFragment">
-    <include layout="@layout/fragment_detailed_artist_shimmer"/>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/shimmer"
+        android:visibility="gone">
+        <include layout="@layout/fragment_detailed_artist_shimmer"/>
+    </RelativeLayout>
     <androidx.coordinatorlayout.widget.CoordinatorLayout
-        android:visibility="gone"
-       android:id="@+id/coordinator"
+
+        android:id="@+id/success"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/colorPrimaryDark">
@@ -34,7 +40,7 @@
                         android:layout_height="200dp"
                         android:layout_alignParentTop="true"
                         android:layout_centerInParent="true"
-                        android:layout_margin="20dp"
+                        android:layout_marginTop="?actionBarSize"
                         android:layout_gravity="center_horizontal"
                         android:id="@+id/iv"
                         android:src="@mipmap/ic_launcher"
@@ -42,9 +48,8 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:id="@id/tvArtistName"
+                        android:id="@id/tvAlbumName"
                         android:layout_below="@id/iv"
-                        android:text="Love Yoksunları"
                         android:layout_gravity="center_horizontal"
                         android:textColor="@color/white"
                         android:textSize="25sp"
@@ -60,7 +65,7 @@
                         android:gravity="center_horizontal"
                         android:orientation="vertical"
                         android:id="@+id/linear"
-                        android:layout_below="@+id/tvArtistName"
+                        android:layout_below="@+id/tvAlbumName"
                         android:layout_margin="10dp">
                         <TextView
                             android:layout_width="wrap_content"
@@ -146,20 +151,19 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:padding="10dp"/>
-                <TextView
-                    android:textSize="12sp"
-                    android:id="@+id/tvCopyright"
+                <androidx.recyclerview.widget.RecyclerView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_below="@id/recyclerAlbumTracks"
-                    android:textColor="@color/colorgray"
-                    android:gravity="center_horizontal"/>
+                    android:id="@+id/recyclerCopyright"
+                    android:layout_below="@+id/recyclerAlbumTracks"
+                    android:padding="10dp"/>
+
                 <TextView
                     android:textSize="12sp"
                     android:id="@+id/tvLabel"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_below="@id/tvCopyright"
+                    android:layout_below="@id/recyclerCopyright"
                     android:textColor="@color/colorgray"
                     android:gravity="center_horizontal"/>
                 <TextView

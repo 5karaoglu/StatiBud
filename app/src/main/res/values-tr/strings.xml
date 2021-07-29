@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="current_position">#%d</string>
+    <string name="current_position">%d</string>
 
 
 
@@ -14,9 +14,6 @@
     <string name="country">Ülke:</string>
     <string name="account_status">Hesap Durumu:</string>
 
-    <!--Navigation Menu-->
-    <string name="home">Ana Sayfa</string>
-    <string name="top">En Çok</string>
     <string name="banner_ad_unit_id">ca-app-pub-3940256099942544/6300978111</string>
 
     <!--Recent Fragment-->
@@ -67,7 +64,7 @@
     <string name="tv_artists_more">Tüm sanatçıları göster</string>
     <string name="tv_tracks_more">Tüm şarkıları göster</string>
     <string name="tv_albums_more">Tüm albümleri göster</string>
-    <string name="detailed_search_header">%2$s "%1$s</string>
+    <string name="detailed_search_header">%2$s içinde \"%1$s\"</string>
     <string name="artist_header">Sanatçılarda</string>
     <string name="track_header">Şarkılarda</string>
     <string name="album_header">Albümlerde</string>
@@ -84,7 +81,6 @@
     <string name="account_info">Hesap Bilgileri</string>
     <string name="available_devices">Hazır Cihazlar</string>
     <string name="share_header">Senin İçin Hazırlandı</string>
-    <string name="share">Paylaş</string>
     <string name="share_one_header">Son 4 haftada 1 numaram</string>
     <string name="share_two_header">Son 4 haftada 2 numaram</string>
     <string name="spotibud">Android için Spotibud</string>
@@ -96,7 +92,6 @@
     <string name="button_text">ŞARKI BUL</string>
     <string name="warn">Hiçbir şarkı seçilmedi</string>
     <string name="search">Arama</string>
-    <string name="track_finder">TF</string>
     <string name="button_error">Şarkı veya tarz seçilmedi. Lütfen parametreleri kontrol et ve tekrar dene.</string>
     <string name="song_found">Şarkı bulundu !</string>
     <string name="tf_click">Şarkı seç</string>
@@ -149,6 +144,24 @@
     <string name="button_start">SPOTİFY İLE GİRİŞ YAP</string>
     <string name="button_clicked">LÜTFEN BEKLE</string>
     <string name="button_response">YÜKLENİYOR…</string>
+    <string name="try_again">TEKRAR DENE</string>
+    <string name="home">Ana Sayfa</string>
+    <string name="top">Top</string>
+    <string name="reco">TR</string>
+    <string name="datastate_error">Hata ! Sebep: %s</string>
+    <string name="button_login">İLE GİRİŞ YAP</string>
+    <string name="please_wait">LÜTFEN BEKLE</string>
+    <string name="token_success">Başarılı! Token\'ın süresi %s saniye</string>
+    <string name="token_fail">Token alınamadı! Sebep: %s</string>
+    <string name="auth_response_error">Doğrulama hatası. Tekrar dene !</string>
+    <string name="auth_denied">Hata. Doğrulama reddedildi ! Sebep: %s</string>
+    <string name="reco_selected_track">Parça seçilmedi</string>
+    <string name="reco_selected_artist">Seçmek için tıkla</string>
+    <string name="search_result_empty">Sonuç bulunamadı !</string>
+    <string name="search_result_fail">Hata !</string>
+    <string name="popularity">Popülarite:</string>
+    <string name="tr_find_button_error">Boş alan tespit edildi! Bir şarkı ve tür seç</string>
+    <string name="reco_header">Tavsiyeler</string>
 
 
 </resources>

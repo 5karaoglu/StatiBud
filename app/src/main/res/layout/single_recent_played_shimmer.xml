@@ -65,7 +65,8 @@
                 android:textStyle="normal"
                 android:layout_toEndOf="@+id/ivRecentTrack"
                 android:layout_marginStart="10dp"
-                android:layout_marginTop="5dp"/>
+                android:layout_marginTop="5dp"
+                android:layout_marginEnd="20dp"/>
 
             <TextView
                 android:id="@+id/tvRecentTrackArtist"
@@ -79,6 +80,7 @@
                 android:ellipsize="end"
                 android:gravity="start|center_vertical"
                 android:maxLines="1"
+                android:layout_marginEnd="60dp"
                 android:textColor="@color/colorgray2"
                 android:textSize="12sp" />
         </RelativeLayout>

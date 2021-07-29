@@ -5,11 +5,6 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".application.MainActivity">
-   <androidx.appcompat.widget.Toolbar
-       android:id="@+id/toolbar"
-       android:layout_width="match_parent"
-       android:layout_height="?actionBarSize"
-      android:layout_alignParentTop="true"/>
    <androidx.fragment.app.FragmentContainerView
        android:id="@+id/fragment"
        android:name="androidx.navigation.fragment.NavHostFragment"
@@ -17,7 +12,6 @@
        android:layout_height="match_parent"
        app:defaultNavHost="true"
        app:navGraph="@navigation/nav_graph"
-       android:layout_below="@+id/toolbar"
        android:layout_alignParentEnd="true"
        android:layout_alignParentStart="true"
        android:layout_above="@+id/reAd" />
@@ -26,6 +20,7 @@
        android:layout_height="wrap_content"
        android:layout_above="@+id/bottomBar"
        android:id="@+id/reAd"
+       android:layout_alignWithParentIfMissing="true"
        android:background="@color/colorPrimary">
 
       <com.google.android.gms.ads.AdView xmlns:ads="http://schemas.android.com/apk/res-auto"
@@ -43,4 +38,5 @@
        android:layout_alignParentBottom="true"
        app:backgroundColor="@color/colorPrimary"
        app:menu="@menu/bottom_nav_menu"/>
+
 </RelativeLayout>

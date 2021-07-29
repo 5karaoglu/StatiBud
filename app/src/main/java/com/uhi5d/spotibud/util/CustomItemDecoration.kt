@@ -7,7 +7,8 @@ import androidx.recyclerview.widget.RecyclerView
 const val DEFAULT_MARGIN = 10
 class CustomItemDecoration(
     private val margin: Int
-    ): RecyclerView.ItemDecoration() {
+): RecyclerView.ItemDecoration() {
+
 
     override fun getItemOffsets(
         outRect: Rect,

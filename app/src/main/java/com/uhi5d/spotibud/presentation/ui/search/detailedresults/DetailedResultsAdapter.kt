@@ -1,10 +1,9 @@
-package com.uhi5d.spotibud.presentation.ui.search
+package com.uhi5d.spotibud.presentation.ui.search.detailedresults
 
 import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.squareup.picasso.Picasso
 import com.uhi5d.spotibud.databinding.SearchAlbumtrackSingleBinding
 import com.uhi5d.spotibud.databinding.SearchArtistSingleBinding
 import com.uhi5d.spotibud.domain.model.searchresults.SearchResults
@@ -12,6 +11,7 @@ import com.uhi5d.spotibud.domain.model.searchresults.SearchResultsAlbumsItem
 import com.uhi5d.spotibud.domain.model.searchresults.SearchResultsArtistsItem
 import com.uhi5d.spotibud.domain.model.searchresults.SearchResultsTracksItem
 import com.uhi5d.spotibud.util.BaseViewHolder
+import com.uhi5d.spotibud.util.loadWithPicasso
 
 class DetailedResultsAdapter(
     private val context: Context,
@@ -29,9 +29,13 @@ class DetailedResultsAdapter(
         this.searchResults = searchResults
         notifyDataSetChanged()
     }
-    private var type: DataType? = null
+    private var type: String? = null
     fun setDataType(string: String){
-        type = DataType.valueOf(string)
+        when(string){
+            "Artists" -> type = "artist"
+            "Tracks" -> type = "track"
+            "Albums" -> type = "album"
+        }
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
@@ -54,23 +58,27 @@ class DetailedResultsAdapter(
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         when(holder){
-            is TrackViewHolder -> holder.bind(searchResults?.tracks?.items?.get(position-1)!!)
-            is AlbumViewHolder -> holder.bind(searchResults?.albums?.items?.get(position-1)!!)
-            is ArtistViewHolder -> holder.bind(searchResults?.artists?.items?.get(position-1)!!)
+            is TrackViewHolder -> holder.bind(searchResults?.tracks?.items?.get(position)!!)
+            is AlbumViewHolder -> holder.bind(searchResults?.albums?.items?.get(position)!!)
+            is ArtistViewHolder -> holder.bind(searchResults?.artists?.items?.get(position)!!)
         }
     }
 
-    override fun getItemCount(): Int =
-        searchResults?.albums?.items?.size!! +
-                searchResults?.tracks?.items?.size!! +
-                searchResults?.artists?.items?.size!!
+    override fun getItemCount(): Int {
+        return when(type){
+            "track" -> searchResults?.tracks?.items?.size ?: 0
+            "album" ->  searchResults?.albums?.items?.size ?: 0
+            "artist" ->  searchResults?.artists?.items?.size ?: 0
+            else -> -1
+        }
+    }
 
     override fun getItemViewType(position: Int): Int {
         return when (type) {
-            DataType.TRACKS -> 0
-            DataType.ALBUMS -> 1
-            DataType.ARTISTS -> 2
-            null -> -1
+            "track" -> 0
+            "album" -> 1
+            "artist" -> 2
+            else -> -1
         }
     }
 
@@ -79,13 +87,11 @@ class DetailedResultsAdapter(
     ): BaseViewHolder<SearchResultsTracksItem>(binding.root){
         override fun bind(item: SearchResultsTracksItem) {
             with(binding){
-                Picasso.get()
-                    .load(item.album?.images?.get(0)?.url)
-                    .fit().centerInside()
-                    .into(ivImage)
+                if (item.album!!.images!!.isNotEmpty()) {
+                    ivImage.loadWithPicasso(item.album.images!![0].url!!)}
 
                 tvName.text = item.name
-                tvNameArtist.text = item.artists?.get(0)?.items?.get(0)?.name
+                tvNameArtist.text = item.artists?.get(0)?.name
 
                 binding.root.setOnClickListener {
                     itemClickListener.onTrackItemClicked(item)
@@ -98,10 +104,8 @@ class DetailedResultsAdapter(
     ): BaseViewHolder<SearchResultsAlbumsItem>(binding.root){
         override fun bind(item: SearchResultsAlbumsItem) {
             with(binding){
-                Picasso.get()
-                    .load(item.images?.get(0)?.url)
-                    .fit().centerInside()
-                    .into(ivImage)
+                if (item.images!!.isNotEmpty())
+                    ivImage.loadWithPicasso(item.images[0].url!!)
 
                 tvName.text = item.name
                 tvNameArtist.text = item.artists?.get(0)?.name
@@ -117,12 +121,10 @@ class DetailedResultsAdapter(
     ): BaseViewHolder<SearchResultsArtistsItem>(binding.root){
         override fun bind(item: SearchResultsArtistsItem) {
             with(binding){
-                Picasso.get()
-                    .load(item.images?.get(0)?.url)
-                    .fit().centerInside()
-                    .into(ivArtistImage)
+                if (item.images!!.isNotEmpty())
+                    ivImage.loadWithPicasso(item.images[0].url!!)
 
-                tvArtistImage.text = item.name
+                tvName.text = item.name
 
                 binding.root.setOnClickListener {
                     itemClickListener.onArtistItemClicked(item)

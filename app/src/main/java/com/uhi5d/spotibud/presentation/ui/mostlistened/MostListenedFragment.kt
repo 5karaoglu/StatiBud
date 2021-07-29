@@ -38,10 +38,10 @@ class MostListenedFragment : Fragment() {
             viewPager2.adapter = mlFragmentAdapter
             TabLayoutMediator(tabLayout,viewPager2){tab, position ->
                 when(position){
-                    0 -> tab.text = R.string.top_fragment_tracks.toString()
-                    1 -> tab.text = R.string.top_fragment_artists.toString()
+                    0 -> tab.text = getString(R.string.top_fragment_tracks)
+                    1 -> tab.text = getString(R.string.top_fragment_artists)
                 }
-            }
+            }.attach()
         }
     }
 

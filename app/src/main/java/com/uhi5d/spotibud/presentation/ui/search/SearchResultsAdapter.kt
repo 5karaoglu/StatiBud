@@ -4,15 +4,12 @@ import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.squareup.picasso.Picasso
 import com.uhi5d.spotibud.databinding.SearchAlbumtrackSingleBinding
 import com.uhi5d.spotibud.databinding.SearchArtistSingleBinding
 import com.uhi5d.spotibud.databinding.SearchResultsHeaderBinding
-import com.uhi5d.spotibud.domain.model.searchresults.SearchResults
-import com.uhi5d.spotibud.domain.model.searchresults.SearchResultsAlbumsItem
-import com.uhi5d.spotibud.domain.model.searchresults.SearchResultsArtistsItem
-import com.uhi5d.spotibud.domain.model.searchresults.SearchResultsTracksItem
+import com.uhi5d.spotibud.domain.model.searchresults.*
 import com.uhi5d.spotibud.util.BaseViewHolder
+import com.uhi5d.spotibud.util.loadWithPicasso
 
 class SearchResultsAdapter(
     private val context: Context,
@@ -31,11 +28,24 @@ class SearchResultsAdapter(
     private val ArtistHeaderPos = 4
     private val ArtistBodyPos = 5
 
-    private var searchResults: SearchResults? = null
-    fun setSearchResults(searchResults: SearchResults){
-        this.searchResults = searchResults
+
+
+    private var searchResultsTracks = listOf<SearchResultsTracksItem>()
+    fun setSearchResultsTracks(searchResultsTracks: SearchResultsTracks){
+        this.searchResultsTracks = searchResultsTracks.items!!
         notifyDataSetChanged()
     }
+    private var searchResultsAlbums = listOf<SearchResultsAlbumsItem>()
+    fun setSearchResultsAlbums(searchResultsAlbums: SearchResultsAlbums){
+        this.searchResultsAlbums = searchResultsAlbums.items!!
+        notifyDataSetChanged()
+    }
+    private var searchResultsArtists = listOf<SearchResultsArtistsItem>()
+    fun setSearchResultsArtists(searchResultsArtists: SearchResultsArtists){
+        this.searchResultsArtists = searchResultsArtists.items!!
+        notifyDataSetChanged()
+    }
+
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         return when(viewType){
@@ -66,36 +76,32 @@ class SearchResultsAdapter(
             is HeaderViewHolder -> {
                 when(position){
                     0 -> holder.bind("Tracks")
-                    4 -> holder.bind("Albums")
-                    8 -> holder.bind("Artists")
+                    searchResultsTracks.size + 1 -> holder.bind("Artists")
+                    searchResultsTracks.size + searchResultsArtists.size + 2 -> holder.bind("Albums")
                 }
             }
-            is TrackViewHolder -> holder.bind(searchResults?.tracks?.items?.get(position-1)!!)
-            is AlbumViewHolder -> holder.bind(searchResults?.albums?.items?.get(position-1)!!)
-            is ArtistViewHolder -> holder.bind(searchResults?.artists?.items?.get(position-1)!!)
+            is TrackViewHolder -> holder.bind(searchResultsTracks[position-1])
+            is ArtistViewHolder -> holder.bind(searchResultsArtists[position-(searchResultsTracks.size+2)])
+            is AlbumViewHolder -> holder.bind(searchResultsAlbums[position-(searchResultsArtists.size+searchResultsTracks.size+3)])
         }
     }
 
     override fun getItemCount(): Int =
-        searchResults?.albums?.items?.size!! +
-                searchResults?.tracks?.items?.size!! +
-                searchResults?.artists?.items?.size!!
+        searchResultsAlbums.size+searchResultsTracks.size+searchResultsArtists.size+3
 
     override fun getItemViewType(position: Int): Int {
-        return when(position){
-            0 -> TrackHeaderPos
-            1 -> TrackBodyPos
-            2 -> TrackBodyPos
-            3 -> TrackBodyPos
-            4 -> ArtistHeaderPos
-            5 -> ArtistBodyPos
-            6 -> ArtistBodyPos
-            7 -> ArtistBodyPos
-            8 -> AlbumHeaderPos
-            9 -> AlbumBodyPos
-            10 -> AlbumBodyPos
-            11 -> AlbumBodyPos
-            else -> -1
+        return if (position == 0){
+            TrackHeaderPos
+        }else if (position < searchResultsTracks.size + 1){
+            TrackBodyPos
+        }else if(position == searchResultsTracks.size +1){
+            ArtistHeaderPos
+        }else if (position > searchResultsTracks.size + 1 && position < searchResultsTracks.size + searchResultsArtists.size + 2){
+            ArtistBodyPos
+        }else if (position == searchResultsTracks.size + searchResultsArtists.size + 2){
+            AlbumHeaderPos
+        }else{
+            AlbumBodyPos
         }
     }
 
@@ -104,13 +110,12 @@ class SearchResultsAdapter(
     ): BaseViewHolder<SearchResultsTracksItem>(binding.root){
         override fun bind(item: SearchResultsTracksItem) {
             with(binding){
-                Picasso.get()
-                    .load(item.album?.images?.get(0)?.url)
-                    .fit().centerInside()
-                    .into(ivImage)
+                if (item.album!!.images!!.isNotEmpty()) {
+                    ivImage.loadWithPicasso(item.album.images!![0].url.toString())
+                }
 
                 tvName.text = item.name
-                tvNameArtist.text = item.artists?.get(0)?.items?.get(0)?.name
+                tvNameArtist.text = item.artists?.get(0)?.name
 
                 binding.root.setOnClickListener {
                     itemClickListener.onTrackItemClicked(item)
@@ -123,10 +128,9 @@ class SearchResultsAdapter(
     ): BaseViewHolder<SearchResultsAlbumsItem>(binding.root){
         override fun bind(item: SearchResultsAlbumsItem) {
             with(binding){
-                Picasso.get()
-                    .load(item.images?.get(0)?.url)
-                    .fit().centerInside()
-                    .into(ivImage)
+                if (item.images!!.isNotEmpty()) {
+                    ivImage.loadWithPicasso(item.images[0].url.toString())
+                }
 
                 tvName.text = item.name
                 tvNameArtist.text = item.artists?.get(0)?.name
@@ -141,13 +145,12 @@ class SearchResultsAdapter(
         private val binding: SearchArtistSingleBinding
     ): BaseViewHolder<SearchResultsArtistsItem>(binding.root){
         override fun bind(item: SearchResultsArtistsItem) {
-            with(binding){
-                Picasso.get()
-                    .load(item.images?.get(0)?.url)
-                    .fit().centerInside()
-                    .into(ivArtistImage)
+            with(binding) {
+                if (item.images!!.isNotEmpty()) {
+                    ivImage.loadWithPicasso(item.images[0].url.toString())
+                }
 
-                tvArtistImage.text = item.name
+                tvName.text = item.name
 
                 binding.root.setOnClickListener {
                     itemClickListener.onArtistItemClicked(item)
@@ -159,7 +162,7 @@ class SearchResultsAdapter(
         private val binding: SearchResultsHeaderBinding
     ) : BaseViewHolder<String>(binding.root) {
         override fun bind(item: String) {
-            binding.tv.text = ""
+            binding.tv.text = item
 
             binding.root.setOnClickListener {
                 itemClickListener.onHeaderItemClicked(binding.tv.text.toString())

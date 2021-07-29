@@ -4,20 +4,22 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
-    <include layout="@layout/fragment_detailed_artist_shimmer"
-        />
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/shimmer">
+        <include layout="@layout/fragment_detailed_artist_shimmer"
+            />
+
+    </RelativeLayout>
     <androidx.coordinatorlayout.widget.CoordinatorLayout
-        android:visibility="gone"
+
+        android:id="@+id/success"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         tools:context=".presentation.ui.detailed.artist.DetailedArtistFragment"
         android:background="@color/colorPrimaryDark">
 
-        <androidx.constraintlayout.widget.Group
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:constraint_referenced_ids="appBarDetailedArtist,fabDetailedArtist,nsvDetailedArtist"
-            android:visibility="gone"/>
         <com.google.android.material.appbar.AppBarLayout
             android:id="@+id/appBarDetailedArtist"
             android:layout_width="match_parent"
@@ -41,7 +43,7 @@
                         android:layout_height="200dp"
                         android:layout_alignParentTop="true"
                         android:layout_centerInParent="true"
-                        android:layout_margin="20dp"
+                        android:layout_marginTop="?actionBarSize"
                         android:layout_gravity="center_horizontal"
                         android:id="@+id/iv"
                         android:src="@mipmap/ic_launcher"
@@ -51,7 +53,6 @@
                         android:layout_height="wrap_content"
                         android:id="@id/tvArtistName"
                         android:layout_below="@id/iv"
-                        android:text="Love Yoksunları"
                         android:layout_gravity="center_horizontal"
                         android:textColor="@color/white"
                         android:textSize="25sp"

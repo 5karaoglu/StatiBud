@@ -91,7 +91,7 @@ data class SearchResultsTracks(
 
 data class SearchResultsTracksItem(
     val album: SearchResultsAlbumsItem?,
-    val artists: List<SearchResultsArtists>?,
+    val artists: List<SearchResultsTracksItemArtist>?,
     @SerializedName("available_markets")
     val availableMarkets: List<String>?,
     @SerializedName("disc_number")
@@ -115,4 +115,12 @@ data class SearchResultsTracksItem(
     val trackNumber: Int?,
     val type: String?,
     val uri: String?
+)
+data class SearchResultsTracksItemArtist (
+    val externalUrls: ExternalUrls? = null,
+    val href: String? = null,
+    val id: String? = null,
+    val name: String? = null,
+    val type: String? = null,
+    val uri: String? = null
 )

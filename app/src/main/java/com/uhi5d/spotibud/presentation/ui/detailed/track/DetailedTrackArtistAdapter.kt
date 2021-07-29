@@ -17,6 +17,7 @@ class DetailedTrackArtistAdapter(
     private var list = listOf<Artist>()
     fun setArtistList(list: List<Artist>){
         this.list = list
+        notifyDataSetChanged()
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ArtistViewHolder {

@@ -2,7 +2,6 @@ package com.uhi5d.spotibud
 
 import android.app.Activity
 import android.content.Context
-import android.util.Log
 import android.view.inputmethod.InputMethodManager
 import java.net.URLEncoder
 import java.text.SimpleDateFormat
@@ -25,7 +24,7 @@ class Functions {
     private val MINUTE = 60 * SECOND
     private val HOUR = 60 * MINUTE
     private val DAY = 24 * HOUR
-    fun getTime(timestamp: String): String? {
+    fun getTime(timestamp: String): String {
         var time: String? = null
         var parsedDate = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'", Locale.getDefault())
         parsedDate.timeZone = TimeZone.getTimeZone("GMT")
@@ -36,7 +35,7 @@ class Functions {
 
         val currentDate = System.currentTimeMillis()
         val dif = currentDate - calendar.timeInMillis
-        Log.d(TAG, "getTime: $dif")
+
         time = if (dif > DAY) {
             "${dif/DAY}d"
         }else if (dif > HOUR){

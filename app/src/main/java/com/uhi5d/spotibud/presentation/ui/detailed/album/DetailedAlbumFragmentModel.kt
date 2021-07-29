@@ -1,7 +1,9 @@
 package com.uhi5d.spotibud.presentation.ui.detailed.album
 
 import android.os.Parcelable
+import com.uhi5d.spotibud.domain.model.artistalbums.ArtistAlbumsItem
 import com.uhi5d.spotibud.domain.model.searchresults.SearchResultsAlbumsItem
+import com.uhi5d.spotibud.domain.model.track.Track
 import kotlinx.android.parcel.Parcelize
 
 @Parcelize
@@ -13,4 +15,11 @@ data class DetailedAlbumFragmentModel(
 
 fun SearchResultsAlbumsItem.toDetailedAlbumFragmentModel() = DetailedAlbumFragmentModel(
     this.id!!, this.name!!, this.images!![0].url!!
+)
+
+fun ArtistAlbumsItem.toDetailedAlbumFragmentModel() = DetailedAlbumFragmentModel(
+    this.id!!, this.name!!, this.images!![0].url!!
+)
+fun Track.toDetailedAlbumFragmentModel() = DetailedAlbumFragmentModel(
+    this.album?.id!!, this.name!!, this.album.images!![0].url!!
 )

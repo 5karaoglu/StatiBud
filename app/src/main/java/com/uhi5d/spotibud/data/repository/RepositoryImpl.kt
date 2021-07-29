@@ -141,6 +141,14 @@ class RepositoryImpl
         return remoteDataSource.search(token, query, type, limit)
     }
 
+    override suspend fun search(
+        token: String,
+        query: String,
+        limit: Int?
+    ): Flow<DataState<SearchResults>> {
+        return remoteDataSource.search(token, query, limit)
+    }
+
     override suspend fun getAvailableDevices(token: String): Flow<DataState<Devices>> {
         return remoteDataSource.getAvailableDevices(token)
     }

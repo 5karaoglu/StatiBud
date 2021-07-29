@@ -133,7 +133,11 @@ class Interactor
         type: String?,
         limit: Int?
     ): Flow<DataState<SearchResults>> {
-        return repository.search(token, query, type, limit)
+        return if (type.isNullOrBlank()){
+            repository.search(token, query, limit)
+        }else{
+            repository.search(token, query, type, limit)
+        }
     }
 
     override suspend fun getAvailableDevices(token: String): Flow<DataState<Devices>> {

@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".presentation.ui.home.HomeFragment">
+
+    <com.facebook.shimmer.ShimmerFrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:shimmer_auto_start="true"
+        android:id="@+id/shimmerLayout">
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+            <androidx.appcompat.widget.Toolbar
+                android:id="@+id/toolbar"
+                android:layout_width="match_parent"
+                android:layout_height="?actionBarSize">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <TextView
+                        android:id="@+id/tvHeader"
+                        android:layout_width="match_parent"
+                        android:layout_height="20dp"
+                        android:layout_centerVertical="true"
+                        android:layout_toStartOf="@+id/buttonProfile"
+                        android:gravity="center_vertical"
+                        android:maxLines="1"
+                        android:background="@color/shimmer_placeholder"
+                        android:textColor="@color/white"
+                        android:textSize="22sp" />
+
+                    <ImageButton
+                        android:id="@+id/buttonProfile"
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        android:layout_alignParentTop="true"
+                        android:layout_alignParentEnd="true"
+                        android:layout_centerVertical="true"
+                        android:layout_margin="10dp"
+                        android:background="@drawable/button_background2"
+                        android:padding="5dp"
+                        android:src="@color/shimmer_placeholder" />
+                </RelativeLayout>
+            </androidx.appcompat.widget.Toolbar>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal">
+                <include layout="@layout/recommendation_single_item_shimmer"/>
+                <include layout="@layout/recommendation_single_item_shimmer"/>
+                <include layout="@layout/recommendation_single_item_shimmer"/>
+
+            </LinearLayout>
+            <include layout="@layout/single_recent_played_shimmer" />
+            <include layout="@layout/single_recent_played_shimmer" />
+            <include layout="@layout/single_recent_played_shimmer" />
+            <include layout="@layout/single_recent_played_shimmer" />
+            <include layout="@layout/single_recent_played_shimmer" />
+            <include layout="@layout/single_recent_played_shimmer" />
+            <include layout="@layout/single_recent_played_shimmer" />
+            <include layout="@layout/single_recent_played_shimmer" />
+            <include layout="@layout/single_recent_played_shimmer" />
+            <include layout="@layout/single_recent_played_shimmer" />
+
+        </LinearLayout>
+
+    </com.facebook.shimmer.ShimmerFrameLayout>
+
+</RelativeLayout>

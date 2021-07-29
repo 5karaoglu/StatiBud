@@ -6,8 +6,8 @@ import androidx.lifecycle.asLiveData
 import androidx.lifecycle.viewModelScope
 import com.uhi5d.spotibud.application.ToastHelper
 import com.uhi5d.spotibud.data.local.datastore.DataStoreManager
-import com.uhi5d.spotibud.domain.model.MyArtistsItem
-import com.uhi5d.spotibud.domain.model.mytracks.MyTracksItem
+import com.uhi5d.spotibud.domain.model.MyArtists
+import com.uhi5d.spotibud.domain.model.mytracks.MyTracks
 import com.uhi5d.spotibud.domain.usecase.UseCase
 import com.uhi5d.spotibud.util.DataState
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -23,38 +23,68 @@ class MostListenedViewModel
     private val toastHelper: ToastHelper
 ): ViewModel(){
 
-    private val _myTracks: MutableLiveData<MutableMap<String, List<MyTracksItem>>> = MutableLiveData()
-    val myTracks get() = _myTracks
+    private val _myTracksShort: MutableLiveData<DataState<MyTracks>> = MutableLiveData()
+    val myTracksShort get() = _myTracksShort
 
-    private val _myArtists: MutableLiveData<MutableMap<String, List<MyArtistsItem>>> = MutableLiveData()
-    val myArtists get() = _myArtists
+    private val _myTracksMedium: MutableLiveData<DataState<MyTracks>> = MutableLiveData()
+    val myTracksMedium get() = _myTracksMedium
 
-    private val token = dataStoreManager.getToken.asLiveData(viewModelScope.coroutineContext)
+    private val _myTracksLong: MutableLiveData<DataState<MyTracks>> = MutableLiveData()
+    val myTracksLong get() = _myTracksLong
 
-    fun getMyTracks(timeRange: String) = viewModelScope.launch {
-        useCase.getMyTopTracks(token.value!!,timeRange).collect { state ->
-            when(state){
-                is DataState.Success -> {
-                    _myTracks.value!![timeRange] = state.data.items!!
-                }
-                DataState.Empty -> toastHelper.sendToast("You have no data in this" +
-                        " section!")
-                is DataState.Fail -> toastHelper.sendToast(state.e.localizedMessage!!)
-                DataState.Loading -> TODO()
+    private val _myArtistsShort: MutableLiveData<DataState<MyArtists>> = MutableLiveData()
+    val myArtistsShort get() = _myArtistsShort
+
+    private val _myArtistsMedium: MutableLiveData<DataState<MyArtists>> = MutableLiveData()
+    val myArtistsMedium get() = _myArtistsMedium
+
+    private val _myArtistsLong: MutableLiveData<DataState<MyArtists>> = MutableLiveData()
+    val myArtistsLong get() = _myArtistsLong
+
+    val token = dataStoreManager.getToken.asLiveData(viewModelScope.coroutineContext)
+
+
+    init {
+        token.observeForever {
+            if (it.length > 10){
+                getMyTracksShort(it)
+                getMyTracksMedium(it)
+                getMyTracksLong(it)
+                getMyArtistsShort(it)
+                getMyArtistsMedium(it)
+                getMyArtistsLong(it)
             }
         }
     }
-    fun getMyArtists(timeRange: String) = viewModelScope.launch {
-        useCase.getMyTopArtists(token.value!!,timeRange).collect { state ->
-            when(state){
-                is DataState.Success -> {
-                    _myArtists.value!![timeRange] = state.data.items!!
-                }
-                DataState.Empty -> toastHelper.sendToast("You have no data in this" +
-                        " section!")
-                is DataState.Fail -> toastHelper.sendToast(state.e.localizedMessage!!)
-                DataState.Loading -> TODO()
-            }
+
+    fun getMyTracksShort(token:String) = viewModelScope.launch {
+        useCase.getMyTopTracks(token, timeRangeList[0]).collect { state ->
+            _myTracksShort.value = state
+        }
+    }
+    fun getMyTracksMedium(token:String) = viewModelScope.launch {
+        useCase.getMyTopTracks(token, timeRangeList[1]).collect { state ->
+            _myTracksMedium.value = state
+        }
+    }
+    fun getMyTracksLong(token:String) = viewModelScope.launch {
+        useCase.getMyTopTracks(token, timeRangeList[2]).collect { state ->
+            _myTracksLong.value = state
+        }
+    }
+    fun getMyArtistsShort(token: String) = viewModelScope.launch {
+        useCase.getMyTopArtists(token, timeRangeList[0]).collect { state ->
+            _myArtistsShort.value = state
+        }
+    }
+    fun getMyArtistsMedium(token: String) = viewModelScope.launch {
+        useCase.getMyTopArtists(token, timeRangeList[1]).collect { state ->
+            _myArtistsMedium.value = state
+        }
+    }
+    fun getMyArtistsLong(token: String) = viewModelScope.launch {
+        useCase.getMyTopArtists(token, timeRangeList[2]).collect { state ->
+            _myArtistsLong.value = state
         }
     }
 }

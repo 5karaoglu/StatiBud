@@ -24,7 +24,7 @@ class RecentTracksAdapter(var context: Context, var clickListener: OnItemClickLi
         notifyDataSetChanged()
     }
 
-    var iAdapterSize = 0
+    var iAdapterSize = 5
     fun setAdapterSize(size:Int){
         iAdapterSize = size
         notifyDataSetChanged()

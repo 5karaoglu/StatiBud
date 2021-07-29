@@ -7,10 +7,13 @@ import android.view.ViewGroup
 import android.widget.RadioGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.uhi5d.spotibud.databinding.FragmentMlArtistsBinding
 import com.uhi5d.spotibud.domain.model.MyArtistsItem
 import com.uhi5d.spotibud.domain.model.mytracks.MyTracksItem
+import com.uhi5d.spotibud.presentation.ui.detailed.artist.toDetailedArtistFragmentModel
+import com.uhi5d.spotibud.util.DataState
 import com.uhi5d.spotibud.util.hide
 import com.uhi5d.spotibud.util.show
 import dagger.hilt.android.AndroidEntryPoint
@@ -23,7 +26,10 @@ class MlArtistsFragment : Fragment(),
     private var _binding: FragmentMlArtistsBinding? = null
     private val binding get() =  _binding!!
 
-    private var list : MutableMap<String,List<MyArtistsItem>>? = null
+    private lateinit var shortList: List<MyArtistsItem>
+    private lateinit var mediumList: List<MyArtistsItem>
+    private lateinit var longList: List<MyArtistsItem>
+
     private var checkedRadioButton = 0
     private lateinit var mostListenedAdapter: MostListenedAdapter
     private val margin = 10
@@ -50,43 +56,84 @@ class MlArtistsFragment : Fragment(),
         super.onViewCreated(view, savedInstanceState)
         with(binding){
             recycler.adapter = mostListenedAdapter
-            recycler.layoutManager = LinearLayoutManager(requireContext(),LinearLayoutManager.VERTICAL,false)
+            recycler.layoutManager = LinearLayoutManager(requireContext())
             recycler.addItemDecoration(MlItemDecoration(margin))
+            rg.setOnCheckedChangeListener(changedListener)
         }
-        binding.rg.setOnCheckedChangeListener(changedListener)
-        for(i in TimeRange.values()){
-            viewModel.getMyArtists(i.str)
+
+        viewModel.myArtistsShort.observe(viewLifecycleOwner) { state ->
+            when (state) {
+                is DataState.Success -> {
+                    shortList = state.data.items!!
+                    setScreenToSuccess()
+                }
+                is DataState.Fail -> {
+                }
+            }
         }
-        viewModel.myArtists.observe(viewLifecycleOwner){
-            binding.shimmerLayout.hide()
-            binding.recycler.show()
-            list = it
+        viewModel.myArtistsMedium.observe(viewLifecycleOwner) { state ->
+            when (state) {
+                is DataState.Success -> {
+                    mediumList = state.data.items!!
+                    setScreenToSuccess()
+                }
+                is DataState.Fail -> {
+                }
+            }
+        }
+        viewModel.myArtistsLong.observe(viewLifecycleOwner) { state ->
+            when (state) {
+                is DataState.Success -> {
+                    longList = state.data.items!!
+                    setScreenToSuccess()
+                }
+                is DataState.Fail -> {
+                }
+            }
         }
     }
 
     private val changedListener = RadioGroup.OnCheckedChangeListener { group, checkedId ->
-        when(group.checkedRadioButtonId){
-            binding.rb1.id -> {mostListenedAdapter.setArtistsList(
-                list?.get(TimeRange.SHORT.str)!!
-            )
-                checkedRadioButton = 0}
-            binding.rb2.id -> {mostListenedAdapter.setArtistsList(
-                list?.get(TimeRange.MEDIUM.str)!!
-            )
-                checkedRadioButton = 1}
-            binding.rb3.id -> {mostListenedAdapter.setArtistsList(
-                list?.get(TimeRange.LONG.str)!!
-            )
-                checkedRadioButton = 2}
+        when(checkedId){
+            binding.rb1.id -> {
+                if (this::shortList.isInitialized) {
+                    mostListenedAdapter.setArtistsList(shortList)
+                    checkedRadioButton = 0
+                }
+            }
+            binding.rb2.id -> {
+                if (this::mediumList.isInitialized) {
+                    mostListenedAdapter.setArtistsList(mediumList)
+                    checkedRadioButton = 1
+                }
+            }
+            binding.rb3.id -> {
+                if (this::longList.isInitialized) {
+                    mostListenedAdapter.setArtistsList(longList)
+                    checkedRadioButton = 2
+                }
+            }
         }
     }
 
-    override fun OnTrackItemClicked(item: MyTracksItem) {
-        TODO("Not yet implemented")
+    private fun setScreenToSuccess() {
+        with(binding) {
+            if (shimmer.visibility == View.VISIBLE &&
+                success.visibility == View.GONE) {
+                binding.shimmer.hide()
+                binding.success.show()
+            }
+        }
     }
 
-    override fun OnArtistItemClicked(item: MyArtistsItem) {
-        TODO("Not yet implemented")
+    override fun onTrackItemClicked(item: MyTracksItem) {
+    }
+
+    override fun onArtistItemClicked(item: MyArtistsItem) {
+        val action = MlArtistsFragmentDirections.actionMlArtistsFragmentToDetailedArtistFragment(
+            item.toDetailedArtistFragmentModel()
+        )
+        findNavController().navigate(action)
     }
 
 }

@@ -4,18 +4,18 @@
     <item
         android:id="@+id/homeFragment"
         android:icon="@drawable/ic_home"
-        android:title="Home" />
+        android:title="@string/home" />
     <item
         android:id="@+id/searchFragment"
         android:icon="@drawable/ic_search"
-        android:title="Search" />
+        android:title="@string/search" />
     <item
         android:id="@+id/mlFragment"
         android:icon="@drawable/ic_fav"
-        android:title="Top" />
+        android:title="@string/top" />
     <item
-        android:id="@+id/trackFinderFragment"
+        android:id="@+id/recommendationsFragment"
         android:icon="@drawable/ic_note"
-        android:title="TrackFinder" />
+        android:title="@string/reco" />
 
 </menu>
