@@ -103,6 +103,9 @@ RecoAdapter.OnItemClickListener{
                     genreAdapter.setList(state.data.genres)
                     binding.genreShimmer.hide()
                 }
+                is DataState.Fail -> {
+                    toastHelper.errorMessage(state.e.message!!)
+                }
             }
         }
         viewModel.searchResults.observe(viewLifecycleOwner){
@@ -121,7 +124,7 @@ RecoAdapter.OnItemClickListener{
             }
         }
         setAlertDialog()
-        recoAlertBinding.buttonCancel.setOnClickListener { recoResultsDialog.dismiss() }
+
     }
 
     override fun onItemClicked(genre: String) {
@@ -206,7 +209,7 @@ RecoAdapter.OnItemClickListener{
                 .setView(recoAlertBinding.root)
                 .setCancelable(false)
                 .create()
-            recoAlertBinding.buttonCancel.setOnClickListener { dialog.dismiss() }
+            recoAlertBinding.buttonCancel.setOnClickListener { recoResultsDialog.dismiss() }
 
             with(recoAlertBinding.recycler){
                 adapter = recoAdapter

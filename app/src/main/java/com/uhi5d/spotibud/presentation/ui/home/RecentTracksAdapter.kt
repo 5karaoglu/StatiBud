@@ -21,7 +21,9 @@ class RecentTracksAdapter(var context: Context, var clickListener: OnItemClickLi
 
     fun setRecentTracksList(list: List<RecentTracksItem>){
         trackList = list
-        notifyDataSetChanged()
+       if(trackList.isNotEmpty()){
+           notifyDataSetChanged()
+       }
     }
 
     var iAdapterSize = 5
@@ -39,7 +41,11 @@ class RecentTracksAdapter(var context: Context, var clickListener: OnItemClickLi
 
     override fun onBindViewHolder(holder: BaseViewHolder<RecentTracksItem>, position: Int) {
        when(holder){
-           is RecentTracksViewHolder -> holder.bind(trackList[position])
+           is RecentTracksViewHolder -> {
+               if (trackList.isNotEmpty()){
+                   holder.bind(trackList[position])
+               }
+           }
        }
 
     }

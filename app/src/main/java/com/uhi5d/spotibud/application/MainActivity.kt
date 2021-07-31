@@ -13,8 +13,9 @@ import com.google.android.gms.ads.AdView
 import com.google.android.gms.ads.MobileAds
 import com.google.firebase.analytics.FirebaseAnalytics
 import com.uhi5d.spotibud.R
+import com.uhi5d.spotibud.databinding.ActivityMainBinding
 import com.uhi5d.spotibud.util.ConnectionLiveData
-import com.uhi5d.spotibud.util.showToast
+import com.uhi5d.spotibud.util.showSnackbar
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.activity_main.*
 import javax.inject.Inject
@@ -26,6 +27,7 @@ class MainActivity : AppCompatActivity() {
     @Inject
     lateinit var toastHelper: ToastHelper
     private lateinit var navController: NavController
+    private lateinit var binding: ActivityMainBinding
     private var mFirebaseAnalytics: FirebaseAnalytics? = null
     private var mAdView: AdView? = null
     private lateinit var connectionLiveData: ConnectionLiveData
@@ -33,8 +35,8 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setTheme(R.style.AppTheme)
-
-        setContentView(R.layout.activity_main)
+        binding = ActivityMainBinding.inflate(layoutInflater)
+        setContentView(binding.root)
 
         //navigation and bottom navigation
         val navHostFragment =
@@ -56,7 +58,6 @@ class MainActivity : AppCompatActivity() {
             }
         }
 
-
         val dialog = dialog()
         connectionLiveData = ConnectionLiveData(this)
         connectionLiveData.observe(this,
@@ -65,7 +66,7 @@ class MainActivity : AppCompatActivity() {
         mFirebaseAnalytics = FirebaseAnalytics.getInstance(this)
 
         toastHelper.toastMessages.observe(this){
-            showToast(it)
+            showSnackbar(binding.root,it)
         }
 
         //ad section

@@ -15,7 +15,10 @@ import com.uhi5d.spotibud.databinding.FragmentHomeBinding
 import com.uhi5d.spotibud.domain.model.recenttracks.RecentTracksItem
 import com.uhi5d.spotibud.domain.model.recommendations.RecommendationsTrack
 import com.uhi5d.spotibud.presentation.ui.detailed.track.toDetailedTrackFragmentModel
-import com.uhi5d.spotibud.util.*
+import com.uhi5d.spotibud.util.CustomItemDecoration
+import com.uhi5d.spotibud.util.DataState
+import com.uhi5d.spotibud.util.hide
+import com.uhi5d.spotibud.util.show
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.InternalCoroutinesApi
 import javax.inject.Inject
@@ -68,6 +71,16 @@ RecentTracksAdapter.OnItemClickListener{
         super.onViewCreated(view, savedInstanceState)
         binding.buttonProfile.setOnClickListener(goProfile)
 
+        viewModel.user.observe(viewLifecycleOwner){
+            if (it != null){
+                with(binding){
+                    tvHeader.text = String.format(getString(R.string.welcome_header),it)
+                    success.show()
+                    shimmer.hide()
+                }
+            }
+        }
+
         with(binding.recyclerRecentHome){
             adapter = recentTracksAdapter
             layoutManager = LinearLayoutManager(requireContext())
@@ -87,24 +100,23 @@ RecentTracksAdapter.OnItemClickListener{
                         recommendationsAdapter.setTrackList(it) }
                 }
                 is DataState.Fail -> {
-                    toastHelper.sendToast(String.format(getString(R.string.datastate_error),state.e.message))
+                    toastHelper.errorMessage(state.e.message!!)
                 }
             }
         }
 
         viewModel.recentTracks.observe(viewLifecycleOwner){ state ->
-            binding.recentSuccess.showIf { state is DataState.Success }
             when(state){
                 is DataState.Success -> {
-                    state.data.items?.let {
-                        recentTracksAdapter.setRecentTracksList(it)
-                        recentTracksAdapterMaxItemSize = it.size}
+                   if(state.data.items!!.isNotEmpty()){
+                        binding.buttonRecyclerExpand.setOnClickListener(recentTrackButtonClick)
+                        recentTracksAdapter.setRecentTracksList(state.data.items)
+                        recentTracksAdapterMaxItemSize = state.data.items.size}
                 }
-                is DataState.Fail -> toastHelper.sendToast(String.format(getString(R.string.datastate_error),state.e.message))
+                is DataState.Fail -> toastHelper.errorMessage(state.e.message!!)
             }
         }
 
-        binding.buttonRecyclerExpand.setOnClickListener(recentTrackButtonClick)
         viewModel.token.observe(viewLifecycleOwner){
             if (it.length > 5){
                 viewModel.getUserDisplayName()
@@ -112,13 +124,7 @@ RecentTracksAdapter.OnItemClickListener{
                 viewModel.getRecommendations()
             }
         }
-        viewModel.username.observe(viewLifecycleOwner){
-            if (it.isNotEmpty()){
-                binding.tvHeader.text = String.format(getString(R.string.welcome_header),it)
-                binding.success.show()
-                binding.shimmer.hide()
-            }
-        }
+
     }
 
     private val goProfile = View.OnClickListener {

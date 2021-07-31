@@ -9,6 +9,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.uhi5d.spotibud.application.ToastHelper
 import com.uhi5d.spotibud.databinding.FragmentSearchBinding
 import com.uhi5d.spotibud.domain.model.searchresults.SearchResultsAlbumsItem
 import com.uhi5d.spotibud.domain.model.searchresults.SearchResultsArtistsItem
@@ -20,6 +21,7 @@ import com.uhi5d.spotibud.util.DataState
 import com.uhi5d.spotibud.util.showIf
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.InternalCoroutinesApi
+import javax.inject.Inject
 
 @AndroidEntryPoint
 class SearchFragment : Fragment(),
@@ -27,6 +29,8 @@ class SearchFragment : Fragment(),
     private val TAG = "Search Fragment"
     private val viewModel: SearchViewModel by viewModels()
 
+    @Inject
+    lateinit var toastHelper: ToastHelper
 
     private lateinit var searchResultsAdapter: SearchResultsAdapter
     private val margin = 10
@@ -75,10 +79,9 @@ class SearchFragment : Fragment(),
                     searchResultsAdapter.setSearchResultsArtists(state.data.artists!!)
                     searchResultsAdapter.setSearchResultsAlbums(state.data.albums!!)
                 }
-                DataState.Empty -> {}
                 is DataState.Fail -> {
+                    toastHelper.errorMessage(state.e.message!!)
                 }
-                DataState.Loading -> {}
             }
 
         }

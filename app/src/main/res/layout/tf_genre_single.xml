@@ -8,7 +8,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/tvGenreText"
-        android:background="@drawable/cardview_background"
+        android:background="@drawable/genre_item_background_selector"
         android:textColor="@color/white"
         android:text="sup"
         android:textSize="12sp"/>

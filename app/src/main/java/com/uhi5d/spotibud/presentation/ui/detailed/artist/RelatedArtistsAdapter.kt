@@ -46,7 +46,9 @@ class RelatedArtistsAdapter (
     ): BaseViewHolder<RelatedArtistsArtist>(binding.root){
         override fun bind(item: RelatedArtistsArtist) {
             with(binding){
-                ivRelatedArtist.loadWithPicasso(item.images!![0].url!!)
+                if (item.images!!.isNotEmpty()){
+                    ivRelatedArtist.loadWithPicasso(item.images[0].url!!)
+                }
                 tvRelatedArtist.text = item.name
 
                 root.setOnClickListener {

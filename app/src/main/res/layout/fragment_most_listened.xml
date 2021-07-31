@@ -26,10 +26,11 @@
                     android:layout_height="match_parent"
                     android:text="@string/top_header"
                     android:textColor="@color/white"
-                    android:textSize="25sp"
+                    android:textSize="22sp"
                     android:gravity="center"
                     android:layout_weight="14"/>
                 <ImageView
+                    android:visibility="gone"
                     android:id="@+id/topToShare"
                     android:layout_marginEnd="10dp"
                     android:layout_weight="1"
@@ -44,9 +45,11 @@
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:layout_gravity="bottom"
-        android:background="@color/colorPrimary"
+        android:background="@drawable/tablayout_background_selector"
         android:layout_below="@id/appBarTop"
-        app:tabTextColor="@color/colorgray2"
+        app:tabTextColor="@color/radio_flat_text_selector"
+        app:tabIconTint="@color/radio_flat_text_selector"
+        app:tabIndicatorColor="@color/colorAccent"
         >
         <com.google.android.material.tabs.TabItem
             android:layout_width="match_parent"

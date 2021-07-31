@@ -18,7 +18,7 @@
         <RadioGroup
             android:layout_width="match_parent"
             android:layout_height="30dp"
-            android:id="@+id/rg"
+            android:id="@+id/radioGroup"
             android:weightSum="9"
             android:checkedButton="@id/rb1"
             android:gravity="center_vertical"
@@ -61,7 +61,7 @@
             android:layout_height="match_parent"
             android:id="@+id/recycler"
             tools:listitem="@layout/single_ml_layout"
-            android:layout_below="@+id/rg"/>
+            android:layout_below="@+id/radioGroup"/>
     </RelativeLayout>
 
 

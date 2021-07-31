@@ -6,6 +6,7 @@ import android.view.View
 import android.widget.ImageView
 import android.widget.Toast
 import androidx.fragment.app.Fragment
+import com.google.android.material.snackbar.Snackbar
 import com.squareup.picasso.Picasso
 import com.uhi5d.spotibud.R
 import com.uhi5d.spotibud.domain.model.track.TrackArtist
@@ -29,6 +30,9 @@ inline fun <T : View> T.showIf(condition: (T) -> Boolean) {
 
 fun Context.showToast(message: String, duration: Int = Toast.LENGTH_SHORT) {
     Toast.makeText(this, message, duration).show()
+}
+fun Context.showSnackbar(view: View,message: String, duration: Int = Snackbar.LENGTH_SHORT){
+    Snackbar.make(view,message,duration).show()
 }
 
 fun Fragment.showToast(message: String, duration: Int = Toast.LENGTH_SHORT) {

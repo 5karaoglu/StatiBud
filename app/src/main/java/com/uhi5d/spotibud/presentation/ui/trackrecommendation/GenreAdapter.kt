@@ -3,7 +3,9 @@ package com.uhi5d.spotibud.presentation.ui.trackrecommendation
 import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.core.content.res.ResourcesCompat
 import androidx.recyclerview.widget.RecyclerView
+import com.uhi5d.spotibud.R
 import com.uhi5d.spotibud.databinding.TfGenreSingleBinding
 import com.uhi5d.spotibud.util.BaseViewHolder
 
@@ -54,6 +56,10 @@ class GenreAdapter (
         override fun bind(item: String) {
             itemBinding.tvGenreText.text = item
             itemBinding.root.isSelected = selectedList.contains(item)
+            if (selectedList.contains(item)){
+                itemBinding.tvGenreText.background = ResourcesCompat.getDrawable(context.resources,
+                    R.drawable.genre_item_background_selector,context.theme)
+            }
 
             itemBinding.root.setOnClickListener {
                 clickListener.onItemClicked(item)

@@ -2,15 +2,13 @@
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="130dp"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:gravity="center"
-    android:padding="5dp"
-    app:cardCornerRadius="20dip">
+    android:padding="5dp">
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@drawable/cardview_background2">
+        android:background="@color/colorPrimaryDark">
 
         <ImageView
             android:id="@+id/iv"
@@ -57,7 +55,7 @@
             android:ellipsize="end"
             android:text="Arctic Monkeys"
             android:textColor="@color/white"
-            android:textSize="27sp"
+            android:textSize="20sp"
             android:textStyle="bold" />
     </RelativeLayout>
 

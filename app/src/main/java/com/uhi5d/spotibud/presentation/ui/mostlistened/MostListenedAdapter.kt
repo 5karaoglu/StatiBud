@@ -6,6 +6,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.squareup.picasso.Picasso
 import com.uhi5d.spotibud.databinding.SingleMlLayoutBinding
+import com.uhi5d.spotibud.databinding.SingleMlTrackLayoutBinding
 import com.uhi5d.spotibud.domain.model.MyArtistsItem
 import com.uhi5d.spotibud.domain.model.mytracks.MyTracksItem
 import com.uhi5d.spotibud.presentation.ui.mostlistened.MlType.ARTISTS
@@ -21,6 +22,7 @@ class MostListenedAdapter(
         fun onTrackItemClicked(item: MyTracksItem)
         fun onArtistItemClicked(item: MyArtistsItem)
     }
+
 
     private var artistsList = listOf<MyArtistsItem>()
     fun setArtistsList(list: List<MyArtistsItem>){
@@ -49,12 +51,12 @@ class MostListenedAdapter(
                 ArtistsViewHolder(itemBinding)
             }
             1 -> {
-                val itemBinding = SingleMlLayoutBinding.inflate(LayoutInflater.from(context),parent,
+                val itemBinding = SingleMlTrackLayoutBinding.inflate(LayoutInflater.from(context),parent,
                     false)
                 TracksViewHolder(itemBinding)
             }
             else -> {
-                val itemBinding = SingleMlLayoutBinding.inflate(LayoutInflater.from(context),parent,
+                val itemBinding = SingleMlTrackLayoutBinding.inflate(LayoutInflater.from(context),parent,
                     false)
                 TracksViewHolder(itemBinding)
             }
@@ -83,7 +85,7 @@ class MostListenedAdapter(
     }
 
     inner class TracksViewHolder(
-        private val itemBinding : SingleMlLayoutBinding
+        private val itemBinding : SingleMlTrackLayoutBinding
     ): BaseViewHolder<MyTracksItem>(itemBinding.root){
         override fun bind(item: MyTracksItem) {
             with(itemBinding){
@@ -93,6 +95,7 @@ class MostListenedAdapter(
                     .into(iv)
 
                 tvName.text = item.name
+                tvArtistName.text = item.artists?.get(0)?.name ?: ""
                 tvRank.text = (tracksList.indexOf(item) + 1).toString()
 
                 root.setOnClickListener {
@@ -118,6 +121,5 @@ class MostListenedAdapter(
                 }
             }
         }
-
     }
 }

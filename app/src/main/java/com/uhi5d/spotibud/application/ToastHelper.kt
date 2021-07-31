@@ -1,5 +1,7 @@
 package com.uhi5d.spotibud.application
 
+import android.content.res.Resources
+import com.uhi5d.spotibud.R
 import com.zhuinden.eventemitter.EventEmitter
 import com.zhuinden.eventemitter.EventSource
 import dagger.hilt.android.scopes.ActivityRetainedScoped
@@ -13,5 +15,8 @@ class ToastHelper
 
     fun sendToast(message: String){
         toastEmitter.emit(message)
+    }
+    fun errorMessage(message: String){
+        toastEmitter.emit(String.format(Resources.getSystem().getString(R.string.datastate_error),message))
     }
 }

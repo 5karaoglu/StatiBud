@@ -7,26 +7,26 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:id="@+id/shimmer"
-        android:visibility="gone">
+        android:id="@+id/shimmer">
         <include layout="@layout/fragment_ml_tracks_shimmer"/>
     </RelativeLayout>
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:id="@+id/success"
+        android:visibility="gone"
         >
         <RadioGroup
             android:layout_width="match_parent"
             android:layout_height="30dp"
-            android:id="@+id/rg"
+            android:id="@+id/radioGroup"
             android:weightSum="9"
-            android:checkedButton="@id/rb1"
             android:gravity="center_vertical"
             android:orientation="horizontal"
             android:background="@color/colorPrimary">
             <RadioButton
                 android:layout_width="0dp"
+                android:checked="true"
                 android:layout_height="30dp"
                 android:id="@+id/rb1"
                 android:layout_weight="3"
@@ -61,7 +61,7 @@
             android:layout_height="match_parent"
             android:id="@+id/recycler"
             tools:listitem="@layout/single_ml_layout"
-            android:layout_below="@+id/rg"/>
+            android:layout_below="@+id/radioGroup"/>
     </RelativeLayout>
 
 

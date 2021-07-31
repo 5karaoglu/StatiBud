@@ -4,15 +4,18 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
-    <LinearLayout
+    <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@color/colorPrimaryDark"
-        android:orientation="vertical">
-        <com.google.android.material.appbar.AppBarLayout
+        android:layout_height="match_parent">
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:id="@+id/appBarTF">
+            android:layout_height="match_parent"
+            android:background="@color/colorPrimaryDark"
+            android:orientation="vertical">
+            <com.google.android.material.appbar.AppBarLayout
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:id="@+id/appBarTF">
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent">
@@ -24,54 +27,29 @@
                         android:layout_height="match_parent"
                         android:gravity="center"
                         android:maxLines="1"
-                        android:text="Recommendations"
+                        android:text="@string/reco_header"
                         android:textColor="@color/white"
-                        android:textSize="25sp"
+                        android:textSize="22sp"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
-
-
-                    <androidx.constraintlayout.widget.ConstraintLayout
-                        android:id="@+id/constraintLayout"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginEnd="10dp"
-                        android:gravity="center"
-                        android:orientation="vertical"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintTop_toTopOf="parent">
-
-                        <ProgressBar
-                            android:id="@+id/buttonProgress"
-                            android:layout_width="30dp"
-                            android:layout_height="30dp"
-                            android:visibility="gone"
-                            app:layout_constraintBottom_toBottomOf="parent"
-                            app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toTopOf="parent" />
-
-                    </androidx.constraintlayout.widget.ConstraintLayout>
-
                 </androidx.constraintlayout.widget.ConstraintLayout>
-        </com.google.android.material.appbar.AppBarLayout>
-        <TextView
-            android:layout_marginTop="10dp"
-            android:paddingTop="10dp"
-            android:paddingStart="10dp"
-            android:paddingEnd="10dp"
-            android:paddingBottom="5dp"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/selected_song"
-            android:gravity="center"
-            android:textSize="12sp"
-            android:id="@+id/tvRecommendations"
-            android:scrollbars="none"
-            android:textColor="@color/colorgray2"
-            android:textStyle="normal"/>
+            </com.google.android.material.appbar.AppBarLayout>
+            <TextView
+                android:layout_marginTop="10dp"
+                android:paddingTop="10dp"
+                android:paddingStart="10dp"
+                android:paddingEnd="10dp"
+                android:paddingBottom="5dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/selected_song"
+                android:gravity="center"
+                android:textSize="12sp"
+                android:id="@+id/tvRecommendations"
+                android:scrollbars="none"
+                android:textColor="@color/colorgray2"
+                android:textStyle="normal"/>
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -89,7 +67,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_toEndOf="@id/ivTfSelected"
-                    android:text="Track not selected"
+                    android:text="@string/track_not_selected"
                     android:layout_marginTop="10dp"
                     android:layout_marginStart="10dp"
                     android:layout_marginEnd="10dp"
@@ -118,7 +96,7 @@
                     android:layout_height="wrap_content"
                     android:layout_toEndOf="@id/ivTfSelected"
                     android:layout_below="@id/tvTfSelected"
-                    android:text="Click to select"
+                    android:text="@string/click_to_select"
                     android:layout_marginTop="5dp"
                     android:layout_marginStart="10dp"
                     android:layout_marginEnd="10dp"
@@ -128,252 +106,253 @@
                     android:id="@+id/tvTfSelectedArtist"/>
 
             </RelativeLayout>
-        <TextView
-            android:id="@+id/tvTfSelectedGenreText"
-            android:paddingTop="10dp"
-            android:paddingStart="10dp"
-            android:paddingEnd="10dp"
-            android:paddingBottom="5dp"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textColor="@color/colorgray2"
-            android:textSize="12sp"
-            android:gravity="center"
-            android:text="@string/selected_genre"/>
-        <androidx.recyclerview.widget.RecyclerView
-            android:visibility="gone"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            tools:listitem="@layout/tf_genre_single"
-            tools:itemCount="1"
-            android:id="@+id/recyclerGenre"
-            android:orientation="horizontal"/>
-        <com.facebook.shimmer.ShimmerFrameLayout
-            android:layout_marginTop="10dp"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/genreShimmer"
-            app:shimmer_auto_start="true">
-            <LinearLayout
+            <TextView
+                android:id="@+id/tvTfSelectedGenreText"
+                android:paddingTop="10dp"
+                android:paddingStart="10dp"
+                android:paddingEnd="10dp"
+                android:paddingBottom="5dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal">
-                <include layout="@layout/tf_genre_single_shimmer" />
-                <include layout="@layout/tf_genre_single_shimmer" />
-                <include layout="@layout/tf_genre_single_shimmer" />
-                <include layout="@layout/tf_genre_single_shimmer" />
-                <include layout="@layout/tf_genre_single_shimmer" />
-                <include layout="@layout/tf_genre_single_shimmer" />
-                <include layout="@layout/tf_genre_single_shimmer" />
-                <include layout="@layout/tf_genre_single_shimmer" />
-            </LinearLayout>
-        </com.facebook.shimmer.ShimmerFrameLayout>
-        <GridLayout
-            android:layout_marginTop="10dp"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:rowCount="3"
-            android:columnCount="2"
-            android:alignmentMode="alignBounds">
-            <LinearLayout
-                android:paddingTop="10dp"
-                android:paddingBottom="5dp"
-                android:paddingStart="10dp"
-                android:paddingEnd="10dp"
-                android:layout_width="0dp"
+                android:textColor="@color/colorgray2"
+                android:textSize="12sp"
+                android:gravity="center"
+                android:text="@string/selected_genre"/>
+            <androidx.recyclerview.widget.RecyclerView
+                android:visibility="gone"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:layout_columnWeight="1">
-                <TextView
-                    android:id="@+id/tvAcoustic"
-                    android:padding="5dp"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_horizontal"
-                    android:textSize="12sp"
-                    android:text="@string/acousticness"
-                    android:textColor="@color/white"
-                    />
-                <SeekBar
-                    android:id="@+id/tfSbAcoustic"
-                    android:paddingStart="5dp"
-                    android:paddingEnd="5dp"
-                    android:paddingTop="5dp"
-                    android:paddingBottom="5dp"
+                tools:listitem="@layout/tf_genre_single"
+                tools:itemCount="1"
+                android:id="@+id/recyclerGenre"
+                android:orientation="horizontal"/>
+            <com.facebook.shimmer.ShimmerFrameLayout
+                android:layout_marginTop="10dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/genreShimmer"
+                app:shimmer_auto_start="true">
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:max="1000"
-                    android:progress="100"
-                    android:progressBackgroundTint="@color/colorgray" />
-            </LinearLayout>
-            <LinearLayout
-                android:paddingTop="10dp"
-                android:paddingBottom="5dp"
-                android:paddingStart="10dp"
-                android:paddingEnd="10dp"
-                android:layout_width="0dp"
+                    android:orientation="horizontal">
+                    <include layout="@layout/tf_genre_single_shimmer" />
+                    <include layout="@layout/tf_genre_single_shimmer" />
+                    <include layout="@layout/tf_genre_single_shimmer" />
+                    <include layout="@layout/tf_genre_single_shimmer" />
+                    <include layout="@layout/tf_genre_single_shimmer" />
+                    <include layout="@layout/tf_genre_single_shimmer" />
+                    <include layout="@layout/tf_genre_single_shimmer" />
+                    <include layout="@layout/tf_genre_single_shimmer" />
+                </LinearLayout>
+            </com.facebook.shimmer.ShimmerFrameLayout>
+            <GridLayout
+                android:layout_marginTop="10dp"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:layout_columnWeight="1">
-                <TextView
-                    android:id="@+id/tfTvDance"
-                    android:padding="5dp"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textSize="12sp"
-                    android:layout_gravity="center_horizontal"
-                    android:text="@string/danceability"
-                    android:textColor="@color/white"
-                    />
-                <SeekBar
-                    android:id="@+id/tfSbDance"
-                    android:paddingStart="5dp"
-                    android:paddingEnd="5dp"
-                    android:paddingTop="5dp"
+                android:rowCount="3"
+                android:columnCount="2"
+                android:alignmentMode="alignBounds">
+                <LinearLayout
+                    android:paddingTop="10dp"
                     android:paddingBottom="5dp"
-                    android:layout_width="match_parent"
+                    android:paddingStart="10dp"
+                    android:paddingEnd="10dp"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:max="1000"
-                    android:progress="100"
-                    android:progressBackgroundTint="@color/colorgray" />
-            </LinearLayout>
-            <LinearLayout
-                android:paddingTop="10dp"
-                android:paddingBottom="5dp"
-                android:paddingStart="10dp"
-                android:paddingEnd="10dp"
-                android:layout_width="0dp"
+                    android:orientation="vertical"
+                    android:layout_columnWeight="1">
+                    <TextView
+                        android:id="@+id/tvAcoustic"
+                        android:padding="5dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_horizontal"
+                        android:textSize="12sp"
+                        android:text="@string/acousticness"
+                        android:textColor="@color/white"
+                        />
+                    <SeekBar
+                        android:id="@+id/tfSbAcoustic"
+                        android:paddingStart="5dp"
+                        android:paddingEnd="5dp"
+                        android:paddingTop="5dp"
+                        android:paddingBottom="5dp"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:max="1000"
+                        android:progress="100"
+                        android:progressBackgroundTint="@color/colorgray" />
+                </LinearLayout>
+                <LinearLayout
+                    android:paddingTop="10dp"
+                    android:paddingBottom="5dp"
+                    android:paddingStart="10dp"
+                    android:paddingEnd="10dp"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:layout_columnWeight="1">
+                    <TextView
+                        android:id="@+id/tfTvDance"
+                        android:padding="5dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="12sp"
+                        android:layout_gravity="center_horizontal"
+                        android:text="@string/danceability"
+                        android:textColor="@color/white"
+                        />
+                    <SeekBar
+                        android:id="@+id/tfSbDance"
+                        android:paddingStart="5dp"
+                        android:paddingEnd="5dp"
+                        android:paddingTop="5dp"
+                        android:paddingBottom="5dp"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:max="1000"
+                        android:progress="100"
+                        android:progressBackgroundTint="@color/colorgray" />
+                </LinearLayout>
+                <LinearLayout
+                    android:paddingTop="10dp"
+                    android:paddingBottom="5dp"
+                    android:paddingStart="10dp"
+                    android:paddingEnd="10dp"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:layout_columnWeight="1">
+                    <TextView
+                        android:id="@+id/tfTvEnergy"
+                        android:padding="5dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="12sp"
+                        android:layout_gravity="center_horizontal"
+                        android:text="@string/energy"
+                        android:textColor="@color/white"
+                        />
+                    <SeekBar
+                        android:id="@+id/tfSbEnergy"
+                        android:paddingStart="5dp"
+                        android:paddingEnd="5dp"
+                        android:paddingTop="5dp"
+                        android:paddingBottom="5dp"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:max="1000"
+                        android:progress="100"
+                        android:progressBackgroundTint="@color/colorgray" />
+                </LinearLayout>
+                <LinearLayout
+                    android:paddingTop="10dp"
+                    android:paddingBottom="5dp"
+                    android:paddingStart="10dp"
+                    android:paddingEnd="10dp"
+                    android:layout_width="0dp"
+                    android:layout_columnWeight="1"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+                    <TextView
+                        android:id="@+id/tfTvInstrumental"
+                        android:padding="5dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="12sp"
+                        android:layout_gravity="center_horizontal"
+                        android:text="@string/instrumentalness"
+                        android:textColor="@color/white"
+                        />
+                    <SeekBar
+                        android:id="@+id/tfSbInstrumental"
+                        android:paddingStart="5dp"
+                        android:paddingEnd="5dp"
+                        android:paddingTop="5dp"
+                        android:paddingBottom="5dp"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:max="1000"
+                        android:progress="100"
+                        android:progressBackgroundTint="@color/colorgray" />
+                </LinearLayout>
+                <LinearLayout
+                    android:paddingTop="10dp"
+                    android:paddingBottom="5dp"
+                    android:paddingStart="10dp"
+                    android:paddingEnd="10dp"
+                    android:layout_width="0dp"
+                    android:layout_columnWeight="1"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+                    <TextView
+                        android:id="@+id/tfTvLive"
+                        android:padding="5dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="12sp"
+                        android:layout_gravity="center_horizontal"
+                        android:text="@string/liveness"
+                        android:textColor="@color/white"
+                        />
+                    <SeekBar
+                        android:id="@+id/tfSbLive"
+                        android:paddingStart="5dp"
+                        android:paddingEnd="5dp"
+                        android:paddingTop="5dp"
+                        android:paddingBottom="5dp"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:max="1000"
+                        android:progress="100"
+                        android:progressBackgroundTint="@color/colorgray" />
+                </LinearLayout>
+                <LinearLayout
+                    android:paddingTop="10dp"
+                    android:paddingBottom="5dp"
+                    android:paddingStart="10dp"
+                    android:paddingEnd="10dp"
+                    android:layout_width="0dp"
+                    android:layout_columnWeight="1"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+                    <TextView
+                        android:id="@+id/tfTvValence"
+                        android:padding="5dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="12sp"
+                        android:layout_gravity="center_horizontal"
+                        android:text="@string/valence"
+                        android:textColor="@color/white"
+                        />
+                    <SeekBar
+                        android:id="@+id/tfSbValence"
+                        android:paddingStart="5dp"
+                        android:paddingEnd="5dp"
+                        android:paddingTop="5dp"
+                        android:paddingBottom="5dp"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:max="1000"
+                        android:progress="100"
+                        android:progressBackgroundTint="@color/colorgray" />
+                </LinearLayout>
+            </GridLayout>
+            <Button
+                android:id="@+id/buttonFind"
+                android:layout_width="150dp"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:layout_columnWeight="1">
-                <TextView
-                    android:id="@+id/tfTvEnergy"
-                    android:padding="5dp"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textSize="12sp"
-                    android:layout_gravity="center_horizontal"
-                    android:text="@string/energy"
-                    android:textColor="@color/white"
-                    />
-                <SeekBar
-                    android:id="@+id/tfSbEnergy"
-                    android:paddingStart="5dp"
-                    android:paddingEnd="5dp"
-                    android:paddingTop="5dp"
-                    android:paddingBottom="5dp"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:max="1000"
-                    android:progress="100"
-                    android:progressBackgroundTint="@color/colorgray" />
-            </LinearLayout>
-            <LinearLayout
-                android:paddingTop="10dp"
-                android:paddingBottom="5dp"
-                android:paddingStart="10dp"
-                android:paddingEnd="10dp"
-                android:layout_width="0dp"
-                android:layout_columnWeight="1"
-                android:layout_height="wrap_content"
-                android:orientation="vertical">
-                <TextView
-                    android:id="@+id/tfTvInstrumental"
-                    android:padding="5dp"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textSize="12sp"
-                    android:layout_gravity="center_horizontal"
-                    android:text="@string/instrumentalness"
-                    android:textColor="@color/white"
-                    />
-                <SeekBar
-                    android:id="@+id/tfSbInstrumental"
-                    android:paddingStart="5dp"
-                    android:paddingEnd="5dp"
-                    android:paddingTop="5dp"
-                    android:paddingBottom="5dp"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:max="1000"
-                    android:progress="100"
-                    android:progressBackgroundTint="@color/colorgray" />
-            </LinearLayout>
-            <LinearLayout
-                android:paddingTop="10dp"
-                android:paddingBottom="5dp"
-                android:paddingStart="10dp"
-                android:paddingEnd="10dp"
-                android:layout_width="0dp"
-                android:layout_columnWeight="1"
-                android:layout_height="wrap_content"
-                android:orientation="vertical">
-                <TextView
-                    android:id="@+id/tfTvLive"
-                    android:padding="5dp"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textSize="12sp"
-                    android:layout_gravity="center_horizontal"
-                    android:text="@string/liveness"
-                    android:textColor="@color/white"
-                    />
-                <SeekBar
-                    android:id="@+id/tfSbLive"
-                    android:paddingStart="5dp"
-                    android:paddingEnd="5dp"
-                    android:paddingTop="5dp"
-                    android:paddingBottom="5dp"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:max="1000"
-                    android:progress="100"
-                    android:progressBackgroundTint="@color/colorgray" />
-            </LinearLayout>
-            <LinearLayout
-                android:paddingTop="10dp"
-                android:paddingBottom="5dp"
-                android:paddingStart="10dp"
-                android:paddingEnd="10dp"
-                android:layout_width="0dp"
-                android:layout_columnWeight="1"
-                android:layout_height="wrap_content"
-                android:orientation="vertical">
-                <TextView
-                    android:id="@+id/tfTvValence"
-                    android:padding="5dp"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textSize="12sp"
-                    android:layout_gravity="center_horizontal"
-                    android:text="@string/valence"
-                    android:textColor="@color/white"
-                    />
-                <SeekBar
-                    android:id="@+id/tfSbValence"
-                    android:paddingStart="5dp"
-                    android:paddingEnd="5dp"
-                    android:paddingTop="5dp"
-                    android:paddingBottom="5dp"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:max="1000"
-                    android:progress="100"
-                    android:progressBackgroundTint="@color/colorgray" />
-            </LinearLayout>
-        </GridLayout>
-        <Button
-            android:id="@+id/buttonFind"
-            android:layout_width="150dp"
-            android:layout_height="wrap_content"
-            android:background="@drawable/cardview_background3"
-            android:maxLines="1"
-            android:padding="5dp"
-            android:layout_marginTop="20dp"
-            android:layout_gravity="center_horizontal"
-            android:text="@string/button_text"
-            android:textSize="12sp"
-            android:textColor="@color/white"
-          />
-    </LinearLayout>
+                android:background="@drawable/cardview_background3"
+                android:maxLines="1"
+                android:padding="5dp"
+                android:layout_marginTop="20dp"
+                android:layout_gravity="center_horizontal"
+                android:text="@string/button_text"
+                android:textSize="12sp"
+                android:textColor="@color/white"
+                />
+        </LinearLayout>
+    </androidx.core.widget.NestedScrollView>
 </androidx.constraintlayout.widget.ConstraintLayout>

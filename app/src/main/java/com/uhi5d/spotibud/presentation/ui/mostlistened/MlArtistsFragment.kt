@@ -9,6 +9,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.uhi5d.spotibud.application.ToastHelper
 import com.uhi5d.spotibud.databinding.FragmentMlArtistsBinding
 import com.uhi5d.spotibud.domain.model.MyArtistsItem
 import com.uhi5d.spotibud.domain.model.mytracks.MyTracksItem
@@ -17,6 +18,7 @@ import com.uhi5d.spotibud.util.DataState
 import com.uhi5d.spotibud.util.hide
 import com.uhi5d.spotibud.util.show
 import dagger.hilt.android.AndroidEntryPoint
+import javax.inject.Inject
 
 @AndroidEntryPoint
 class MlArtistsFragment : Fragment(),
@@ -25,6 +27,9 @@ class MlArtistsFragment : Fragment(),
     private val viewModel: MostListenedViewModel by viewModels()
     private var _binding: FragmentMlArtistsBinding? = null
     private val binding get() =  _binding!!
+
+    @Inject
+    lateinit var toastHelper: ToastHelper
 
     private lateinit var shortList: List<MyArtistsItem>
     private lateinit var mediumList: List<MyArtistsItem>
@@ -58,16 +63,20 @@ class MlArtistsFragment : Fragment(),
             recycler.adapter = mostListenedAdapter
             recycler.layoutManager = LinearLayoutManager(requireContext())
             recycler.addItemDecoration(MlItemDecoration(margin))
-            rg.setOnCheckedChangeListener(changedListener)
+            radioGroup.setOnCheckedChangeListener(changedListener)
         }
 
         viewModel.myArtistsShort.observe(viewLifecycleOwner) { state ->
             when (state) {
                 is DataState.Success -> {
                     shortList = state.data.items!!
+                    if (checkedRadioButton == 0){
+                        mostListenedAdapter.setArtistsList(shortList)
+                    }
                     setScreenToSuccess()
                 }
                 is DataState.Fail -> {
+                    toastHelper.errorMessage(state.e.message!!)
                 }
             }
         }
@@ -78,6 +87,7 @@ class MlArtistsFragment : Fragment(),
                     setScreenToSuccess()
                 }
                 is DataState.Fail -> {
+                    toastHelper.errorMessage(state.e.message!!)
                 }
             }
         }
@@ -88,6 +98,7 @@ class MlArtistsFragment : Fragment(),
                     setScreenToSuccess()
                 }
                 is DataState.Fail -> {
+                    toastHelper.errorMessage(state.e.message!!)
                 }
             }
         }
@@ -130,7 +141,7 @@ class MlArtistsFragment : Fragment(),
     }
 
     override fun onArtistItemClicked(item: MyArtistsItem) {
-        val action = MlArtistsFragmentDirections.actionMlArtistsFragmentToDetailedArtistFragment(
+        val action = MostListenedFragmentDirections.actionMlFragmentToDetailedArtistFragment(
             item.toDetailedArtistFragmentModel()
         )
         findNavController().navigate(action)

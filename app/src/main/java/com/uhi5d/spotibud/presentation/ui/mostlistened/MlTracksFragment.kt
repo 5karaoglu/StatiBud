@@ -11,12 +11,14 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.uhi5d.spotibud.R
+import com.uhi5d.spotibud.application.ToastHelper
 import com.uhi5d.spotibud.databinding.FragmentMlTracksBinding
 import com.uhi5d.spotibud.domain.model.MyArtistsItem
 import com.uhi5d.spotibud.domain.model.mytracks.MyTracksItem
 import com.uhi5d.spotibud.presentation.ui.detailed.track.toDetailedTrackFragmentModel
 import com.uhi5d.spotibud.util.*
 import dagger.hilt.android.AndroidEntryPoint
+import javax.inject.Inject
 
 @AndroidEntryPoint
 class MlTracksFragment : Fragment(),
@@ -25,6 +27,9 @@ class MlTracksFragment : Fragment(),
     private val viewModel: MostListenedViewModel by viewModels()
     private var _binding: FragmentMlTracksBinding? = null
     private val binding get() = _binding!!
+
+    @Inject
+    lateinit var toastHelper: ToastHelper
 
     private lateinit var shortList: List<MyTracksItem>
     private lateinit var mediumList: List<MyTracksItem>
@@ -59,6 +64,7 @@ class MlTracksFragment : Fragment(),
             recycler.layoutManager =
                 LinearLayoutManager(requireContext())
             recycler.addItemDecoration(CustomItemDecoration(DEFAULT_MARGIN))
+            radioGroup.setOnCheckedChangeListener (changedListener())
         }
 
         viewModel.myTracksShort.observe(viewLifecycleOwner) { state ->
@@ -71,6 +77,7 @@ class MlTracksFragment : Fragment(),
                     setScreenToSuccess()
                 }
                 is DataState.Fail -> {
+                    toastHelper.errorMessage(state.e.message!!)
                 }
             }
         }
@@ -81,6 +88,7 @@ class MlTracksFragment : Fragment(),
                     setScreenToSuccess()
                 }
                 is DataState.Fail -> {
+                    toastHelper.errorMessage(state.e.message!!)
                 }
             }
         }
@@ -91,44 +99,17 @@ class MlTracksFragment : Fragment(),
                     setScreenToSuccess()
                 }
                 is DataState.Fail -> {
+                    toastHelper.errorMessage(state.e.message!!)
                 }
             }
         }
-        binding.rg.setOnCheckedChangeListener {
-                group, checkedId ->
-            Log.d(TAG, "onViewCreated: $checkedId")
-            when (checkedId) {
-                R.id.rb1 -> {
-                    Log.d("TAG", "onViewCreated: short")
-                    if (this::shortList.isInitialized) {
-                        mostListenedAdapter.setTracksList(shortList)
-                        checkedRadioButton = 0
-                    }
-                }
-                R.id.rb2  -> {
-                    if (this::mediumList.isInitialized) {
-                        Log.d("TAG", "onViewCreated: m")
-                        mostListenedAdapter.setTracksList(mediumList)
-                        checkedRadioButton = 1
-                    }
-                }
-                R.id.rb3 -> {
-                    if (this::longList.isInitialized) {
-                        Log.d("TAG", "onViewCreated: l")
-                        mostListenedAdapter.setTracksList(longList)
-                        checkedRadioButton = 2
-                    }
-                }
-                else -> Log.d(TAG, "onViewCreated: else")
-            }
-        }
+
     }
 
     private fun changedListener() = RadioGroup.OnCheckedChangeListener { group, checkedId ->
         Log.d(TAG, "$checkedId:")
         when (checkedId) {
             R.id.rb1 -> {
-                Log.d("TAG", "onViewCreated: short")
                 if (this::shortList.isInitialized) {
                     mostListenedAdapter.setTracksList(shortList)
                     checkedRadioButton = 0
@@ -136,14 +117,12 @@ class MlTracksFragment : Fragment(),
             }
             R.id.rb2  -> {
                 if (this::mediumList.isInitialized) {
-                    Log.d("TAG", "onViewCreated: m")
                     mostListenedAdapter.setTracksList(mediumList)
                     checkedRadioButton = 1
                 }
             }
             R.id.rb3 -> {
                 if (this::longList.isInitialized) {
-                    Log.d("TAG", "onViewCreated: l")
                     mostListenedAdapter.setTracksList(longList)
                     checkedRadioButton = 2
                 }
@@ -162,7 +141,7 @@ class MlTracksFragment : Fragment(),
     }
 
     override fun onTrackItemClicked(item: MyTracksItem) {
-        val action = MlTracksFragmentDirections.actionMlTracksFragmentToDetailedTrackFragment(
+        val action = MostListenedFragmentDirections.actionMlFragmentToDetailedTrackFragment(
             item.toDetailedTrackFragmentModel()
         )
         findNavController().navigate(action)

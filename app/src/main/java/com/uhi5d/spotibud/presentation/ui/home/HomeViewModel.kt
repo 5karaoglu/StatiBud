@@ -3,6 +3,7 @@ package com.uhi5d.spotibud.presentation.ui.home
 import androidx.lifecycle.*
 import com.uhi5d.spotibud.data.local.datastore.DataStoreManager
 import com.uhi5d.spotibud.domain.model.MyArtists
+import com.uhi5d.spotibud.domain.model.currentuser.CurrentUser
 import com.uhi5d.spotibud.domain.model.getArtistIds
 import com.uhi5d.spotibud.domain.model.mytracks.MyTracks
 import com.uhi5d.spotibud.domain.model.mytracks.getTrackIds
@@ -34,8 +35,8 @@ class HomeViewModel
     private val _recentTracks : MutableLiveData<DataState<RecentTracks>> = MutableLiveData()
     val recentTracks : LiveData<DataState<RecentTracks>> get() = _recentTracks
 
-    private val _username : MutableLiveData<String> = MutableLiveData()
-    val username : LiveData<String> get() = _username
+    private val _user : MutableLiveData<CurrentUser> = MutableLiveData()
+    val user : LiveData<CurrentUser> get() = _user
 
     private val mediatorLiveData : MediatorLiveData<Pair<DataState<MyArtists>, DataState<MyTracks>>> =
         object : MediatorLiveData<Pair<DataState<MyArtists>, DataState<MyTracks>>>(){
@@ -115,7 +116,7 @@ class HomeViewModel
     fun getUserDisplayName() = viewModelScope.launch {
         useCase.getMyProfile(token.value!!).collect{
             if (it is DataState.Success){
-                _username.value = it.data.displayName
+                _user.value = it.data
             }
         }
     }

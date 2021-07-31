@@ -25,8 +25,8 @@
                 android:layout_height="match_parent"
                 android:backgroundTint="@color/colorPrimaryDark"
                 android:background="@drawable/searchview_background"
+                android:theme="@style/AppSearchView"
                 android:layout_margin="5dp"
-                
                 app:queryHint="Search Something"/>
         </RelativeLayout>
 
