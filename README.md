@@ -1,4 +1,4 @@
-# StatiBud
+# StatiBud for Spotify
 
 <img src="https://user-images.githubusercontent.com/50145106/127996669-1308aa6d-6ef0-497d-b4a9-64042386e523.png" alt="logo" width="120" height="120">
 
