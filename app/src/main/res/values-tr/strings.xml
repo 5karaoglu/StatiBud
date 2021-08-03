@@ -93,7 +93,7 @@
     <string name="warn">Hiçbir şarkı seçilmedi</string>
     <string name="search">Arama</string>
     <string name="button_error">Şarkı veya tarz seçilmedi. Lütfen parametreleri kontrol et ve tekrar dene.</string>
-    <string name="song_found">Şarkı bulundu !</string>
+    <string name="song_found">Parça bulundu !</string>
     <string name="tf_click">Şarkı seç</string>
     <string name="ft_cancel">İptal</string>
     <string name="ft_go_to_song">Şarkıya git</string>
@@ -112,7 +112,7 @@
     <string name="album">Albüm</string>
     <string name="dt_audio_features_header">Ses Özellikleri</string>
     <string name="dt_rating_header">Popülarite</string>
-    <string name="selected_song">Seçili Şarkı:</string>
+    <string name="selected_song">Seçili Parça:</string>
     <string name="selected_genre">Seçili Tarz:</string>
     <string name="warn_genre">Hiçbir tarz seçilmedi</string>
     <string name="tf_genre_click">Tür seç</string>
@@ -162,6 +162,10 @@
     <string name="popularity">Popülarite:</string>
     <string name="tr_find_button_error">Boş alan tespit edildi! Bir şarkı ve tür seç</string>
     <string name="reco_header">Tavsiyeler</string>
+    <string name="track_not_selected">Şarkı seçilmedi</string>
+    <string name="click_to_select">Seçmek için tıkla</string>
+    <string name="genre_list_warn">Maksimum 4 tarz seçebilirsin!</string>
+    <string name="reco_songs_found">Parçalar bulundu!</string>
 
 
 </resources>

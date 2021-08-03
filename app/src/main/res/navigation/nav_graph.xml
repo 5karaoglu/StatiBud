@@ -6,7 +6,7 @@
     app:startDestination="@id/loginFragment">
     <fragment
         android:id="@+id/loginFragment"
-        android:name="com.uhi5d.spotibud.presentation.ui.login.LoginFragment"
+        android:name="com.uhi5d.statibud.presentation.ui.login.LoginFragment"
         android:label="fragment_login"
         tools:layout="@layout/fragment_login" >
         <action
@@ -21,7 +21,7 @@
         app:startDestination="@id/homeFragment">
         <fragment
             android:id="@+id/homeFragment"
-            android:name="com.uhi5d.spotibud.presentation.ui.home.HomeFragment"
+            android:name="com.uhi5d.statibud.presentation.ui.home.HomeFragment"
             android:label="fragment_home"
             tools:layout="@layout/fragment_home">
             <action
@@ -42,20 +42,24 @@
         </fragment>
         <fragment
             android:id="@+id/profileFragment"
-            android:name="com.uhi5d.spotibud.presentation.ui.home.profile.ProfileFragment"
+            android:name="com.uhi5d.statibud.presentation.ui.home.profile.ProfileFragment"
             android:label="fragment_profile"
             tools:layout="@layout/fragment_profile" />
         <fragment
             android:id="@+id/detailedTrackFragment"
-            android:name="com.uhi5d.spotibud.presentation.ui.detailed.track.DetailedTrackFragment"
+            android:name="com.uhi5d.statibud.presentation.ui.detailed.track.DetailedTrackFragment"
             android:label="fragment_detailed_track"
             tools:layout="@layout/fragment_detailed_track">
             <argument
                 android:name="detailedTrackFragmentModel"
-                app:argType="com.uhi5d.spotibud.presentation.ui.detailed.track.DetailedTrackFragmentModel" />
+                app:argType="com.uhi5d.statibud.presentation.ui.detailed.track.DetailedTrackFragmentModel" />
             <action
                 android:id="@+id/action_detailedTrackFragment_to_detailedArtistFragment"
-                app:destination="@id/detailedArtistFragment" />
+                app:destination="@id/detailedArtistFragment"
+                app:enterAnim="@anim/slide_in_left"
+                app:exitAnim="@anim/slide_out_left"
+                app:popEnterAnim="@anim/slide_in_right"
+                app:popExitAnim="@anim/slide_out_right"/>
             <action
                 android:id="@+id/action_detailedTrackFragment_to_detailedAlbumFragment"
                 app:destination="@id/detailedAlbumFragment"
@@ -66,27 +70,35 @@
         </fragment>
         <fragment
             android:id="@+id/detailedAlbumFragment"
-            android:name="com.uhi5d.spotibud.presentation.ui.detailed.album.DetailedAlbumFragment"
+            android:name="com.uhi5d.statibud.presentation.ui.detailed.album.DetailedAlbumFragment"
             android:label="fragment_detailed_album"
             tools:layout="@layout/fragment_detailed_album">
             <argument
                 android:name="detailedAlbumFragmentModel"
-                app:argType="com.uhi5d.spotibud.presentation.ui.detailed.album.DetailedAlbumFragmentModel" />
+                app:argType="com.uhi5d.statibud.presentation.ui.detailed.album.DetailedAlbumFragmentModel" />
             <action
                 android:id="@+id/action_detailedAlbumFragment_to_detailedArtistFragment"
-                app:destination="@id/detailedArtistFragment" />
+                app:destination="@id/detailedArtistFragment"
+                app:enterAnim="@anim/slide_in_left"
+                app:exitAnim="@anim/slide_out_left"
+                app:popEnterAnim="@anim/slide_in_right"
+                app:popExitAnim="@anim/slide_out_right"/>
             <action
                 android:id="@+id/action_detailedAlbumFragment_to_detailedTrackFragment"
-                app:destination="@id/detailedTrackFragment" />
+                app:destination="@id/detailedTrackFragment"
+                app:enterAnim="@anim/slide_in_left"
+                app:exitAnim="@anim/slide_out_left"
+                app:popEnterAnim="@anim/slide_in_right"
+                app:popExitAnim="@anim/slide_out_right"/>
         </fragment>
         <fragment
             android:id="@+id/detailedArtistFragment"
-            android:name="com.uhi5d.spotibud.presentation.ui.detailed.artist.DetailedArtistFragment"
+            android:name="com.uhi5d.statibud.presentation.ui.detailed.artist.DetailedArtistFragment"
             android:label="fragment_detailed_artist"
             tools:layout="@layout/fragment_detailed_artist_shimmer">
             <argument
                 android:name="detailedArtistFragmentModel"
-                app:argType="com.uhi5d.spotibud.presentation.ui.detailed.artist.DetailedArtistFragmentModel" />
+                app:argType="com.uhi5d.statibud.presentation.ui.detailed.artist.DetailedArtistFragmentModel" />
             <action
                 android:id="@+id/action_detailedArtistFragment_to_detailedAlbumFragment"
                 app:destination="@id/detailedAlbumFragment"
@@ -111,7 +123,7 @@
         </fragment>
         <fragment
             android:id="@+id/searchFragment"
-            android:name="com.uhi5d.spotibud.presentation.ui.search.SearchFragment"
+            android:name="com.uhi5d.statibud.presentation.ui.search.SearchFragment"
             android:label="fragment_search"
             tools:layout="@layout/fragment_search">
             <action
@@ -145,7 +157,7 @@
         </fragment>
         <fragment
             android:id="@+id/recommendationsFragment"
-            android:name="com.uhi5d.spotibud.presentation.ui.trackrecommendation.RecommendationsFragment"
+            android:name="com.uhi5d.statibud.presentation.ui.trackrecommendation.RecommendationsFragment"
             android:label="fragment_recommendations"
             tools:layout="@layout/fragment_recommendations" >
             <action
@@ -158,7 +170,7 @@
         </fragment>
         <fragment
             android:id="@+id/mlFragment"
-            android:name="com.uhi5d.spotibud.presentation.ui.mostlistened.MostListenedFragment"
+            android:name="com.uhi5d.statibud.presentation.ui.mostlistened.MostListenedFragment"
             android:label="fragment_most_listened"
             tools:layout="@layout/fragment_most_listened" >
             <action
@@ -178,7 +190,7 @@
         </fragment>
         <fragment
             android:id="@+id/detailedResultsFragment"
-            android:name="com.uhi5d.spotibud.presentation.ui.search.detailedresults.DetailedResultsFragment"
+            android:name="com.uhi5d.statibud.presentation.ui.search.detailedresults.DetailedResultsFragment"
             android:label="fragment_detailed_result"
             tools:layout="@layout/fragment_detailed_result">
             <argument
@@ -211,12 +223,12 @@
         </fragment>
         <fragment
             android:id="@+id/mlArtistsFragment"
-            android:name="com.uhi5d.spotibud.presentation.ui.mostlistened.MlArtistsFragment"
+            android:name="com.uhi5d.statibud.presentation.ui.mostlistened.MlArtistsFragment"
             android:label="fragment_ml_artists"
             tools:layout="@layout/fragment_ml_artists" />
         <fragment
             android:id="@+id/mlTracksFragment"
-            android:name="com.uhi5d.spotibud.presentation.ui.mostlistened.MlTracksFragment"
+            android:name="com.uhi5d.statibud.presentation.ui.mostlistened.MlTracksFragment"
             android:label="fragment_ml_tracks"
             tools:layout="@layout/fragment_ml_tracks" />
     </navigation>

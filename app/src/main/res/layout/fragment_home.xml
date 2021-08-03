@@ -8,7 +8,6 @@
     android:id="@+id/reLayout"
     tools:context=".presentation.ui.home.HomeFragment">
     <RelativeLayout
-        android:visibility="gone"
         android:id="@+id/shimmer"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
@@ -16,19 +15,19 @@
     </RelativeLayout>
 
     <RelativeLayout
+        android:visibility="gone"
         android:id="@+id/success"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
-        <androidx.appcompat.widget.Toolbar
-            android:id="@+id/toolbar"
-            android:layout_width="match_parent"
-            android:layout_height="?actionBarSize"
-            android:layout_alignParentStart="true"
-            android:layout_alignParentTop="true">
 
             <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
+                android:layout_height="56dp"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentEnd="true"
+                android:id="@+id/tbHome"
+                >
 
                 <TextView
                     android:id="@+id/tvHeader"
@@ -37,7 +36,8 @@
                     android:layout_toStartOf="@+id/buttonProfile"
                     android:gravity="center_vertical"
                     android:maxLines="1"
-                    android:text="@string/welcome_header"
+                    android:paddingStart="10dp"
+                    android:paddingEnd="10dp"
                     android:textColor="@color/white"
                     android:textSize="22sp" />
 
@@ -51,17 +51,17 @@
                     android:layout_margin="10dp"
                     android:background="@drawable/button_background2"
                     android:padding="5dp"
-                    android:src="@drawable/ic_person" />
+                    android:src="@drawable/ic_person"
+                    />
             </RelativeLayout>
-        </androidx.appcompat.widget.Toolbar>
 
         <androidx.core.widget.NestedScrollView
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:layout_alignParentStart="true"
             android:layout_alignParentEnd="true"
             android:layout_alignParentBottom="true"
-            android:layout_below="@+id/toolbar">
+            android:layout_below="@+id/tbHome">
 
             <RelativeLayout
                 android:layout_width="match_parent"

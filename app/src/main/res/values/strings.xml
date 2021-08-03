@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name" translatable="false">SpotiBud</string>
+    <string name="app_name" translatable="false">StatiBud</string>
 
     <string name="current_position">%d</string>
 
@@ -9,7 +9,7 @@
     <string name="home">Home</string>
     <string name="search">Search</string>
     <string name="top">Top</string>
-    <string name="reco">TR</string>
+    <string name="reco">Recommendations</string>
 
     <string name="datastate_error">Error ! Cause: %s</string>
 
@@ -23,12 +23,12 @@
     <string name="auth_denied" formatted="false">Error. Auth denied ! Cause: %s</string>
 
     <!--Login Activity-->
-    <string name="spotibud_header" translatable="false">SpotiBud</string>
+    <string name="spotibud_header" translatable="false">StatiBud</string>
     <string name="spotibud_des" translatable="false">No.1 tool for Spotify</string>
     <string name="button_start">LOGIN WITH SPOTIFY</string>
     <string name="button_clicked">PLEASE WAIT</string>
     <string name="button_response">LOADING…</string>
-    <string name="version" translatable="false">version 1.2</string>
+    <string name="version" translatable="false">version 0.9</string>
     <string name="bottom_dev_name" translatable="false">uhi5d | 2021</string>
 
     <!--Top Fragment-->
@@ -208,14 +208,14 @@
 
     <string name="song_not_found">No song found matching your preferences. Please change preferences and try again.</string>
 
-    <string name="selected_song">Selected Song:</string>
+    <string name="selected_song">Selected Track:</string>
     <string name="selected_genre">Selected Genre:</string>
     <string name="search_for_a_genre">Search for a genre..</string>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="reco_header">Recommendations</string>
     <string name="track_not_selected">Track not selected</string>
     <string name="click_to_select">Click to select</string>
+    <string name="genre_list_warn">You can choose maximum 4 types!</string>
+    <string name="reco_songs_found">Tracks Found!</string>
 
 
 </resources>

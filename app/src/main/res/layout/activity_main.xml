@@ -21,7 +21,7 @@
           android:layout_height="wrap_content"
           android:layout_centerHorizontal="true"
           ads:adSize="BANNER"
-          ads:adUnitId="ca-app-pub-9796396743918690/7577736371" />
+          ads:adUnitId="ca-app-pub-1126905397900435/7303124694" />
    </RelativeLayout>
    <androidx.fragment.app.FragmentContainerView
        android:id="@+id/fragment"

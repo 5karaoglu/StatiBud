@@ -4,7 +4,9 @@
     <item android:drawable="@color/colorPrimaryDark"/>
 
     <item
-        android:drawable="@drawable/ic_launcher_foreground"
+        android:drawable="@drawable/logo_transparent"
+        android:width="202dp"
+        android:height="202dp"
         android:gravity="center"/>
 
 

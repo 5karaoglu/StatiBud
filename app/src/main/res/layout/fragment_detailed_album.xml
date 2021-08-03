@@ -4,19 +4,17 @@
     android:layout_height="match_parent"
     android:layout_width="match_parent"
     tools:context=".presentation.ui.detailed.album.DetailedAlbumFragment">
-    <RelativeLayout
+   <!-- <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:id="@+id/shimmer"
-        android:visibility="gone">
+        android:id="@+id/shimmer">
         <include layout="@layout/fragment_detailed_artist_shimmer"/>
-    </RelativeLayout>
+    </RelativeLayout>-->
     <androidx.coordinatorlayout.widget.CoordinatorLayout
-
+        android:visibility="gone"
         android:id="@+id/success"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@color/colorPrimaryDark">
+        android:layout_height="match_parent">
         <com.google.android.material.appbar.AppBarLayout
             android:id="@+id/appBarDetailed"
             android:layout_width="match_parent"

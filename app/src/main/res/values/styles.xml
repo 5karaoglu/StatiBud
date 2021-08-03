@@ -18,6 +18,8 @@
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
         <item name="android:fontFamily">@font/comfortaa</item>
+        <item name="textSize">13sp</item>
+        <item name="textColor">@color/white</item>
     </style>
 
 

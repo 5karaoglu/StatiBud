@@ -11,50 +11,28 @@
         android:layout_height="wrap_content"
         app:shimmer_auto_start="true"
         android:id="@+id/shimmerLayout">
-
-
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical">
-            <androidx.appcompat.widget.Toolbar
-                android:id="@+id/toolbar"
-                android:layout_width="match_parent"
-                android:layout_height="?actionBarSize">
-
-                <RelativeLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent">
-
                     <TextView
-                        android:id="@+id/tvHeader"
-                        android:layout_width="match_parent"
+                        android:layout_width="250dp"
                         android:layout_height="20dp"
-                        android:layout_centerVertical="true"
-                        android:layout_toStartOf="@+id/buttonProfile"
+                        android:layout_marginTop="20dp"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginBottom="30dp"
+                        android:layout_marginEnd="100dp"
                         android:gravity="center_vertical"
                         android:maxLines="1"
                         android:background="@color/shimmer_placeholder"
                         android:textColor="@color/white"
                         android:textSize="22sp" />
 
-                    <ImageButton
-                        android:id="@+id/buttonProfile"
-                        android:layout_width="40dp"
-                        android:layout_height="40dp"
-                        android:layout_alignParentTop="true"
-                        android:layout_alignParentEnd="true"
-                        android:layout_centerVertical="true"
-                        android:layout_margin="10dp"
-                        android:background="@drawable/button_background2"
-                        android:padding="5dp"
-                        android:src="@color/shimmer_placeholder" />
-                </RelativeLayout>
-            </androidx.appcompat.widget.Toolbar>
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                android:layout_marginBottom="30dp">
                 <include layout="@layout/recommendation_single_item_shimmer"/>
                 <include layout="@layout/recommendation_single_item_shimmer"/>
                 <include layout="@layout/recommendation_single_item_shimmer"/>
